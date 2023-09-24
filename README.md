@@ -79,7 +79,7 @@ Once you are there, run the following code to get the project installed and runn
 
 ```sh
 # Install the project source code
-git clone https://github.com/ufosc/Jukebox-Frontend.git
+git clone git@github.com:ufosc/Jukebox-Frontend.git
 
 # Change directories to the project
 cd Jukebox-Frontend
@@ -94,7 +94,7 @@ npm start
 Optionally, you can use this cool one-liner:
 
 ```sh
-git clone https://github.com/ufosc/Jukebox-Frontend.git && cd Jukebox-Frontend && npm install && npm start
+git clone git@github.com:ufosc/Jukebox-Frontend.git && cd Jukebox-Frontend && npm install && npm start
 ```
 
 ### Editing the project
