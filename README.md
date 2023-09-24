@@ -164,3 +164,5 @@ git push -u origin feature/auth-setup
 ```
 
 Once you push the code up to GitHub, let an admin know so they can merge it into the main branch. Alternatively, create a pull request in GitHub to submit a request to merge your branch into the main repo.
+
+If you have any troubles authenticating with GitHub, read this Wiki: <https://github.com/ufosc/Jukebox-Frontend/wiki/Authenticating-with-GitHub-in-the-Command-Line>
