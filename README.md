@@ -79,7 +79,7 @@ Once you are there, run the following code to get the project installed and runn
 
 ```sh
 # Install the project source code
-git clone https://github.com/ufosc/Jukebox-Frontend.git
+git clone git@github.com:ufosc/Jukebox-Frontend.git
 
 # Change directories to the project
 cd Jukebox-Frontend
@@ -94,7 +94,7 @@ npm start
 Optionally, you can use this cool one-liner:
 
 ```sh
-git clone https://github.com/ufosc/Jukebox-Frontend.git && cd Jukebox-Frontend && npm install && npm start
+git clone git@github.com:ufosc/Jukebox-Frontend.git && cd Jukebox-Frontend && npm install && npm start
 ```
 
 ### Editing the project
@@ -164,3 +164,5 @@ git push -u origin feature/auth-setup
 ```
 
 Once you push the code up to GitHub, let an admin know so they can merge it into the main branch. Alternatively, create a pull request in GitHub to submit a request to merge your branch into the main repo.
+
+If you have any troubles authenticating with GitHub, read this Wiki: <https://github.com/ufosc/Jukebox-Frontend/wiki/Authenticating-with-GitHub-in-the-Command-Line>
