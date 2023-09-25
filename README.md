@@ -4,9 +4,11 @@ Welcome! This project is a microservice attached to the Jukebox Server applicati
 
 ## Quick Start
 
+Start by forking the directory into your own account, or if you are a member of teh OSC Organization you can clone the repo directly. 
+
 ```sh
 # Download and run the project
-git clone git@github.com:ufosc/Jukebox-Frontend.git
+git clone <git url>
 cd Jukebox-Frontend 
 npm install 
 npm start
@@ -24,6 +26,8 @@ git commit -am 'finished new feature'
 # Push to GitHub
 git push -u origin feature/new-feature
 ```
+
+If you created a fork, just create a new pull request in your GitHub account.
 
 Remember to change the name of the branch to be relevent to the feature you are working on, replacing `new-feature` with a short description. Same thing with the commit message, changing `finished new feature` with a relevant description.
 
@@ -50,7 +54,6 @@ If you want to master React, I recommend you take one of the online courses. The
 
 One of the resources on that list included a course by Wes Bos - one of the creators of a podcast about web development called Syntax. Listening to professional developers talking about their work and recommendations is also beneficial in learning any programming language, framework, or technique.
 
-
 ## Contributing
 
 ### Setup
@@ -73,13 +76,17 @@ If you are on windows, I recommend you use the GitBash CLI that comes with the i
 
 ### Getting the Code
 
+The easiest way to get the code and interact with it is by forking the directory into your own GitHub account. You can do this by going to the main repo page and clicking the button that says `Fork` in the top right side of the page.
+
+This will create a copy of the repo on your account. In that new repo, click the green `Code` button and copy the git url. This will be used to clone the project.
+
 In your terminal, go to the directory (folder) that you want the project to live in. You can use the `cd` command to change directories.
 
 Once you are there, run the following code to get the project installed and running:
 
 ```sh
 # Install the project source code
-git clone git@github.com:ufosc/Jukebox-Frontend.git
+git clone <git url>
 
 # Change directories to the project
 cd Jukebox-Frontend
@@ -91,7 +98,7 @@ npm install
 npm start
 ```
 
-Optionally, you can use this cool one-liner:
+Optionally, you can use this cool one-liner: (replace the url if you forked the repo)
 
 ```sh
 git clone git@github.com:ufosc/Jukebox-Frontend.git && cd Jukebox-Frontend && npm install && npm start
@@ -163,6 +170,8 @@ git commit -am 'finish authentication setup'
 git push -u origin feature/auth-setup
 ```
 
-Once you push the code up to GitHub, let an admin know so they can merge it into the main branch. Alternatively, create a pull request in GitHub to submit a request to merge your branch into the main repo.
+If you made a fork of the repository, go to your forked repo and you should see a banner that says the branch is ahead/behind of the original repo. On the right side of the banner you should see a button that says `Contribute`, click that button and click `Open Pull Request`.
+
+If you are working on the main repo, create a pull request with your new feature branch.
 
 If you have any troubles authenticating with GitHub, read this Wiki: <https://github.com/ufosc/Jukebox-Frontend/wiki/Authenticating-with-GitHub-in-the-Command-Line>
