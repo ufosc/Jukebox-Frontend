@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import ScrollQueue from './ScrollQueue.jsx'
-import Video from './Components/Video'
+import Video from './Components/Video/Video'
 
 function App() {
   
