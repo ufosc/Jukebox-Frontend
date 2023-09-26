@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import ScrollQueue from './ScrollQueue.jsx'
+import ScrollQueue from './Components/ScrollQueue/ScrollQueue.js'
 
 function App() {
   return (
