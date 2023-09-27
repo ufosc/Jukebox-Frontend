@@ -2,10 +2,14 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css';
 
+import ScrollQueue from './Components/ScrollQueue/ScrollQueue.js'
+
+
 import Home from "./Pages/Home/Home";
 import About from "./Pages/About/About";
 import Dashboard from "./Pages/Dashboard/Dashboard"
 import Login from "./Pages/Login/Login";
+
 
 function App() {
   

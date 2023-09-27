@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-import Song from './Song.jsx'
+import Song from './Song/Song.js'
 import './ScrollQueue.css'
 
 function ScrollQueue() {
