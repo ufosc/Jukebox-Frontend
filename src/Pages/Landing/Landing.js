@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "./layout/Header";
+import Header from "./layout/Header/Header";
 import Goal from "./components/Goal";
 import Topics from "./components/Topics";
 import Repos from "./components/Repos";

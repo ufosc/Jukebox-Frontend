@@ -1,0 +1,7 @@
+@import './space-grotesk/css/space-grotesk.css';
+
+a:link,
+a:visited {
+  text-decoration: none;
+  color: currentColor;
+} 
