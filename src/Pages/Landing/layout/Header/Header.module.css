@@ -1,0 +1,41 @@
+.header {
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 1rem;
+  padding: 2rem 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+}
+
+.nav__link {
+  color: #666;
+  font-family: 'SpaceGrotesk', sans-serif;
+  font-size: 1.8rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.06rem;
+}
+
+.nav__link:hover,
+.nav__link:active {
+  color: #000;
+}
+
+.cta {
+  display: flex;
+  justify-content: flex-end;
+}

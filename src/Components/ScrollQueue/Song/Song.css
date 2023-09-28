@@ -1,0 +1,14 @@
+.SongInfo{
+    width: 40vw;
+    font-size: 1vw;
+    background-color: rgb(118, 83, 255);
+    float: right;
+    object-fit: contain;
+    border: 2px solid black;
+    position: relative;
+}
+
+.SongImg {
+    height: auto;
+    width: 12vw;
+}
