@@ -1,25 +1,35 @@
-import logo from './logo.svg';
+
+import './index.css';
 import './App.css';
 
+//Temporary Clock
+import Clock from './components/Clock'
+import ScrollQueue from './components/ScrollQueue'
+
+
+
+
 function App() {
+  var url = "bMknfKXIFA8"
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div>
+      <header>
+        <h1 className = "center">
+        Jukebox
+        </h1>
       </header>
+      <body>
+        <div>
+          <Clock></Clock>
+          
+          {/*<SongInput></SongInput>*/}
+          <ScrollQueue></ScrollQueue>
+        </div>
+        
+      </body>
     </div>
-  );
+  )
 }
 
 export default App;
+
