@@ -4,12 +4,15 @@ Welcome! This project is a microservice attached to the Jukebox Server applicati
 
 ## Quick Start
 
-Start by forking the directory into your own account, or if you are a member of teh OSC Organization you can clone the repo directly. 
+1. Fork the repo to your account
+2. Clone the project locally
+3. Install packages and run `npm start`
 
 ```sh
 # Download and run the project
 git clone <git url>
-cd Jukebox-Frontend 
+cd Jukebox-Frontend
+ 
 npm install 
 npm start
 ```
