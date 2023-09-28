@@ -1,0 +1,95 @@
+/**
+ * @license
+ *
+ * Font Family: Space Grotesk
+ * Designed by: Florian Karsten
+ * URL: https://www.fontshare.com/fonts/space-grotesk
+ * © 2023 Indian Type Foundry
+ *
+ * Font Styles:
+ * Space Grotesk Variable(Variable font)
+ * Space Grotesk Light
+ * Space Grotesk Regular
+ * Space Grotesk Medium
+ * Space Grotesk Semi Bold
+ * Space Grotesk Bold
+ *
+*/
+
+
+/**
+* This is a variable font
+* You can controll variable axes as shown below:
+* font-variation-settings: 'wght' 300.0;
+*
+* available axes:
+
+* 'wght' (range from 300.0 to 700.0)
+
+*/
+
+@font-face {
+  font-family: 'SpaceGrotesk';
+  src: url('../fonts/SpaceGrotesk-Variable.woff2') format('woff2'),
+       url('../fonts/SpaceGrotesk-Variable.woff') format('woff'),
+       url('../fonts/SpaceGrotesk-Variable.ttf') format('truetype');
+       font-weight: 300 700;
+       font-display: swap;
+       font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'SpaceGrotesk-Light';
+  src: url('../fonts/SpaceGrotesk-Light.woff2') format('woff2'),
+       url('../fonts/SpaceGrotesk-Light.woff') format('woff'),
+       url('../fonts/SpaceGrotesk-Light.ttf') format('truetype');
+       font-weight: 300;
+       font-display: swap;
+       font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'SpaceGrotesk-Regular';
+  src: url('../fonts/SpaceGrotesk-Regular.woff2') format('woff2'),
+       url('../fonts/SpaceGrotesk-Regular.woff') format('woff'),
+       url('../fonts/SpaceGrotesk-Regular.ttf') format('truetype');
+       font-weight: 400;
+       font-display: swap;
+       font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'SpaceGrotesk-Medium';
+  src: url('../fonts/SpaceGrotesk-Medium.woff2') format('woff2'),
+       url('../fonts/SpaceGrotesk-Medium.woff') format('woff'),
+       url('../fonts/SpaceGrotesk-Medium.ttf') format('truetype');
+       font-weight: 500;
+       font-display: swap;
+       font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'SpaceGrotesk-SemiBold';
+  src: url('../fonts/SpaceGrotesk-SemiBold.woff2') format('woff2'),
+       url('../fonts/SpaceGrotesk-SemiBold.woff') format('woff'),
+       url('../fonts/SpaceGrotesk-SemiBold.ttf') format('truetype');
+       font-weight: 600;
+       font-display: swap;
+       font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'SpaceGrotesk-Bold';
+  src: url('../fonts/SpaceGrotesk-Bold.woff2') format('woff2'),
+       url('../fonts/SpaceGrotesk-Bold.woff') format('woff'),
+       url('../fonts/SpaceGrotesk-Bold.ttf') format('truetype');
+       font-weight: 700;
+       font-display: swap;
+       font-style: normal;
+}
+

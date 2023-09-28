@@ -1,0 +1,16 @@
+.btn:link,
+.btn:visited {
+  text-decoration: none;
+  padding: 1.4rem 2.4rem;
+  background: #000;
+  color: #fff;
+  border-radius: 1rem;
+
+  color: #fff;
+  text-align: center;
+  font-family: "SpaceGrotesk";
+  font-size: 1.8rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
