@@ -4,4 +4,21 @@ a:link,
 a:visited {
   text-decoration: none;
   color: currentColor;
-} 
+}
+
+h1,
+.header-1 {
+  font-family: 'SpaceGrotesk', sans-serif;
+  font-weight: 700;
+  font-size: 84px;
+  line-height: 1.4;
+  letter-spacing: -2px;
+}
+
+p {
+  font-family: 'SpaceGrotesk', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.4;
+  letter-spacing: -0.6px;
+}
