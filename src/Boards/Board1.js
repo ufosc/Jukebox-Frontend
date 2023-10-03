@@ -3,7 +3,7 @@
 import './Board1.css';
 //Temporary Clock
 import Clock from '../Components/Clock'
-import ScrollQueue from '../Components/ScrollQueue'
+import ScrollQueue from '../Components/ScrollQueue/ScrollQueue'
 import Song from '../Components/Song/Song'
 
 

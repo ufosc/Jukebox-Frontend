@@ -1,0 +1,22 @@
+
+.btn{
+
+    border-style: solid;
+    border-width: 1px;
+    width: 7em;
+    height: 2em;
+
+}
+
+.navbar { 
+
+    border-style: solid;
+    border-color: blue;
+    margin: 0;
+    position: absolute;
+    top: 20%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    left: 0%;
+    font-size: 3em;
+}

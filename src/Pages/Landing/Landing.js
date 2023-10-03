@@ -21,11 +21,18 @@ export default function Landing() {
       <Stat />
       <CTA />
       <Footer />
-      <Link to="/Board1">
+      <Link to="/board1">
         <button>
           Board 1
         </button>
       </Link>
+      <div>
+      <Link to="/dashboard">
+        <button>
+          Dashboard
+        </button>
+      </Link>
+      </div>
     </>
   );
 }
