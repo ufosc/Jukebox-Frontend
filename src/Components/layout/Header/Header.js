@@ -15,7 +15,7 @@ export default function Header() {
               <a href="/">Home</a>
             </li>
             <li className={classes.nav__link}>
-              <a href="/#topics">Topics</a>
+              <a href="/dev-guide">Dev Guide</a>
             </li>
             <li className={classes.nav__link}>
               <a href="/getting-started">Getting Started</a>

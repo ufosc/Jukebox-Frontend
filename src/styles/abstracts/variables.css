@@ -17,4 +17,7 @@
   --dark-grey: #454545;
   --light-grey: #F2F2F2;
   --white: #FFFFFF;
+  
+  /* Layout */
+  --gap: 2rem;
 }
