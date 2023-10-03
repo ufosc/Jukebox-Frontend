@@ -1,16 +1,49 @@
+.btn,
 .btn:link,
 .btn:visited {
+  cursor: pointer;
   text-decoration: none;
-  padding: 1.4rem 2.4rem;
-  background: #000;
-  color: #fff;
-  border-radius: 1rem;
+  border-radius: 5rem;
+  display: inline-flex;
+
+  min-width: 10.9rem;
+  min-height: 1.8rem;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.btn-primary,
+.btn-primary:link,
+.btn-primary:visited {
+  padding: 2.2rem 3.5rem;
+  border: 4px solid var(--cherry);
+
+  color: #5b2222;
+  text-align: center;
+  font-family: Termina;
+  font-size: 1.3rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 0.026rem;
+}
+
+.btn-secondary,
+.btn-secondary:link,
+.btn-secondary:visited {
+  border-radius: 5rem;
+  background: linear-gradient(83deg, var(--cherry) 39.34%, var(--coral) 92.96%);
+  /* color: var(--white); */
+  padding: 1.1rem 3.5rem;
+  min-width: 17.8rem;
+  min-height: 4rem;
 
   color: #fff;
   text-align: center;
-  font-family: "SpaceGrotesk";
-  font-size: 1.8rem;
+  font-family: Poppins;
+  font-size: 1.3rem;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   line-height: normal;
+  letter-spacing: 0.026rem;
 }

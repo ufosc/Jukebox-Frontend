@@ -5,33 +5,38 @@ import About from "../Pages/About/About";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import Login from "../Pages/Login/Login";
 import Landing from "../Pages/Landing/Landing";
+import DevGuide from "Pages/DevGuide/DevGuide";
 
 /**
  * To add a new page, make a new element in the Pages folder and add a
  * new Route below linking that element to the corresponding URL path.
  */
 export default function Router() {
-    const router = createBrowserRouter([
-        {
-            path: "/",
-            element: <Landing />,
-        },
-        {
-            path: "/home",
-            element: <Home />,
-        },
-        {
-            path: "/about",
-            element: <About />,
-        },
-        {
-            path: "/dashboard",
-            element: <Dashboard />,
-        },
-        {
-            path: "/login",
-            element: <Login />,
-        },
-    ]);
-    return <RouterProvider router={router} />;
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Landing />,
+    },
+    {
+      path: "/dev-guide",
+      element: <DevGuide />,
+    },
+    {
+      path: "/home",
+      element: <Home />,
+    },
+    {
+      path: "/about",
+      element: <About />,
+    },
+    {
+      path: "/dashboard",
+      element: <Dashboard />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+  ]);
+  return <RouterProvider router={router} />;
 }
