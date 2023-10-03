@@ -6,6 +6,7 @@ import Dashboard from "../Pages/Dashboard/Dashboard";
 import Login from "../Pages/Login/Login";
 import Landing from "../Pages/Landing/Landing";
 import Board1 from "../Pages/Board1/Board1"
+import DevGuide from "Pages/DevGuide/DevGuide";
 
 /**
  * To add a new page, make a new element in the Pages folder and add a
@@ -16,6 +17,10 @@ export default function Router() {
         {
             path: "/",
             element: <Landing />,
+        },
+        {
+            path: "/dev-guide",
+            element: <DevGuide />,
         },
         {
             path: "/home",
@@ -38,5 +43,5 @@ export default function Router() {
             element: <Board1 />,
         },
     ]);
-    return <RouterProvider router={router} />;
+    return <RouterProvider router={router} />;          
 }
