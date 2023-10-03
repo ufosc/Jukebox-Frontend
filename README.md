@@ -2,37 +2,75 @@
 
 Welcome! This project is a microservice attached to the Jukebox Server application, and is a fully independent application that can be run on it's own. What does that mean? It means you don't need to run the server app in order to run this project, and you don't need any experience with the backend to be successful with this project.
 
-## Quick Start
+## Prerequisites for Running the Project
 
-1. Fork the repo to your account
-2. Clone the project locally
-3. Install packages and run `npm start`
+### NPM
 
-```sh
-# Download and run the project
+Before diving into the OSC Jukebox React App, ensure you have npm installed on your system. It's a package manager for JavaScript, primarily used for managing and sharing packages (libraries and tools) of JavaScript code. NPM is widely used in the Node.js ecosystem, but it can also manage front-end dependencies in web development. To install it, follow these steps:
+
+1. Visit the [installer page](https://nodejs.org/en/download) 
+2. Choose the installer version for your operating system. For example, if you are on Windows, use the `.msi` installer
+
+### Git
+
+If you don't already have Git installed, make sure to so. Git is an open-source version control software supporting online repositories like GitHub, BitBucket, GitLab, and others. Follow these setps for Git installation:
+
+1. Visit the Git [download page](https://git-scm.com/downloads).
+2. Choose the "standalone installer" for your operating system.
+   
+If you are on windows, we recommend you use the GitBash CLI that comes with the install. Otherwise, if you are on a Unix based system (Linux, MacOS), then use the normal terminal.
+
+## Start-Guide
+Now that you have the required tools, you're ready to set up and run the OSC Jukebox React App. To do so, follow these steps:
+
+### Running the Project
+1. Get the Code: The easiest way to get the code and interact with it is by forking the directory into your own GitHub account. You can do this by going to the main repo page and clicking the button that
+says `Fork` in the top right side of the page. This will create a copy of the repo on your account. In your forked repo, click the green `Code` button and copy the git url. This will be used to clone the project.
+
+2. Clone the project into your local system:
+```
 git clone <git url>
+```
+
+3. Acccess the newly created directory and run `npm instal` to install the project's dependencies
+```
 cd Jukebox-Frontend
- 
-npm install 
+npm install
+```
+
+4. Run `npm start` to launch the App on `http://localhost:3000/`. 
+```
 npm start
 ```
 
+Now that you have the project running, let's explore how you can contribute and make a meaningful impact
+
+### Making Contributions
+Once you're ready to start working on the project, go to the "Issues" tab inside the GitHub repo - this is where we keep track of tasks - and pick an "Issue". Comment on that issue to claim it (but make sure you finish it, otherwise someone else will be able to take it😬).
+
+We recommend that you make a new branch on your system called a "feature branch". This is a technique used in some enterprises to help keep track of who is doing what, and is a part of the "Trunk based development" paradigm. You can read about that [here](https://www.atlassian.com/continuous-delivery/continuous-integration/trunk-based-development). To make this branch you can use the following code:
+
 ```sh
-# Checkout to new branch
-git checkout -b feature/new-feature
+# "checkout" or change to a new branch called "feature/some-cool-feature"
+git checkout -b feature/some-cool-feature
 ```
 
-```sh
-# Commit the code
-git commit -am 'finished new feature'
+Once you're in the new "feature branch", you can proceed to writing some revolutionary code 👨‍💻😎. If you're satisfied with your changes, follow the steps below:
 
-# Push to GitHub
+1. stage your changes and commit your code
+```sh
+git add -A  # -A to stage your changes all at once
+git commit -m 'finished new feature'
+```
+
+2. Push to the online repository in GitHub
+```sh
 git push -u origin feature/new-feature
 ```
 
-If you created a fork, just create a new pull request in your GitHub account.
+The changes will now be visible in your online repo and assuming it's a forked version of the original, just open a pull request to transfer these changes to the original repo. If you need help with making a pull request, then [this](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request) should help 😀.
 
-Remember to change the name of the branch to be relevent to the feature you are working on, replacing `new-feature` with a short description. Same thing with the commit message, changing `finished new feature` with a relevant description.
+Remember to change the name of the branch to be relevant to the feature you are working on, replacing `new-feature` with a short description. Same thing with the commit message, changing `finished new feature` with a relevant description.
 
 Keep reading if you want to learn more about the project and technologies involved.
 
@@ -57,68 +95,10 @@ If you want to master React, I recommend you take one of the online courses. The
 
 One of the resources on that list included a course by Wes Bos - one of the creators of a podcast about web development called Syntax. Listening to professional developers talking about their work and recommendations is also beneficial in learning any programming language, framework, or technique.
 
-## Contributing
+## Git Workflow: Staging, Committing, and Pushing
+If you're a beginner with Git, then you may find the following information helpful. 
 
-### Setup
-
-#### NPM
-
-In order to run the project on your system, you need to have npm installed. Click below to get to the installer page:
-
-<https://nodejs.org/en/download>
-
-I suggest you use the installer and not the binary because it's easier to do. If you are on windows, I recommend you install the `.msi` installer.
-
-#### Git
-
-The other thing you will need it git installed on your computer. Git is an open source version control software that allows for online repositories like GitHub, BitBucket, GitLab, and others.
-
-To install git, use the following link: <https://git-scm.com/downloads>. Use the "stand alone installer".
-
-If you are on windows, I recommend you use the GitBash CLI that comes with the install. Otherwise, if you are on a Unix based system (Linux, MacOS), then you can use the normal terminal.
-
-### Getting the Code
-
-The easiest way to get the code and interact with it is by forking the directory into your own GitHub account. You can do this by going to the main repo page and clicking the button that says `Fork` in the top right side of the page.
-
-This will create a copy of the repo on your account. In that new repo, click the green `Code` button and copy the git url. This will be used to clone the project.
-
-In your terminal, go to the directory (folder) that you want the project to live in. You can use the `cd` command to change directories.
-
-Once you are there, run the following code to get the project installed and running:
-
-```sh
-# Install the project source code
-git clone <git url>
-
-# Change directories to the project
-cd Jukebox-Frontend
-
-# Install the dependencies in package.json
-npm install
-
-# Start the app
-npm start
-```
-
-Optionally, you can use this cool one-liner: (replace the url if you forked the repo)
-
-```sh
-git clone git@github.com:ufosc/Jukebox-Frontend.git && cd Jukebox-Frontend && npm install && npm start
-```
-
-### Editing the project
-
-Once you're ready to start working on the project, go to the "Issues" tab inside the GitHub repo - this is where we keep track of tasks - and pick an "Issue". Comment on that issue to claim it (but make sure you finish it, otherwise someone else will be able to take it😬).
-
-I recommend that you make a new branch on your system called a "feature branch". This is a technique used in some industries to help keep track of who is doing what, and is a part of the "Trunk based development" paradigm. You can read about that [here](https://www.atlassian.com/continuous-delivery/continuous-integration/trunk-based-development). To make this branch you can use the following code:
-
-```sh
-# "checkout" or change to a new branch called "feature/some-cool-feature"
-git checkout -b feature/some-cool-feature
-```
-
-#### Staging vs Commiting
+### Staging vs Commiting
 
 In version control, there are 2 ways to save a snapshot of your code: staging and commiting.
 
