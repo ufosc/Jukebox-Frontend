@@ -1,10 +1,13 @@
 .container {
+  max-width: 130rem;
+  margin: 0 auto;
+}
+
+.row {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-gap: 1rem;
   grid-auto-rows: minmax(100px, auto);
-  max-width: 130rem;
-  margin: 0 auto;
 }
 
 .col-1 {

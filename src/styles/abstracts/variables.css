@@ -1,0 +1,20 @@
+:root {
+  /* Brand Colors */
+  --cherry: #5B2222;
+  --coral: #C86649;
+  --dark-cyan: #4A97A0;
+  --sage: #C9E9A2;
+  --light-sky: #CEECF2;
+  
+  /* System Colors */
+  --system-info: #76C7F4;
+  --system-success: #40DD7F;
+  --system-danger: #DB7C67;
+  --system-warning: #E0D252;
+  
+  /* Grey Scale */
+  --black: #000000;
+  --dark-grey: #454545;
+  --light-grey: #F2F2F2;
+  --white: #FFFFFF;
+}
