@@ -7,6 +7,8 @@ import Repos from "./components/Repos";
 import Stat from "./components/Stat";
 import CTA from "./layout/CTA";
 import Footer from "./layout/Footer";
+import Board1 from "../Board1/Board1";
+import {Link} from 'react-router-dom'
 
 export default function Landing() {
   return (
@@ -19,6 +21,11 @@ export default function Landing() {
       <Stat />
       <CTA />
       <Footer />
+      <Link to="/Board1">
+        <button>
+          Board 1
+        </button>
+      </Link>
     </>
   );
 }

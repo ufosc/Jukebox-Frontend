@@ -5,6 +5,7 @@ import About from "../Pages/About/About";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import Login from "../Pages/Login/Login";
 import Landing from "../Pages/Landing/Landing";
+import Board1 from "../Pages/Board1/Board1"
 
 /**
  * To add a new page, make a new element in the Pages folder and add a
@@ -31,6 +32,10 @@ export default function Router() {
         {
             path: "/login",
             element: <Login />,
+        },
+        {
+            path : "/board1",
+            element: <Board1 />,
         },
     ]);
     return <RouterProvider router={router} />;
