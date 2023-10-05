@@ -1,20 +1,17 @@
 import React from "react";
+import styles from "./Buttons.module.css";
 
 export default function Buttons() {
   return (
-    <div>
+    <div className={styles['buttons-container']}>
       <div>
-        
         <button className="btn btn-primary">Primary CTA</button>
-        {/* <a href="#" className="btn btn-primary">
-          Primary CTA
-        </a> */}
       </div>
       <div>
         <button className="btn btn-secondary">Secondary CTA</button>
-        {/* <a href="#" className="btn btn-secondary">
-          Secondary CTA
-        </a> */}
+      </div>
+      <div>
+        <button className="btn btn-inline">Inline CTA</button>
       </div>
     </div>
   );
