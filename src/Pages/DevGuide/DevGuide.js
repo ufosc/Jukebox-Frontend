@@ -1,29 +1,40 @@
 import React from "react";
 import Header from "Components/layout/Header/Header";
+import Footer from "Components/layout/Footer/Footer";
 import Colors from "./Colors/Colors";
 import Fonts from "./Fonts/Fonts";
 import SystemColors from "./Colors/SystemColors";
 import GreyScaleColors from "./Colors/GreyScaleColors";
 import Buttons from "./Buttons/Buttons";
+import Hero from "Components/layout/Hero/Hero";
 
 export default function DevGuide() {
   return (
-    <div className="container">
+    <>
       <Header />
-      <div className="row">
-        <div className="col-12">
-          <h1>Dev Guide</h1>
+      <Hero title="Dev Guide" />
+      <div className="container">
+        <section>
+          <h3>Brand Colors</h3>
           <Colors />
-        </div>
-        <div className="col-6">
-          <Fonts />
-        </div>
-        <div className="col-6">
-          <SystemColors />
-          <GreyScaleColors />
-          <Buttons />
+          <hr />
+        </section>
+        <div className="row margin-y">
+          <div className="col-6">
+            <h3 className="margin-bottom-sm">Primary Fonts</h3>
+            <Fonts />
+          </div>
+          <div className="col-6">
+            <h3 className="margin-bottom-sm">System Colors</h3>
+            <SystemColors />
+            <h3 className="margin-top margin-y-sm">Primary Fonts</h3>
+            <GreyScaleColors />
+            <h3 className="margin-top margin-y-sm">Buttons and Call to Actions</h3>
+            <Buttons />
+          </div>
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }

@@ -21,6 +21,10 @@ export default function Fonts() {
         vestibulum. Amet dictum sit amet justo donec enim diam vulputate. Dui vivamus arcu felis
         bibendum ut tristique et. Sollicitudin tempor id eu nisl.
       </p>
+      <div className="large-accent">Large Accent</div>
+      <div className="large-accent large-accent--gradient">Large Accent</div>
+      <div className="thin-accent">Thin Accent</div>
+      <div className="card-title">Card Title</div>
     </div>
   );
 }

@@ -14,10 +14,12 @@
   
   /* Grey Scale */
   --black: #000000;
-  --dark-grey: #454545;
+  --dark-grey: #282828;
   --light-grey: #F2F2F2;
   --white: #FFFFFF;
   
   /* Layout */
   --gap: 2rem;
+  --margin: 12rem;
+  --margin-sm: 5rem;
 }
