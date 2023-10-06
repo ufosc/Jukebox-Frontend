@@ -1,0 +1,19 @@
+.background-light-grey {
+  background-color: var(--light-grey);
+}
+
+.background-cherry {
+  background-color: var(--cherry);
+}
+
+.background-coral {
+  background-color: var(--coral);
+}
+
+.background-dark-cyan {
+  background-color: var(--dark-cyan);
+}
+
+.background-sage {
+  background-color: var(--sage);
+}

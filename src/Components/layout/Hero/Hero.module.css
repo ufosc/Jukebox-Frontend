@@ -1,0 +1,10 @@
+.hero {
+  min-height: 40rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: var(--margin);
+
+  background-color: var(--dark-grey);
+  color: white;
+}

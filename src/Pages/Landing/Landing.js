@@ -8,7 +8,7 @@ import Stat from "./components/Stat";
 import Board1 from "../Board1/Board1";
 import {Link} from 'react-router-dom'
 import CTA from "../../Components/layout/CTA";
-import Footer from "../../Components/layout/Footer";
+import Footer from "../../Components/layout/Footer/Footer";
 
 
 export default function Landing() {
