@@ -15,8 +15,25 @@
     margin: 0;
     position: absolute;
     top: 20%;
+    left: 5%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-    left: 0%;
     font-size: 3em;
+}
+
+.navbar-1 { 
+
+    border-style: solid;
+    border-color: blue;
+    font-size: 3em;
+    display: inline-block;
+    width: 10vw;
+    height : 200vh;
+    background-color: grey;
+    
+}
+
+.borders {
+    border-style: solid;
+    border-color: black;
 }

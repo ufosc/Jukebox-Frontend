@@ -5,10 +5,10 @@ import Goal from "./components/Goal";
 import Topics from "./components/Topics";
 import Repos from "./components/Repos";
 import Stat from "./components/Stat";
-import Board1 from "../Board1/Board1";
-import {Link} from 'react-router-dom'
-import CTA from "../../Components/layout/CTA";
-import Footer from "../../Components/layout/Footer";
+//import CTA from "./layout/CTA";
+//import Footer from "./layout/Footer";
+//import Board1 from "../Board1/Board1";
+import {Link} from 'react-router-dom';
 
 
 export default function Landing() {
@@ -20,8 +20,7 @@ export default function Landing() {
       <Topics />
       <Repos />
       <Stat />
-      <CTA />
-      <Footer />
+      
       <Link to="/board1">
         <button>
           Board 1

@@ -12,7 +12,7 @@ import Song from '../Components/Song/Song'
 function App() {
   
   return (
-    <div>
+    <div className='container'>
       <header>
         <h1 className = "center">
         Jukebox

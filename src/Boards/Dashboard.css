@@ -1,0 +1,28 @@
+
+.navbar { 
+
+    border-style: solid;
+    border-color: blue;
+    
+}
+
+.spliter {
+    border-color: black;
+    border-style: solid;
+    
+}
+
+.body-container { 
+
+    border-style: solid;
+    border-color: red;
+    max-width: 130rem;
+    margin: 0 auto;
+    
+    
+}
+
+.dashboard-container{
+
+    display: flex;
+}
