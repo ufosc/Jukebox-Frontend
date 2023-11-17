@@ -3,10 +3,11 @@ import React from "react";
 import Home from "../Pages/Home/Home";
 import About from "../Pages/About/About";
 import Dashboard from "../Pages/Dashboard/Dashboard";
-import Login from "../Pages/Login/Login";
+import Login from "../Pages/authentication/Login";
 import Landing from "../Pages/Landing/Landing";
 import Board1 from "../Pages/Board1/Board1"
 import DevGuide from "Pages/DevGuide/DevGuide";
+import { Register } from "Pages/authentication/Register";
 
 /**
  * To add a new page, make a new element in the Pages folder and add a
@@ -42,6 +43,10 @@ export default function Router() {
             path : "/board1",
             element: <Board1 />,
         },
+        {
+          path: "/register",
+          element: <Register />,
+        }
     ]);
     return <RouterProvider router={router} />;          
 }
