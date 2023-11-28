@@ -11,30 +11,40 @@ const useHttp = () => {
   const sendRequest = useCallback(async (requestConfig, applyData) => {
     setIsLoading(true);
     setError(null);
-    console.log('config ', requestConfig.body)
     try {
       let body = requestConfig.body ? requestConfig.body : null;
-      
+
       const response = await axios({
         method: requestConfig.method ? requestConfig.method : "GET",
         url: requestConfig.url,
         headers: requestConfig.headers ? requestConfig.headers : {},
         data: body,
-      }).then((res) => {
-        console.log(res);
-        return res;
-      }).catch((err) => {
-        console.log(err);
-        return err;
-      });
+      })
+        .then((res) => {
+          console.log(res)
+          return res;
+        })
+        .catch((err) => {
+          console.log('from axios: ',err);
+          setError(err.message || "Something went wrong!");
+          // return applyData(err.response);
+          // throw new Error(err);
+          return err.response;
+        });
 
       if (response.status !== 200) {
-        throw new Error(response.data.message);
+        let message = response?.data?.message || "Something went wrong!";
+        console.log('from axios status check: ',message);
+        throw new Error(message);
       }
+      // setError(null);
 
-      applyData(response.data);
+      applyData(response);
     } catch (err) {
+      console.log('from axios error catch: ',err);
       setError(err.message || "Something went wrong!");
+      
+      throw new Error(err);
     }
     setIsLoading(false);
   }, []);

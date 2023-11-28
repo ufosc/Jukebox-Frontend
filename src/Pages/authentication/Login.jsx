@@ -1,43 +1,20 @@
-import React, { useRef } from "react";
-import useHttp from "../../hooks/use-http";
-import axios from "axios";
+import React from 'react'
+import AuthForm from 'Components/AuthForm/AuthForm'
+import useApi from 'hooks/use-api';
 
-const Login = () => {
-  const email = useRef("");
-  const password = useRef("");
-  const { isLoading, error, sendRequest } = useHttp();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(email.current.value);
-    console.log(password.current.value);
-
-    let options = {
-      url: "http://localhost:8000/api/user/login",
-      method: "POST",
-      body: {
-        username: email.current.value,
-        password: password.current.value,
-      },
-    };
-    
-    sendRequest(options, (res) => {
+export default function Login() {
+  const { login } = useApi();
+  
+  const handleLogin = (username, password) => {
+    login(username, password).then((res) => {
       console.log(res);
-    });
+    })
   };
-
+  
   return (
     <div>
-      {isLoading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
-    <form action="get" onSubmit={handleSubmit}>
-      <input type="text" name="email" ref={email} />
-      <input type="text" name="password" ref={password} />
-      <button type="submit">Login</button>
-    </form>  
+      <h1>Login</h1>
+      <AuthForm handleSubmit={handleLogin} />
     </div>
-    
-  );
-};
-
-export default Login;
+  )
+}
