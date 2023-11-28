@@ -1,15 +1,13 @@
 import React from "react";
-import Header from "../../Components/layout/Header/Header";
+import Header from "../../components/layout/Header/Header";
 import Hero from "./components/Hero";
 import Goal from "./components/Goal";
 import Topics from "./components/Topics";
 import Repos from "./components/Repos";
 import Stat from "./components/Stat";
-import Board1 from "../Board1/Board1";
-import {Link} from 'react-router-dom'
-import CTA from "../../Components/layout/CTA";
-import Footer from "../../Components/layout/Footer/Footer";
-
+import { Link } from "react-router-dom";
+import CTA from "../../components/layout/CTA";
+import Footer from "../../components/layout/Footer/Footer";
 
 export default function Landing() {
   return (
@@ -23,9 +21,7 @@ export default function Landing() {
       <CTA />
       <Footer />
       <Link to="/Board1">
-        <button>
-          Board 1
-        </button>
+        <button>Board 1</button>
       </Link>
     </>
   );

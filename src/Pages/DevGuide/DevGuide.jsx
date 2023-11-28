@@ -6,8 +6,8 @@ import SystemColors from "./Colors/SystemColors";
 import GreyScaleColors from "./Colors/GreyScaleColors";
 import Buttons from "./Buttons/Buttons";
 import Hero from "../Landing/components/Hero";
-import Header from "../../Components/layout/Header/Header";
-import Footer from "../../Components/layout/Footer/Footer";
+import Header from "../../components/layout/Header/Header";
+import Footer from "../../components/layout/Footer/Footer";
 
 export default function DevGuide() {
   return (
