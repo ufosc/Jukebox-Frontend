@@ -6,9 +6,9 @@ import Dashboard from "../Pages/Dashboard/Dashboard";
 import Login from "../Pages/authentication/Login";
 import Landing from "../Pages/Landing/Landing";
 import Board1 from "../Pages/Board1/Board1"
-import DevGuide from "Pages/DevGuide/DevGuide";
-import { Register } from "Pages/authentication/Register";
-import AuthForm from "Components/AuthForm/AuthForm";
+
+import { Register } from "../Pages/authentication/Register";
+import DevGuide from "../Pages/DevGuide/DevGuide";
 
 /**
  * To add a new page, make a new element in the Pages folder and add a

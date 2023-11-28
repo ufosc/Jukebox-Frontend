@@ -1,6 +1,8 @@
 import React from 'react'
-import AuthForm from 'Components/AuthForm/AuthForm'
-import useApi from 'hooks/use-api';
+
+import useApi from '../../hooks/use-api';
+import AuthForm from '../../Components/AuthForm/AuthForm';
+
 
 export default function Login() {
   const { login } = useApi();

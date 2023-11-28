@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
-import Song from './Song/Song.js'
 import './ScrollQueue.css'
+import Song from '../Song/Song';
 
 function ScrollQueue() {
     const [songs, setSongs] = useState([])

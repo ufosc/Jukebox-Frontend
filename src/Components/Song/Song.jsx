@@ -1,5 +1,4 @@
 import React from 'react'
-import './Song.css'
 
 class Song extends React.Component{
     render(){
