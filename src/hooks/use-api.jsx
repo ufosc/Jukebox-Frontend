@@ -45,7 +45,7 @@ const useApi = () => {
     // return () => {
     //   clearInterval(interval);
     // };
-  }, []);
+  }, [checkOnline]);
 
   const login = useCallback(
     async (username, password) => {

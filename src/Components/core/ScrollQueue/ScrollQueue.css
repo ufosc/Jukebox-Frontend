@@ -1,0 +1,19 @@
+.QueueContainer {
+  width: 40vw;
+  height: 90vh;
+  float: right;
+  border: 2px rgb(0, 0, 0);
+  border-style: solid;
+  object-fit: fill;
+  background: gray;
+}
+
+.SongScroll {
+  height: 75vh;
+  overflow-y: scroll;
+  border-top: 2px black;
+  border-bottom: 2px black;
+  border-left: 0px;
+  border-right: 0px;
+  border-style: solid;
+}

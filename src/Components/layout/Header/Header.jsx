@@ -1,5 +1,5 @@
 import React from "react";
-import img from "assets/logo-placeholder.png";
+import img from "../../../assets/logo-placeholder.png";
 import classes from "./Header.module.css";
 
 export default function Header() {
