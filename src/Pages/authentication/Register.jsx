@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import AuthForm from "../../components/auth/AuthForm/AuthForm";
 import useApi from "../../hooks/use-api";
 
-export const Register = () => {
+export default function Register() {
   const { register } = useApi();
 
   const handleRegister = async (e) => {

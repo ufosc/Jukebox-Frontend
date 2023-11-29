@@ -1,5 +1,7 @@
 import Clock from "../core/Clock";
 import ScrollQueue from "../core/ScrollQueue/ScrollQueue";
+
+
 import "./Board1.css";
 
 function Board1() {

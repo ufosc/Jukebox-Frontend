@@ -7,7 +7,7 @@ import { useCookies } from "react-cookie";
 
 const API_BASE = "http://localhost:8000";
 
-const useApi = () => {
+export default function useApi() {
   const [online, setOnline] = useState(false);
   const { isLoading, error, sendRequest } = useHttp();
   const [, setCookie] = useCookies(["token"]);
@@ -118,9 +118,8 @@ const useApi = () => {
     isLoading,
     error,
     online,
-    login,
-    register,
+    login: login,
+    register: register,
   };
 };
 
-export default useApi;

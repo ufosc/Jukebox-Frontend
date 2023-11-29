@@ -5,11 +5,12 @@ import About from "./pages/About";
 import Dashboard from "./pages/Dashboard";
 
 import DevGuide from "./pages/DevGuide/DevGuide";
-import Landing from "./Pages/Landing/Landing";
-import Login from "./Pages/authentication/Login";
 
-import { Register } from "./Pages/authentication/Register";
 import Board1 from "./components/boards/Board1";
+import Landing from "./pages/Landing/Landing";
+import Login from "./pages/authentication/Login";
+import Register from "./pages/authentication/Register";
+
 
 /**
  * To add a new page, make a new element in the Pages folder and add a
