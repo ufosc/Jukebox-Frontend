@@ -1,9 +1,10 @@
 
 import React from "react";
 import "./Dashboard.css";
-import NavBar from "../Components//NavBar/NavBar";
+// import NavBar from "../Components/NavBar/NavBar";
 import TaskBar from "../Components/TaskBar/TaskBar";
-import ControlPanel from "../Components/ControlPanel/ControlPanel";
+import ControlPanel from "../components/ControlPanel/ControlPanel"
+import NavBar from "../components/NavBar/NavBar";
 
 
 function Dashboard() {
@@ -24,7 +25,8 @@ function Dashboard() {
         <div className="dashboard-container">
         
         <div className=".navbar">
-          <NavBar></NavBar>
+          <NavBar />
+         
         </div>
 
         <div>

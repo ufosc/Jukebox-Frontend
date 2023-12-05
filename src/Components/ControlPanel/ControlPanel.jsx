@@ -1,11 +1,13 @@
 import React from 'react';
 
-import ScrollQueue from "../ScrollQueue/ScrollQueue";
-import NowListening from "../NowListening/NowListening";
+// import ScrollQueue from "../ScrollQueue/ScrollQueue";
+// import ScrollQueue 
+import NowListening from "../NowListening/NowListening"
 import DataChart from "../DataChart/DataChart";
 import MemberList from "../MemberList/MemberList";
 import MySvgImage from "./rectangle.svg";
 import "./ControlPanel.css";
+import ScrollQueue from '../ScrollQueue/ScrollQueue';
 
 function ControlPanel(){
 
@@ -60,7 +62,8 @@ function ControlPanel(){
           
           <div className="row">
             <div className="col-1-of-4">
-              <ScrollQueue></ScrollQueue>
+              <ScrollQueue />
+              
             </div>
 
               <div className="col-6">
