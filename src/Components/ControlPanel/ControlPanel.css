@@ -1,0 +1,14 @@
+.red {
+    
+    
+    background-color: red;
+
+}
+
+.one {
+    clip-path: polygon(0 100%, 0 0, 100% 0, 30% 50%);
+ }
+
+ .two{
+    clip-path:url("#svgPath");
+ }
