@@ -4,7 +4,6 @@ import { useState } from "react";
 import "./ScrollQueue.css";
 import Song from "../Song/Song";
 
-
 function ScrollQueue() {
   const [songs, setSongs] = useState([]);
   const [songName, setSongName] = useState("");
