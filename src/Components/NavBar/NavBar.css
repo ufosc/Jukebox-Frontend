@@ -1,5 +1,5 @@
 
-.btn{
+.btns{
 
     border-style: solid;
     border-width: 1px;
@@ -8,7 +8,9 @@
 
 }
 
-.navbar { 
+/*
+
+{/*}.navbar { 
 
     border-style: solid;
     border-color: blue;
@@ -20,6 +22,15 @@
     transform: translateY(-50%);
     font-size: 3em;
 }
+*/
+
+
+.navbar {
+
+    position: relative;
+    width: 350px;
+
+}
 
 .navbar-1 { 
 
@@ -27,8 +38,9 @@
     border-color: blue;
     font-size: 3em;
     display: inline-block;
-    width: 10vw;
-    height : 200vh;
+    width: 350px;
+    position: fixed;
+    min-height: 90vh;
     background-color: grey;
     
 }

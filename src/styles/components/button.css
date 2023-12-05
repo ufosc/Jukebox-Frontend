@@ -1,3 +1,5 @@
+@import 'material-icons/iconfont/material-icons.css';
+
 .btn,
 .btn:link,
 .btn:visited {
@@ -46,4 +48,40 @@
   font-weight: 500;
   line-height: normal;
   letter-spacing: 0.026rem;
+}
+
+.btn-inline,
+.btn-inline:link,
+.btn-inline:visited {
+  color: #4f7b81;
+  font-family: 'Poppins';
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.048rem;
+  
+  position: relative;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  
+}
+
+.btn-inline::after {
+  font-family: 'Material Icons';
+  font-size: 1.6rem;
+  font-style: normal;
+  font-weight: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  content: 'east';
+  
+  display: inline-block;
+  margin-left: 1rem;
+  transition: all 0.2s;
+}
+
+.btn-inline:hover::after {
+  margin-left: 2rem;
 }

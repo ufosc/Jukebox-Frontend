@@ -7,4 +7,6 @@
 @import './components/button.css';
 
 @import './layout/grid.css';
-@import './layout/section.css'
+@import './layout/section.css';
+@import './layout/spacing.css';
+@import './layout/coloring.css';

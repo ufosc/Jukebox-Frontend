@@ -1,8 +1,8 @@
 
 .navbar { 
 
-    border-style: solid;
-    border-color: blue;
+    
+    position: relative;
     
 }
 
@@ -25,4 +25,15 @@
 .dashboard-container{
 
     display: flex;
+}
+
+
+
+.boundary{
+    position: relative;
+}
+
+.rows {
+    position: relative;
+    min-height: 10vh;
 }
