@@ -7,6 +7,8 @@ function TaskBar (){
 
     return(
         
+        <>
+        
         <div className="nav">
                 <Link to="/">
                     <button className="btn-primary">
@@ -29,7 +31,7 @@ function TaskBar (){
                 </button>
                 </Link>
         </div>
-        
+        </> 
 
     )
 

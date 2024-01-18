@@ -5,6 +5,8 @@ import NavBar from "../Components//NavBar/NavBar";
 import TaskBar from "../Components/TaskBar/TaskBar";
 import ControlPanel from "../Components/ControlPanel/ControlPanel";
 
+import Sidebar from "../Components/NavBar/Sidebar";
+
 
 function Dashboard() {
   
@@ -24,11 +26,11 @@ function Dashboard() {
         <div className="dashboard-container">
         
         <div className=".navbar">
-          <NavBar></NavBar>
+          <Sidebar/>
         </div>
 
         <div>
-        <ControlPanel></ControlPanel>
+          <ControlPanel></ControlPanel>
         </div>
         
         </div>

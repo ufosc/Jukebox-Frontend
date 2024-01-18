@@ -1,7 +1,9 @@
-.red {
+
+
+.grey {
     
     
-    background-color: red;
+    background-color: grey;
 
 }
 
@@ -11,4 +13,15 @@
 
  .two{
     clip-path:url("#svgPath");
+ }
+
+ .body-container{
+    margin-left: 5vw;
+    min-width: 70vw;
+ }
+
+ .title{
+    
+    padding-top: 5vh;
+    margin-left: 70px;
  }

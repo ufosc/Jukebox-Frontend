@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./MemberList.css"
+
 function MemberList() {
   return (
     // <section className="section-dark section-centered">
@@ -12,7 +14,7 @@ function MemberList() {
     //     cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     //   </p>
     // </section>
-    <div>Member List</div>
+    <div className="memberList">Member List</div>
   );
 }
 

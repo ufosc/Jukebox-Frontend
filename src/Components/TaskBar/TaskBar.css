@@ -11,6 +11,8 @@
     position: fixed;
     min-width: 100vw;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    min-height: 10vh;
+    box-shadow: none;
   }
 
   .relative {
