@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  client:
+    build:
+      context: .
+    volumes:
+      - ./src:/app/src
+      - client-dist:/app/dist
+    ports:
+      - 3000:3000
+    command: npm run dev
+
+volumes:
+  client-dist:
+    name: client-dist
+    external: true
+
+networks:
+  cluster:
+    name: jukebox_cluster
+    external: true
