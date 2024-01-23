@@ -14,7 +14,7 @@
 
 .body-container { 
 
-    border-style: solid;
+    border-style: none;
     border-color: red;
     max-width: 130rem;
     margin: 0 auto;

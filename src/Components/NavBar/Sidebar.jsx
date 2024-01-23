@@ -12,8 +12,8 @@ export default  function Sidebar(){
         <>
         <div className="section">
         <div className="section-1">
-            <div className="header">
-                Side Bar
+            <div className="Sidebarheader">
+                Side Bar Links
             </div>
 
             <div className="body">

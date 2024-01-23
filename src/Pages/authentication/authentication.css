@@ -1,0 +1,13 @@
+
+.header{
+    background-color: var(--cherry);
+    color: white;
+    min-height: 20vh;
+    font-size: 7vh;
+    justify-content: center;
+    display: flex;
+    top: 50%;
+    position: relative;
+
+}
+

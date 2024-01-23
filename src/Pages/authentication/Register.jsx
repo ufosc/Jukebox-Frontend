@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import AuthForm from "../../components/auth/AuthForm/AuthForm";
+import AuthForm from "../../Components/auth/AuthForm/AuthForm";
 import useApi from "../../hooks/use-api";
 
 export default function Register() {
