@@ -1,7 +1,9 @@
 import React from "react";
 
 import useApi from "../../hooks/use-api";
-import AuthForm from "../../components/auth/AuthForm/AuthForm";
+import AuthForm from "../../Components/auth/AuthForm/AuthForm";
+
+import "./authentication.css";
 
 export default function Login() {
   const { login } = useApi();
@@ -14,7 +16,7 @@ export default function Login() {
 
   return (
     <div>
-      <h1>Login</h1>
+      <h1 className="header">Login</h1>
       <AuthForm handleSubmit={handleLogin} />
     </div>
   );

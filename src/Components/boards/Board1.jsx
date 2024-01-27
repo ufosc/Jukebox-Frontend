@@ -12,7 +12,9 @@ function Board1() {
       </header>
       <body>
         <div>
+          <div className="clock">
           <Clock></Clock>
+          </div>
 
           <ScrollQueue></ScrollQueue>
         </div>
