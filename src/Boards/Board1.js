@@ -1,34 +1,24 @@
-
 //import '../index.css';
-import './Board1.css';
+import './Board1.css'
 //Temporary Clock
-import Clock from '../Components/Clock'
-import ScrollQueue from '../Components/ScrollQueue/ScrollQueue'
-import Song from '../Components/Song/Song'
-
-
-
+import Clock from '../components/Clock'
+import ScrollQueue from '../components/ScrollQueue/ScrollQueue'
 
 function App() {
-  
   return (
-    <div className='container'>
+    <div className="container">
       <header>
-        <h1 className = "center">
-        Jukebox
-        </h1>
+        <h1 className="center">Jukebox</h1>
       </header>
       <body>
         <div>
           <Clock></Clock>
-          
+
           <ScrollQueue></ScrollQueue>
         </div>
-        
       </body>
     </div>
   )
 }
 
-export default App;
-
+export default App
