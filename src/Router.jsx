@@ -11,7 +11,6 @@ import Landing from "./pages/Landing/Landing";
 import Login from "./Pages/authentication/Login";
 import Register from "./Pages/authentication/Register";
 
-
 /**
  * To add a new page, make a new element in the Pages folder and add a
  * new Route below linking that element to the corresponding URL path.
