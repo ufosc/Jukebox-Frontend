@@ -6,10 +6,10 @@ import Dashboard from "./pages/Dashboard";
 
 import DevGuide from "./pages/DevGuide/DevGuide";
 
-import Board1 from "./Components/boards/Board1";
+import Board1 from "./components/boards/Board1";
 import Landing from "./pages/Landing/Landing";
-import Login from "./Pages/authentication/Login";
-import Register from "./Pages/authentication/Register";
+import Login from "./pages/authentication/Login";
+import Register from "./pages/authentication/Register";
 
 
 /**

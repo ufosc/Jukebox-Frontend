@@ -1,9 +1,9 @@
 import React from 'react'
 import './Dashboard.css'
 // import NavBar from "../components/NavBar/NavBar";
-import ControlPanel from '../components/ControlPanel/ControlPanel'
-import NavBar from '../components/NavBar/NavBar'
-import TaskBar from '../components/TaskBar/TaskBar'
+import NavBar from '../layout/NavBar/NavBar'
+import ControlPanel from '../widgets/ControlPanel/ControlPanel'
+import TaskBar from '../widgets/TaskBar/TaskBar'
 
 function Dashboard() {
   return (
