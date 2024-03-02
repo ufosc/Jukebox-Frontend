@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import useApi from "../../../hooks/use-api";
 
-import "./Authform.css";
+import "./AuthForm.css";
 
 export default function AuthForm({ handleSubmit }) {
   const { isLoading, error, online } = useApi();
