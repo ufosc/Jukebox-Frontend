@@ -1,0 +1,48 @@
+
+
+.section{
+    width:350px;
+    
+
+    position: relative;
+    
+    
+    
+    z-index: 5;
+}
+
+.section-1{
+    
+    
+    width: 350px;
+    position: fixed;
+    min-height: 90vh;
+    background-color: grey;
+    padding-left: 35px;
+    padding-right: 35px;
+}
+
+.Sidebarheader{
+    font-size: 3vh;
+    display: flex;
+    justify-content: center;
+}
+
+.body{
+    display: grid;
+    justify-content: left;
+    margin-bottom: 10vh;
+}
+
+.SidebarLine{
+    border-top: 3px solid black;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    
+}
+
+.accountButton{
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+
+}

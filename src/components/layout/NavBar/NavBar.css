@@ -1,0 +1,51 @@
+
+.btns{
+
+    border-style: solid;
+    border-width: 1px;
+    width: 7em;
+    height: 2em;
+
+}
+
+/*
+
+{/*}.navbar { 
+
+    border-style: solid;
+    border-color: blue;
+    margin: 0;
+    position: absolute;
+    top: 20%;
+    left: 5%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    font-size: 3em;
+}
+*/
+
+
+.navbar {
+
+    position: relative;
+    width: 350px;
+
+}
+
+.navbar-1 { 
+
+    border-style: solid;
+    
+    font-size: 3em;
+    display: inline-block;
+    width: 350px;
+    position: fixed;
+    min-height: 90vh;
+    background-color: grey;
+    
+}
+
+.borders {
+    border-style: solid;
+    border-color: black;
+}
