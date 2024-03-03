@@ -1,4 +1,6 @@
-import ScrollQueue from "../widgets/ScrollQueue/ScrollQueue";
+import Clock from "../core/Clock";
+import ScrollQueue from "../core/ScrollQueue/ScrollQueue";
+
 
 import "./Board1.css";
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import "./TaskBar.css";
-// import Auth from "../auth/AuthForm/AuthForm";
+import Auth from "../auth/AuthForm/AuthForm";
 
 import Searchbar from './Searchbar';
 
