@@ -6,6 +6,7 @@ services:
       context: .
     volumes:
       - ./src:/app/src
+      - ./dist:/app/dist
     ports:
       - 3000:3000
     command: npm run dev

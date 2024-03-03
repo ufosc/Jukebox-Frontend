@@ -1,9 +1,9 @@
-import React from 'react'
-import './Dashboard.css'
-// import NavBar from "../components/NavBar/NavBar";
-import ControlPanel from '../components/ControlPanel/ControlPanel'
-import NavBar from '../components/NavBar/NavBar'
-import TaskBar from '../components/TaskBar/TaskBar'
+import React from "react";
+import "./Dashboard.css";
+// import NavBar from "../Components/NavBar/NavBar";
+import TaskBar from "../widgets/TaskBar/TaskBar";
+import ControlPanel from "../widgets/ControlPanel/ControlPanel";
+import NavBar from "../layout/NavBar/NavBar";
 
 function Dashboard() {
   return (
@@ -25,7 +25,7 @@ function Dashboard() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;
