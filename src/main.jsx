@@ -9,5 +9,5 @@ root.render(
     <CookiesProvider>
       <Router />
     </CookiesProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 )

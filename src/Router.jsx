@@ -1,9 +1,9 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { App } from './App'
-import { Admin } from './admin/Admin'
-import { Dashboard } from './admin/Dashboard/Dashboard'
-import { Login } from './auth/Login'
-import { Register } from './auth/Register'
+import { Admin, Dashboard } from './admin'
+import { Login, Register } from './auth'
+import { Board, Board1, BoardList } from './boards'
+import { Members } from './members'
 import { DevGuide } from './pages'
 
 const routes = createBrowserRouter([
@@ -40,11 +40,21 @@ const routes = createBrowserRouter([
       },
       {
         path: 'boards',
-        element: <div>Boards path</div>,
+        element: <Board />,
+        children: [
+          {
+            index: true,
+            element: <BoardList />,
+          },
+          {
+            path: 'board-1',
+            element: <Board1 />,
+          },
+        ],
       },
       {
         path: 'members',
-        element: <div>Members path</div>,
+        element: <Members />,
       },
     ],
   },

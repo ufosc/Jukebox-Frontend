@@ -1,6 +1,4 @@
-import { ControlPanel } from '../components/ControlPanel/ControlPanel'
-
-import { NavBar, TaskBar } from '../components'
+import { ControlPanel, NavBar, TaskBar } from '../components'
 import './Dashboard.css'
 
 export const Dashboard = () => {

@@ -23,7 +23,11 @@
     "start": "vite",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "npx eslint src/**/*.js",
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier --check --log-level warn \"src/**/*.{jsx,js}\"",
+    "format:fix": "prettier --write --log-level warn \"src/**/*.{jsx,js}\""
   },
   "devDependencies": {
     "eslint": "^8.57.0",
