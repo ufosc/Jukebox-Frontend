@@ -23,6 +23,20 @@
     "start": "vite",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "npx eslint src/**/*.js",
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier --check --log-level warn \"src/**/*.{jsx,js}\"",
+    "format:fix": "prettier --write --log-level warn \"src/**/*.{jsx,js}\""
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-react": "^7.34.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "prettier": "^3.2.5",
+    "vite-plugin-eslint": "^1.8.1"
   }
 }
