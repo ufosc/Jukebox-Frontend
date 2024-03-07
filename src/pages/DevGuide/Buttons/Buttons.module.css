@@ -1,8 +1,0 @@
-.buttons-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  align-items: center;
-  row-gap: 5rem;
-  
-  margin-top: 5rem;
-}

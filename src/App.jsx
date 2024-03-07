@@ -1,9 +1,10 @@
-import React from "react";
-import "./App.css";
-import Router from "./Router";
+import { Outlet } from 'react-router-dom'
+import { Theme } from './Theme'
 
-function App() {
-  return <Router />;
+export const App = () => {
+  return (
+    <Theme>
+      <Outlet />
+    </Theme>
+  )
 }
-
-export default App;
