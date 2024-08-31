@@ -8,14 +8,12 @@ export const Clock = () => {
       setDate(new Date())
     }, 1000)
 
-    return () => {
-      clearInterval(timer)
-    }
+    return () => clearInterval(timer)
   }, [])
 
   return (
     <div className="clock">
-      <body>{date.toLocaleTimeString()}.</body>
+      <div>{date.toLocaleTimeString()}.</div>
     </div>
   )
 }
