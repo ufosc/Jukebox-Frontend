@@ -1,42 +1,70 @@
 # Project Structure
 
-## File structure
+Structure is inspired by Angular, Django, Domain Driven Design techniques, and this article: [A Front-End Application Folder Structure that Makes Sense](https://medium.com/@fadamakis/a-front-end-application-folder-structure-that-makes-sense-ecc0b690968b).
 
 ```txt
-src
-  - docs
-  - components
-  - assets
-  - styles
-  - store
-  - hooks
-  - mock
-  - utils
-  Theme.jsx
-  Router.jsx
-  
-  - [domain]
-  | index.js
-  | - components
-  | - store
-  | - mock
-  | - pages
+src/
+|-- config/
+|   |-- index.ts
+|-- utils/
+|   |-- index.ts
+|-- docs/
+|   |-- index.ts
+|-- mock/
+|   |-- index.ts
+|-- lib/
+|   |-- index.ts
+|-- store/
+|   |-- store.ts
+|   |-- index.ts
+|-- styles/
+|   |-- abstracts/
+|   |-- base/
+|   |-- components/
+|   |-- font/
+|   |-- layout/
+|   |-- theme/
+|   |-- main.scss
+|-- network/
+|   |-- network.ts
+|   |-- index.ts
+|-- types/
+|   |-- index.d.ts
+|-- shared/
+|   |-- components/
+|   |   |-- [Component]/
+|   |   |   |-- Component.tsx
+|   |   |   |-- Component.module.scss
+|   |   |   |-- Component.test.tsx
+|   |   |-- index.ts
+|   |-- hooks/
+|   |   |-- index.ts
+|   |-- context/
+|   |   |-- index.ts
+|-- apps/
+    |-- [domain]/
+        |-- types/
+        |   |-- index.d.ts
+        |-- components/
+        |   |-- [Component]/
+        |   |   |-- Component.tsx
+        |   |   |-- Component.module.scss
+        |   |   |-- Component.test.tsx
+        |   |-- index.ts
+        |-- store/
+        |   |-- [slice]/
+        |   |   |-- slice.ts
+        |   |   |-- actions.ts
+        |   |   |-- thunks.ts
+        |   |   |-- selectors.ts
+        |   |   |-- index.ts
+        |   |-- index.ts
+        |-- hooks/
+        |   |-- index.ts
+        |-- layouts/
+        |   |-- index.ts
+        |-- pages/
+        |   |-- index.ts
+        |-- routes.tsx
+        |-- index.ts
 ```
-
-## Component Structure
-
-```txt
-[Component]
-  [Component].jsx
-  [Component].module.css
-  [Component].test.js
-  [Component].utils.js
-```
-
-## Conventions
-
-- Barrel exports
-- Mono-repo, domain driven design
-- Only named exports
-- Function components
-- Arrow functions

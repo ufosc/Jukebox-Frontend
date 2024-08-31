@@ -1,3 +1,0 @@
-/**
- * Redux data store
- */

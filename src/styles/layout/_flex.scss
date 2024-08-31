@@ -1,0 +1,27 @@
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: $gap;
+  
+  &-stretch {
+    align-items: stretch;
+  }
+}
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: $gap;
+  
+  .flex-width-1 {
+    width: 100%;
+  }
+  .flex-width-1of2 {
+    flex: 1 calc(50% - #{$gap});
+  }
+}
+
+.flex-stretch {
+  flex: 1;
+}

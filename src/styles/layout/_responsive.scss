@@ -1,0 +1,28 @@
+.responsive {
+  &-hide {
+    @each $bp, $size in $breakpoints {
+      &-#{$bp} {
+        @include media-hide($size);
+      }
+    }
+  }
+
+  &-show {
+    @each $bp, $size in $breakpoints {
+      &-#{$bp} {
+        @include media-show($size);
+      }
+    }
+  }
+
+  &-role {
+    &-nav {
+      &--hide {
+        @include media-hide($screen-role-nav);
+      }
+      &--show {
+        @include media-show($screen-role-nav);
+      }
+    }
+  }
+}

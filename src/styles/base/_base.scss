@@ -1,0 +1,42 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  // Reset rem to 10px from 16px
+  font-size: 62.5%;
+  // font-family: 'Roboto', sans-serif;
+  height: 100%;
+
+  scroll-behavior: smooth;
+
+  @include breakpoint('md') {
+    font-size: 56.25%;
+  }
+
+  @include breakpoint('sm') {
+    font-size: 50%;
+  }
+
+  // @include breakpoint('xl') {
+  //   font-size: 75%;
+  // }
+}
+
+body {
+  box-sizing: border-box;
+  height: 100%;
+  @include font-body('md');
+
+  a {
+    &,
+    &:link,
+    &:visited {
+      text-decoration: inherit;
+    }
+  }
+}

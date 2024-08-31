@@ -1,0 +1,68 @@
+/** Layout **/
+$gap: 1.5rem;
+$border-thin: 0.5px solid var(--color-outline-variant);
+
+/** Main Breakpoints */
+$screen-xs: 320px;
+$screen-sm: 480px;
+$screen-md: 768px;
+$screen-lg: 1024px;
+$screen-xl: 1800px;
+
+/** Theme */
+$colors-token: 'color';
+$theme-modes: ('light', 'dark');
+
+/** Global Colors */
+$primary: var(--color-primary);
+$on-primary: var(--color-primary-on);
+$secondary: var(--color-secondary);
+$on-secondary: var(--color-secondary-on);
+$error: var(--color-error);
+$on-error: var(--color-error-on);
+$warning: var(--color-warning);
+$on-warning: var(--color-warning-on);
+$success: var(--color-success);
+$on-success: var(--color-success-on);
+
+$primary-contrast: var(--color-primary-contrast);
+$on-primary-contrast: var(--color-primary-contrast-on);
+$secondary-contrast: var(--color-secondary-contrast);
+$on-secondary-contrast: var(--color-secondary-contrast-on);
+$error-contrast: var(--color-error-contrast);
+$on-error-contrast: var(--color-error-contrast-on);
+$warning-contrast: var(--color-warning-contrast);
+$on-warning-contrast: var(--color-warning-contrast-on);
+$success-contrast: var(--color-success-contrast);
+$on-success-contrast: var(--color-success-contrast-on);
+
+$primary-container: var(--color-primary-container);
+$on-primary-container: var(--color-primary-container-on);
+$secondary-container: var(--color-secondary-container);
+$on-secondary-container: var(--color-secondary-container-on);
+$error-container: var(--color-error-container);
+$on-error-container: var(--color-error-container-on);
+$warning-container: var(--color-warning-container);
+$on-warning-container: var(--color-warning-container-on);
+$success-container: var(--color-success-container);
+$on-success-container: var(--color-success-container-on);
+
+$surface: var(--color-surface);
+$on-surface: var(--color-surface-on);
+$on-surface-variant: var(--color-surface-on-variant);
+$surface-container: var(--color-surface-container);
+$on-surface-container: var(--color-surface-container-on);
+$inverse-surface: var(--color-inverse-surface);
+$on-inverse-surface: var(--color-inverse-surface-on);
+$container: var(--color-container);
+$on-container: var(--color-container-on);
+$outline: var(--color-outline);
+$on-outline: var(--color-outline-on);
+$outline-variant: var(--color-outline-variant);
+$on-outline-variant: var(--color-outline-variant-on);
+$label: var(--color-label);
+$on-label: var(--color-label-on);
+$disabled: var(--color-disabled);
+$on-disabled: var(--color-disabled-on);
+$disabled-container: var(--color-disabled-container);
+$on-disabled-container: var(--color-disabled-container-on);

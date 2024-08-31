@@ -1,0 +1,177 @@
+.form {
+  /**
+  Form structure:
+  
+  form.form
+    div.form-section
+      div.form-group (.success, .error, .warning)
+        label.form-label
+        input.form-control
+        p.form-help
+        p.form-feedback (.success, .error, .warning)
+      div.form-select-group
+        select
+  **/
+  $padding-inline: 1.3rem;
+  $bg-color: inherit;
+  $border-size: 0.1rem;
+  $border-size-heavy: 0.2rem;
+
+  --form-border-color: #{$outline};
+
+  background-color: $bg-color;
+
+  &-section {
+    margin-top: calc(#{$gap} * 1.5);
+    background-color: inherit;
+
+    display: flex;
+    gap: $gap;
+  }
+
+  &-headline {
+    margin-bottom: calc(#{$gap} / 2);
+  }
+
+  &-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease;
+    position: relative;
+    background-color: inherit;
+
+    &.success,
+    &.error,
+    &.warning {
+      .form-control {
+        border-width: $border-size-heavy;
+      }
+    }
+
+    &.success {
+      --form-border-color: #{$success};
+    }
+    &.error {
+      --form-border-color: #{$error};
+    }
+    &.warning {
+      --form-border-color: #{$warning};
+    }
+
+    &:has(.form-control:focus) {
+      --form-border-color: #{$primary};
+    }
+  }
+  &-label {
+    @include font-label('xs');
+    $label-padding: 0.5rem;
+    
+    background-color: inherit;
+    display: inline-block;
+    width: auto;
+    flex: 0;
+    padding: $label-padding 0;
+    color: var(--form-border-color);
+
+    transition: inherit;
+  }
+  &-control {
+    padding: 1.5rem $padding-inline;
+    border: $border-size solid var(--form-border-color);
+    align-self: stretch;
+    background-color: inherit;
+    color: inherit;
+    border-radius: 0.4rem;
+    height: 5rem;
+
+    @include font-body('md');
+
+    &::placeholder {
+      color: $disabled;
+    }
+  }
+
+  &-select-control {
+    // Source: https://blog.logrocket.com/creating-custom-select-dropdown-css/
+    position: relative;
+    // @include color-role('surface');
+    width: 100%;
+
+    &::before,
+    &::after {
+      --size: 0.3rem;
+      content: '';
+      position: absolute;
+      right: 1rem;
+      pointer-events: none;
+    }
+
+    &::before {
+      border-left: var(--size) solid transparent;
+      border-right: var(--size) solid transparent;
+      border-bottom: var(--size) solid currentColor;
+      top: 40%;
+    }
+
+    &::after {
+      border-left: var(--size) solid transparent;
+      border-right: var(--size) solid transparent;
+      border-top: var(--size) solid currentColor;
+      top: 55%;
+    }
+
+    select {
+      appearance: none;
+      /*  safari  */
+      -webkit-appearance: none;
+      /*  other styles for aesthetics */
+      width: 100%;
+      padding: 1rem 1.5rem;
+      padding-right: 2rem;
+      min-width: 10rem;
+      border-radius: 0.25rem;
+      cursor: pointer;
+      background-color: inherit;
+      color: inherit;
+    }
+  }
+
+  &-help,
+  &-feedback {
+    margin-top: 0.5rem;
+  }
+
+  &-help {
+    @include font-body('sm');
+    color: $on-surface-variant;
+  }
+
+  &-feedback {
+    @include font-body('sm', 500);
+    color: $on-surface-variant;
+
+    transition:
+      opacity,
+      height 0.1s;
+
+    &.hidden {
+      opacity: 0;
+      height: 0;
+    }
+    &.success,
+    .form-group.success & {
+      color: $success-contrast;
+    }
+    &.error,
+    .form-group.error & {
+      color: $error-contrast;
+    }
+    &.warning,
+    .form-group.warning & {
+      color: $warning-contrast;
+    }
+  }
+}

@@ -1,0 +1,22 @@
+.row {
+  $gap: 1.5rem;
+
+  display: flex;
+  gap: $gap;
+  background-color: inherit;
+  color: inherit;
+  flex-wrap: wrap;
+  width: 100%;
+  
+
+  [class^='col'] {
+    background-color: inherit;
+    color: inherit;
+  }
+
+  @for $i from 1 through 12 {
+    .col-#{$i} {
+      width: calc((#{$i} / 12 * (100% + #{$gap})) - (#{$gap}));
+    }
+  }
+}
