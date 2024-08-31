@@ -4,7 +4,6 @@ import { Admin, Dashboard } from './admin'
 import { Login, Register } from './auth'
 import { Board, Board1, BoardList } from './boards'
 import { Members } from './members'
-import { DevGuide } from './pages'
 
 const routes = createBrowserRouter([
   {
@@ -13,7 +12,7 @@ const routes = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <DevGuide />,
+        element: <div>Index</div>,
       },
       {
         path: 'auth',

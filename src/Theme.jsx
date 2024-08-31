@@ -1,5 +1,5 @@
-import './styles/index.css'
+import './styles/main.scss'
 
 export const Theme = ({ children }) => {
-  return <div>{children}</div>
+  return <div className="theme theme--light">{children}</div>
 }

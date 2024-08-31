@@ -1,0 +1,70 @@
+@use 'sass:map';
+
+$defaultvars: ();
+
+:root {
+  /* 
+  Create CSS Variables for Palettes
+  */
+
+  @each $palettename, $palette in $palettes {
+    @each $num, $color in $palette {
+      $varname: '--' + $palettename + $num;
+      #{$varname}: #{$color};
+    }
+  }
+  
+  /*
+  Create CSS Variables for swatches
+  */
+  @each $swatchname, $swatch in $theme-swatches {
+    @each $mode, $types in $swatch {
+      @each $type, $color in $types {
+        $rootname: '';
+        $varname: '';
+        @if $type == 'color' {
+          $rootname: '--' + $swatchname;
+          $varname: $rootname + '--' + $mode;
+        } @else if $type == 'on' {
+          $rootname: '--on-' + $swatchname;
+          $varname: $rootname + '--' + $mode;
+        }
+
+        $existingmode: map.get($defaultvars, $mode);
+
+        @if $existingmode {
+          $defaultvars: map.merge(
+            $defaultvars,
+            $mode,
+            map.merge(
+              $existingmode,
+              (
+                $rootname: $varname,
+              )
+            )
+          ) !global;
+        } @else {
+          $defaultvars: map.merge(
+            $defaultvars,
+            $mode,
+            (
+              $rootname: $varname,
+            )
+          ) !global;
+        }
+
+        #{$varname}: var(--#{$color});
+      }
+    }
+  }
+}
+
+.theme {
+  @each $mode, $vars in $defaultvars {
+    &--#{$mode} {
+      @each $varname, $value in $vars {
+        #{$varname}: var(#{$value});
+      }
+    }
+  }
+}

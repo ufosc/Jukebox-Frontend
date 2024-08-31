@@ -24,6 +24,7 @@ yarn-debug.log*
 yarn-error.log*
 
 _depricated/
+_deprecated/
 
 # vscode
 .vscode/*

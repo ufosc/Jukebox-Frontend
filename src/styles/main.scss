@@ -3,6 +3,10 @@
 @import './base/base.css';
 @import './base/typography.css';
 
+@import './theme/palettes';
+@import './theme/swatches';
+@import './theme/stylesheet';
+
 @import './components/button.css';
 
 @import './layout/grid.css';
