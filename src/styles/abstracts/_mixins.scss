@@ -1,0 +1,103 @@
+@use 'sass:selector';
+
+/**================*
+ * Utility Mixins. * 
+ *=================*/
+@mixin also-has($selector) {
+  @at-root &#{$selector} {
+    @content;
+  }
+}
+
+@mixin has-parent($parent) {
+  $selector: nth(&, 1);
+  $child: nth($selector, length($selector));
+
+  @at-root #{selector.nest($parent, $child)} {
+    @content;
+  }
+}
+
+/**==================*
+ * Base style guide. * 
+ *===================*/
+@mixin clearfix {
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin absCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin breakpoint($breakpoint) {
+  // when using, always put larger queries first; "only screen" makes it not apply when printed
+  @if $breakpoint == xs {
+    @media only screen and (max-width: $screen-xs) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == sm {
+    @media only screen and (max-width: $screen-sm) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == md {
+    @media only screen and (max-width: $screen-md) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == lg {
+    @media only screen and (max-width: $screen-lg) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == xl {
+    @media only screen and (min-width: $screen-xl) {
+      @content;
+    }
+  }
+}
+
+@mixin border-inset($color) {
+  box-shadow: inset 0px 0px 0px $border-size $color;
+}
+
+@mixin psuedo-parent {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+@mixin psuedo-element {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: inherit;
+  transition: all $transition-duration;
+}
+@mixin psuedo-before {
+  @include psuedo-element;
+  z-index: -2;
+}
+@mixin psuedo-after {
+  @include psuedo-element;
+  z-index: -1;
+}
+@mixin psuedo-overlay {
+  @include psuedo-element;
+  z-index: 2;
+}

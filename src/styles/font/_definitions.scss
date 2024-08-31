@@ -1,0 +1,262 @@
+@use 'sass:map';
+@use 'sass:list';
+@use 'sass:string';
+
+$font-fallback:
+  system-ui,
+  -apple-system,
+  Arial,
+  Helvetica,
+  sans-serif;
+
+/**
+Structure:
+font-definitions: Main config
+  font-role (ex: display): defines a group of styles for font role
+    family: font family for role
+    weights: font weights offered for all sizes in role group
+    default-weight: when role is used without specifying weight
+    default-properties: common between all weights and sizes
+    
+    sizes: groups properties for different sizes
+      size: defines properties for size, like display-lg
+        breakpoint-size: defines overrides to use for different breakpoint sizes
+        
+Size tokens (for roles and breakpoints):
+- xl  
+- lg
+- md
+- sm
+- xs
+**/
+
+$font-definitions: (
+  display: (
+    family: 'Museo Sans Display',
+    weights: (
+      900,
+      200,
+    ),
+    default-weight: 900,
+    default-properties: (
+      letter-spacing: 0.135rem,
+    ),
+    sizes: (
+      lg: (
+        font-size: 4.5rem,
+        line-height: 4.8rem,
+      ),
+      md: (
+        font-size: 3.6rem,
+        line-height: 3.8rem,
+      ),
+      sm: (
+        font-size: 3rem,
+        line-height: 3.3rem,
+      ),
+    ),
+  ),
+  data-display: (
+    family: 'Inter Tight',
+    weights: (
+      700,
+      400,
+      300,
+    ),
+    default-weight: 700,
+    default-properties: (),
+    sizes: (
+      lg: (
+        font-size: 3.1rem,
+        line-height: 3.7rem,
+      ),
+      md: (
+        font-size: 2.8rem,
+        line-height: 3.1rem,
+      ),
+      sm: (
+        font-size: 2.2rem,
+        line-height: 2.4rem,
+      ),
+    ),
+  ),
+  headline: (
+    family: 'Museo Sans',
+    weights: (
+      600,
+      900,
+      300,
+    ),
+    default-weight: 600,
+    default-properties: (
+      letter-spacing: 0.105rem,
+    ),
+    sizes: (
+      lg: (
+        font-size: 3.5rem,
+        line-height: 3.8rem,
+      ),
+      md: (
+        font-size: 2.8rem,
+        line-height: 3.1rem,
+
+        breakpoint-sm: (
+          font-size: 2.5rem,
+        ),
+      ),
+      sm: (
+        font-size: 2.4rem,
+        line-height: 2.7rem,
+      ),
+    ),
+  ),
+  title: (
+    family: 'Inter',
+    weights: (
+      300,
+      700,
+      400,
+    ),
+    default-weight: 300,
+    default-properties: (
+      letter-spacing: 0.072rem,
+    ),
+    sizes: (
+      lg: (
+        font-size: 2.4rem,
+        line-height: 2.6rem,
+      ),
+      md: (
+        font-size: 1.8rem,
+        line-height: 2rem,
+      ),
+      sm: (
+        font-size: 1.2rem,
+        line-height: 1.5rem,
+      ),
+    ),
+  ),
+  label: (
+    family: 'Inter Tight',
+    weights: (
+      500,
+      400,
+      600,
+      300,
+    ),
+    default-weight: 500,
+    default-properties: (
+      letter-spacing: 0.08rem,
+    ),
+    sizes: (
+      lg: (
+        font-size: 1.7rem,
+        line-height: 1.9rem,
+      ),
+      md: (
+        font-size: 1.4rem,
+        line-height: 1.6rem,
+      ),
+      sm: (
+        font-size: 1.2rem,
+        line-height: 1.4rem,
+      ),
+      xs: (
+        font-size: 1rem,
+        line-height: 1.1rem,
+      ),
+    ),
+  ),
+  body: (
+    family: 'Inter',
+    weights: (
+      400,
+      500,
+      600,
+      300,
+    ),
+    default-weight: 400,
+    default-properties: (),
+    sizes: (
+      lg: (
+        font-size: 1.8rem,
+        line-height: 1.9rem,
+      ),
+      md: (
+        font-size: 1.4rem,
+        line-height: 1.6rem,
+      ),
+      sm: (
+        font-size: 1.2rem,
+        line-height: 1.1rem,
+      ),
+    ),
+  ),
+);
+
+@mixin _font-properties($family, $size, $weight: '') {
+  /*=== Variables ===*/
+  $properties: map.get($font-definitions, $family);
+  $weights: map.get($properties, 'weights');
+  $sizes: map.get($properties, 'sizes');
+  $size-properties: map.get($sizes, $size);
+  $default-properties: map.get($properties, 'default-properties');
+
+  @if $weight == '' {
+    $weight: map.get($properties, 'default-weight');
+  }
+
+  @if not list.index($weights, $weight) {
+    @error "#{$weight} is not a valid weight for font-#{$family}.";
+  }
+
+  @if not $size-properties {
+    @error "#{$size} is not a valid weight for font-#{$family}. Valid sizes are: #{$sizes}";
+  }
+
+  /*=== CSS properties ===*/
+  font-family: map.get($properties, 'family'), $font-fallback;
+  font-weight: $weight;
+
+  // Defaults
+  @each $property, $value in $default-properties {
+    #{$property}: $value;
+  }
+
+  // Size specific properties
+  @each $property, $value in $size-properties {
+    @if (str-index($property, 'breakpoint')) {
+      $breakpoint: list.nth(string.split($property, '-'), 2);
+      @include breakpoint($breakpoint) {
+        @each $bp-property, $bp-value in $value {
+          #{$bp-property}: $bp-value;
+        }
+      }
+    } @else {
+      #{$property}: $value;
+    }
+  }
+}
+
+body {
+  @each $font, $properties in $font-definitions {
+    $weights: map.get($properties, 'weights');
+    $sizes: map.get($properties, 'sizes');
+    $family: map.get($properties, 'family');
+
+    @each $size, $size-properties in $sizes {
+      // Default font definition
+      .font-#{$font}-#{$size} {
+        $weight: map.get($properties, 'default-weight');
+        @include _font-properties($font, $size, $weight);
+      }
+
+      @each $weight in $weights {
+        // Font weight definition
+        .font-#{$font}-#{$size}-#{$weight} {
+          @include _font-properties($font, $size, $weight);
+        }
+      }
+    }
+  }
+}

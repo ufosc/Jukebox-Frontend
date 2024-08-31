@@ -1,0 +1,19 @@
+@mixin wrapper-defaults {
+  width: 100%;
+  padding: 0 3rem;
+  
+  @include breakpoint(sm) {
+    padding: 0 2rem;
+  }
+}
+.container {
+  @include wrapper-defaults();
+  max-width: 170rem;
+  margin: 0 auto;
+}
+
+.container-fluid {
+  @include wrapper-defaults();
+  max-width: 100%;
+}
+

@@ -1,70 +1,73 @@
 @use 'sass:map';
-
-$defaultvars: ();
+@use 'sass:list';
 
 :root {
-  /* 
-  Create CSS Variables for Palettes
-  */
+  // Define tonal palettes
+  @each $color-label, $color-codes in $tonal-swatches {
+    @each $number, $color in $color-codes {
+      $tonal-color-name: tonalColorCode($color-label, $number);
 
-  @each $palettename, $palette in $palettes {
-    @each $num, $color in $palette {
-      $varname: '--' + $palettename + $num;
-      #{$varname}: #{$color};
+      #{$tonal-color-name}: $color;
     }
   }
-  
-  /*
-  Create CSS Variables for swatches
-  */
-  @each $swatchname, $swatch in $theme-swatches {
-    @each $mode, $types in $swatch {
-      @each $type, $color in $types {
-        $rootname: '';
-        $varname: '';
-        @if $type == 'color' {
-          $rootname: '--' + $swatchname;
-          $varname: $rootname + '--' + $mode;
-        } @else if $type == 'on' {
-          $rootname: '--on-' + $swatchname;
-          $varname: $rootname + '--' + $mode;
-        }
 
-        $existingmode: map.get($defaultvars, $mode);
+  // Define theme colors
+  @each $color-group, $modes in $theme-colors {
+    @each $mode, $color-variants in $modes {
+      @each $color-variant, $palette-code in $color-variants {
+        $theme-color: themeColorName($color-group, $color-variant, $mode);
+        $palette-color-props: paletteCodeToColorValue($palette-code);
+        $palette-color: list.nth($palette-color-props, 1);
+        $color-value-type: list.nth($palette-color-props, 2);
 
-        @if $existingmode {
-          $defaultvars: map.merge(
-            $defaultvars,
-            $mode,
-            map.merge(
-              $existingmode,
-              (
-                $rootname: $varname,
-              )
-            )
-          ) !global;
+        @if $color-value-type == 'var' {
+          #{$theme-color}: var($palette-color);
         } @else {
-          $defaultvars: map.merge(
-            $defaultvars,
-            $mode,
-            (
-              $rootname: $varname,
-            )
-          ) !global;
+          #{$theme-color}: $palette-color;
         }
-
-        #{$varname}: var(--#{$color});
       }
     }
   }
 }
 
-.theme {
-  @each $mode, $vars in $defaultvars {
-    &--#{$mode} {
-      @each $varname, $value in $vars {
-        #{$varname}: var(#{$value});
+@mixin color-role($color-group) {
+  $default-variant: themeColorName($color-group);
+
+  color: var(#{$default-variant}-on);
+  background-color: var(#{$default-variant});
+}
+
+// .theme {
+// Define default theme values
+@each $theme-mode in $theme-modes {
+  html[data-theme-mode='#{$theme-mode}'] .theme {
+    @each $color-group, $modes in $theme-colors {
+      $color-variants: map.get($modes, $theme-mode);
+
+      // Color classes
+      $default-variant: themeColorName($color-group);
+      .color-text-role-#{$color-group} {
+        color: var(#{$default-variant});
+      }
+
+      .color-role-#{$color-group} {
+        @include color-role($color-group);
+        // color: var(#{$default-variant}-on);
+        // background-color: var(#{$default-variant});
+      }
+
+      // Color variables
+      @each $color-variant, $palette-code in $color-variants {
+        $default-theme-color: themeColorName($color-group, $color-variant);
+        $theme-mode-color: themeColorName(
+          $color-group,
+          $color-variant,
+          $theme-mode
+        );
+
+        #{$default-theme-color}: var(#{$theme-mode-color});
       }
     }
   }
 }
+// }

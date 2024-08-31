@@ -1,37 +1,68 @@
 module.exports = {
-  root: true,
-  env: { browser: true, es2020: true },
+  env: {
+    browser: true,
+    es2021: true,
+  },
   extends: [
-    // "react-app",
     'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
-    // 'plugin:prettier/recommended',
-    'plugin:react-hooks/recommended',
-    'plugin:react/jsx-runtime',
+    'prettier',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs', '_depricated'],
-  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
-  settings: { react: { version: '18.2' } },
-  plugins: ['react-refresh', 'react-hooks'],
+  overrides: [
+    {
+      env: {
+        node: true,
+      },
+      files: ['.eslintrc.{js,cjs}'],
+      parserOptions: {
+        sourceType: 'script',
+      },
+    },
+  ],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+  },
+  plugins: [
+    '@typescript-eslint',
+    'react',
+    'prefer-arrow',
+    'prettier',
+    'import',
+  ],
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
-    'no-unused-vars': 'warn',
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
-    'no-restricted-imports': 'error',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
+    // 'prefer-arrow-callback': ['error', { allowNamedFunctions: true }],
+    // 'func-style': ['error', 'expression', { allowArrowFunctions: true }],
+    'react/react-in-jsx-scope': 'off',
 
-    'react/prop-types': 'off',
-    'react/jsx-no-undef': 'error',
-    'no-undef': 'error',
-    'no-restricted-syntax': [
+    '@typescript-eslint/consistent-type-imports': 'warn',
+    '@typescript-eslint/no-redeclare': 'off',
+    '@typescript-eslint/space-before-function-paren': 'off',
+    'prefer-const': 'warn',
+    'prettier/prettier': 'warn',
+    'prefer-arrow/prefer-arrow-functions': [
       'warn',
       {
-        selector: 'ExportDefaultDeclaration',
-        message: 'Prefer named exports',
+        disallowPrototype: false,
+        singleReturnOnly: false,
+        classPropertiesAllowed: false,
       },
     ],
+    'prefer-arrow-callback': ['warn', { allowNamedFunctions: false }],
+    'func-style': ['warn', 'expression', { allowArrowFunctions: true }],
+    'react/prop-types': ['off']
+    // 'import/no-internal-modules': ['error'],
+    // 'no-restricted-imports': [
+    //   'error',
+    //   {
+    //     name: 'pages',
+    //     message: 'Some message',
+    //   },
+    // ],
+    // 'eslint/no-restricted-imports': ['warn'],
   },
 }

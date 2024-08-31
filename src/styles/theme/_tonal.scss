@@ -1,0 +1,212 @@
+@use 'sass:string';
+@use 'sass:list';
+@use 'sass:map';
+
+$palettes-token: 'tonal';
+
+@function tonalColorCode($palette-name, $number: '') {
+  @if $number != '' {
+    @return '--' + $palettes-token + '-' + $palette-name + '-' + $number;
+  } @else {
+    @return '--' + $palettes-token + '-' + $palette-name;
+  }
+}
+
+@function paletteCodeToColorValue($code) {
+  // Ex: 'p-10' => ['p', '10']
+
+  $palette-props: string.split($code, '-');
+  $palette-name: list.nth($palette-props, 1);
+  $color-number: list.nth($palette-props, 2);
+
+  @if length($palette-props) == 3 {
+    $palette-alpha: list.nth($palette-props, 3);
+    $color-value: colorAlpha($palette-name, $color-number, $palette-alpha);
+    @return ($color-value, 'value');
+  }
+
+  @return (unquote(tonalColorCode($palette-name, $color-number)), 'var');
+}
+
+@function colorAlpha($palette-name, $color-number, $opacity) {
+  $color-tones: map.get($tonal-swatches, $palette-name);
+  $selected-color: map.get($color-tones, to-number($color-number));
+  $alpha-color: rgba($selected-color, calc(to-number($opacity) / 100));
+
+  @return $alpha-color;
+}
+
+$tonal-swatches: (
+  a: (
+    0: hsla(0, 0%, 0%, 1),
+    5: hsla(209, 74%, 5%, 1),
+    10: hsla(209, 74%, 10%, 1),
+    15: hsla(209, 74%, 15%, 1),
+    20: hsla(209, 74%, 20%, 1),
+    25: hsla(209, 74%, 25%, 1),
+    30: hsla(209, 75%, 30%, 1),
+    35: hsla(209, 75%, 35%, 1),
+    40: hsla(209, 74%, 40%, 1),
+    50: hsla(209, 75%, 50%, 1),
+    55: hsla(209, 75%, 52%, 1),
+    60: hsla(209, 75%, 60%, 1),
+    70: hsla(209, 74%, 70%, 1),
+    80: hsla(209, 74%, 80%, 1),
+    85: hsla(209, 74%, 80%, 1),
+    90: hsla(209, 74%, 90%, 1),
+    95: hsla(209, 75%, 95%, 1),
+    100: hsla(0, 0%, 100%, 1),
+  ),
+  av: (
+    0: hsla(0, 0%, 0%, 1),
+    5: hsla(209, 39%, 5%, 1),
+    10: hsla(209, 39%, 10%, 1),
+    15: hsla(208, 39%, 15%, 1),
+    18: hsla(208, 39%, 18%, 1),
+    20: hsla(209, 40%, 20%, 1),
+    30: hsla(209, 39%, 30%, 1),
+    40: hsla(209, 39%, 40%, 1),
+    50: hsla(209, 39%, 50%, 1),
+    55: hsla(209, 39%, 55%, 1),
+    60: hsla(209, 39%, 60%, 1),
+    70: hsla(208, 39%, 70%, 1),
+    80: hsla(209, 39%, 80%, 1),
+    90: hsla(208, 39%, 90%, 1),
+    95: hsla(209, 39%, 95%, 1),
+    98: hsla(209, 39%, 98%, 1),
+    100: hsla(0, 0%, 100%, 1),
+  ),
+  t: (
+    0: hsla(0, 0%, 0%, 1),
+    5: hsla(174, 100%, 5%, 1),
+    8: hsla(174, 100%, 8%, 1),
+    10: hsla(174, 100%, 10%, 1),
+    13: hsla(174, 100%, 13%, 1),
+    15: hsla(174, 100%, 18%, 1),
+    20: hsla(174, 100%, 23%, 1),
+    25: hsla(174, 100%, 25%, 1),
+    30: hsla(174, 100%, 30%, 1),
+    40: hsla(176, 71%, 40%, 1),
+    50: hsla(176, 60%, 50%, 1),
+    55: hsla(176, 71%, 55%, 1),
+    60: hsla(176, 71%, 60%, 1),
+    65: hsla(176, 71%, 65%, 1),
+    70: hsla(174, 100%, 70%, 1),
+    80: hsla(174, 100%, 80%, 1),
+    90: hsla(174, 100%, 90%, 1),
+    95: hsla(174, 100%, 95%, 1),
+    100: hsla(0, 0%, 100%, 1),
+  ),
+  r: (
+    0: hsla(0, 0%, 0%, 1),
+    5: hsla(3, 71%, 5%, 1),
+    10: hsla(3, 71%, 10%, 1),
+    20: hsla(3, 71%, 20%, 1),
+    30: hsla(3, 71%, 30%, 1),
+    40: hsla(3, 71%, 40%, 1),
+    50: hsla(3, 71%, 50%, 1),
+    55: hsla(3, 71%, 55%, 1),
+    60: hsla(3, 71%, 60%, 1),
+    70: hsla(3, 71%, 70%, 1),
+    80: hsla(3, 71%, 80%, 1),
+    90: hsla(3, 71%, 90%, 1),
+    95: hsla(3, 71%, 95%, 1),
+    100: hsla(0, 0%, 100%, 1),
+  ),
+  y: (
+    0: hsla(0, 0%, 0%, 1),
+    5: hsla(42, 100%, 5%, 1),
+    10: hsla(42, 100%, 10%, 1),
+    20: hsla(42, 100%, 20%, 1),
+    25: hsla(42, 100%, 28%, 1),
+    30: hsla(42, 100%, 30%, 1),
+    40: hsla(42, 100%, 40%, 1),
+    50: hsla(42, 100%, 50%, 1),
+    55: hsla(42, 100%, 55%, 1),
+    60: hsla(42, 100%, 60%, 1),
+    70: hsla(42, 100%, 70%, 1),
+    80: hsla(42, 100%, 80%, 1),
+    85: hsla(42, 100%, 85%, 1),
+    90: hsla(42, 100%, 90%, 1),
+    95: hsla(42, 100%, 95%, 1),
+    100: hsla(0, 0%, 100%, 1),
+  ),
+  g: (
+    0: hsla(0, 0%, 0%, 1),
+    5: hsla(123, 46%, 5%, 1),
+    10: hsla(123, 46%, 10%, 1),
+    15: hsla(123, 46%, 15%, 1),
+    20: hsla(123, 46%, 23%, 1),
+    30: hsla(123, 46%, 33%, 1),
+    40: hsla(123, 46%, 40%, 1),
+    50: hsla(123, 46%, 50%, 1),
+    55: hsla(123, 46%, 55%, 1),
+    60: hsla(123, 46%, 60%, 1),
+    70: hsla(123, 46%, 70%, 1),
+    80: hsla(123, 46%, 80%, 1),
+    90: hsla(123, 46%, 90%, 1),
+    95: hsla(123, 46%, 95%, 1),
+    100: hsla(0, 0%, 100%, 1),
+  ),
+  n: (
+    0: hsla(0, 0%, 0%, 1),
+    5: hsla(209, 13%, 5%, 1),
+    8: hsla(209, 13%, 8%, 1),
+    10: hsla(209, 13%, 10%, 1),
+    11: hsla(209, 13%, 11%, 1),
+    12: hsla(209, 13%, 12%, 1),
+    13: hsla(209, 13%, 13%, 1),
+    15: hsla(209, 13%, 15%, 1),
+    18: hsla(209, 13%, 18%, 1),
+    20: hsla(209, 13%, 20%, 1),
+    30: hsla(209, 13%, 30%, 1),
+    40: hsla(209, 13%, 40%, 1),
+    50: hsla(209, 13%, 50%, 1),
+    55: hsla(209, 13%, 55%, 1),
+    60: hsla(209, 13%, 60%, 1),
+    65: hsla(209, 13%, 65%, 1),
+    70: hsla(209, 13%, 70%, 1),
+    80: hsla(209, 13%, 80%, 1),
+    85: hsla(209, 13%, 85%, 1),
+    90: hsla(209, 13%, 90%, 1),
+    93: hsla(209, 13%, 93%, 1),
+    95: hsla(209, 3%, 95%, 1),
+    97: hsla(209, 3%, 97%, 1),
+    100: hsla(0, 0%, 100%, 1),
+  ),
+  on: (
+    0: #ffffff,
+    5: #ffffff,
+    10: #ffffff,
+    13: #ffffff,
+    15: #ffffff,
+    18: #ffffff,
+    20: #ffffff,
+    25: #ffffff,
+    30: #ffffff,
+    40: #ffffff,
+    50: #ffffff,
+    55: #ffffff,
+    60: #ffffff,
+    70: #000000,
+    80: #000000,
+    85: #000000,
+    90: #000000,
+    95: #000000,
+    97: #000000,
+    100: #000000,
+  ),
+);
+
+/* 
+Create CSS Variables
+*/
+// :root {
+//   @each $palettename, $palette in $tonal-swatches {
+//     @each $num, $color in $palette {
+//       // $varname: "--" + $palettes-token + "-" + $palettename + $num;
+//       $varname: palette-name($palettename, $num);
+//       #{$varname}: #{$color};
+//     }
+//   }
+// }

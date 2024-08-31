@@ -1,9 +1,0 @@
-section,
-.section,
-[class^="section"] {
-  display: flex;
-  flex-direction: column;
-}
-.section-dark {
-  background-color: black;
-}

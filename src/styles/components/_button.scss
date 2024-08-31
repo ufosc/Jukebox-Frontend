@@ -1,0 +1,85 @@
+@use 'sass:map';
+@import 'material-icons/iconfont/material-icons.css';
+
+@mixin button($type: 'solid', $color-role: 'primary') {
+  cursor: pointer;
+  padding: 0.7rem 2.4rem;
+  min-width: 9rem;
+  border-radius: 0.5rem;
+  // border: unset;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: unset;
+  background-color: unset;
+  // border: 0.1rem solid $color;
+  border-width: 0.1rem;
+  border-style: solid;
+
+  @include font-label('md', 400);
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: .6;
+  }
+
+  // $color: var(--color-#{$name}-contrast);
+  // $on-color: var(--color-#{$name}-contrast-on);
+
+  @if $type == 'solid' {
+    background-color: var(--color-#{$color-role}-contrast);
+    border-color: var(--color-#{$color-role}-contrast);
+    color: var(--color-#{$color-role}-contrast-on);
+  } @else if $type == 'outlined' {
+    background-color: transparent;
+    border-color: currentColor;
+    color: var(--color-#{$color-role}-contrast);
+  } @else if $type == 'text' {
+    color: var(--color-#{$color-role}-contrast);
+    border: none;
+    padding: 0;
+  } @else if $type == 'tonal' {
+    background-color: var(--color-#{$color-role}-container);
+    color: var(--color-#{$color-role}-container-on);
+    border-color: var(--color-#{$color-role}-container);
+  }
+}
+
+.button-solid {
+  @include button('solid');
+  @each $name, $props in $component-colors {
+    &--#{$name} {
+      @include button('solid', $name);
+    }
+  }
+}
+
+.button-outlined {
+  @include button('outlined');
+
+  @each $name, $props in $component-colors {
+    &--#{$name} {
+      @include button('outlined', $name);
+    }
+  }
+}
+
+.button-text {
+  @include button('text');
+
+  @each $name, $props in $component-colors {
+    &--#{$name} {
+      @include button('text', $name);
+    }
+  }
+}
+
+.button-tonal {
+  @include button('tonal');
+
+  @each $name, $props in $component-colors {
+    &--#{$name} {
+      @include button('tonal', $name);
+    }
+  }
+}

@@ -1,0 +1,6 @@
+.next  
+node_modules
+*-lock.json    
+package-lock.json
+theme-1
+_depricated
