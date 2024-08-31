@@ -14,6 +14,9 @@ src/
 |   |-- index.ts
 |-- lib/
 |   |-- index.ts
+|-- store/
+|   |-- store.ts
+|   |-- index.ts
 |-- styles/
 |   |-- abstracts/
 |   |-- base/
@@ -49,10 +52,19 @@ src/
         |   |   |-- Component.test.tsx
         |   |-- index.ts
         |-- store/
+        |   |-- [slice]/
+        |   |   |-- slice.ts
+        |   |   |-- actions.ts
+        |   |   |-- thunks.ts
+        |   |   |-- selectors.ts
+        |   |   |-- index.ts
         |   |-- index.ts
         |-- hooks/
         |   |-- index.ts
+        |-- layouts/
+        |   |-- index.ts
         |-- pages/
         |   |-- index.ts
+        |-- routes.tsx
         |-- index.ts
 ```

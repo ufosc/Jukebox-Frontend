@@ -1,22 +1,9 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { App } from './App'
-import { Dashboard } from './context/Dashboard'
-import { DevGuide } from './docs'
-import {
-  AddMonitor,
-  EditMonitor,
-  Events,
-  Login,
-  MonitorDetail,
-  MonitorEvents,
-  MonitorIncidents,
-  MonitorSettings,
-  MonitorSubscribers,
-  MonitorSummary,
-  Monitors,
-  Overview,
-  Settings,
-} from './pages'
+import { App } from 'src/App'
+import { adminRoutes } from 'src/apps/admin'
+import { authRoutes } from 'src/apps/auth'
+import { boardsRoutes } from 'src/apps/boards'
+import { membersRoutes } from 'src/apps/members'
 
 const routes = createBrowserRouter([
   {
@@ -24,37 +11,25 @@ const routes = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: '/login',
-        element: <Login />,
+        index: true,
+        element: <div>Index</div>,
       },
       {
-        element: <Dashboard />,
-        children: [
-          { index: true, element: <Overview /> },
-          { path: '/settings', element: <Settings /> },
-          { path: '/events', element: <Events /> },
-          {
-            path: '/monitors',
-            children: [
-              { index: true, element: <Monitors /> },
-              { path: 'add', element: <AddMonitor /> },
-              {
-                path: ':id',
-                element: <MonitorDetail />,
-                children: [
-                  { index: true, element: <MonitorSummary /> },
-                  { path: 'subscribers', element: <MonitorSubscribers /> },
-                  { path: 'incidents', element: <MonitorIncidents /> },
-                  { path: 'events', element: <MonitorEvents /> },
-                  { path: 'settings', element: <MonitorSettings /> },
-                ],
-              },
-              { path: ':id/edit', element: <EditMonitor /> },
-            ],
-          },
-        ],
+        path: 'auth',
+        children: authRoutes,
       },
-      { path: '/dev-guide', element: <DevGuide /> },
+      {
+        path: 'admin',
+        children: adminRoutes,
+      },
+      {
+        path: 'boards',
+        children: boardsRoutes,
+      },
+      {
+        path: 'members',
+        children: membersRoutes,
+      },
     ],
   },
 ])
