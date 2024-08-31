@@ -18,11 +18,6 @@
 
   @include font-label('md', 400);
 
-  &:disabled {
-    cursor: not-allowed;
-    opacity: .6;
-  }
-
   // $color: var(--color-#{$name}-contrast);
   // $on-color: var(--color-#{$name}-contrast-on);
 
@@ -42,6 +37,11 @@
     background-color: var(--color-#{$color-role}-container);
     color: var(--color-#{$color-role}-container-on);
     border-color: var(--color-#{$color-role}-container);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
   }
 }
 

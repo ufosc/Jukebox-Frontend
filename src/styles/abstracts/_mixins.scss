@@ -1,41 +1,82 @@
 @use 'sass:selector';
+@use 'sass:map';
+@use 'sass:list';
+@use 'sass:string';
 
-/**================*
- * Utility Mixins. * 
- *=================*/
-@mixin also-has($selector) {
-  @at-root &#{$selector} {
-    @content;
+/**======= Font Mixins ==========*/
+
+@mixin font-properties($family, $size, $weight: '') {
+  /*=== Variables ===*/
+  $properties: map.get($font-definitions, $family);
+  $weights: map.get($properties, 'weights');
+  $sizes: map.get($properties, 'sizes');
+  $size-properties: map.get($sizes, $size);
+  $default-properties: map.get($properties, 'default-properties');
+
+  @if $weight == '' {
+    $weight: map.get($properties, 'default-weight');
+  }
+
+  @if not list.index($weights, $weight) {
+    @error "#{$weight} is not a valid weight for font-#{$family}.";
+  }
+
+  @if not $size-properties {
+    @error "#{$size} is not a valid weight for font-#{$family}. Valid sizes are: #{$sizes}";
+  }
+
+  /*=== CSS properties ===*/
+  font-family: map.get($properties, 'family'), $font-fallback;
+  font-weight: $weight;
+
+  // Defaults
+  @each $property, $value in $default-properties {
+    #{$property}: $value;
+  }
+
+  // Size specific properties
+  @each $property, $value in $size-properties {
+    @if (str-index($property, 'breakpoint')) {
+      $breakpoint: list.nth(string.split($property, '-'), 2);
+      @include breakpoint($breakpoint) {
+        @each $bp-property, $bp-value in $value {
+          #{$bp-property}: $bp-value;
+        }
+      }
+    } @else {
+      #{$property}: $value;
+    }
   }
 }
 
-@mixin has-parent($parent) {
-  $selector: nth(&, 1);
-  $child: nth($selector, length($selector));
-
-  @at-root #{selector.nest($parent, $child)} {
-    @content;
-  }
+@mixin font-display($weight, $size: '') {
+  @include font-properties('display', $weight, $size);
+}
+@mixin font-data-display($weight, $size: '') {
+  @include font-properties('data-display', $weight, $size);
+}
+@mixin font-headline($weight, $size: '') {
+  @include font-properties('headline', $weight, $size);
+}
+@mixin font-title($weight, $size: '') {
+  @include font-properties('title', $weight, $size);
+}
+@mixin font-label($weight, $size: '') {
+  @include font-properties('label', $weight, $size);
+}
+@mixin font-body($weight, $size: '') {
+  @include font-properties('body', $weight, $size);
 }
 
-/**==================*
- * Base style guide. * 
- *===================*/
-@mixin clearfix {
-  &::after {
-    content: '';
-    display: table;
-    clear: both;
-  }
+/**======= Color Mixins ==========*/
+@mixin color-role($color-group) {
+  $default-variant: themeColorName($color-group);
+
+  color: var(#{$default-variant}-on);
+  background-color: var(#{$default-variant});
 }
 
-@mixin absCenter {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
+/**======= Responsive Mixins ==========*/
 @mixin breakpoint($breakpoint) {
   // when using, always put larger queries first; "only screen" makes it not apply when printed
   @if $breakpoint == xs {
@@ -67,6 +108,37 @@
       @content;
     }
   }
+}
+
+/**======= Utility Mixins ==========*/
+@mixin also-has($selector) {
+  @at-root &#{$selector} {
+    @content;
+  }
+}
+
+@mixin has-parent($parent) {
+  $selector: nth(&, 1);
+  $child: nth($selector, length($selector));
+
+  @at-root #{selector.nest($parent, $child)} {
+    @content;
+  }
+}
+
+@mixin clearfix {
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin absCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 @mixin border-inset($color) {

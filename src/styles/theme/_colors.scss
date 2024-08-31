@@ -11,26 +11,6 @@ $theme-colors: (
   --[token]__[palette]__[modifier]--[variant]: var(--[color]);
 }
 */
-
-$colors-token: 'color';
-
-@function themeColorName($group, $variant: 'default', $mode: '') {
-  // Ex: --color-primary--light
-  // Ex: --color-primary-on--light
-  $color-name: '--#{$colors-token}-#{$group}';
-
-  @if $variant != 'default' {
-    $color-name: $color-name + '-' + $variant;
-  }
-
-  @if $mode != '' {
-    $color-name: $color-name + '--' + $mode;
-  }
-
-  @return $color-name;
-}
-
-$theme-modes: ('light', 'dark');
 $theme-colors: (
   primary: (
     light: (

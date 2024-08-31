@@ -29,6 +29,6 @@
       "src/*": ["./src/*"]
     },
   },
-  "include": ["src", "./src/*", "src/shared/components/layout/widgets"],
+  "include": ["src", "./src/*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

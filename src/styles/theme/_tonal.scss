@@ -4,37 +4,6 @@
 
 $palettes-token: 'tonal';
 
-@function tonalColorCode($palette-name, $number: '') {
-  @if $number != '' {
-    @return '--' + $palettes-token + '-' + $palette-name + '-' + $number;
-  } @else {
-    @return '--' + $palettes-token + '-' + $palette-name;
-  }
-}
-
-@function paletteCodeToColorValue($code) {
-  // Ex: 'p-10' => ['p', '10']
-
-  $palette-props: string.split($code, '-');
-  $palette-name: list.nth($palette-props, 1);
-  $color-number: list.nth($palette-props, 2);
-
-  @if length($palette-props) == 3 {
-    $palette-alpha: list.nth($palette-props, 3);
-    $color-value: colorAlpha($palette-name, $color-number, $palette-alpha);
-    @return ($color-value, 'value');
-  }
-
-  @return (unquote(tonalColorCode($palette-name, $color-number)), 'var');
-}
-
-@function colorAlpha($palette-name, $color-number, $opacity) {
-  $color-tones: map.get($tonal-swatches, $palette-name);
-  $selected-color: map.get($color-tones, to-number($color-number));
-  $alpha-color: rgba($selected-color, calc(to-number($opacity) / 100));
-
-  @return $alpha-color;
-}
 
 $tonal-swatches: (
   a: (

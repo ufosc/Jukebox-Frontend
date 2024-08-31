@@ -1,0 +1,102 @@
+/**======= Theme Colors ==========*/
+:root {
+  // Define tonal palettes
+  @each $color-label, $color-codes in $tonal-swatches {
+    @each $number, $color in $color-codes {
+      $tonal-color-name: tonalColorCode($color-label, $number);
+
+      #{$tonal-color-name}: $color;
+    }
+  }
+
+  // Define theme colors
+  @each $color-group, $modes in $theme-colors {
+    @each $mode, $color-variants in $modes {
+      @each $color-variant, $palette-code in $color-variants {
+        $theme-color: themeColorName($color-group, $color-variant, $mode);
+        $palette-color-props: paletteCodeToColorValue($palette-code);
+        $palette-color: list.nth($palette-color-props, 1);
+        $color-value-type: list.nth($palette-color-props, 2);
+
+        @if $color-value-type == 'var' {
+          #{$theme-color}: var($palette-color);
+        } @else {
+          #{$theme-color}: $palette-color;
+        }
+      }
+    }
+  }
+}
+
+// Define default theme values
+@each $theme-mode in $theme-modes {
+  html[data-theme-mode='#{$theme-mode}'] .theme {
+    @each $color-group, $modes in $theme-colors {
+      $color-variants: map.get($modes, $theme-mode);
+
+      // Color variables
+      @each $color-variant, $palette-code in $color-variants {
+        $default-theme-color: themeColorName($color-group, $color-variant);
+        $theme-mode-color: themeColorName(
+          $color-group,
+          $color-variant,
+          $theme-mode
+        );
+
+        & {
+          #{$default-theme-color}: var(#{$theme-mode-color});
+        }
+      }
+
+      // Color classes
+      $default-variant: themeColorName($color-group);
+      .color-text-role-#{$color-group} {
+        color: var(#{$default-variant});
+      }
+
+      .color-role-#{$color-group} {
+        @include color-role($color-group);
+      }
+    }
+  }
+}
+
+/**======= Theme Fonts ==========*/
+body {
+  h1 {
+    @include font-headline('lg');
+  }
+  h2 {
+    @include font-headline('md');
+  }
+  h3 {
+    @include font-title('md');
+  }
+  h4 {
+    @include font-title('sm');
+  }
+  p {
+    @include font-body('md');
+  }
+
+  @each $font, $properties in $font-definitions {
+    $weights: map.get($properties, 'weights');
+    $sizes: map.get($properties, 'sizes');
+    $family: map.get($properties, 'family');
+
+    @each $size, $size-properties in $sizes {
+      // Default font definition
+      .font-#{$font}-#{$size} {
+        $weight: map.get($properties, 'default-weight');
+        @include font-properties($font, $size, $weight);
+      }
+
+      @each $weight in $weights {
+        // Font weight definition
+        .font-#{$font}-#{$size}-#{$weight} {
+          @include font-properties($font, $size, $weight);
+        }
+      }
+    }
+  }
+}

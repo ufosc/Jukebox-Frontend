@@ -1,9 +1,9 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider as StoreProvider } from 'react-redux'
-import { Router } from './Router'
 import { store } from 'src/store'
 import { ThemeManager } from 'src/utils'
+import { Router } from './Router'
 
 import './styles/main.scss'
 

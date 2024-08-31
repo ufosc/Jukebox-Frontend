@@ -1,6 +1,6 @@
 # Theme Definitions
 
-## Structure
+## Colors
 
 Relevant terms:
 
@@ -9,7 +9,7 @@ Relevant terms:
 - Swatch: A collection of colors that represents a gradient of increasing lightness values for the same/similar hue and saturation values when using hsl.
 - Palette: A group of colors with an abstract role that could have different values for each "mode". Typically has an associated "on" color for text or other overlapping elements.
 
-### Colors.scss
+### Color Definitions
 
 The Colors file creates the base color palettes for the entire theme. The palettes are organized into a map separating each palette and listing the colors by their "lightness" level according to their hsl value. This map of palettes are then looped over to create css variable versions of each entry
 
@@ -25,12 +25,11 @@ $swatch: (
 
 // Example with Azure tonal swatch
 $swatch: (
-  a:
-    (
-      0: hsl(0, 0, 0),
-      20: hsl(209, 75%, 50%),
-      50: hsl(209, 75%, 50%),
-    )
+  a: (
+    0: hsl(0, 0, 0),
+    20: hsl(209, 75%, 50%),
+    50: hsl(209, 75%, 50%),
+  ),
 );
 
 // Generated values
@@ -48,9 +47,9 @@ Example palettes:
 $color-roles: (
   $palette: (
     $mode: (
-      $role: 'color-code'
-    )
-  )
+      $role: 'color-code',
+    ),
+  ),
 );
 
 // Example with Primary color role
@@ -59,8 +58,8 @@ $color-roles: (
     light: (
       default: 'a-40',
       on: 'a-100',
-    )
-  )
+    ),
+  ),
 );
 
 // Generated values for modes
@@ -76,6 +75,31 @@ $color-roles: (
 }
 ```
 
-### Theme.scss
+## Font
 
-The theme file contains one map that defines all of the color swatches for the theme.
+### Display
+
+Used as standalone large text marking a larger section or domain.
+
+### Data Display
+
+Used to display large or prominent numbers, statistics, etc.
+Unlike normal Display, these have an emphasis on utility and
+readability, whereas Display is more stylistic.
+
+### Headline
+
+Marks normal sections and text blocks, classic headers 1-2
+
+### Title
+
+Precludes lower emphasis sections, classic headers 3-6
+
+### Label
+
+Utility text, represents actions or small-form items.
+Should never head sections, content, etc.
+
+### Body
+
+Long form text, normal base text, provides easiest reading experience

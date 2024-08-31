@@ -1,31 +1,27 @@
-@import 'base/responsive';
-
-@import 'abstracts/functions';
-@import 'abstracts/mixins';
-@import 'abstracts/variables';
-
-@import 'font/definitions';
-@import 'font/font';
-
-@import 'base/animations';
-@import 'base/base';
+@use 'sass:map';
+@use 'sass:list';
+@use 'sass:string';
 
 @import 'theme/colors';
 @import 'theme/tonal';
-@import 'theme/stylesheet';
+@import 'theme/fonts';
+
+@import 'abstracts/functions';
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+@import 'base/breakpoints';
+@import 'base/animations';
+@import 'base/base';
 
 @import 'components/components';
 @import 'components/button';
 @import 'components/form';
-@import 'components/element';
-@import 'components/label';
-@import 'components/table';
-@import 'components/not-found';
-@import 'components/overlays';
 
 @import 'layout/grid';
 @import 'layout/container';
-@import 'layout/widgets';
 @import 'layout/row';
 @import 'layout/flex';
-@import 'layout/breakpoint';
+@import 'layout/responsive';
+
+@import 'stylesheets';

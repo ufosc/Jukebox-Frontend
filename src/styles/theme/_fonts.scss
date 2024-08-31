@@ -1,6 +1,4 @@
-@use 'sass:map';
-@use 'sass:list';
-@use 'sass:string';
+
 
 $font-fallback:
   system-ui,
@@ -194,69 +192,4 @@ $font-definitions: (
   ),
 );
 
-@mixin _font-properties($family, $size, $weight: '') {
-  /*=== Variables ===*/
-  $properties: map.get($font-definitions, $family);
-  $weights: map.get($properties, 'weights');
-  $sizes: map.get($properties, 'sizes');
-  $size-properties: map.get($sizes, $size);
-  $default-properties: map.get($properties, 'default-properties');
 
-  @if $weight == '' {
-    $weight: map.get($properties, 'default-weight');
-  }
-
-  @if not list.index($weights, $weight) {
-    @error "#{$weight} is not a valid weight for font-#{$family}.";
-  }
-
-  @if not $size-properties {
-    @error "#{$size} is not a valid weight for font-#{$family}. Valid sizes are: #{$sizes}";
-  }
-
-  /*=== CSS properties ===*/
-  font-family: map.get($properties, 'family'), $font-fallback;
-  font-weight: $weight;
-
-  // Defaults
-  @each $property, $value in $default-properties {
-    #{$property}: $value;
-  }
-
-  // Size specific properties
-  @each $property, $value in $size-properties {
-    @if (str-index($property, 'breakpoint')) {
-      $breakpoint: list.nth(string.split($property, '-'), 2);
-      @include breakpoint($breakpoint) {
-        @each $bp-property, $bp-value in $value {
-          #{$bp-property}: $bp-value;
-        }
-      }
-    } @else {
-      #{$property}: $value;
-    }
-  }
-}
-
-body {
-  @each $font, $properties in $font-definitions {
-    $weights: map.get($properties, 'weights');
-    $sizes: map.get($properties, 'sizes');
-    $family: map.get($properties, 'family');
-
-    @each $size, $size-properties in $sizes {
-      // Default font definition
-      .font-#{$font}-#{$size} {
-        $weight: map.get($properties, 'default-weight');
-        @include _font-properties($font, $size, $weight);
-      }
-
-      @each $weight in $weights {
-        // Font weight definition
-        .font-#{$font}-#{$size}-#{$weight} {
-          @include _font-properties($font, $size, $weight);
-        }
-      }
-    }
-  }
-}

@@ -1,80 +1,147 @@
 @function calc-width($cols, $container) {
-    @return calc($cols/$container * 100% - #{$gap});
+  @return calc($cols/$container * 100% - #{$gap});
 }
 
 @function to-number($value) {
-    @if type-of($value) == 'number' {
-      @return $value;
-    } @else if type-of($value) != 'string' {
-      @error 'Value for `to-number` should be a number or a string.';
-    }
-    
-    $result: 0;
-    $digits: 0;
-    $minus: str-slice($value, 1, 1) == '-';
-    $numbers: ('0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9);
-    
-    @for $i from if($minus, 2, 1) through str-length($value) {
-      $character: str-slice($value, $i, $i);
-      
-      @if (index(map-keys($numbers), $character) or $character == '.') {
-        @if $character == '.' {
-          $digits: 1; 
-        } @else if $digits == 0 {
-          $result: $result * 10 + map-get($numbers, $character);  
-        } @else {
-          $digits: $digits * 10;
-          $result: $result + map-get($numbers, $character) / $digits;
-        }
+  @if type-of($value) == 'number' {
+    @return $value;
+  } @else if type-of($value) != 'string' {
+    @error 'Value for `to-number` should be a number or a string.';
+  }
+
+  $result: 0;
+  $digits: 0;
+  $minus: str-slice($value, 1, 1) == '-';
+  $numbers: (
+    '0': 0,
+    '1': 1,
+    '2': 2,
+    '3': 3,
+    '4': 4,
+    '5': 5,
+    '6': 6,
+    '7': 7,
+    '8': 8,
+    '9': 9,
+  );
+
+  @for $i from if($minus, 2, 1) through str-length($value) {
+    $character: str-slice($value, $i, $i);
+
+    @if (index(map-keys($numbers), $character) or $character == '.') {
+      @if $character == '.' {
+        $digits: 1;
+      } @else if $digits == 0 {
+        $result: $result * 10 + map-get($numbers, $character);
+      } @else {
+        $digits: $digits * 10;
+        $result: $result + map-get($numbers, $character) / $digits;
       }
     }
-    
-    @return if($minus, -$result, $result);;
   }
-  
-  /*
+
+  @return if($minus, -$result, $result);
+}
+
+/*
   Divide 2 numbers.
   
   Source: https://github.com/twbs/bootstrap/blob/main/scss/_functions.scss
   */
-  @function divide($dividend, $divisor, $precision: 10) {
-    $sign: if($dividend > 0 and $divisor > 0 or $dividend < 0 and $divisor < 0, 1, -1);
-    $dividend: abs($dividend);
-    $divisor: abs($divisor);
-    @if $dividend == 0 {
-      @return 0;
-    }
-    @if $divisor == 0 {
-      @error "Cannot divide by 0";
-    }
-    $remainder: $dividend;
-    $result: 0;
-    $factor: 10;
-    @while ($remainder > 0 and $precision >= 0) {
-      $quotient: 0;
-      @while ($remainder >= $divisor) {
-        $remainder: $remainder - $divisor;
-        $quotient: $quotient + 1;
-      }
-      $result: $result * 10 + $quotient;
-      $factor: $factor * .1;
-      $remainder: $remainder * 10;
-      $precision: $precision - 1;
-      @if ($precision < 0 and $remainder >= $divisor * 5) {
-        $result: $result + 1;
-      }
-    }
-    $result: $result * $factor * $sign;
-    $dividend-unit: unit($dividend);
-    $divisor-unit: unit($divisor);
-    $unit-map: (
-      "px": 1px,
-      "rem": 1rem,
-      "em": 1em,
-      "%": 1%
-    );
-    @if ($dividend-unit != $divisor-unit and map-has-key($unit-map, $dividend-unit)) {
-      $result: $result * map-get($unit-map, $dividend-unit);
-    }
-    @return $result;
+@function divide($dividend, $divisor, $precision: 10) {
+  $sign: if(
+    $dividend > 0 and $divisor > 0 or $dividend < 0 and $divisor < 0,
+    1,
+    -1
+  );
+  $dividend: abs($dividend);
+  $divisor: abs($divisor);
+  @if $dividend == 0 {
+    @return 0;
   }
+  @if $divisor == 0 {
+    @error "Cannot divide by 0";
+  }
+  $remainder: $dividend;
+  $result: 0;
+  $factor: 10;
+  @while ($remainder > 0 and $precision >= 0) {
+    $quotient: 0;
+    @while ($remainder >= $divisor) {
+      $remainder: $remainder - $divisor;
+      $quotient: $quotient + 1;
+    }
+    $result: $result * 10 + $quotient;
+    $factor: $factor * 0.1;
+    $remainder: $remainder * 10;
+    $precision: $precision - 1;
+    @if ($precision < 0 and $remainder >= $divisor * 5) {
+      $result: $result + 1;
+    }
+  }
+  $result: $result * $factor * $sign;
+  $dividend-unit: unit($dividend);
+  $divisor-unit: unit($divisor);
+  $unit-map: (
+    'px': 1px,
+    'rem': 1rem,
+    'em': 1em,
+    '%': 1%,
+  );
+  @if (
+    $dividend-unit != $divisor-unit and map-has-key($unit-map, $dividend-unit)
+  ) {
+    $result: $result * map-get($unit-map, $dividend-unit);
+  }
+  @return $result;
+}
+
+/** Color Functions */
+@function themeColorName($group, $variant: 'default', $mode: '') {
+  // Ex: --color-primary--light
+  // Ex: --color-primary-on--light
+  $color-name: '--#{$colors-token}-#{$group}';
+
+  @if $variant != 'default' {
+    $color-name: $color-name + '-' + $variant;
+  }
+
+  @if $mode != '' {
+    $color-name: $color-name + '--' + $mode;
+  }
+
+  @return $color-name;
+}
+
+
+@function tonalColorCode($palette-name, $number: '') {
+  @if $number != '' {
+    @return '--' + $palettes-token + '-' + $palette-name + '-' + $number;
+  } @else {
+    @return '--' + $palettes-token + '-' + $palette-name;
+  }
+}
+
+@function paletteCodeToColorValue($code) {
+  // Ex: 'p-10' => ['p', '10']
+
+  $palette-props: string.split($code, '-');
+  $palette-name: list.nth($palette-props, 1);
+  $color-number: list.nth($palette-props, 2);
+
+  @if length($palette-props) == 3 {
+    $palette-alpha: list.nth($palette-props, 3);
+    $color-value: colorAlpha($palette-name, $color-number, $palette-alpha);
+    @return ($color-value, 'value');
+  }
+
+  @return (unquote(tonalColorCode($palette-name, $color-number)), 'var');
+}
+
+@function colorAlpha($palette-name, $color-number, $opacity) {
+  $color-tones: map.get($tonal-swatches, $palette-name);
+  $selected-color: map.get($color-tones, to-number($color-number));
+  $alpha-color: rgba($selected-color, calc(to-number($opacity) / 100));
+
+  @return $alpha-color;
+}

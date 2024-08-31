@@ -14,13 +14,6 @@
   Breakpoint Label: Token used to identify breakpoint
 ===============================*/
 
-// Base Breakpoints
-$screen-xs: 320px;
-$screen-sm: 480px;
-$screen-md: 768px;
-$screen-lg: 1024px;
-$screen-xl: 1800px;
-
 // Breakpoint labels
 $breakpoints: (
   'xs': $screen-xs,

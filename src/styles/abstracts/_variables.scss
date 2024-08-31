@@ -2,8 +2,18 @@
 $gap: 1.5rem;
 $border-thin: 0.5px solid var(--color-outline-variant);
 
-/** Global Colors */
+/** Main Breakpoints */
+$screen-xs: 320px;
+$screen-sm: 480px;
+$screen-md: 768px;
+$screen-lg: 1024px;
+$screen-xl: 1800px;
 
+/** Theme */
+$colors-token: 'color';
+$theme-modes: ('light', 'dark');
+
+/** Global Colors */
 $primary: var(--color-primary);
 $on-primary: var(--color-primary-on);
 $secondary: var(--color-secondary);
