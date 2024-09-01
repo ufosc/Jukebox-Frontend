@@ -22,7 +22,13 @@
   }
 
   @if not $size-properties {
-    @error "#{$size} is not a valid weight for font-#{$family}. Valid sizes are: #{$sizes}";
+    $valid-sizes: ();
+    
+    @each $valid-size, $_ in $sizes {
+      $valid-sizes: append($valid-sizes, $valid-size);
+    }
+    
+    @error "#{$size} is not a valid weight for font-#{$family}. Valid sizes are: #{$valid-sizes}";
   }
 
   /*=== CSS properties ===*/

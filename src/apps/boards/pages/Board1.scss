@@ -38,6 +38,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
+    @include font-display('xl');
   }
 }
 
@@ -71,7 +73,7 @@
       font-weight: 800;
       letter-spacing: 2px;
       
-      flex: $flex-g-s 10%;
+      flex: $flex-g-s 5%;
     }
 
     &__preview {
@@ -85,7 +87,7 @@
       }
     }
     &__name-group {
-      flex: $flex-g-s 30%;
+      flex: $flex-g-s 40%;
     }
     &__name {
       @include font-title('md');

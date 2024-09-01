@@ -1,0 +1,26 @@
+$blink-start: 50%;
+$blink-transition: 1;
+$blink-start-opacity: 1;
+$blink-end-opacity: 0;
+
+@keyframes blink-every-sec {
+  0% {
+    opacity: $blink-start-opacity;
+  }
+  #{$blink-start} {
+    opacity: $blink-start-opacity;
+  }
+  #{$blink-start + $blink-transition} {
+    opacity: $blink-end-opacity;
+  }
+  100% {
+    opacity: $blink-end-opacity;
+  }
+}
+
+.clock {
+  &__colon {
+    animation: 1s infinite linear blink-every-sec;
+  }
+}
+
