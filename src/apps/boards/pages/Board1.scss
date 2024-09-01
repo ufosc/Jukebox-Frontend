@@ -1,0 +1,138 @@
+.board {
+  @include color-role('surface');
+
+  height: 100vh;
+
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+
+  &__col {
+    flex: 1;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    padding: 4.2rem;
+  }
+  &__display {
+    background-color: var(--color-surface);
+    @include psuedo-parent;
+
+    &::after {
+      @include psuedo-element;
+      background-color: var(--color-primary-container);
+      clip-path: path(
+        'M179.532 261.46L6.25079 238.857C-77.8741 227.884 -112.679 343.085 -36.5509 380.527L638.132 712.364C675.301 730.645 720.252 715.333 738.533 678.165L971.289 204.931C994.992 156.738 961.841 99.9798 908.22 96.9495L857.582 94.0878C853.816 93.875 850.071 93.3783 846.379 92.602L414.23 1.72571C379.028 -5.67686 343.528 12.9561 329.624 46.1324L258.404 216.078C245.342 247.248 213.045 265.831 179.532 261.46Z'
+      );
+
+      width: 100%;
+      height: 30rem;
+      top: auto;
+      bottom: 0rem;
+    }
+  }
+  &__tracks {
+    justify-content: space-between;
+    background-color: var(--color-surface-container);
+
+    &__group {
+      &__title {
+        @include font-headline('sm');
+      }
+      &__inner {
+        margin: 5.8rem 0;
+      }
+    }
+  }
+  &__clock {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: var(--color-primary-contrast);
+    @include font-display('xl');
+  }
+  &__currently-playing__player {
+    margin: 5rem 0;
+  }
+}
+
+.track-list {
+  counter-reset: index;
+  list-style-type: decimal-leading-zero;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+
+  &-offset {
+    counter-reset: index 1;
+  }
+
+  &__track {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    counter-increment: index;
+    gap: 1.1rem;
+
+    $flex-g-s: 0 1;
+
+    &::before {
+      content: counter(index, decimal-leading-zero);
+
+      color: var(--color-label-variant);
+      opacity: 0.8;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+
+      flex: $flex-g-s 5%;
+    }
+
+    &__preview {
+      $size: 5rem;
+      display: inline-block;
+
+      img {
+        width: $size;
+        height: $size;
+        object-fit: cover;
+      }
+    }
+    &__name-group {
+      flex: $flex-g-s 40%;
+    }
+    &__name {
+      @include font-title('md');
+    }
+    &__artists {
+      @include font-title('sm', 300);
+      color: var(--color-label);
+    }
+    &__info {
+      @include font-body('md');
+      color: var(--color-label);
+
+      display: flex;
+      justify-content: center;
+    }
+    &__rec-by {
+      flex: $flex-g-s 30%;
+    }
+    &__duration {
+      flex: $flex-g-s 15%;
+    }
+    &__likes {
+      flex: $flex-g-s 5%;
+    }
+    &__dislikes {
+      flex: $flex-g-s 5%;
+    }
+  }
+}

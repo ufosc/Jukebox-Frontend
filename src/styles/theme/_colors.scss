@@ -14,241 +14,251 @@ $theme-colors: (
 $theme-colors: (
   primary: (
     light: (
-      color: 'c-55',
+      default: 'c-55',
       on: 'c-100',
     ),
     dark: (
-      color: 'c-60',
+      default: 'c-60',
       on: 'c-100',
     ),
   ),
   secondary: (
     light: (
-      color: 't-55',
+      default: 't-55',
       on: 't-100',
     ),
     dark: (
-      color: 't-60',
+      default: 't-60',
       on: 't-100',
     ),
   ),
   error: (
     light: (
-      color: 'r-55',
+      default: 'r-55',
       on: 'r-100',
     ),
     dark: (
-      color: 'r-60',
+      default: 'r-60',
       on: 'r-100',
     ),
   ),
   caution: (
     light: (
-      color: 'y-55',
+      default: 'y-55',
       on: 'y-100',
     ),
     dark: (
-      color: 'y-50',
+      default: 'y-50',
       on: 'y-100',
     ),
   ),
   good: (
     light: (
-      color: 'g-55',
+      default: 'g-55',
       on: 'g-100',
     ),
     dark: (
-      color: 'g-55',
+      default: 'g-55',
       on: 'g-100',
     ),
   ),
   primary-contrast: (
     light: (
-      color: 'c-40',
+      default: 'c-40',
       on: 'c-100',
     ),
     dark: (
-      color: 'c-80',
+      default: 'c-80',
       on: 'c-10',
     ),
   ),
   secondary-contrast: (
     light: (
-      color: 't-15',
+      default: 't-15',
       on: 't-100',
     ),
     dark: (
-      color: 't-80',
+      default: 't-80',
       on: 't-10',
     ),
   ),
   error-contrast: (
     light: (
-      color: 'r-40',
+      default: 'r-40',
       on: 'r-100',
     ),
     dark: (
-      color: 'r-80',
+      default: 'r-80',
       on: 'r-20',
     ),
   ),
   caution-contrast: (
     light: (
-      color: 'y-30',
+      default: 'y-30',
       on: 'y-100',
     ),
     dark: (
-      color: 'y-90',
+      default: 'y-90',
       on: 'y-20',
     ),
   ),
   good-contrast: (
     light: (
-      color: 'g-30',
+      default: 'g-30',
       on: 'g-100',
     ),
     dark: (
-      color: 'g-80',
+      default: 'g-80',
       on: 'g-15',
     ),
   ),
   primary-container: (
     light: (
-      color: 'c-90',
+      default: 'c-90',
       on: 'c-10',
     ),
     dark: (
-      color: 'c-v20',
+      default: 'c-20',
       on: 'c-90',
     ),
   ),
   secondary-container: (
     light: (
-      color: 't-90',
+      default: 't-90',
       on: 't-10',
     ),
     dark: (
-      color: 't-15',
+      default: 't-15',
       on: 't-90',
     ),
   ),
   error-container: (
     light: (
-      color: 'r-95',
+      default: 'r-95',
       on: 'r-20',
     ),
     dark: (
-      color: 'r-30',
+      default: 'r-30',
       on: 'r-95',
     ),
   ),
   caution-container: (
     light: (
-      color: 'y-85',
+      default: 'y-85',
       on: 'y-10',
     ),
     dark: (
-      color: 'y-25',
+      default: 'y-25',
       on: 'y-95',
     ),
   ),
   good-container: (
     light: (
-      color: 'g-90',
+      default: 'g-90',
       on: 'g-20',
     ),
     dark: (
-      color: 'g-30',
+      default: 'g-30',
       on: 'g-95',
     ),
   ),
   surface: (
     light: (
-      color: 'n-100',
+      default: 'n-100',
       on: 'n-10',
     ),
     dark: (
-      color: 'n-13',
+      default: 'n-13',
       on: 'n-95',
     ),
   ),
   surface-container: (
     light: (
-      color: 'n-97',
+      default: 'n-97',
       on: 'n-10',
     ),
     dark: (
-      color: 'n-10',
+      default: 'n-10',
       on: 'n-95',
     ),
   ),
   inverse-surface: (
     light: (
-      color: 'c-20',
+      default: 'c-20',
       on: 'n-95',
     ),
     dark: (
-      color: 'c-80',
+      default: 'c-80',
       on: 'n-10',
     ),
   ),
   container: (
     light: (
-      color: 'n-90',
+      default: 'n-90',
       on: 'n-10',
     ),
     dark: (
-      color: 'n-80',
+      default: 'n-80',
       on: 'n-10',
     ),
   ),
   outline: (
     light: (
-      color: 'n-50',
+      default: 'n-50',
       on: 'n-95',
     ),
     dark: (
-      color: 'n-70',
+      default: 'n-70',
       on: 'n-30',
     ),
   ),
   outline-variant: (
     light: (
-      color: 'n-90',
+      default: 'n-90',
       on: 'n-20',
     ),
     dark: (
-      color: 'n-30',
+      default: 'n-30',
       on: 'n-95',
     ),
   ),
   label: (
     light: (
-      color: 'n-50',
+      default: 'n-50',
       on: 'n-100',
     ),
     dark: (
-      color: 'n-70',
+      default: 'n-70',
       on: 'n-30',
+    ),
+  ),
+  label-variant: (
+    light: (
+      default: 'n-70',
+      on: 'n-100',
+    ),
+    dark: (
+      default: 'n-60',
+      on: 'n-20',
     ),
   ),
   disabled: (
     light: (
-      color: 'n-70',
+      default: 'n-70',
       on: 'n-100',
     ),
     dark: (
-      color: 'n-30',
+      default: 'n-30',
       on: 'n-70',
     ),
   ),
   disabled-container: (
     light: (
-      color: 'n-90',
+      default: 'n-90',
       on: 'n-60',
     ),
     dark: (
-      color: 'n-30',
+      default: 'n-30',
       on: 'n-70',
     ),
   ),

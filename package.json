@@ -17,6 +17,7 @@
     "test:preview": "npx vite preview --outDir test-html"
   },
   "dependencies": {
+    "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^5.14.19",
     "@mui/material": "^5.14.19",
     "@reduxjs/toolkit": "^2.2.7",
@@ -37,7 +38,6 @@
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.24.7",
-    "@development-suite/types": "^1.0.7",
     "@testing-library/dom": "^10.1.0",
     "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
@@ -67,6 +67,7 @@
     "sass": "^1.69.5",
     "typescript": "^5.2.2",
     "vite": "^5.0.0",
+    "vite-plugin-svgr": "^4.2.0",
     "vitest": "^2.0.5"
   }
 }

@@ -5,7 +5,9 @@ import { store } from 'src/store'
 import { ThemeManager } from 'src/utils'
 import { Router } from './Router'
 
-import './styles/main.scss'
+import './styles/theme/fonts/chango/css/chango.css'
+import './styles/theme/fonts/poppins/css/poppins.css'
+import './styles/theme/fonts/termina/css/termina.css'
 
 ThemeManager.getInstance()
 
