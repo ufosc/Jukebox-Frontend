@@ -1,9 +1,13 @@
 import type { RouteObject } from 'react-router'
+import { Dashboard } from './layout/Dashboard'
+import { Overview } from './pages'
+
+export const adminOutlet = <Dashboard />
 
 export const adminRoutes: RouteObject[] = [
   {
     index: true,
-    element: <div>Overview</div>,
+    element: <Overview />,
   },
   {
     path: 'boards',

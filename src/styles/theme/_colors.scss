@@ -182,6 +182,26 @@ $theme-colors: (
       on: 'n-95',
     ),
   ),
+  surface-accent: (
+    light: (
+      default: 't-20',
+      on: 'n-97',
+    ),
+    dark: (
+      default: 't-15',
+      on: 'n-95',
+    ),
+  ),
+  surface-accent-bright: (
+    light: (
+      default: 't-30',
+      on: 'n-97',
+    ),
+    dark: (
+      default: 't-25',
+      on: 'n-97',
+    ),
+  ),
   inverse-surface: (
     light: (
       default: 'c-20',

@@ -1,0 +1,20 @@
+.topbar {
+  // height: 7.7rem;
+  position: relative;
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__profile {
+    img {
+      $size: 3.5rem;
+      width: $size;
+      height: $size;
+      object-fit: cover;
+      border-radius: 500px;
+      border: $border-thin;
+    }
+  }
+}

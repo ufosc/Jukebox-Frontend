@@ -1,3 +1,2 @@
-export * from './ControlPanel/ControlPanel'
-export * from './NavBar/NavBar'
-export * from './TaskBar/TaskBar'
+export * from './Sidebar'
+export * from './Topbar'

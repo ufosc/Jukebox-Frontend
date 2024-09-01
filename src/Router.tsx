@@ -1,6 +1,6 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { Link, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { App } from 'src/App'
-import { adminRoutes } from 'src/apps/admin'
+import { adminOutlet, adminRoutes } from 'src/apps/admin'
 import { authRoutes } from 'src/apps/auth'
 import { boardsRoutes } from 'src/apps/boards'
 import { membersRoutes } from 'src/apps/members'
@@ -12,7 +12,25 @@ const routes = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <div>Index</div>,
+        element: (
+          <div>
+            <strong>Apps:</strong>
+            <ul>
+              <li>
+                <Link to="auth">Auth</Link>
+              </li>
+              <li>
+                <Link to="admin">Admin</Link>
+              </li>
+              <li>
+                <Link to="boards">Boards</Link>
+              </li>
+              <li>
+                <Link to="members">Members</Link>
+              </li>
+            </ul>
+          </div>
+        ),
       },
       {
         path: 'auth',
@@ -20,6 +38,7 @@ const routes = createBrowserRouter([
       },
       {
         path: 'admin',
+        element: adminOutlet,
         children: adminRoutes,
       },
       {
