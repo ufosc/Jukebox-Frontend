@@ -5,8 +5,6 @@ import { store } from 'src/store'
 import { ThemeManager } from 'src/utils'
 import { Router } from './Router'
 
-import './styles/main.scss'
-
 ThemeManager.getInstance()
 
 createRoot(document.getElementById('root')!).render(

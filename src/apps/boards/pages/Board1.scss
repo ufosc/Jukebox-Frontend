@@ -1,0 +1,114 @@
+.board {
+  @include color-role('surface');
+
+  height: 100vh;
+
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+
+  &__col {
+    flex: 1;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    padding: 4.2rem;
+  }
+  &__display {
+    background-color: var(--color-surface);
+  }
+  &__tracks {
+    justify-content: space-between;
+    background-color: var(--color-surface-container);
+
+    &__group {
+      &__title {
+        @include font-headline('sm');
+      }
+      &__inner {
+        margin: 5.8rem 0;
+      }
+    }
+  }
+  &__clock {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.track-list {
+  counter-reset: index;
+  list-style-type: decimal-leading-zero;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+
+  &-offset {
+    counter-reset: index 1;
+  }
+
+  &__track {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    counter-increment: index;
+    gap: 1.1rem;
+
+    $flex-g-s: 0 1;
+
+    &::before {
+      content: counter(index, decimal-leading-zero);
+
+      color: var(--color-label-variant);
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      
+      flex: $flex-g-s 10%;
+    }
+
+    &__preview {
+      $size: 6.2rem;
+      display: inline-block;
+
+      img {
+        width: $size;
+        height: $size;
+        object-fit: cover;
+      }
+    }
+    &__name-group {
+      flex: $flex-g-s 30%;
+    }
+    &__name {
+      @include font-title('md');
+    }
+    &__artists {
+      @include font-title('sm', 300);
+    }
+    &__info {
+      @include font-body('md');
+      display: flex;
+      justify-content: center;
+    }
+    &__rec-by {
+      flex: $flex-g-s 30%;
+    }
+    &__duration {
+      flex: $flex-g-s 15%;
+    }
+    &__likes {
+      flex: $flex-g-s 5%;
+    }
+    &__dislikes {
+      flex: $flex-g-s 5%;
+    }
+  }
+}
