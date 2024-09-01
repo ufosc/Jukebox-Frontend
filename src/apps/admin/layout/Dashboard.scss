@@ -1,5 +1,6 @@
 .dashboard {
   --sidebar-width: 31.4rem;
+  --dashboard-gutter: 1rem;
   
   @include color-role('surface-container');
   display: flex;
@@ -9,6 +10,10 @@
     width: var(--sidebar-width);
   }
   &__main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
     height: 100%;
+    padding: var(--dashboard-gutter);
   }
 }

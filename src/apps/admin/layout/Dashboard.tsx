@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router'
-import { Sidebar } from '../components'
+import { Sidebar, Topbar } from '../components'
 
 import './Dashboard.scss'
 
@@ -10,6 +10,7 @@ export const Dashboard = () => {
         <Sidebar />
       </div>
       <div className="dashboard__main">
+        <Topbar />
         <Outlet />
       </div>
     </div>
