@@ -1,0 +1,14 @@
+.dashboard {
+  --sidebar-width: 31.4rem;
+  
+  @include color-role('surface-container');
+  display: flex;
+  min-height: 100vh;
+  
+  &__sidebar {
+    width: var(--sidebar-width);
+  }
+  &__main {
+    height: 100%;
+  }
+}

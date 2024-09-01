@@ -1,0 +1,174 @@
+@import 'src/styles/main';
+
+.navbar {
+  $nav-width: var(--sidebar-width);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  min-width: $nav-width;
+  position: fixed;
+  height: 100vh;
+  
+
+  &__inner {
+    background-color: var(--color-surface-accent);
+    color: var(--color-surface-accent-on);
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 1rem;
+    height: 100%;
+    border-radius: 20px;
+  }
+
+  &__row:has(.switch) {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__logobox {
+    &__title {
+      $font-size: 2.2rem;
+
+      font-family: 'Museo Sans Display', sans-serif;
+      font-weight: 600;
+      font-size: $font-size;
+      line-height: $font-size;
+      letter-spacing: 0.06rem;
+      color: var(--tonal-a-70);
+    }
+    &__subtitle {
+      $font-size: 1.7rem;
+
+      font-family: 'Museo Sans Display', sans-serif;
+      font-weight: 400;
+      font-size: $font-size;
+      line-height: $font-size;
+      letter-spacing: 0.1rem;
+    }
+  }
+
+  &__nav {
+    margin: 6rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+
+      list-style: none;
+    }
+    &__item {
+      @include font-label('md', 400);
+      $icon-size: 1.7rem;
+
+      a {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        padding: 0.8rem 0.5rem;
+        border-radius: 5px;
+
+        $transition: 0.1s ease-in-out;
+        transition:
+          background-color $transition,
+          color $transition;
+
+        &,
+        &:link,
+        &:visited {
+          color: inherit;
+          line-height: $icon-size;
+        }
+
+        &.active {
+          @include color-role('surface-accent-bright');
+        }
+      }
+
+      &__icon {
+        width: 2.5rem;
+        height: $icon-size;
+
+        svg {
+          width: $icon-size;
+          height: $icon-size;
+        }
+      }
+    }
+  }
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 7rem;
+  height: 3rem;
+
+  & input {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  & .slider {
+    $padding: 2px;
+    $transition: 0.3s;
+
+    pointer-events: none;
+
+    position: absolute;
+    display: flex;
+    align-items: center;
+    padding: $padding;
+
+    width: 100%;
+    height: 100%;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    @include color-role('surface-container');
+    border-radius: 5rem;
+    border: 1px solid var(--color-outline-variant);
+
+    &__toggle {
+      position: absolute;
+      content: '';
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: calc(100% - #{$padding});
+
+      aspect-ratio: 1;
+      max-width: 50%;
+      -webkit-transition: $transition;
+      transition: $transition;
+
+      border-radius: 5rem;
+    }
+  }
+
+  & input:not([value='checked']) + .slider {
+    & .slider__toggle {
+      left: 100%;
+      transform: translateX(-100%);
+    }
+  }
+  & input[value='checked'] + .slider {
+    & .slider__toggle {
+      left: 0%;
+      transform: translateX(0);
+    }
+  }
+}
