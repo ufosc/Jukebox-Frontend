@@ -1,3 +1,5 @@
 export * from './debounce'
+export * from './mergeClassNames'
+export * from './result'
 export * from './sleep'
 export * from './uniqueId'
