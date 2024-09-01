@@ -1,0 +1,71 @@
+.audio-player {
+  --range-height: 0.5rem;
+  --range-background: var(--color-surface);
+  --range-accent: var(--color-primary-contrast);
+  
+  // $range-background: var(--range-background);
+  // $range-accent: var(--range-accent);
+
+  width: 100%;
+  z-index: 100;
+  color: var(--range-accent);
+  fill: var(--range-accent);
+  transition: all 0.3s;
+
+  background-color: inherit;
+
+  &:has(:not(audio)) {
+    transform: translateY(100%);
+  }
+  &:has(audio) {
+    transform: translateY(0);
+  }
+
+  & input[type='range'] {
+    background: var(--range-background);
+  }
+
+  & button {
+    // background: none;
+    border: none;
+    padding: 0.5rem;
+    margin: 0;
+    display: inline-flex;
+    border-radius: 100px;
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  // &__controls {
+  //   display: flex;
+  //   gap: 0.5rem;
+    
+  //   // & svg {
+  //   //   fill: inherit;
+  //   //   font-size: 3.7rem;
+  //   // }
+  // }
+
+  &__progress {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 0.6rem;
+
+    & .time {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .audio-player__volume {
+    display: none !important;
+  }
+}

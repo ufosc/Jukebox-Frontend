@@ -79,6 +79,7 @@
   $default-variant: themeColorName($color-group);
 
   color: var(#{$default-variant}-on);
+  fill: var(#{$default-variant}-on);
   background-color: var(#{$default-variant});
 }
 

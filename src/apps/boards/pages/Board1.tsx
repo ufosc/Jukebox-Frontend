@@ -1,6 +1,7 @@
 import { mockTrack } from 'src/mock'
 import { Clock } from '../components/Clock'
 
+import { AudioPlayer } from 'src/audio'
 import './Board1.scss'
 
 const Track = (props: { track: Track }) => {
@@ -51,7 +52,24 @@ export const Board1 = () => {
             <ol className="board__currently-playing__list track-list">
               <Track track={track} />
             </ol>
-            <div className="board__currently-playing__player"></div>
+            <div className="board__currently-playing__player">
+              <AudioPlayer
+                audio={track}
+                isPlaying={false}
+                next={() => {
+                  throw new Error('Function not implemented.')
+                }}
+                previous={() => {
+                  throw new Error('Function not implemented.')
+                }}
+                play={() => {
+                  throw new Error('Function not implemented.')
+                }}
+                pause={() => {
+                  throw new Error('Function not implemented.')
+                }}
+              />
+            </div>
           </div>
         </div>
         <div className="board__queue board__tracks__group">

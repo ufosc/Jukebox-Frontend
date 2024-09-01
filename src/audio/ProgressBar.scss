@@ -1,0 +1,82 @@
+/**======= Custom Input Range ==========*/
+
+/* Input range - chrome and safari */
+$range-height: var(--range-height, 4px);
+$range-background: var(--range-background);
+$range-accent: var(--range-accent);
+
+input[type='range'] {
+  --range-progress: 0;
+
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  background: $range-background;
+  width: 100%;
+  height: $range-height;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+/* Input range - firefox */
+input[type='range']::-moz-range-track {
+  position: relative;
+  background: $range-background;
+  width: 100%;
+  height: $range-height;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+/* played progress length - Chrome & safari*/
+input[type='range']::before {
+  content: '';
+  height: $range-height;
+  background: $range-accent;
+  width: var(--range-progress);
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* played progress length - firefox */
+input[type='range']::-moz-range-progress {
+  background: $range-accent;
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+  height: $range-height;
+}
+
+/* slider thumb - chrome and safari */
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  border: none;
+  background-color: $range-accent;
+  cursor: pointer;
+  position: relative;
+}
+
+/* dragging thumb - chrome and safari */
+input[type='range']:active::-webkit-slider-thumb {
+  transform: scale(1.2);
+}
+
+/* slider thumb - firefox */
+input[type='range']::-moz-range-thumb {
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  background: $range-accent;
+  cursor: pointer;
+  border: transparent;
+  position: relative;
+}
+/* dragging thumb - firefox */
+input[type='range']:active::-moz-range-thumb {
+  transform: scale(1.2);
+}

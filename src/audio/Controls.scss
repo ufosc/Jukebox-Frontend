@@ -1,0 +1,15 @@
+.audio-controls {
+  --controls-fill: var(--range-accent);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  &__icon {
+    background-color: inherit;
+    color: var(--controls-fill);
+
+    width: 3.7rem;
+  }
+}

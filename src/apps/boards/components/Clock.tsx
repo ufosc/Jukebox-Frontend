@@ -29,12 +29,14 @@ export const Clock = () => {
           {date.toLocaleTimeString('en-US', {
             minute: '2-digit',
           })}
+          &nbsp;
           {date
             .toLocaleTimeString([], {
               hour: 'numeric',
             })
             .replace(/\d*/, '')
-            .trim()}
+            .trim()
+            .toLocaleLowerCase()}
         </span>
       </time>
     </div>
