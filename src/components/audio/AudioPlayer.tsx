@@ -1,7 +1,7 @@
 /**
  * @fileoverview Audio Player Component
  */
-import { createContext, useContext, useRef, useState } from 'react'
+import { createContext, useContext, useEffect, useRef } from 'react'
 import { SpotifyPlayerContext } from 'src/context'
 import './AudioPlayer.scss'
 import { Controls } from './Controls'
@@ -30,11 +30,26 @@ export const AudioPlayer = () => {
     togglePlay,
     isPlaying,
     currentTrack,
+    progress: timeProgress,
+    duration,
   } = useContext(SpotifyPlayerContext)
+  const progressBarRef = useRef<HTMLInputElement>(null)
 
-  // State
-  const [timeProgress, setTimeProgress] = useState(0)
-  const [duration, setDuration] = useState(0)
+  useEffect(() => {
+    if (progressBarRef.current) {
+      progressBarRef.current.max = String(duration)
+    }
+  }, [duration])
+
+  useEffect(() => {
+    containerRef.current?.style.setProperty(
+      '--range-progress',
+      `${(timeProgress / duration) * 100}%`,
+    )
+  }, [timeProgress])
+
+  const setTimeProgress = () => {}
+  const setDuration = () => {}
 
   // Refs
   const containerRef = useRef<HTMLDivElement>(null)
@@ -57,7 +72,10 @@ export const AudioPlayer = () => {
       >
         <div className="audio-player__inner">
           <Controls />
-          <ProgressBar onProgressChange={() => {}} />
+          <ProgressBar
+            onProgressChange={setTimeProgress}
+            ref={progressBarRef}
+          />
         </div>
       </AudioPlayerContext.Provider>
     </div>

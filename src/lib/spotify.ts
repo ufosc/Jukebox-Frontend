@@ -1,5 +1,3 @@
-// import 'https://sdk.scdn.co/spotify-player.js'
-
 import { SPOTIFY_PLAYER_NAME } from 'src/config'
 
 export class SpotifyPlayer {
@@ -37,7 +35,7 @@ export class SpotifyPlayer {
         getOAuthToken: (cb) => {
           cb(this.token)
         },
-        volume: 0.5,
+        volume: 0.3,
       })
       this.player = player
 

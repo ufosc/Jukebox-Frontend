@@ -5,17 +5,20 @@ $range-height: var(--range-height, 4px);
 $range-background: var(--range-background);
 $range-accent: var(--range-accent);
 
-input[type='range'] {
-  --range-progress: 0;
+$range-progress: var(--range-progress);
 
+input[type='range'] {
   appearance: none;
   -webkit-appearance: none;
   position: relative;
   background: $range-background;
+
   width: 100%;
   height: $range-height;
   border-radius: 2px;
   cursor: pointer;
+
+  transition: all .2s;
 }
 
 /* Input range - firefox */
@@ -26,6 +29,8 @@ input[type='range']::-moz-range-track {
   height: $range-height;
   border-radius: 2px;
   cursor: pointer;
+  
+  transition: inherit;
 }
 
 /* played progress length - Chrome & safari*/
@@ -33,7 +38,7 @@ input[type='range']::before {
   content: '';
   height: $range-height;
   background: $range-accent;
-  width: var(--range-progress);
+  width: $range-progress;
   border-bottom-left-radius: 2px;
   border-top-left-radius: 2px;
   position: absolute;

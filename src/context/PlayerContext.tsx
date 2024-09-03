@@ -18,6 +18,8 @@ export const SpotifyPlayerContext = createContext({
   isPlaying: false,
   playerActive: false,
   currentTrack: null as Nullable<Spotify.Track>,
+  progress: 0,
+  duration: 0,
   nextTrack: () => {},
   previousTrack: () => {},
   pause: () => {},
@@ -29,10 +31,28 @@ export const SpotifyPlayerProvider = (props: {
   token: Nullable<string>
 }) => {
   const { children, token } = props
+  const [initialized, setInitialized] = useState(false)
   const playerRef = useRef<Nullable<Spotify.Player>>()
   const [currentTrack, setCurrentTrack] = useState<Nullable<Spotify.Track>>()
   const [paused, setPaused] = useState(true)
   const [active, setActive] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const [duration, setDuration] = useState(0)
+  const [timer, setTimer] = useState<Nullable<NodeJS.Timeout>>()
+
+  useEffect(() => {
+    if (timer) {
+      clearInterval(timer)
+    }
+
+    if (!paused) {
+      const t = setInterval(() => {
+        setProgress((prev) => prev + 1000)
+      }, 1000)
+
+      setTimer(t)
+    }
+  }, [paused])
 
   useEffect(() => {
     if (token) {
@@ -40,6 +60,7 @@ export const SpotifyPlayerProvider = (props: {
         .getPlayer()
         .then((player) => {
           playerRef.current = player
+          setInitialized(true)
         })
     }
   }, [token])
@@ -50,16 +71,17 @@ export const SpotifyPlayerProvider = (props: {
       if (!state) {
         return
       }
-      console.log('Player state changed in context:', state)
 
       setCurrentTrack(state.track_window.current_track)
       setPaused(state.paused)
+      setProgress(state.position)
+      setDuration(state.duration)
 
       playerRef.current?.getCurrentState().then((state) => {
         !state ? setActive(false) : setActive(true)
       })
     })
-  }, [playerRef.current])
+  }, [initialized])
 
   const nextTrack = () => {
     playerRef.current?.nextTrack()
@@ -81,6 +103,8 @@ export const SpotifyPlayerProvider = (props: {
         currentTrack,
         isPlaying: !paused,
         playerActive: active,
+        progress,
+        duration,
         nextTrack,
         previousTrack,
         pause,

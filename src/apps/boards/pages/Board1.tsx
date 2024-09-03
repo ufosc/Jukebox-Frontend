@@ -4,6 +4,7 @@ import { useContext, useEffect } from 'react'
 import { AudioPlayer } from 'src/components'
 import { SpotifyPlayerContext } from 'src/context'
 import { mockTrack } from 'src/mock'
+import { formatDuration } from 'src/utils'
 import './Board1.scss'
 
 const Track = (props: { track: Nullable<Track> }) => {
@@ -26,7 +27,7 @@ const Track = (props: { track: Nullable<Track> }) => {
             Alex Smith
           </span>
           <span className="track-list__track__info track-list__track__duration">
-            03:45
+            {formatDuration(track.duration_ms)}
           </span>
           <span className="track-list__track__info track-list__track__likes">
             5
