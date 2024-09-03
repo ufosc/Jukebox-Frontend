@@ -1,5 +1,7 @@
 // import 'https://sdk.scdn.co/spotify-player.js'
 
+import { SPOTIFY_PLAYER_NAME } from 'src/config'
+
 export class SpotifyPlayer {
   public static instance: SpotifyPlayer
   private token: string
@@ -31,7 +33,7 @@ export class SpotifyPlayer {
   private connect() {
     window.onSpotifyWebPlaybackSDKReady = async () => {
       const player = new Spotify.Player({
-        name: 'Web Playback SDK Quick Start Player',
+        name: SPOTIFY_PLAYER_NAME,
         getOAuthToken: (cb) => {
           cb(this.token)
         },
@@ -41,6 +43,9 @@ export class SpotifyPlayer {
 
       player.addListener('ready', ({ device_id }) => {
         console.log('Ready with Device ID', device_id)
+      })
+      player.addListener('player_state_changed', (state) => {
+        console.log('Player state changed:', state)
       })
 
       // Not Ready

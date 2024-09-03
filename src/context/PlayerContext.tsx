@@ -4,11 +4,20 @@
  * Inspired by:
  * https://github.com/niekert/use-spotify-web-playback-sdk/blob/master/src/index.ts#L24
  */
-import { createContext, useEffect, useRef, type ReactNode } from 'react'
+import {
+  createContext,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react'
 import { SpotifyPlayer } from 'src/lib'
 
 export const SpotifyPlayerContext = createContext({
-  player: null as Spotify.Player | null,
+  player: null as Nullable<Spotify.Player>,
+  isPlaying: false,
+  playerActive: false,
+  currentTrack: null as Nullable<Spotify.Track>,
   nextTrack: () => {},
   previousTrack: () => {},
   pause: () => {},
@@ -17,10 +26,13 @@ export const SpotifyPlayerContext = createContext({
 
 export const SpotifyPlayerProvider = (props: {
   children: ReactNode
-  token: string | null
+  token: Nullable<string>
 }) => {
   const { children, token } = props
-  const playerRef = useRef<Spotify.Player | null>(null)
+  const playerRef = useRef<Nullable<Spotify.Player>>()
+  const [currentTrack, setCurrentTrack] = useState<Nullable<Spotify.Track>>()
+  const [paused, setPaused] = useState(true)
+  const [active, setActive] = useState(false)
 
   useEffect(() => {
     if (token) {
@@ -31,6 +43,23 @@ export const SpotifyPlayerProvider = (props: {
         })
     }
   }, [token])
+
+  useEffect(() => {
+    // When changed event is emitted, update state with the current track
+    playerRef.current?.addListener('player_state_changed', (state) => {
+      if (!state) {
+        return
+      }
+      console.log('Player state changed in context:', state)
+
+      setCurrentTrack(state.track_window.current_track)
+      setPaused(state.paused)
+
+      playerRef.current?.getCurrentState().then((state) => {
+        !state ? setActive(false) : setActive(true)
+      })
+    })
+  }, [playerRef.current])
 
   const nextTrack = () => {
     playerRef.current?.nextTrack()
@@ -49,6 +78,9 @@ export const SpotifyPlayerProvider = (props: {
     <SpotifyPlayerContext.Provider
       value={{
         player: playerRef.current,
+        currentTrack,
+        isPlaying: !paused,
+        playerActive: active,
         nextTrack,
         previousTrack,
         pause,

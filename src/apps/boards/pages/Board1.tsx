@@ -1,43 +1,52 @@
-import { mockTrack } from 'src/mock'
 import { Clock } from '../components/Clock'
 
-import { useSelector } from 'react-redux'
-import { AudioPlayer } from 'src/audio'
-import { selectUser } from 'src/store'
+import { useContext, useEffect } from 'react'
+import { AudioPlayer } from 'src/components'
+import { SpotifyPlayerContext } from 'src/context'
+import { mockTrack } from 'src/mock'
 import './Board1.scss'
 
-const Track = (props: { track: Track }) => {
+const Track = (props: { track: Nullable<Track> }) => {
   const { track } = props
   return (
     <li className="track-list__track">
-      <span className="track-list__track__preview">
-        <img src={track.preview_url} alt={track.name} />
-      </span>
-      <div className="track-list__track__name-group">
-        <h3 className="track-list__track__name">{track.name}</h3>
-        <span className="track-list__track__artists">
-          {track.artists.map((artist) => artist.name).join(', ')}
-        </span>
-      </div>
-      <span className="track-list__track__info track-list__track__rec-by">
-        Alex Smith
-      </span>
-      <span className="track-list__track__info track-list__track__duration">
-        03:45
-      </span>
-      <span className="track-list__track__info track-list__track__likes">
-        5
-      </span>
-      <span className="track-list__track__info track-list__track__dislikes">
-        0
-      </span>
+      {!track && <p>No track specified.</p>}
+      {track && (
+        <>
+          <span className="track-list__track__preview">
+            <img src={track?.album?.images[0].url} alt={track.name} />
+          </span>
+          <div className="track-list__track__name-group">
+            <h3 className="track-list__track__name">{track.name}</h3>
+            <span className="track-list__track__artists">
+              {track.artists.map((artist) => artist.name).join(', ')}
+            </span>
+          </div>
+          <span className="track-list__track__info track-list__track__rec-by">
+            Alex Smith
+          </span>
+          <span className="track-list__track__info track-list__track__duration">
+            03:45
+          </span>
+          <span className="track-list__track__info track-list__track__likes">
+            5
+          </span>
+          <span className="track-list__track__info track-list__track__dislikes">
+            0
+          </span>
+        </>
+      )}
     </li>
   )
 }
 
 export const Board1 = () => {
   const track = mockTrack
-  const userInfo = useSelector(selectUser)
+  const { currentTrack } = useContext(SpotifyPlayerContext)
+
+  useEffect(() => {
+    console.log('Current track:', currentTrack)
+  }, [currentTrack])
 
   return (
     <div className="board board-1">
@@ -53,28 +62,14 @@ export const Board1 = () => {
           </h2>
           <div className="board__tracks__group__inner">
             <ol className="board__currently-playing__list track-list">
-              <Track track={track} />
+              <Track track={currentTrack} />
             </ol>
             <div className="board__currently-playing__player">
-              {/* <AudioPlayer
-                audio={track}
-                isPlaying={false}
-                next={() => {
-                  throw new Error('Function not implemented.')
-                }}
-                previous={() => {
-                  throw new Error('Function not implemented.')
-                }}
-                play={() => {
-                  throw new Error('Function not implemented.')
-                }}
-                pause={() => {
-                  throw new Error('Function not implemented.')
-                }}
-              /> */}
+              <AudioPlayer />
             </div>
           </div>
         </div>
+
         <div className="board__queue board__tracks__group">
           <h2 className="font-title--accent board__tracks__group__title">
             Up Next

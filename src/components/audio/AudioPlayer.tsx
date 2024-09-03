@@ -9,7 +9,7 @@ import { ProgressBar } from './ProgressBar'
 import './ProgressBar.scss'
 
 export const AudioPlayerContext = createContext({
-  currentTrack: undefined as Track | undefined,
+  currentTrack: undefined as Nullable<Track>,
   isPlaying: false,
   timeProgress: 0,
   duration: 0,
@@ -22,11 +22,15 @@ export const AudioPlayerContext = createContext({
 })
 
 export const AudioPlayer = () => {
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [currentTrack, setCurrentTrack] = useState<Track | undefined>()
-
-  const { nextTrack, pause, player, previousTrack, togglePlay } =
-    useContext(SpotifyPlayerContext)
+  const {
+    nextTrack,
+    pause,
+    player,
+    previousTrack,
+    togglePlay,
+    isPlaying,
+    currentTrack,
+  } = useContext(SpotifyPlayerContext)
 
   // State
   const [timeProgress, setTimeProgress] = useState(0)
