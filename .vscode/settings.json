@@ -3,6 +3,7 @@
     "javascript": "javascriptreact"
   },
   "eslint.enable": true,
+  "eslint.useFlatConfig": true,
 
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
