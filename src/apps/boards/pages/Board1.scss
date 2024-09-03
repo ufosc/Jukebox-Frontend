@@ -1,3 +1,14 @@
+@keyframes shape-wobble {
+  // TODO: Make shape wobble
+  // 0%,
+  // 100% {
+  //   transform: translate(0) rotate(0deg);
+  // }
+  // 50% {
+  //   transform: translate(-5px, 0) rotate(5deg);
+  // }
+}
+
 .board {
   @include color-role('surface');
 
@@ -30,6 +41,8 @@
       height: 30rem;
       top: auto;
       bottom: 0rem;
+
+      animation: 5s infinite linear shape-wobble;
     }
   }
   &__tracks {
@@ -106,7 +119,7 @@
       }
     }
     &__name-group {
-      flex: $flex-g-s 40%;
+      flex: $flex-g-s 45%;
     }
     &__name {
       @include font-title('md');

@@ -1,3 +1,5 @@
+declare type Nullable<T> = T | null | undefined
+
 declare type nodenv = 'dev' | 'production' | 'test' | 'network'
 declare type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'role-nav'
 declare type SystemColor = 'info' | 'success' | 'warning' | 'error'

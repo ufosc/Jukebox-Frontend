@@ -2,28 +2,29 @@
   --range-height: 0.5rem;
   --range-background: var(--color-surface);
   --range-accent: var(--color-primary-contrast);
-  
-  // $range-background: var(--range-background);
-  // $range-accent: var(--range-accent);
+  --controls-fill: var(--color-primary-contrast);
+
+  $range-background: var(--range-background);
+  $range-accent: var(--range-accent);
 
   width: 100%;
   z-index: 100;
-  color: var(--range-accent);
-  fill: var(--range-accent);
+  color: $range-accent;
+  fill: $range-accent;
   transition: all 0.3s;
 
   background-color: inherit;
 
-  &:has(:not(audio)) {
-    transform: translateY(100%);
-  }
-  &:has(audio) {
-    transform: translateY(0);
-  }
+  // &:has(:not(audio)) {
+  //   transform: translateY(100%);
+  // }
+  // &:has(audio) {
+  //   transform: translateY(0);
+  // }
 
-  & input[type='range'] {
-    background: var(--range-background);
-  }
+  // & input[type='range'] {
+  //   background: $range-background;
+  // }
 
   & button {
     // background: none;
@@ -45,7 +46,7 @@
   // &__controls {
   //   display: flex;
   //   gap: 0.5rem;
-    
+
   //   // & svg {
   //   //   fill: inherit;
   //   //   font-size: 3.7rem;

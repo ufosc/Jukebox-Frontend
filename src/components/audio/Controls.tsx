@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useRef } from 'react'
+import { useContext, useRef } from 'react'
 import HeartIcon from 'src/assets/svg/HeartIcon.svg?react'
 import NextIcon from 'src/assets/svg/NextIcon.svg?react'
 import PauseIcon from 'src/assets/svg/PauseIcon.svg?react'
@@ -9,11 +9,7 @@ import { AudioPlayerContext } from './AudioPlayer'
 
 import './Controls.scss'
 
-export const Controls = (props: {
-  audioRef: React.RefObject<HTMLAudioElement>
-  progressBarRef: React.RefObject<HTMLInputElement>
-}) => {
-  const { audioRef, progressBarRef } = props
+export const Controls = () => {
   const {
     isPlaying,
     togglePlayPause,
@@ -21,35 +17,9 @@ export const Controls = (props: {
     previous,
     duration,
     setTimeProgress,
-    skipBackward,
-    skipForeward,
   } = useContext(AudioPlayerContext)
 
   const playAnimationRef = useRef<number>(0)
-
-  const repeat = useCallback(() => {
-    const currentTime = audioRef.current?.currentTime
-    setTimeProgress(currentTime || 0)
-
-    if (progressBarRef.current) {
-      progressBarRef.current.value = String(currentTime)
-      progressBarRef.current?.style.setProperty(
-        '--range-progress',
-        `${(+progressBarRef.current.value / duration) * 100}%`,
-      )
-    }
-
-    playAnimationRef.current = requestAnimationFrame(repeat)
-  }, [audioRef, duration, progressBarRef, setTimeProgress])
-
-  useEffect(() => {
-    if (isPlaying) {
-      audioRef.current?.play()
-    } else {
-      audioRef.current?.pause()
-    }
-    playAnimationRef.current = requestAnimationFrame(repeat)
-  }, [isPlaying, audioRef, repeat])
 
   const handlePrevious = () => {
     previous()

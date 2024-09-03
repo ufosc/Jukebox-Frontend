@@ -1,5 +1,6 @@
 .audio-controls {
-  --controls-fill: var(--range-accent);
+  // --controls-fill: var(--range-accent);
+  $controls-fill: var(--controls-fill);
 
   display: flex;
   align-items: center;
@@ -8,7 +9,7 @@
 
   &__icon {
     background-color: inherit;
-    color: var(--controls-fill);
+    color: $controls-fill;
 
     width: 3.7rem;
   }
