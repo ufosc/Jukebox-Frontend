@@ -2,7 +2,14 @@ import { type AxiosRequestConfig } from 'axios'
 import { REACT_ENV } from 'src/config'
 import { httpRequest } from 'src/lib'
 import { mockUser } from 'src/mock'
-import { err, NetworkLoginError, ok, sleep, type Result } from 'src/utils'
+import {
+  err,
+  NetworkLoginError,
+  NotImplementedError,
+  ok,
+  sleep,
+  type Result,
+} from 'src/utils'
 import { NetworkRoutes } from './routes'
 import type { NetworkResponse } from './types'
 
@@ -147,5 +154,14 @@ export class Network {
         res?.data.image ??
         'https://alliancebjjmn.com/wp-content/uploads/2019/07/placeholder-profile-sq-491x407.jpg',
     }
+  }
+
+  public async sendGetSpotifyToken() {
+    if (this.env === 'dev') {
+      await sleep(1000)
+      return String(import.meta.env.VITE_SPOTIFY_ACCESS_TOKEN)
+    }
+
+    throw new NotImplementedError('Network', 'sendGetSpotifyToken')
   }
 }

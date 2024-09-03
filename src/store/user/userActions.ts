@@ -3,7 +3,11 @@ import { Network } from 'src/network'
 import { generateLocalData, isUser } from 'src/utils'
 import { store } from '../store'
 import { userSlice } from './userSlice'
-import { thunkFetchUserInfo, thunkLoginUser } from './userThunks'
+import {
+  thunkFetchUserInfo,
+  thunkGetUserSpotifyToken,
+  thunkLoginUser,
+} from './userThunks'
 
 const { logout, set, update } = userSlice.actions
 
@@ -79,6 +83,7 @@ export const initializeUser = async () => {
 
     if (isUser(user)) {
       setUser(user, token)
+      await store.dispatch(thunkGetUserSpotifyToken())
     } else {
       logoutUser()
     }
@@ -91,3 +96,7 @@ export const updateStoreUser = async (user: IUser) => {
   store.dispatch(update({ user }))
   setLocalUserInfo(user)
 }
+
+// export const getUserSpotifyToken = async () => {
+//   return await network.sendGetSpotifyToken()
+// }

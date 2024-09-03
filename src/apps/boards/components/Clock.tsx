@@ -15,7 +15,7 @@ export const Clock = () => {
 
   return (
     <div className="clock">
-      <time dateTime={date.toTimeString()}>
+      <time dateTime={date.toLocaleTimeString()}>
         <span className="clock__hour">
           {date
             .toLocaleTimeString([], {
@@ -26,9 +26,11 @@ export const Clock = () => {
         </span>
         <span className="clock__colon">:</span>
         <span className="clock__min">
-          {date.toLocaleTimeString('en-US', {
-            minute: '2-digit',
-          })}
+          {date
+            .toLocaleTimeString('en-US', {
+              minute: '2-digit',
+            })
+            .padStart(2, '0')}
           &nbsp;
           {date
             .toLocaleTimeString([], {

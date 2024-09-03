@@ -1,7 +1,9 @@
 import { mockTrack } from 'src/mock'
 import { Clock } from '../components/Clock'
 
+import { useSelector } from 'react-redux'
 import { AudioPlayer } from 'src/audio'
+import { selectUser } from 'src/store'
 import './Board1.scss'
 
 const Track = (props: { track: Track }) => {
@@ -35,6 +37,7 @@ const Track = (props: { track: Track }) => {
 
 export const Board1 = () => {
   const track = mockTrack
+  const userInfo = useSelector(selectUser)
 
   return (
     <div className="board board-1">
@@ -53,7 +56,7 @@ export const Board1 = () => {
               <Track track={track} />
             </ol>
             <div className="board__currently-playing__player">
-              <AudioPlayer
+              {/* <AudioPlayer
                 audio={track}
                 isPlaying={false}
                 next={() => {
@@ -68,7 +71,7 @@ export const Board1 = () => {
                 pause={() => {
                   throw new Error('Function not implemented.')
                 }}
-              />
+              /> */}
             </div>
           </div>
         </div>

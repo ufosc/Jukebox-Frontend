@@ -14,12 +14,12 @@
 
   background-color: inherit;
 
-  &:has(:not(audio)) {
-    transform: translateY(100%);
-  }
-  &:has(audio) {
-    transform: translateY(0);
-  }
+  // &:has(:not(audio)) {
+  //   transform: translateY(100%);
+  // }
+  // &:has(audio) {
+  //   transform: translateY(0);
+  // }
 
   & input[type='range'] {
     background: var(--range-background);
