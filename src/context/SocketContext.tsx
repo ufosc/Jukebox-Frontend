@@ -1,10 +1,14 @@
 import { createContext, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { socket } from 'src/lib'
+import { selectUser, selectUserLoggedIn } from 'src/store'
 
 const SocketContext = createContext(null)
 
 export const SocketProvider = () => {
   const [isConnected, setIsConnected] = useState(socket.connected)
+  const isLoggedIn = useSelector(selectUserLoggedIn)
+  const user = useSelector(selectUser)
 
   useEffect(() => {
     if (isConnected) {
@@ -39,6 +43,13 @@ export const SocketProvider = () => {
       socket.off()
     }
   }, [])
+
+  useEffect(() => {
+    if (isLoggedIn && user) {
+      socket.auth = { userId: user.id }
+      socket.connect()
+    }
+  }, [isLoggedIn, user])
 
   return <SocketContext.Provider value={null}></SocketContext.Provider>
 }
