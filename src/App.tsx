@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Outlet, useNavigate } from 'react-router-dom'
+import { REACT_ENV } from './config'
 import { SocketProvider, Theme } from './context'
 import { SpotifyPlayerProvider } from './context/PlayerContext'
 import {

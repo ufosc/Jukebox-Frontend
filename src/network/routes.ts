@@ -4,7 +4,7 @@ const base = NETWORK_URL + '/api'
 
 export const NetworkRoutes = {
   user: {
-    token: `${base}/user/token/`,
+    token: `${base}/user/login/`,
     details: `${base}/user/me/`,
   },
 }

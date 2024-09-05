@@ -29,6 +29,8 @@ export class SpotifyPlayer {
   }
 
   private connect() {
+    if (this.token === 'YOUR-LONG-TOKEN-HERE') return
+
     window.onSpotifyWebPlaybackSDKReady = async () => {
       const player = new Spotify.Player({
         name: SPOTIFY_PLAYER_NAME,
