@@ -32,6 +32,9 @@ export const SocketProvider = () => {
       console.error(`Socket connection error due to ${err.message}`)
       console.log(err)
     })
+    socket.on('ping-pong', (data: string) => {
+      window.alert(`Pong: ${data}`)
+    })
 
     socket.onAny((event, ...args) => {
       console.log('Socket:', event, args)
