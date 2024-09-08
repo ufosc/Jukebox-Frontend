@@ -7,9 +7,9 @@ LABEL maintainer="Isaac Hunter"
 COPY ./package.json /app/package.json
 COPY ./package-lock.json /app/package-lock.json
 COPY ./index.html /app/index.html
-COPY ./vite.config.js /app/vite.config.js
-# COPY ./.eslintrc.cjs /app/.eslintrc.cjs
-# COPY ./vite-env.d.js /app/vite-env.d.js
+COPY ./vite.config.ts /app/vite.config.ts
+COPY ./tsconfig.json /app/tsconfig.json
+COPY ./tsconfig.node.json /app/tsconfig.node.json
 
 # Set the working directory to /app/client
 WORKDIR /app

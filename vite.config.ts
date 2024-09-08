@@ -20,6 +20,7 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true,
+    host: true, // needed for the Docker Container port mapping to work
   },
   css: {
     preprocessorOptions: {
