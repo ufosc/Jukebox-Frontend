@@ -38,9 +38,9 @@ cd Jukebox-Frontend
 npm install
 ```
 
-4. Run `npm start` to launch the App on `http://localhost:3000/`. 
+4. Run `npm run dev` to launch the App on `http://localhost:3000/`. 
 ```
-npm start
+npm run dev
 ```
 
 Now that you have the project running, let's explore how you can contribute and make a meaningful impact
