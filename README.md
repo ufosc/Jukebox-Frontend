@@ -43,6 +43,8 @@ npm install
 npm run dev
 ```
 
+When prompted with a login page, just enter any text into the fields and submit it.
+
 Now that you have the project running, let's explore how you can contribute and make a meaningful impact
 
 ### Making Contributions
