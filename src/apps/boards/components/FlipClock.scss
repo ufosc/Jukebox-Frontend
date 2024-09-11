@@ -1,0 +1,122 @@
+.flip-clock {
+  background-color: var(--color-surface-accent);
+  color: var(--color-surface-accent-on);
+  
+  font-family: Termina;
+  font-size: 54px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.54px;
+  
+  width: 90%;
+  height: 20rem;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  & time,
+  & span {
+    display: inline-block;
+  }
+  
+  &__digit {
+    display: inline-block;
+    padding: 2rem 1rem;
+    background-color: var(--color-surface-accent-bright);
+    
+    margin: 0 0.2rem;
+    min-width: 6rem;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    // color: orange;
+    // overflow: hidden;
+    
+    perspective: 40rem;
+    
+    
+    // &::before, &::after {
+    //   content: attr(data-value);
+    //   color: var(--color-surface-accent-on);
+      
+    //   position: absolute;
+    //   width: 100%;
+    //   height: 100%;
+    //   // top: 0;
+    //   left: 0;
+      
+    //   display: flex;
+    //   justify-content: center;
+    //   align-items: center;
+    //   overflow: hidden;
+      
+    //   transform: translateZ(10rem);
+    //   backface-visibility: hidden;
+    //   transform-style: preserve-3d;
+    //   animation-fill-mode: both;
+    // }
+    // &::before {
+    //   // color: green;
+    //   clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+    //   top: 0;
+    //   bottom: auto;
+      
+      
+      
+    //   transform-origin: center bottom;
+    //   animation: flip-top 0.3s cubic-bezier(.37,.01,.94,.35);
+      
+    // }
+    // &::after {
+    //   // color: blue;
+    //   clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+    //   top: auto;
+    //   bottom: 0;
+      
+    //   transform-origin: center top;
+    // }
+    
+    // &.flip {
+    //   &::after {
+    //     animation: flip-bottom 0.3s cubic-bezier(.15,.45,.28,1);
+    //   }
+      
+    // }
+  }
+}
+
+@keyframes flip-top {
+  0% {
+    transform: rotateX(0deg);
+    z-index: 2;
+  }
+  0%, 99% {
+    opacity: 0.99;
+  }
+  100% {
+    transform: rotateX(-90deg);
+    opacity: 0;
+  }
+}
+
+
+@keyframes flip-bottom {
+  0%, 50% {
+    z-index: -1;
+    transform: rotateX(90deg);
+    opacity: 0;
+  }
+  51% {
+    opacity: 0.99;
+  }
+  100% {
+    opacity: 0.99;
+    transform: rotateX(0deg);
+    z-index: 5;
+  }
+}
+
+

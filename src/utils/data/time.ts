@@ -29,3 +29,5 @@ export const formatDuration = (ms: number): string => {
 
   return `${time.minutes}:${padZeros(time.seconds)}`
 }
+
+export const getHours = (date: Date) => {}
