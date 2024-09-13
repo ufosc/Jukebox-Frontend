@@ -28,6 +28,67 @@ The changes will now be visible in your online repo and assuming it's a forked v
 
 Remember to change the name of the branch to be relevant to the feature you are working on, replacing `new-feature` with a short description. Same thing with the commit message, changing `finished new feature` with a relevant description.
 
-Keep reading if you want to learn more about the project and technologies involved.
+## Git Workflow: Staging, Committing, and Pushing
 
-Happy Coding!
+If you're a beginner with Git, then you may find the following information helpful.
+
+### Staging vs Commiting
+
+In version control, there are 2 ways to save a snapshot of your code: staging and commiting.
+
+You can stage your code after you get your code to work, but before you finish the feature you are working on. This might not always apply, but may help if you're working with a lot of code. Use the following to stage your code:
+
+```sh
+# Add all files to the "stage"
+git add .
+
+# Alternatively, add a single file to the "stage"
+git add file.js
+```
+
+Your code will now be saved in a temporary state. If you acccidentally break your code, and want to revert your files back to the way you had them when you staged it, use the following command:
+
+```sh
+# Revert all files to stage, or last commit if not staged
+git checkout .
+
+# Alternatively, revert a single file:
+git checkout file.js
+```
+
+After you are pleased with your feature, or some working code, you can commit it to make a more permanent snapshot:
+
+```sh
+# Stage your code and commit it at the same time
+git commit -am 'some cool message'
+
+# Alternatively, commit already staged code
+git commit -m 'some cool message'
+```
+
+Replace "some cool message" with a description of what you completed.
+
+### Pushing the code back to GitHub
+
+Once you are finished, make sure you are on a "feature branch", or a branch named with `feature/` and then a short description of what you are doing. For example, if you were working on authentication, you would maybe call the branch `feature/auth-setup`. This is optional, but highly recommended.
+
+After you are on that branch, push your new branch to the main repo. Here's an example:
+
+```sh
+# Checkout to new feature branch called feature/auth-setup
+git checkout -b feature/auth-setup
+
+### You proceed to write some revolutionary code...###
+
+# Commit the code
+git commit -am 'finish authentication setup'
+
+# Push the new branch to GitHub
+git push -u origin feature/auth-setup
+```
+
+If you made a fork of the repository, go to your forked repo and you should see a banner that says the branch is ahead/behind of the original repo. On the right side of the banner you should see a button that says `Contribute`, click that button and click `Open Pull Request`.
+
+If you are working on the main repo, create a pull request with your new feature branch.
+
+If you have any troubles authenticating with GitHub, read this Wiki: <https://github.com/ufosc/Jukebox-Frontend/wiki/Authenticating-with-GitHub-in-the-Command-Line>
