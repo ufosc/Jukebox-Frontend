@@ -13,7 +13,7 @@ export const useTime = (interval: number = 1000) => {
 
   return {
     date,
-    hours: String(date.getHours()),
+    hours: String(date.getHours()).padStart(2, '0'),
     minutes: String(date.getMinutes()).padStart(2, '0'),
     amOrPm: date
       .toLocaleTimeString([], {
