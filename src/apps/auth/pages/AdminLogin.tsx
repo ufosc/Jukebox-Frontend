@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 import { loginUser, selectUserLoggedIn, selectUserStatus } from 'src/store'
 import { AuthForm } from '../components/AuthForm'
 
