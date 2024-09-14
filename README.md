@@ -13,6 +13,10 @@ npm install
 npm run dev
 ```
 
+The application can be found at <http://localhost:3000>. When prompted to log in, you can enter anything into the email and password fields.
+
+_NOTE: If running in network mode using `npm run network`, you must first register a user with the api, then login with those credentials. Docs for that coming soon..._
+
 ### Routes
 
 Currently, our url structure looks like this:
@@ -29,6 +33,13 @@ Currently, our url structure looks like this:
 
 - How to contribute, conventions to follow: [CONTRIBUTING.md](CONTRIBUTING.md)
 - Recommended setup: [Wiki/Recommended-Setup](https://github.com/ufosc/Jukebox-Frontend/wiki/Recommended-Setup)
+
+### Environments
+
+- `dev`: Exclusively use mock data, does not need any other servers running
+- `network`: Run with production configuration, but allow debug messages (used for integrating with backend)
+- `test`: Libs that connect to external services will be mocked
+- `production`: No mock data, no debug messages, all errors should be caught, connection to network should be secured
 
 ## Prerequisites for Running the Project
 
