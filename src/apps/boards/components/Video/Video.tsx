@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './Video.css'
 
-export const Video = (props: { link: string }) => {
+export const Video = (props: { link?: string }) => {
   const { link } = props
   const [ytLink, setytLink] = useState(
     'https://www.youtube.com/watch?v=dQw4w9WgXcQ',

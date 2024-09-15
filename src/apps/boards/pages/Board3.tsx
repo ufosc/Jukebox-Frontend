@@ -1,3 +1,33 @@
+import { useContext, useEffect } from 'react'
+import { SpotifyPlayerContext } from 'src/context'
+import { mockTrack } from 'src/mock'
+import { Clock, TracksPanel } from '../components'
+import { DisplayPanel } from '../components/DisplayPanel'
+import './Board1.scss'
+import { Video } from '../components/Video/Video'
+
 export const Board3 = () => {
-  return <div>Board3</div>
+  const { currentTrack } = useContext(SpotifyPlayerContext)
+
+  const track = mockTrack
+  const nextTracks = [
+    track,
+    { ...track, id: track.id + '1' },
+    { ...track, id: track.id + '2' },
+    { ...track, id: track.id + '3' },
+  ]
+
+  useEffect(() => {
+    console.log('Current track:', currentTrack)
+  }, [currentTrack])
+
+  return (
+    <div className="board board-3">
+      <DisplayPanel>
+        <Clock />
+        <Video />
+      </DisplayPanel>
+      <TracksPanel currentTrack={currentTrack} nextTracks={nextTracks} />
+    </div>
+  )
 }
