@@ -63,8 +63,11 @@
     height: 100%;
 
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    padding-top: 10rem;
     align-items: center;
+    flex-direction: column;
+    z-index: 999;
 
     color: var(--color-primary-contrast);
     @include font-display('xl');
