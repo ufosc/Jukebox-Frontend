@@ -2,9 +2,51 @@
 
 This design system was based on the system developed by [Material Design 3](https://m3.material.io/)
 
-Other systems:
+Other systems can be viewed here: <https://open-ui.org/design-systems/>
 
-- <https://open-ui.org/design-systems/>
+## Table of Contents
+
+- [Table of Contents](#table-of-contents)
+- [TLDR](#tldr)
+- [Tokens](#tokens)
+  - [Global elements](#global-elements)
+  - [Local/scoped elements](#localscoped-elements)
+- [Colors](#colors)
+  - [Syntax](#syntax)
+  - [Colors \& Color Roles](#colors--color-roles)
+    - [Color names](#color-names)
+    - [Color Roles](#color-roles)
+  - [Light and Dark Mode](#light-and-dark-mode)
+- [Typography](#typography)
+  - [Display](#display)
+  - [Headline](#headline)
+  - [Title](#title)
+  - [Label](#label)
+  - [Body](#body)
+
+## TLDR
+
+To use colors that change with light/dark mode:
+
+```css
+.example-component {
+  background-color: var(--color-primary-container);
+}
+```
+
+Use the predefined typography using SCSS mixins:
+
+```scss
+.example-component {
+  // Uses the default weight
+  @include font-body('md');
+}
+
+.example-component-bold {
+  // Uses a custom weight of 600
+  @include font-body('md', 600);
+}
+```
 
 ## Tokens
 
@@ -247,42 +289,134 @@ All of this code is generated automatically based on a config map set in `src/st
 
 Since the actual light and dark mode colors are determined by css, the only place where js is needed is to switch out the `data-theme-mode` attribute on the html tag. There is a small js singleton in `src/utils/ui/themeManager.ts` whose purpose is to manage the value of this attribute, and stored theme mode in local storage to allow the theme mode to stay after refreshing the page. Having a singleton stops race conditions between reading/writing the html tag attribute and reading/writing the value stored in local storage.
 
+To use light and dark mode, simply use the root theme color:
+
+```css
+.example-component {
+  background-color: var(--color-primary-container);
+  color: var(--color-primary-container-on);
+}
+```
+
+Alternatively, if you want to set the background color and text color together (like the above example), you can use a scss mixin:
+
+```scss
+.example-component {
+  // Sets color and background-color
+  @include color-role('primary-container');
+}
+```
+
 ## Typography
 
 Token: `font`
+
+To use the default weight:
+
+```scss
+.example-class {
+  // Using the default weight:
+  @include font-[role]('[size]');
+
+  // Using a custom weight:
+  @include font-[role]('[size]', [weight]);
+}
+```
 
 ### Display
 
 Used as standalone large text marking a larger section or domain.
 
+Available sizes: `xl`, `lg`, `md`, `sm`, `xs`
+
+Available weights: `400`
+
 Use:
 
 ```scss
 .example-class {
-  // Sizes: xl, lg, md, sm, xs
+  // Default weight: 400
   @include font-display('md');
 }
 ```
 
-### Data Display
-
-Used to display large or prominent numbers, statistics, etc.
-Unlike normal Display, these have an emphasis on utility and
-readability, whereas Display is more stylistic.
-
 ### Headline
 
-Marks normal sections and text blocks, classic headers 1-2
+Marks normal sections and text blocks, classic headers 1-2.
+
+Available sizes: `lg`, `md`, `sm`
+
+Available weights: `300`, `500`, `600`, `700`, `900`
+
+Use:
+
+```scss
+.example-class {
+  // Default weight: 600
+  @include font-headline('md');
+
+  // Custom weight
+  @include font-headline('md', 300);
+}
+```
 
 ### Title
 
-Precludes lower emphasis sections, classic headers 3-6
+Precludes lower emphasis sections, classic headers 3-6.
+
+Available sizes: `lg`, `md`, `sm`
+
+Available weights: `300`, `400`, `600`, `700`
+
+Use:
+
+```scss
+.example-class {
+  // Default weight: 600
+  @include font-title('md');
+
+  // Custom weight
+  @include font-title('md', 700);
+}
+```
 
 ### Label
 
 Utility text, represents actions or small-form items.
 Should never head sections, content, etc.
 
+Available sizes: `lg`, `md`, `sm`, `xs`
+
+Available weights: `300`, `400`, `500`, `600`
+
+Use:
+
+```scss
+.example-class {
+  // Default weight: 500
+  @include font-label('md');
+
+  // Custom weight
+  @include font-label('md', 300);
+}
+```
+
 ### Body
 
-Long form text, normal base text, provides easiest reading experience
+Long form text, normal base text, provides easiest reading experience.
+
+Available sizes: `lg`, `md`, `sm`
+
+Available weights: `300`, `400`, `500`, `600`
+
+Use:
+
+```scss
+.example-class {
+  // Default weight: 600
+  @include font-body('md');
+
+  // Custom weight
+  @include font-body('md', 700);
+}
+```
