@@ -42,9 +42,9 @@ export const thunkFetchUserInfo = createAsyncThunk(
   },
 )
 
-export const thunkGetUserSpotifyToken = createAsyncThunk(
-  'user/getSpotifyToken',
-  async () => {
-    return await network.sendGetSpotifyToken()
-  },
-)
+// export const thunkGetUserSpotifyToken = createAsyncThunk(
+//   'user/getSpotifyToken',
+//   async () => {
+//     return await network.sendGetSpotifyToken()
+//   },
+// )

@@ -1,9 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import {
-  thunkFetchUserInfo,
-  thunkGetUserSpotifyToken,
-  thunkLoginUser,
-} from './userThunks'
+import { thunkFetchUserInfo, thunkLoginUser } from './userThunks'
 
 export const userSlice = createSlice({
   name: 'user',
@@ -13,7 +9,7 @@ export const userSlice = createSlice({
     loggedIn: null as boolean | null,
     status: 'idle' as StoreStatus,
     error: null as string | null,
-    spotifyToken: null as string | null,
+    // spotifyToken: null as string | null,
   },
   reducers: {
     set: (state, action: { payload: { user: IUser; token: string } }) => {
@@ -60,9 +56,9 @@ export const userSlice = createSlice({
       state.loggedIn = false
       state.error = action.error.message || null
     })
-    builder.addCase(thunkGetUserSpotifyToken.fulfilled, (state, action) => {
-      state.spotifyToken = action.payload
-    })
+    // builder.addCase(thunkGetUserSpotifyToken.fulfilled, (state, action) => {
+    //   state.spotifyToken = action.payload
+    // })
 
     builder.addMatcher(
       (action) => action.type.endsWith('/pending'),
