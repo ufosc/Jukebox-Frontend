@@ -1,6 +1,7 @@
 import { store } from '../store'
-import { thunkFetchGroupSpotifyAuth } from './groupThunks'
+import { thunkFetchGroupInfo, thunkFetchGroupSpotifyAuth } from './groupThunks'
 
-const setCurrentGroup = async (groupId: string) => {
+export const setCurrentGroup = async (groupId: string) => {
+  await store.dispatch(thunkFetchGroupInfo(groupId))
   await store.dispatch(thunkFetchGroupSpotifyAuth(groupId))
 }

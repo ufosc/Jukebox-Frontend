@@ -1,7 +1,8 @@
 declare interface IUser {
   id: string
-  firstName: string
-  lastName: string
   email: string
+  firstName?: string
+  lastName?: string
   image?: string
+  groups: { id: string; name: string }[]
 }

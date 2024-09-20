@@ -2,7 +2,14 @@ import { type AxiosRequestConfig } from 'axios'
 import { REACT_ENV } from 'src/config'
 import { httpRequest } from 'src/lib'
 import { mockUser } from 'src/mock'
-import { err, NetworkLoginError, ok, sleep, type Result } from 'src/utils'
+import {
+  err,
+  NetworkLoginError,
+  NotImplementedError,
+  ok,
+  sleep,
+  type Result,
+} from 'src/utils'
 import { NetworkRoutes } from './routes'
 import type { NetworkResponse } from './types'
 
@@ -134,6 +141,7 @@ export class Network {
         lastName: mockUser.lastName,
         image:
           'https://alliancebjjmn.com/wp-content/uploads/2019/07/placeholder-profile-sq-491x407.jpg',
+        groups: mockUser.groups,
       }
     }
     const res = await this.sendRequest(NetworkRoutes.user.details)
@@ -146,6 +154,20 @@ export class Network {
       image:
         res?.data.image ??
         'https://alliancebjjmn.com/wp-content/uploads/2019/07/placeholder-profile-sq-491x407.jpg',
+      groups: Array.from(res?.data.groups),
+    }
+  }
+
+  public async sendGetGroupInfo(groupId: string): Promise<IGroup> {
+    if (this.env === 'dev') {
+      throw new NotImplementedError('network.sendGetGroupInfo')
+    }
+
+    const res = await this.sendRequest(NetworkRoutes.group.info(groupId))
+    return {
+      id: res.data.id,
+      name: res.data.name,
+      ownerId: res.data.ownerId,
     }
   }
 
@@ -157,10 +179,10 @@ export class Network {
         id: '66e72f18a7c93a68835d630d',
         accessToken: String(import.meta.env.VITE_SPOTIFY_ACCESS_TOKEN),
         userId: '66da2b580235f4ff7270460d',
-        spotifyEmail: 'ikehunter5@gmail.com',
+        spotifyEmail: 'user@example.com',
         expiresIn: 3600,
         tokenType: 'Bearer',
-        expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24),
+        expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24).getTime(),
       }
     }
 

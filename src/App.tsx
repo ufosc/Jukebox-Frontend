@@ -11,6 +11,7 @@ import {
   selectUser,
   selectUserLoggedIn,
 } from './store'
+import { setCurrentGroup } from './store/group/groupActions'
 
 export const App = () => {
   const userIsLoggedIn = useSelector(selectUserLoggedIn)
@@ -32,9 +33,10 @@ export const App = () => {
   useEffect(() => {
     if (userIsLoggedIn) {
       // Store new user info
-      fetchUserInfo().then((resUserInfo) => {
-        
-        console.log('User info response:', resUserInfo)
+      fetchUserInfo().then(async (resUserInfo) => {
+        if (!resUserInfo) return
+
+        await setCurrentGroup(resUserInfo!.groups[0].id)
       })
     } else if (userInfo || userIsLoggedIn === false) {
       logoutUser()

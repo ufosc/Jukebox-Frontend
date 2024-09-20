@@ -8,6 +8,7 @@ export const NetworkRoutes = {
     details: `${base}/user/me/`,
   },
   group: {
-    spotifyAuth: (id: string) => `${base}/api/group/${id}/spotify/auth`,
+    info: (id: string) => `${base}/group/groups/${id}`,
+    spotifyAuth: (id: string) => `${base}/group/${id}/spotify/auth`,
   },
 }

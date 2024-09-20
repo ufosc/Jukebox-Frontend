@@ -10,7 +10,9 @@ export const thunkFetchAdminGroups = createAsyncThunk(
 
 export const thunkFetchGroupInfo = createAsyncThunk(
   'group/fetchGroupInfo',
-  async (groupId: string) => {},
+  async (groupId: string) => {
+    return await network.sendGetGroupInfo(groupId)
+  },
 )
 
 export const thunkFetchGroupSpotifyAuth = createAsyncThunk(
