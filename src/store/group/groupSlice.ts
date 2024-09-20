@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { thunkFetchGroupSpotifyAuth } from './groupThunks'
+import { thunkFetchGroupInfo, thunkFetchGroupSpotifyAuth } from './groupThunks'
 
 export const groupSlice = createSlice({
   name: 'group',
@@ -13,6 +13,9 @@ export const groupSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(thunkFetchGroupSpotifyAuth.fulfilled, (state, action) => {
       state.spotifyAuth = action.payload
+    })
+    builder.addCase(thunkFetchGroupInfo.fulfilled, (state, action) => {
+      state.currentGroup = action.payload
     })
 
     builder.addMatcher(
