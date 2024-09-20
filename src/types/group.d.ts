@@ -16,5 +16,5 @@ declare interface ISpotifyAuth {
   spotifyEmail: string
   expiresIn: number
   tokenType: string
-  expiresAt: Date
+  expiresAt: number
 }

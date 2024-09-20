@@ -182,7 +182,7 @@ export class Network {
         spotifyEmail: 'user@example.com',
         expiresIn: 3600,
         tokenType: 'Bearer',
-        expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24),
+        expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24).getTime(),
       }
     }
 
