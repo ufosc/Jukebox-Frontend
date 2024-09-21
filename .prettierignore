@@ -4,3 +4,4 @@ node_modules
 package-lock.json
 theme-1
 _depricated
+.prettierrc.cjs
