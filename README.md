@@ -1,6 +1,10 @@
 # OSC Jukebox React App
 
+## Overview
+
 Welcome! This project is a microservice attached to the Jukebox Server application, and is a fully independent application that can be run on it's own. What does that mean? It means you don't need to run the server app in order to run this project, and you don't need any experience with the backend to be successful with this project.
+
+Jukebox-Frontend is the graphical interface for the Jukebox project, a dynamic music queuing system designed to allow users to interact with and manage a shared playlist. Built with React, it facilitates real-time music selection, queue management, and playback control. The project aims to create an intuitive experience where users can seamlessly add, remove, and vote on tracks to influence the queue order. The interface is optimized for use on various devices, ensuring a smooth experience for all participants. This project is ideal for social gatherings, public spaces, and collaborative listening.
 
 ## Quick Start
 
@@ -109,6 +113,31 @@ This will run the following resources:
 - Kafka Zookeeper
 - MongoDB
 - NGINX
+
+## Contribution
+
+Here's how you can get involved in contributing to our project:
+
+Aftering forking the repo and cloning your fork to your local system,
+
+1. Create a new branch for your feature or fix
+   ```sh
+   git checkout -b feature/your-feature-name
+   ```
+
+2. Make your changes and commit them with clear, concise messages
+   ```sh
+   git commit -m "Add: feature description"
+   ```
+
+3. Push your branch to your fork
+   ```sh
+   git push origin feature/your-feature-name
+   ```
+
+4. Create a pull request (PR) by navigating to the original repository and clicking "New Pull Request"
+
+5. Describe your changes and link to any relevant issues
 
 ## Technology Used
 
