@@ -1,22 +1,22 @@
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Outlet, useNavigate } from 'react-router-dom'
-import { REACT_ENV } from './config'
 import { SocketProvider, Theme } from './context'
 import { SpotifyPlayerProvider } from './context/PlayerContext'
 import {
   fetchUserInfo,
   initializeUser,
   logoutUser,
+  selectGroupSpotifyAuth,
   selectUser,
   selectUserLoggedIn,
-  selectUserSpotifyToken,
 } from './store'
+import { setCurrentGroup } from './store/group/groupActions'
 
 export const App = () => {
   const userIsLoggedIn = useSelector(selectUserLoggedIn)
   const userInfo = useSelector(selectUser)
-  const token = useSelector(selectUserSpotifyToken)
+  const spotifyAuth = useSelector(selectGroupSpotifyAuth)
 
   const navigate = useNavigate()
 
@@ -33,8 +33,10 @@ export const App = () => {
   useEffect(() => {
     if (userIsLoggedIn) {
       // Store new user info
-      fetchUserInfo().then((resUserInfo) => {
-        console.log('User info response:', resUserInfo)
+      fetchUserInfo().then(async (resUserInfo) => {
+        if (!resUserInfo) return
+
+        await setCurrentGroup(resUserInfo!.groups[0].id)
       })
     } else if (userInfo || userIsLoggedIn === false) {
       logoutUser()
@@ -43,7 +45,7 @@ export const App = () => {
 
   return (
     <Theme>
-      <SpotifyPlayerProvider token={token}>
+      <SpotifyPlayerProvider token={spotifyAuth?.accessToken}>
         <SocketProvider />
         <Outlet />
       </SpotifyPlayerProvider>

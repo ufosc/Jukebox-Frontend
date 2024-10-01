@@ -141,6 +141,7 @@ export class Network {
         lastName: mockUser.lastName,
         image:
           'https://alliancebjjmn.com/wp-content/uploads/2019/07/placeholder-profile-sq-491x407.jpg',
+        groups: mockUser.groups,
       }
     }
     const res = await this.sendRequest(NetworkRoutes.user.details)
@@ -153,15 +154,47 @@ export class Network {
       image:
         res?.data.image ??
         'https://alliancebjjmn.com/wp-content/uploads/2019/07/placeholder-profile-sq-491x407.jpg',
+      groups: Array.from(res?.data.groups),
     }
   }
 
-  public async sendGetSpotifyToken() {
+  public async sendGetGroupInfo(groupId: string): Promise<IGroup> {
     if (this.env === 'dev') {
-      await sleep(1000)
-      return String(import.meta.env.VITE_SPOTIFY_ACCESS_TOKEN)
+      throw new NotImplementedError('network.sendGetGroupInfo')
     }
 
-    throw new NotImplementedError('Network', 'sendGetSpotifyToken')
+    const res = await this.sendRequest(NetworkRoutes.group.info(groupId))
+    return {
+      id: res.data.id,
+      name: res.data.name,
+      ownerId: res.data.ownerId,
+    }
+  }
+
+  public async sendGetSpotifyToken(groupId: string): Promise<ISpotifyAuth> {
+    if (this.env === 'dev') {
+      await sleep(1000)
+
+      return {
+        id: '66e72f18a7c93a68835d630d',
+        accessToken: String(import.meta.env.VITE_SPOTIFY_ACCESS_TOKEN),
+        userId: '66da2b580235f4ff7270460d',
+        spotifyEmail: 'user@example.com',
+        expiresIn: 3600,
+        tokenType: 'Bearer',
+        expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24).getTime(),
+      }
+    }
+
+    const res = await this.sendRequest(NetworkRoutes.group.spotifyAuth(groupId))
+    return {
+      id: res?.data.id,
+      accessToken: res?.data.accessToken,
+      userId: res?.data.userId,
+      spotifyEmail: res?.data.spotifyEmail,
+      expiresIn: res?.data.expiresIn,
+      tokenType: res?.data.tokenType,
+      expiresAt: res?.data.expiresAt,
+    }
   }
 }

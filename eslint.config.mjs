@@ -1,19 +1,20 @@
 import eslint from '@eslint/js'
-import tseslint from 'typescript-eslint'
+import preferArrow from 'eslint-plugin-prefer-arrow'
 import prettier from 'eslint-plugin-prettier'
 import react from 'eslint-plugin-react'
-import preferArrow from 'eslint-plugin-prefer-arrow'
+import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   {
     plugins: {
-      // prettier: 
+      // prettier:
       prettier,
       react,
-      preferArrow
+      preferArrow,
     },
+    // ignores: ['.prettierrc.cjs'],
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
@@ -25,7 +26,7 @@ export default tseslint.config(
       '@typescript-eslint/no-redeclare': 'off',
       '@typescript-eslint/space-before-function-paren': 'off',
       'prefer-const': 'warn',
-      'prettier/prettier': 'warn',
+      'prettier/prettier': ['warn', { endOfLine: 'auto' }],
       'preferArrow/prefer-arrow-functions': [
         'warn',
         {
@@ -37,7 +38,7 @@ export default tseslint.config(
       'prefer-arrow-callback': ['warn', { allowNamedFunctions: false }],
       'func-style': ['warn', 'expression', { allowArrowFunctions: true }],
       'react/prop-types': ['off'],
-      '@typescript-eslint/no-unused-expressions': ['off']
+      '@typescript-eslint/no-unused-expressions': ['off'],
       // 'import/no-internal-modules': ['error'],
       // 'no-restricted-imports': [
       //   'error',

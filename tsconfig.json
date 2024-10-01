@@ -29,6 +29,7 @@
       "src/*": ["./src/*"]
     },
   },
-  "include": ["src", "./src/*"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src", "./src/*", "docs"],
+  "references": [{ "path": "./tsconfig.node.json" }],
+  "exclude": ["node_modules/", ".prettierrc.cjs"]
 }

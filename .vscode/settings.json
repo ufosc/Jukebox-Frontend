@@ -4,16 +4,26 @@
   },
   "eslint.enable": true,
   "eslint.useFlatConfig": true,
+  // "eslint.workingDirectories": ["./src"],
+  "editor.tabSize": 2,
 
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "explicit",
     // "source.removeUnusedImports": "explicit",
-    // "source.fixAll": "explicit"
+    "source.fixAll": "explicit"
   },
 
   // prettier extension setting
   "editor.formatOnSave": true,
+  "files.autoSave": "afterDelay",
+  "prettier.singleQuote": true,
+  "prettier.semi": false,
+  "javascript.format.semicolons": "remove",
+  "typescript.format.semicolons": "remove",
+  "autoimport.useSemiColon": false,
+  
+
   // "[javascript]": {
   //   "editor.defaultFormatter": "esbenp.prettier-vscode"
   // },

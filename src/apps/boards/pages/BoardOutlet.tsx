@@ -1,4 +1,4 @@
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { Board1 } from './Board1'
 import { Board2 } from './Board2'
 import { Board3 } from './Board3'

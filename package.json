@@ -31,7 +31,6 @@
     "react-cookie": "^6.1.1",
     "react-dom": "^18.2.0",
     "react-redux": "^9.0.4",
-    "react-router": "^6.26.1",
     "react-router-dom": "^6.26.1",
     "recharts": "^2.10.2",
     "socket.io-client": "^4.7.4",
