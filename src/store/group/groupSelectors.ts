@@ -16,3 +16,8 @@ export const selectGroupSpotifyAuth = createSelector(
   groupStateSelector,
   (state) => state.spotifyAuth,
 )
+
+export const selectAllGroups = createSelector(
+  groupStateSelector,
+  (state) => state.allGroups,
+)
