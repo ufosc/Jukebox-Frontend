@@ -1,6 +1,7 @@
 import type { RouteObject } from 'react-router-dom'
 import { Dashboard } from './layout/Dashboard'
 import { Overview } from './pages'
+import { AdminBoard } from './pages/adminBoard'
 
 export const adminOutlet = <Dashboard />
 
@@ -11,7 +12,7 @@ export const adminRoutes: RouteObject[] = [
   },
   {
     path: 'boards',
-    element: <div>Boards</div>,
+    element: <AdminBoard />,
   },
   {
     path: 'music',
