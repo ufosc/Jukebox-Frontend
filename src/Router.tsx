@@ -4,6 +4,7 @@ import { adminOutlet, adminRoutes } from 'src/apps/admin'
 import { authRoutes } from 'src/apps/auth'
 import { boardsRoutes } from 'src/apps/boards'
 import { membersRoutes } from 'src/apps/members'
+import { publicRoutes } from 'src/apps/public'
 
 const routes = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const routes = createBrowserRouter([
           <div>
             <strong>Apps:</strong>
             <ul>
+              <li>
+                <Link to="public">Public</Link> (Will be set to landing page
+                once built out)
+              </li>
               <li>
                 <Link to="auth">Auth</Link>
               </li>
@@ -31,6 +36,10 @@ const routes = createBrowserRouter([
             </ul>
           </div>
         ),
+      },
+      {
+        path: 'public',
+        children: publicRoutes,
       },
       {
         path: 'auth',

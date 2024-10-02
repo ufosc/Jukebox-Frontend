@@ -8,8 +8,16 @@ export const groupSlice = createSlice({
     spotifyAuth: null as ISpotifyAuth | null,
     status: 'idle' as StoreStatus,
     error: null as string | null,
+    allGroups: [] as IGroup[],
   },
-  reducers: {},
+  reducers: {
+    setCurrentGroupReducer: (state, action: { payload: IGroup }) => {
+      state.currentGroup = action.payload
+    },
+    setAllGroupsReducer: (state, action: { payload: IGroup[] }) => {
+      state.allGroups = action.payload
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(thunkFetchGroupSpotifyAuth.fulfilled, (state, action) => {
       state.spotifyAuth = action.payload

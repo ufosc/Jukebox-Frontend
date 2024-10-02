@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { loginUser, selectUserLoggedIn, selectUserStatus } from 'src/store'
 import { AuthForm } from '../components/AuthForm'
+import './AdminLogin.scss'
 
 export const AdminLogin = () => {
   const userStatus = useSelector(selectUserStatus)
@@ -19,11 +20,13 @@ export const AdminLogin = () => {
   }, [userStatus, userIsLoggedIn])
 
   return (
-    <div className="login-page">
+    <div className="grid login-page">
       <div className="login-page__form-container">
         <h2>Login</h2>
         <p>You have been logged out.</p>
-        <AuthForm onSubmit={handleLoginUser} />
+        <div>
+          <AuthForm onSubmit={handleLoginUser} />
+        </div>
       </div>
     </div>
   )
