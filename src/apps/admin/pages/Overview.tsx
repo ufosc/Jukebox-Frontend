@@ -14,6 +14,7 @@ export const Overview = () => {
   const [song, setSong] = useState('')
   const [author, setAuthor] = useState('')
   const { currentTrack } = useContext(SpotifyPlayerContext)
+  const [currentTrackImage, setCurrentTrackImage] = useState('')
 
   useEffect(() => {
     console.log('Hello')
@@ -22,6 +23,7 @@ export const Overview = () => {
     if (currentTrack == undefined) {
       setSong('No song Playing')
       setAuthor('No Author')
+      setCurrentTrackImage(track?.album?.images[0].url)
     } else {
       setSong(currentTrack.name)
       setAuthor(
@@ -29,6 +31,7 @@ export const Overview = () => {
           .map((artist: { name: any }) => artist.name)
           .join(', '),
       )
+      setCurrentTrackImage(currentTrack?.album?.images[0].url)
     }
   }, [currentTrack])
 
@@ -48,7 +51,7 @@ export const Overview = () => {
           <div className="disk">
             <img
               className="curr-song"
-              src={currentTrack?.album?.images[0].url}
+              src={currentTrackImage}
               alt={track.name}
             />
             <Disk />
