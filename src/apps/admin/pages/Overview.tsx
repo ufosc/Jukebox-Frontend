@@ -6,7 +6,7 @@ import './Overview.scss'
 
 import { SpotifyPlayerContext } from 'src/context'
 import { mockTrack } from 'src/mock'
-import Disk from './Disk.svg?react'
+import Disk from 'src/assets/svg/Disk.svg?react'
 
 import { Track } from './Track'
 

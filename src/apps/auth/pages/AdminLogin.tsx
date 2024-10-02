@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { loginUser, selectUserLoggedIn, selectUserStatus } from 'src/store'
 import { AuthForm } from '../components/AuthForm'
-import "./AdminLogin.scss"
+import './AdminLogin.scss'
 
 export const AdminLogin = () => {
   const userStatus = useSelector(selectUserStatus)
