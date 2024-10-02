@@ -1,4 +1,4 @@
-import './adminBoard.scss'
+import './AdminBoard.scss'
 import boardImage from './boardImage.png'
 
 export const AdminBoard = () => {
