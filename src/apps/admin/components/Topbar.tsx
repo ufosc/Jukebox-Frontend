@@ -1,3 +1,4 @@
+import { NotificationsOutlined } from '@mui/icons-material'
 import type { ChangeEvent } from 'react'
 import { useSelector } from 'react-redux'
 import { selectAllGroups, selectCurrentGroup, selectUser } from 'src/store'
@@ -17,7 +18,7 @@ export const Topbar = () => {
 
   return (
     <div className="topbar">
-      <div className="topbar__search">
+      <div className="topbar__group-dropdown">
         <select
           name="current-group"
           id="current-group"
@@ -33,9 +34,16 @@ export const Topbar = () => {
             ))}
         </select>
       </div>
-      <div className="topbar__profile">
-        {user && <img src={user.image} alt={user.lastName} />}
-        {!user && <p>Login required.</p>}
+      <div className="topbar__user-details">
+        <div className="topbar__notifications">
+          <button>
+            <NotificationsOutlined fontSize="large" />
+          </button>
+        </div>
+        <button className="topbar__profile">
+          {user && <img src={user.image} alt={user.lastName} />}
+          {!user && <p>Login required.</p>}
+        </button>
       </div>
     </div>
   )
