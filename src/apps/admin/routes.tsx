@@ -1,7 +1,8 @@
-import type { RouteObject } from 'react-router-dom'
+import { Outlet, type RouteObject } from 'react-router-dom'
 import { Dashboard } from './layout/Dashboard'
 import { Overview } from './pages'
 import { AdminBoard } from './pages/AdminBoard'
+import { MusicSearch } from './pages/MusicSearch'
 
 export const adminOutlet = <Dashboard />
 
@@ -16,11 +17,18 @@ export const adminRoutes: RouteObject[] = [
   },
   {
     path: 'music',
-    element: <div>Music</div>,
+    element: (
+      <div>
+        Music
+        <div>
+          <Outlet />
+        </div>
+      </div>
+    ),
     children: [
       {
         path: 'search',
-        element: <div>Music Search</div>,
+        element: <MusicSearch />,
       },
       {
         path: 'queue',
@@ -30,7 +38,7 @@ export const adminRoutes: RouteObject[] = [
   },
   {
     path: 'jam-sessions',
-    element: <div>Jam Sessions</div>,
+    // element: <div>Jam Sessions</div>,
     children: [
       {
         path: 'leaderboard',
