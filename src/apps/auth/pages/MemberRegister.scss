@@ -1,0 +1,78 @@
+.registration-page {
+    display: grid;
+    place-content: center;
+    height: 100vh;
+    background-color: var(--color-surface-container);
+}
+
+.registration-page__form-container {
+    grid-column-start: 5;
+    grid-column-end: 9;
+    text-align: center;
+}
+
+.registration-page__form-container > h2 {
+    color: var(--color-surface-on);
+    @include font-display('xs');
+    padding-bottom: 4vh;
+}
+
+.registration-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; // Space between form elements
+}
+
+.registration-form__field {
+    display: flex;
+    flex-direction: column;
+    text-align: left; // Align text for labels
+}
+
+.registration-form__label {
+    color: var(--color-surface-on); // Label text color
+    margin-bottom: 0.5rem; // Space between label and input
+    font-weight: bold;
+}
+
+.registration-form__input {
+    padding: 0.75rem;
+    border: 1px solid var(--color-surface-outline); // Light border for input
+    border-radius: 4px; // Rounded corners
+    font-size: 1rem;
+    color: var(--color-surface-on);
+    background-color: var(--color-surface-container-high); // Light background for inputs
+}
+
+.registration-form__input:focus {
+    outline: none;
+    border-color: var(--color-primary); // Highlighted border on focus
+    box-shadow: 0 0 0 3px rgba(var(--color-primary), 0.2); // Optional shadow
+}
+
+.registration-form__submit {
+    padding: 1rem;
+    margin-top: 1.5rem; // Space above submit button
+    background-color: var(--color-primary); // Primary color background
+    color: var(--color-on-primary); // Text color on the button
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.registration-form__submit:hover {
+    background-color: var(--color-primary-dark); // Darker shade on hover
+}
+
+.registration-page__form-container > p {
+    color: var(--color-surface-on);
+    @include font-display('xs');
+    display: none;
+}
+
+.registration-page__form-container > div {
+    background-color: var(--color-surface);
+    padding: 2vh 3vh 5vh 3vh;
+}

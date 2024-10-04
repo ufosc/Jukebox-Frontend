@@ -50,8 +50,24 @@ export const authRoutes: RouteObject[] = [
   },
   {
     path: 'members',
-    element: <div>Members auth index. Login/register as Member/Guest?</div>,
+    // element: <div>Members auth index. Login/register as Member/Guest?</div>,
     children: [
+      {
+        index: true,
+        element: (
+            <div>
+              Member auth index.
+              <ul>
+                <li>
+                  <Link to="login">Login</Link>
+                </li>
+                <li>
+                  <Link to="register">Register</Link>
+                </li>
+              </ul>
+            </div>
+        ),
+      },
       {
         path: 'login',
         element: <MemberLogin />,
