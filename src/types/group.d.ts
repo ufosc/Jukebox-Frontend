@@ -1,11 +1,11 @@
-declare interface IGroupFields {
+declare interface IClubFields {
   name: string
   ownerId: string
   spotifyAuthId?: string
   defaultDeviceId?: string
 }
 
-declare interface IGroup extends IGroupFields {
+declare interface IClub extends IClubFields {
   id: string
 }
 

@@ -4,21 +4,21 @@ import { Outlet, useNavigate } from 'react-router-dom'
 import { SocketProvider, Theme } from './context'
 import { SpotifyPlayerProvider } from './context/PlayerContext'
 import {
-  fetchCurrentGroupInfo,
+  fetchCurrentClubInfo,
   fetchUserInfo,
   initializeUser,
   logoutUser,
-  selectGroupSpotifyAuth,
+  selectClubSpotifyAuth,
   selectUser,
   selectUserLoggedIn,
-  setAllGroups,
-  setCurrentGroup,
+  setAllClubs,
+  setCurrentClub,
 } from './store'
 
 export const App = () => {
   const userIsLoggedIn = useSelector(selectUserLoggedIn)
   const userInfo = useSelector(selectUser)
-  const spotifyAuth = useSelector(selectGroupSpotifyAuth)
+  const spotifyAuth = useSelector(selectClubSpotifyAuth)
 
   const navigate = useNavigate()
 
@@ -38,9 +38,9 @@ export const App = () => {
       fetchUserInfo().then(async (resUserInfo) => {
         if (!resUserInfo) return
 
-        setCurrentGroup(resUserInfo.groups[0])
-        setAllGroups(resUserInfo.groups)
-        await fetchCurrentGroupInfo()
+        setCurrentClub(resUserInfo.clubs[0])
+        setAllClubs(resUserInfo.clubs)
+        await fetchCurrentClubInfo()
       })
     } else if (userInfo || userIsLoggedIn === false) {
       logoutUser()

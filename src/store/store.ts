@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { groupReducer } from './group'
+import { clubReducer } from './club'
 import { userReducer } from './user'
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    group: groupReducer,
+    club: clubReducer,
   },
 })
 
