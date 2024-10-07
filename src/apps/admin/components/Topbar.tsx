@@ -1,36 +1,38 @@
 import type { ChangeEvent } from 'react'
 import { useSelector } from 'react-redux'
-import { selectAllGroups, selectCurrentGroup, selectUser } from 'src/store'
+import { selectAllClubs, selectCurrentClub, selectUser } from 'src/store'
 
 import './Topbar.scss'
 
 export const Topbar = () => {
   const user = useSelector(selectUser)
-  const groups = useSelector(selectAllGroups)
-  const currentGroup = useSelector(selectCurrentGroup)
+  const clubs = useSelector(selectAllClubs)
+  const currentClub = useSelector(selectCurrentClub)
 
-  const handleGroupChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const selectedGroupId = e.target.value
+  const handleClubChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const selectedClubId = e.target.value
 
-    console.log('Set current group to:', selectedGroupId)
+    console.log('Set current club to:', selectedClubId)
   }
 
   return (
     <div className="topbar">
       <div className="topbar__search">
         <select
-          name="current-group"
-          id="current-group"
-          onChange={handleGroupChange}
+          name="current-club"
+          id="current-club"
+          onChange={handleClubChange}
         >
-          <option value="">{currentGroup?.name ?? 'No Group Selected'}</option>
-          {groups
-            .filter((group) => group.id !== currentGroup?.id)
-            .map((group) => (
-              <option key={group.id} value={group.id}>
-                {group.name}
-              </option>
-            ))}
+          {!currentClub && <option value="">No Club Selected</option>}
+          {clubs.map((club) => (
+            <option
+              key={club.id}
+              value={club.id}
+              selected={club.id === currentClub?.id}
+            >
+              {club.name}
+            </option>
+          ))}
         </select>
       </div>
       <div className="topbar__profile">

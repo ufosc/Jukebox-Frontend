@@ -4,5 +4,5 @@ declare interface IUser {
   firstName?: string
   lastName?: string
   image?: string
-  groups: IGroup[]
+  clubs: IClub[]
 }

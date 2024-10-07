@@ -141,10 +141,11 @@ export class Network {
         lastName: mockUser.lastName,
         image:
           'https://alliancebjjmn.com/wp-content/uploads/2019/07/placeholder-profile-sq-491x407.jpg',
-        groups: mockUser.groups,
+        clubs: mockUser.clubs,
       }
     }
     const res = await this.sendRequest(NetworkRoutes.user.details)
+    console.log('user res:', res)
 
     return {
       id: res?.data.id,
@@ -154,16 +155,20 @@ export class Network {
       image:
         res?.data.image ??
         'https://alliancebjjmn.com/wp-content/uploads/2019/07/placeholder-profile-sq-491x407.jpg',
-      groups: Array.from(res?.data.groups),
+      clubs: Array.from(res?.data.clubs).map((club: any) => ({
+        id: String(club.id),
+        name: String(club.name),
+        ownerId: String(club.ownerId),
+      })),
     }
   }
 
-  public async sendGetGroupInfo(groupId: string): Promise<IGroup> {
+  public async sendGetClubInfo(clubId: string): Promise<IClub> {
     if (this.env === 'dev') {
-      throw new NotImplementedError('network.sendGetGroupInfo')
+      throw new NotImplementedError('network.sendGetClubInfo')
     }
 
-    const res = await this.sendRequest(NetworkRoutes.group.info(groupId))
+    const res = await this.sendRequest(NetworkRoutes.club.info(clubId))
     return {
       id: res.data.id,
       name: res.data.name,
@@ -171,7 +176,7 @@ export class Network {
     }
   }
 
-  public async sendGetSpotifyToken(groupId: string): Promise<ISpotifyAuth> {
+  public async sendGetSpotifyToken(clubId: string): Promise<ISpotifyAuth> {
     if (this.env === 'dev') {
       await sleep(1000)
 
@@ -186,7 +191,7 @@ export class Network {
       }
     }
 
-    const res = await this.sendRequest(NetworkRoutes.group.spotifyAuth(groupId))
+    const res = await this.sendRequest(NetworkRoutes.club.spotifyAuth(clubId))
     return {
       id: res?.data.id,
       accessToken: res?.data.accessToken,

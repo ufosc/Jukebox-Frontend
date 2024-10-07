@@ -1,4 +1,4 @@
-import { mockGroups } from './mock-groups'
+import { mockClubs } from './mock-clubs'
 
 export const mockUser: IUser & { token: string } = {
   id: '12345',
@@ -6,9 +6,9 @@ export const mockUser: IUser & { token: string } = {
   email: 'john@example.com',
   firstName: 'John',
   lastName: 'Doe',
-  groups: mockGroups.map((group) => ({
-    id: group.id,
-    name: group.name,
+  clubs: mockClubs.map((club) => ({
+    id: club.id,
+    name: club.name,
     ownerId: '12345',
   })),
   image:
