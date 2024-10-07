@@ -23,14 +23,16 @@ export const Topbar = () => {
           id="current-club"
           onChange={handleClubChange}
         >
-          <option value="">{currentClub?.name ?? 'No Club Selected'}</option>
-          {clubs
-            .filter((club) => club.id !== currentClub?.id)
-            .map((club) => (
-              <option key={club.id} value={club.id}>
-                {club.name}
-              </option>
-            ))}
+          {!currentClub && <option value="">No Club Selected</option>}
+          {clubs.map((club) => (
+            <option
+              key={club.id}
+              value={club.id}
+              selected={club.id === currentClub?.id}
+            >
+              {club.name}
+            </option>
+          ))}
         </select>
       </div>
       <div className="topbar__profile">

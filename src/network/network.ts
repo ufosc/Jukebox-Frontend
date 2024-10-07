@@ -145,6 +145,7 @@ export class Network {
       }
     }
     const res = await this.sendRequest(NetworkRoutes.user.details)
+    console.log('user res:', res)
 
     return {
       id: res?.data.id,
@@ -154,7 +155,11 @@ export class Network {
       image:
         res?.data.image ??
         'https://alliancebjjmn.com/wp-content/uploads/2019/07/placeholder-profile-sq-491x407.jpg',
-      clubs: Array.from(res?.data.clubs),
+      clubs: Array.from(res?.data.clubs).map((club: any) => ({
+        id: String(club.id),
+        name: String(club.name),
+        ownerId: String(club.ownerId),
+      })),
     }
   }
 
