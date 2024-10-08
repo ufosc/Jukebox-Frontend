@@ -1,29 +1,29 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { thunkFetchGroupInfo, thunkFetchGroupSpotifyAuth } from './groupThunks'
+import { thunkFetchClubInfo, thunkFetchClubSpotifyAuth } from './clubThunks'
 
-export const groupSlice = createSlice({
-  name: 'group',
+export const clubSlice = createSlice({
+  name: 'club',
   initialState: {
-    currentGroup: null as IGroup | null,
+    currentClub: null as IClub | null,
     spotifyAuth: null as ISpotifyAuth | null,
     status: 'idle' as StoreStatus,
     error: null as string | null,
-    allGroups: [] as IGroup[],
+    allClubs: [] as IClub[],
   },
   reducers: {
-    setCurrentGroupReducer: (state, action: { payload: IGroup }) => {
-      state.currentGroup = action.payload
+    setCurrentClubReducer: (state, action: { payload: IClub }) => {
+      state.currentClub = action.payload
     },
-    setAllGroupsReducer: (state, action: { payload: IGroup[] }) => {
-      state.allGroups = action.payload
+    setAllClubsReducer: (state, action: { payload: IClub[] }) => {
+      state.allClubs = action.payload
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(thunkFetchGroupSpotifyAuth.fulfilled, (state, action) => {
+    builder.addCase(thunkFetchClubSpotifyAuth.fulfilled, (state, action) => {
       state.spotifyAuth = action.payload
     })
-    builder.addCase(thunkFetchGroupInfo.fulfilled, (state, action) => {
-      state.currentGroup = action.payload
+    builder.addCase(thunkFetchClubInfo.fulfilled, (state, action) => {
+      state.currentClub = action.payload
     })
 
     builder.addMatcher(
@@ -49,4 +49,4 @@ export const groupSlice = createSlice({
   },
 })
 
-export type GroupState = ReturnType<typeof groupSlice.reducer>
+export type ClubState = ReturnType<typeof clubSlice.reducer>

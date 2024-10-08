@@ -1,3 +1,5 @@
+$size: 4rem;
+
 .topbar {
   // height: 7.7rem;
   position: relative;
@@ -7,9 +9,54 @@
   justify-content: space-between;
   align-items: center;
 
+  &__group-dropdown {
+    select {
+      width: 225px;
+      padding: 6px;
+      border-radius: 500px;
+      background: transparent;
+      border: none;
+      color: #b6b1af;
+      letter-spacing: 1px;
+    }
+  }
+
+  &__user-details {
+    display: flex;
+    gap: 4rem;
+  }
+
+  &__notifications {
+    button {
+      border: none;
+      cursor: pointer;
+      background-color: #dad8d7;
+      border-radius: 500px;
+      width: $size;
+      height: $size;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
   &__profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    border-radius: 500px;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
     img {
-      $size: 3.5rem;
       width: $size;
       height: $size;
       object-fit: cover;
