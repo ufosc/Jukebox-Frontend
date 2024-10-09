@@ -1,4 +1,10 @@
 # OSC Jukebox React App
+[![Code Linting](https://github.com/ufosc/Jukebox-Frontend/actions/workflows/code-linting.yml/badge.svg)](https://github.com/ufosc/Jukebox-Frontend/actions/workflows/code-linting.yml)
+[![Unit Tests](https://github.com/ufosc/Jukebox-Frontend/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/ufosc/Jukebox-Frontend/actions/workflows/unit-tests.yml)
+
+<!--
+[![cov](https://<you>.github.io/<repo>/badges/coverage.svg)](https://github.com/ufosc/Jukebox-Frontend/actions)
+-->
 
 ## Overview
 
