@@ -46,22 +46,27 @@ services:
       - kafka
     networks:
       - cluster
-    command: npm run dev:server
+    command: npm run start:network
 
   proxy:
     image: ikehunter5/jukebox-proxy:latest
     ports:
       - 8080:8080
+      - 8081:8081
     networks:
       - cluster
     depends_on:
       - server
+      - club-manager
+    restart: always
     volumes:
       - client-dist-jbx:/vol/client
+      - club-static:/vol/static
     environment:
       - SERVER_URI=server-jbx-fe:9000
-      - WEBSOCKET_URI=websocket-jbx-fe:9001
-    attach: false
+      - WEBSOCKET_URI=server-jbx-fe:9000
+      - CLUB_MANAGER_URI=club-app-network-fe:9000
+    # attach: false
 
   mongodb:
     image: mongo:6.0.9
@@ -116,22 +121,69 @@ services:
   ####################################
   # Web Socket Config
   ####################################
-  websocket:
-    image: ikehunter5/jukebox-websocket:latest
-    restart: always
-    ports:
-      - 9001:9001
-    container_name: websocket-jbx-fe
-    environment:
-      - HOST=0.0.0.0
-      - PORT=9001
-      - NODE_ENV=network
-      - LOG_LEVEL=debug
-      - LOG_NS=websocket
+  # websocket:
+  #   image: ikehunter5/jukebox-websocket:latest
+  #   restart: always
+  #   ports:
+  #     - 9001:9001
+  #   container_name: websocket-jbx-fe
+  #   environment:
+  #     - HOST=0.0.0.0
+  #     - PORT=9001
+  #     - NODE_ENV=network
+  #     - LOG_LEVEL=debug
+  #     - LOG_NS=websocket
       
-      - KAFKA_BROKERS=kafka-jbx-fe:9092
-      - KAFKA_GROUP_ID=websocket-jbx
-    command: npm run dev:websocket
+  #     - KAFKA_BROKERS=kafka-jbx-fe:9092
+  #     - KAFKA_GROUP_ID=websocket-jbx
+  #   command: npm run dev:websocket
+  #   networks:
+  #     - cluster
+  
+  ####################################
+  # Club Manager Config
+  ####################################
+  club-manager:
+    image: ikehunter5/club-manager:latest
+    container_name: club-app-network-fe
+    # ports:
+    #   - '8000:8000'
+    volumes:
+      # - ./app:/app
+      - club-static:/vol/static
+    command: >
+      sh -c "python manage.py wait_for_db &&
+             python manage.py migrate &&
+             python manage.py init_superuser &&
+             entrypoint.sh"
+    environment:
+      - PORT=9000
+      - DJANGO_ENV=dev
+      - DB_HOST=club-app-network-db-fe
+      - DB_NAME=devdatabase
+      - DB_USER=devuser
+      - DB_PASS=devpass
+      - DEBUG=1
+      - DJANGO_ALLOWED_HOSTS=*
+      - S3_STORAGE_BACKEND=0
+      - CREATE_SUPERUSER=1
+      - DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL:-admin@example.com}
+      - DJANGO_SUPERUSER_PASS=${DJANGO_SUPERUSER_PASS:-changeme}
+    depends_on:
+      - postgres
+    networks:
+      - cluster
+  
+
+  postgres:
+    image: postgres:13-alpine
+    container_name: club-app-network-db-fe
+    volumes:
+      - postgres-osc-network:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=devdatabase
+      - POSTGRES_USER=devuser
+      - POSTGRES_PASSWORD=devpass
     networks:
       - cluster
 
@@ -139,6 +191,10 @@ volumes:
   client-dist-jbx:
     name: client-dist-jbx
   mongo-data-fe:
+  club-static:
+    name: club-static-fe
+  postgres-osc-network:
+    name: postgres-osc-network-fe
 
 networks:
   cluster:
