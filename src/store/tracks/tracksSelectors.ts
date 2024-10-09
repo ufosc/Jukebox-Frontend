@@ -1,24 +1,23 @@
-import { createSelector } from "@reduxjs/toolkit";
-import type { TrackState } from "./tracksSlice";
+import { createSelector } from '@reduxjs/toolkit'
+import type { TrackState } from './tracksSlice'
 
-type RootState ={
-    track: TrackState
+type RootState = {
+  track: TrackState
 }
 
-const TrackStateSelector = (state : RootState) => state.track
-
+const TrackStateSelector = (state: RootState) => state.track
 
 export const selectCurrentTrack = createSelector(
-    TrackStateSelector,
-    (state) => state.currentTrack
+  TrackStateSelector,
+  (state) => state.currentTrack,
 )
 
 export const selectNextTracks = createSelector(
-    TrackStateSelector,
-    (state) => state.nextTracks
+  TrackStateSelector,
+  (state) => state.nextTracks,
 )
 
-export const selectAllTracks = createSelector(
-    TrackStateSelector,
-    (state) => [state.currentTrack, ...state.nextTracks]
-)
+export const selectAllTracks = createSelector(TrackStateSelector, (state) => [
+  state.currentTrack,
+  ...state.nextTracks,
+])
