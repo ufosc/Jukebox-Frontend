@@ -1,0 +1,17 @@
+.musicTitle {
+  @include font-display('sm');
+  color: var(--color-primary-contrast);
+  margin-bottom: 1vh;
+  width: fit-content;
+  text-shadow: 1px 3px 2px darkgrey;
+}
+
+.music-page-switch {
+  @include font-label('sm', 300);
+  display: inline-block;
+  margin-bottom: 5vh;
+}
+
+.music-page-link {
+  color: var(--color-primary-surface);
+}
