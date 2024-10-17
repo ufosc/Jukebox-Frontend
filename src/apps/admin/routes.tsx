@@ -20,7 +20,6 @@ export const adminRoutes: RouteObject[] = [
   {
     path: 'music',
     element: <Music />,
-    element: <Music />,
     children: [
       {
         path: 'search',
