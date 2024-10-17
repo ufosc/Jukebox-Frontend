@@ -19,10 +19,10 @@ services:
   ####################################
   # Server & Network Config
   ####################################
-  server:
+  jukebox:
     restart: always
     image: ikehunter5/jukebox-server:latest
-    container_name: server-jbx-fe
+    container_name: jbx-server-fe
     environment:
       - NODE_ENV=network
       - PORT=9000
@@ -32,18 +32,23 @@ services:
       
       - JWT_SECRET_KEY=changeme
       - TOKEN_HEADER_KEY=Authorization
-      
-      - MONGO_URI=mongodb://root:changeme@mongo-network-jbx-fe:27017
+
       - KAFKA_BROKERS=kafka-jbx-fe:9092
       
       - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}
       - SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}
-      - SPOTIFY_REDIRECT_URI=http://localhost:8000/api/spotify/login-callback/
+      
+      - PROXY_URL=http://proxy:8080
+      - DB_HOST=jbx-network-db-fe
+      - DB_PORT=5432
+      - DB_USER=devuser
+      - DB_PASS=devpass
+      - DB_NAME=devdatabase
     ports:
       - 9000:9000
     depends_on:
-      - mongodb
-      - kafka
+      - postgres-jukebox
+      # - kafka
     networks:
       - cluster
     command: npm run start:network
@@ -56,67 +61,67 @@ services:
     networks:
       - cluster
     depends_on:
-      - server
+      - jukebox
       - club-manager
     restart: always
     volumes:
       - client-dist-jbx:/vol/client
       - club-static:/vol/static
     environment:
-      - SERVER_URI=server-jbx-fe:9000
-      - WEBSOCKET_URI=server-jbx-fe:9000
+      - SERVER_URI=jbx-server-fe:9000
+      - WEBSOCKET_URI=jbx-server-fe:9000
       - CLUB_MANAGER_URI=club-app-network-fe:9000
     # attach: false
 
-  mongodb:
-    image: mongo:6.0.9
-    restart: always
-    container_name: mongo-network-jbx-fe
-    ports:
-      - 27017:27017
-    volumes:
-      - mongo-data-fe:/data/db
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=changeme
-    command: mongod --quiet --logpath /dev/null --bind_ip_all
-    networks:
-      - cluster
+  # mongodb:
+  #   image: mongo:6.0.9
+  #   restart: always
+  #   container_name: mongo-network-jbx-fe
+  #   ports:
+  #     - 27017:27017
+  #   volumes:
+  #     - mongo-data-fe:/data/db
+  #   environment:
+  #     - MONGO_INITDB_ROOT_USERNAME=root
+  #     - MONGO_INITDB_ROOT_PASSWORD=changeme
+  #   command: mongod --quiet --logpath /dev/null --bind_ip_all
+  #   networks:
+  #     - cluster
   
   ####################################
   # Kafka Config
   ####################################
-  zookeeper:
-    image: confluentinc/cp-zookeeper:latest
-    container_name: zookeeper-jbx-fe
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
-    ports:
-      - 2181:2181
-    networks:
-      - cluster
-    attach: false
+  # zookeeper:
+  #   image: confluentinc/cp-zookeeper:latest
+  #   container_name: zookeeper-jbx-fe
+  #   environment:
+  #     ZOOKEEPER_CLIENT_PORT: 2181
+  #     ZOOKEEPER_TICK_TIME: 2000
+  #   ports:
+  #     - 2181:2181
+  #   networks:
+  #     - cluster
+  #   attach: false
 
-  kafka:
-    image: confluentinc/cp-kafka:latest
-    container_name: kafka-jbx-fe
-    depends_on:
-      - zookeeper
-    ports:
-      - 9092:9092
-      - 29092:29092
-    environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper-jbx-fe:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: true
-    networks:
-      - cluster
-    attach: false
+  # kafka:
+  #   image: confluentinc/cp-kafka:latest
+  #   container_name: kafka-jbx-fe
+  #   depends_on:
+  #     - zookeeper
+  #   ports:
+  #     - 9092:9092
+  #     - 29092:29092
+  #   environment:
+  #     KAFKA_BROKER_ID: 1
+  #     KAFKA_ZOOKEEPER_CONNECT: zookeeper-jbx-fe:2181
+  #     KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+  #     KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+  #     KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+  #     KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  #     KAFKA_AUTO_CREATE_TOPICS_ENABLE: true
+  #   networks:
+  #     - cluster
+  #   attach: false
   
   ####################################
   # Web Socket Config
@@ -170,16 +175,27 @@ services:
       - DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL:-admin@example.com}
       - DJANGO_SUPERUSER_PASS=${DJANGO_SUPERUSER_PASS:-changeme}
     depends_on:
-      - postgres
+      - postgres-clubs
     networks:
       - cluster
   
+  postgres-jukebox:
+    image: postgres:13-alpine
+    container_name: jbx-network-db-fe
+    volumes:
+      - postgres-jukebox:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=devdatabase
+      - POSTGRES_USER=devuser
+      - POSTGRES_PASSWORD=devpass
+    networks:
+      - cluster
 
-  postgres:
+  postgres-clubs:
     image: postgres:13-alpine
     container_name: club-app-network-db-fe
     volumes:
-      - postgres-osc-network:/var/lib/postgresql/data
+      - postgres-clubs:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=devdatabase
       - POSTGRES_USER=devuser
@@ -193,8 +209,10 @@ volumes:
   mongo-data-fe:
   club-static:
     name: club-static-fe
-  postgres-osc-network:
-    name: postgres-osc-network-fe
+  postgres-clubs:
+    name: postgres-clubs-network-fe
+  postgres-jukebox:
+    name: postgres-jukebox-network-fe
 
 networks:
   cluster:
