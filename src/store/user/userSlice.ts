@@ -34,7 +34,7 @@ export const userSlice = createSlice({
         email: email ?? state.user?.email,
         image: image ?? state.user?.image,
         id: id ?? state.user?.id,
-        groups: [],
+        clubs: [],
       }
     },
   },

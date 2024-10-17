@@ -13,6 +13,24 @@ import {
 import { NetworkRoutes } from './routes'
 import type { NetworkResponse } from './types'
 
+interface SpotifyLink {
+  id: number
+  access_token: string
+  user_id: number
+  spotify_email: string
+  expires_in: number
+  expires_at: string
+  token_type: string
+}
+
+interface Jukebox {
+  id: number
+  name: string
+  club_id: number
+  spotify_links: SpotifyLink[]
+  active_spotify_link?: SpotifyLink
+}
+
 export class Network {
   static instance: Network
   protected routes: typeof NetworkRoutes
@@ -108,7 +126,7 @@ export class Network {
       return ok(token)
     }
 
-    const res = await this.sendRequest(NetworkRoutes.user.token, 'POST', {
+    const res = await this.sendRequest(this.routes.user.token, 'POST', {
       email,
       password,
     })
@@ -135,50 +153,55 @@ export class Network {
     if (this.env === 'dev') {
       await sleep(1000)
       return {
-        id: Date.now().toString(),
+        id: Date.now(),
         email: mockUser.email,
         firstName: mockUser.firstName,
         lastName: mockUser.lastName,
         image:
           'https://alliancebjjmn.com/wp-content/uploads/2019/07/placeholder-profile-sq-491x407.jpg',
-        groups: mockUser.groups,
+        clubs: mockUser.clubs,
       }
     }
-    const res = await this.sendRequest(NetworkRoutes.user.details)
+    const res = await this.sendRequest(this.routes.user.details)
+    console.log('user res:', res)
 
     return {
       id: res?.data.id,
       email: res?.data.email,
-      firstName: res?.data.firstName,
-      lastName: res?.data.lastName,
+      firstName: res?.data.first_name,
+      lastName: res?.data.last_name,
       image:
         res?.data.image ??
         'https://alliancebjjmn.com/wp-content/uploads/2019/07/placeholder-profile-sq-491x407.jpg',
-      groups: Array.from(res?.data.groups),
+      clubs: Array.from(res?.data.clubs).map((club: any) => ({
+        id: club.id,
+        name: String(club.name),
+        ownerId: club.owner_id,
+      })),
     }
   }
 
-  public async sendGetGroupInfo(groupId: string): Promise<IGroup> {
+  public async sendGetClubInfo(clubId: number): Promise<IClub> {
     if (this.env === 'dev') {
-      throw new NotImplementedError('network.sendGetGroupInfo')
+      throw new NotImplementedError('network.sendGetClubInfo')
     }
 
-    const res = await this.sendRequest(NetworkRoutes.group.info(groupId))
+    const res = await this.sendRequest(this.routes.club.info(clubId))
     return {
       id: res.data.id,
       name: res.data.name,
-      ownerId: res.data.ownerId,
+      ownerId: res.data.owner_id,
     }
   }
 
-  public async sendGetSpotifyToken(groupId: string): Promise<ISpotifyAuth> {
+  public async sendGetSpotifyToken(clubId: number): Promise<ISpotifyAuth> {
     if (this.env === 'dev') {
       await sleep(1000)
 
       return {
-        id: '66e72f18a7c93a68835d630d',
+        id: 0,
         accessToken: String(import.meta.env.VITE_SPOTIFY_ACCESS_TOKEN),
-        userId: '66da2b580235f4ff7270460d',
+        userId: 0,
         spotifyEmail: 'user@example.com',
         expiresIn: 3600,
         tokenType: 'Bearer',
@@ -186,15 +209,27 @@ export class Network {
       }
     }
 
-    const res = await this.sendRequest(NetworkRoutes.group.spotifyAuth(groupId))
+    const res = await this.sendRequest(this.routes.jukebox.list)
+    const jukeboxes = res.data as Jukebox[]
+    const selectedJbx = jukeboxes.find((jbx) => +jbx.club_id === +clubId)
+
+    // TODO: Handle jukeboxes separately from clubs
+    if (!selectedJbx?.active_spotify_link) {
+      throw new Error('No spotify connections found.')
+    }
+
+    const refreshedRes = await this.sendRequest(
+      this.routes.jukebox.activeLink(selectedJbx.id),
+    )
+
     return {
-      id: res?.data.id,
-      accessToken: res?.data.accessToken,
-      userId: res?.data.userId,
-      spotifyEmail: res?.data.spotifyEmail,
-      expiresIn: res?.data.expiresIn,
-      tokenType: res?.data.tokenType,
-      expiresAt: res?.data.expiresAt,
+      id: refreshedRes.data?.id,
+      accessToken: refreshedRes.data?.access_token,
+      userId: refreshedRes.data?.user_id,
+      spotifyEmail: refreshedRes.data?.spotify_email,
+      expiresIn: refreshedRes.data?.expires_in,
+      tokenType: refreshedRes.data?.token_type,
+      expiresAt: new Date(refreshedRes.data?.expires_at).getTime(),
     }
   }
 }
