@@ -1,6 +1,6 @@
 declare interface IClubFields {
   name: string
-  ownerId: string
+  ownerId: number
   spotifyAuthId?: string
   defaultDeviceId?: string
 }
