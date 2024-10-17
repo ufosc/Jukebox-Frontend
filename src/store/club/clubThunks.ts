@@ -10,14 +10,14 @@ export const thunkFetchAdminClubs = createAsyncThunk(
 
 export const thunkFetchClubInfo = createAsyncThunk(
   'club/fetchClubInfo',
-  async (clubId: string) => {
+  async (clubId: number) => {
     return await network.sendGetClubInfo(clubId)
   },
 )
 
 export const thunkFetchClubSpotifyAuth = createAsyncThunk(
   'club/fetchClubSpotifyAuth',
-  async (clubId: string) => {
+  async (clubId: number) => {
     return await network.sendGetSpotifyToken(clubId)
   },
 )
