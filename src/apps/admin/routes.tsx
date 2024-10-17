@@ -3,6 +3,8 @@ import { Dashboard } from './layout/Dashboard'
 import { Overview } from './pages'
 import { AdminBoard } from './pages/AdminBoard'
 import { MusicSearch } from './pages/MusicSearch'
+import { Music } from './pages/Music'
+import { MusicQueue } from './pages/MusicQueue'
 
 export const adminOutlet = <Dashboard />
 
@@ -17,14 +19,7 @@ export const adminRoutes: RouteObject[] = [
   },
   {
     path: 'music',
-    element: (
-      <div>
-        Music
-        <div>
-          <Outlet />
-        </div>
-      </div>
-    ),
+    element: <Music />,
     children: [
       {
         path: 'search',
@@ -32,7 +27,7 @@ export const adminRoutes: RouteObject[] = [
       },
       {
         path: 'queue',
-        element: <div>Music Song Queue</div>,
+        element: <MusicQueue />,
       },
     ],
   },
