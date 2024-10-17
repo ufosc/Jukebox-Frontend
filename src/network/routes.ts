@@ -8,7 +8,10 @@ export const NetworkRoutes = {
     details: `${base}/user/me/`,
   },
   club: {
-    info: (id: string) => `${base}/club/clubs/${id}`,
-    spotifyAuth: (id: string) => `${base}/club/${id}/spotify/auth`,
+    info: (id: number) => `${base}/club/clubs/${id}`,
+  },
+  jukebox: {
+    list: `${base}/jukebox/jukeboxes`,
+    activeLink: (id: number) => `${base}/jukebox/${id}/active-link/`,
   },
 }

@@ -1,18 +1,18 @@
 declare interface IClubFields {
   name: string
-  ownerId: string
+  ownerId: number
   spotifyAuthId?: string
   defaultDeviceId?: string
 }
 
 declare interface IClub extends IClubFields {
-  id: string
+  id: number
 }
 
 declare interface ISpotifyAuth {
-  id: string
+  id: number
   accessToken: string
-  userId: string
+  userId: number
   spotifyEmail: string
   expiresIn: number
   tokenType: string

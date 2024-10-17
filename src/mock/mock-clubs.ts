@@ -1,17 +1,17 @@
 export const mockClubs: IClub[] = [
   {
-    id: 'club-1',
+    id: 0,
     name: 'Test Club 1',
-    ownerId: '12345',
+    ownerId: 0,
   },
   {
-    id: 'club-2',
+    id: 1,
     name: 'Test Club 2',
-    ownerId: '98765',
+    ownerId: 1,
   },
   {
-    id: 'club-3',
+    id: 2,
     name: 'Test Club 3',
-    ownerId: '98765',
+    ownerId: 1,
   },
 ]

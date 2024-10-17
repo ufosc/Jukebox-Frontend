@@ -1,0 +1,44 @@
+name: Code Linting
+
+on:
+  push:
+    branches:
+      - 'feature/**'
+      - 'main'
+
+jobs:
+  ts-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node.js Setup
+        uses: actions/setup-node@v3
+      - name: Install Packages
+        run: npm ci
+      - name: Build Vite & TSC
+        run: npm run build
+
+  eslint-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node.js Setup
+        uses: actions/setup-node@v3
+      - name: Install Packages
+        run: npm ci
+      - name: Run Eslint
+        run: npm run lint
+
+  prettier-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node.js Setup
+        uses: actions/setup-node@v3
+      - name: Install Packages
+        run: npm ci
+      - name: Run Prettier
+        run: npm run format

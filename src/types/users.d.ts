@@ -1,5 +1,5 @@
 declare interface IUser {
-  id: string
+  id: number
   email: string
   firstName?: string
   lastName?: string
