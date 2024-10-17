@@ -264,8 +264,8 @@ export const Sidebar = (props: { className?: string }) => {
                 </span>
                 {isDropdown1Open && (
                   <div className="navbar__dropdown__content">
-                    <a href="#">Track Queue</a>
-                    <a href="#">Search</a>
+                    <NavLink to="/admin/music/queue">Track Queue</NavLink>
+                    <NavLink to="/admin/music/search">Search</NavLink>
                   </div>
                 )}
               </li>
