@@ -1,10 +1,11 @@
-import { Outlet, type RouteObject } from 'react-router-dom'
+import { type RouteObject } from 'react-router-dom'
 import { Dashboard } from './layout/Dashboard'
 import { Overview } from './pages'
 import { AdminBoard } from './pages/AdminBoard'
-import { MusicSearch } from './pages/MusicSearch'
 import { Music } from './pages/Music'
 import { MusicQueue } from './pages/MusicQueue'
+import { MusicSearch } from './pages/MusicSearch'
+import { Settings } from './pages/Settings'
 
 export const adminOutlet = <Dashboard />
 
@@ -61,6 +62,6 @@ export const adminRoutes: RouteObject[] = [
   },
   {
     path: 'settings',
-    element: <div>Settings</div>,
+    element: <Settings />,
   },
 ]

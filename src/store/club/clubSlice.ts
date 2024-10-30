@@ -5,7 +5,7 @@ export const clubSlice = createSlice({
   name: 'club',
   initialState: {
     currentClub: null as IClub | null,
-    spotifyAuth: null as ISpotifyAuth | null,
+    spotifyAuth: null as ISpotifyAccount | null,
     status: 'idle' as StoreStatus,
     error: null as string | null,
     allClubs: [] as IClub[],

@@ -2,8 +2,8 @@ import { AudioPlayer } from 'src/components'
 import { TrackItem } from './TrackItem'
 
 export const TracksPanel = (props: {
-  currentTrack?: Nullable<Track>
-  nextTracks: Track[]
+  currentTrack?: Nullable<ITrack>
+  nextTracks: ITrack[]
 }) => {
   const { currentTrack, nextTracks } = props
 

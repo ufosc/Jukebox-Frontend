@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { builderDefaults } from 'src/utils'
 import { thunkFetchUserInfo, thunkLoginUser } from './userThunks'
 
 export const userSlice = createSlice({
@@ -25,13 +26,21 @@ export const userSlice = createSlice({
       state.user = null
     },
     update: (state, action: { payload: { user: IUser } }) => {
-      const { firstName, lastName, email, image, id } = action.payload.user
+      const {
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        image,
+        id,
+        username,
+      } = action.payload.user
       const name = `${firstName} ${lastName}`
 
       state.user = {
-        firstName: firstName ?? state.user?.firstName,
-        lastName: lastName ?? state.user?.lastName,
+        first_name: firstName ?? state.user?.first_name,
+        last_name: lastName ?? state.user?.last_name,
         email: email ?? state.user?.email,
+        username: username ?? state.user?.username,
         image: image ?? state.user?.image,
         id: id ?? state.user?.id,
         clubs: [],
@@ -57,30 +66,8 @@ export const userSlice = createSlice({
       state.loggedIn = false
       state.error = action.error.message || null
     })
-    // builder.addCase(thunkGetUserSpotifyToken.fulfilled, (state, action) => {
-    //   state.spotifyToken = action.payload
-    // })
 
-    builder.addMatcher(
-      (action) => action.type.endsWith('/pending'),
-      (state) => {
-        state.status = 'loading'
-      },
-    )
-    builder.addMatcher(
-      (action) => action.type.endsWith('/rejected'),
-      (state, action: any) => {
-        state.status = 'failed'
-        state.error = action.error.message || null
-      },
-    )
-    builder.addMatcher(
-      (action) => action.type.endsWith('/fulfilled'),
-      (state) => {
-        state.status = 'succeeded'
-        state.error = null
-      },
-    )
+    builderDefaults(builder)
   },
 })
 
