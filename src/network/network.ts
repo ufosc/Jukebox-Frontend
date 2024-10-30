@@ -47,6 +47,70 @@ export class Network {
     this.token = null
   }
 
+  private parseSpotifyAccount(data: any): ISpotifyAccount {
+    return {
+      id: +data.id,
+      user_id: data.user_id,
+      token_type: data.token_type,
+      spotify_email: data.spotify_email,
+      access_token: data.access_token,
+      expires_in: data.expires_in,
+      expires_at: new Date(data.expires_at).getTime(),
+    }
+  }
+
+  private parseJukeboxLink(data: any): IJukeboxLink {
+    return {
+      id: +data.id,
+      type: data.type,
+      email: data.email,
+      active: data.active,
+    }
+  }
+
+  private parseJukebox(data: any): IJukebox {
+    return {
+      id: +data.id,
+      club_id: data.club_id,
+      links: (data.links ?? []).map((link: any) => this.parseJukeboxLink(link)),
+      name: data.name,
+    }
+  }
+
+  private parseClubMember(data: any): IClubMember {
+    return {
+      id: +data.id,
+      user_id: +data.user_id,
+      owner: data.owner,
+      role: data.role,
+      username: data.username,
+      points: data.points,
+    }
+  }
+
+  private parseClub(data: any): IClub {
+    return {
+      id: +data.id,
+      name: data.name,
+      logo: data.logo,
+      members: (data.members ?? []).map((member: any) =>
+        this.parseClubMember(member),
+      ),
+    }
+  }
+
+  private parseUser(data: any): IUser {
+    return {
+      id: +data.id,
+      username: data.username,
+      first_name: data.first_name,
+      last_name: data.last_name,
+      email: data.email,
+      image: data.image,
+      clubs: (data.clubs ?? []).map((club: any) => this.parseClub(club)),
+    }
+  }
+
   public static getInstance = (): Network => {
     if (!Network.instance) {
       Network.instance = new Network()
@@ -143,10 +207,8 @@ export class Network {
       )
     }
 
-    console.log('token res:', res)
     this.token = res?.data.token
-
-    return ok(String(res?.data.token))
+    return ok(String(this.token))
   }
 
   public sendGetUserInfo = async (): Promise<IUser> => {
@@ -155,30 +217,16 @@ export class Network {
       return {
         id: Date.now(),
         email: mockUser.email,
-        firstName: mockUser.firstName,
-        lastName: mockUser.lastName,
+        username: mockUser.username,
+        first_name: mockUser.first_name,
+        last_name: mockUser.last_name,
         image:
           'https://alliancebjjmn.com/wp-content/uploads/2019/07/placeholder-profile-sq-491x407.jpg',
         clubs: mockUser.clubs,
       }
     }
     const res = await this.sendRequest(this.routes.user.details)
-    console.log('user res:', res)
-
-    return {
-      id: res?.data.id,
-      email: res?.data.email,
-      firstName: res?.data.first_name,
-      lastName: res?.data.last_name,
-      image:
-        res?.data.image ??
-        'https://alliancebjjmn.com/wp-content/uploads/2019/07/placeholder-profile-sq-491x407.jpg',
-      clubs: Array.from(res?.data.clubs).map((club: any) => ({
-        id: club.id,
-        name: String(club.name),
-        ownerId: club.owner_id,
-      })),
-    }
+    return this.parseUser(res.data)
   }
 
   public async sendGetClubInfo(clubId: number): Promise<IClub> {
@@ -187,49 +235,40 @@ export class Network {
     }
 
     const res = await this.sendRequest(this.routes.club.info(clubId))
-    return {
-      id: res.data.id,
-      name: res.data.name,
-      ownerId: res.data.owner_id,
-    }
+    return this.parseClub(res.data)
   }
 
-  public async sendGetSpotifyToken(clubId: number): Promise<ISpotifyAuth> {
+  public async sendGetSpotifyToken(
+    jukeboxId: number,
+  ): Promise<ISpotifyAccount> {
     if (this.env === 'dev') {
       await sleep(1000)
 
       return {
         id: 0,
-        accessToken: String(import.meta.env.VITE_SPOTIFY_ACCESS_TOKEN),
-        userId: 0,
-        spotifyEmail: 'user@example.com',
-        expiresIn: 3600,
-        tokenType: 'Bearer',
-        expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24).getTime(),
+        access_token: String(import.meta.env.VITE_SPOTIFY_ACCESS_TOKEN),
+        user_id: 0,
+        spotify_email: 'user@example.com',
+        expires_in: 3600,
+        token_type: 'Bearer',
+        expires_at: new Date(Date.now() + 1000 * 60 * 60 * 24).getTime(),
       }
     }
 
-    const res = await this.sendRequest(this.routes.jukebox.list)
-    const jukeboxes = res.data as Jukebox[]
-    const selectedJbx = jukeboxes.find((jbx) => +jbx.club_id === +clubId)
-
-    // TODO: Handle jukeboxes separately from clubs
-    if (!selectedJbx?.active_spotify_link) {
-      throw new Error('No spotify connections found.')
-    }
-
-    const refreshedRes = await this.sendRequest(
-      this.routes.jukebox.activeLink(selectedJbx.id),
+    const res = await this.sendRequest(
+      this.routes.jukebox.activeLink(jukeboxId),
     )
 
-    return {
-      id: refreshedRes.data?.id,
-      accessToken: refreshedRes.data?.access_token,
-      userId: refreshedRes.data?.user_id,
-      spotifyEmail: refreshedRes.data?.spotify_email,
-      expiresIn: refreshedRes.data?.expires_in,
-      tokenType: refreshedRes.data?.token_type,
-      expiresAt: new Date(refreshedRes.data?.expires_at).getTime(),
+    return this.parseSpotifyAccount(res.data)
+  }
+
+  public async sendGetJukeboxes(): Promise<IJukebox[]> {
+    if (this.env === 'dev') {
+      await sleep(1000)
+      return []
     }
+
+    const res = await this.sendRequest(this.routes.jukebox.list)
+    return (res.data ?? []).map((jbx: any) => this.parseJukebox(jbx))
   }
 }

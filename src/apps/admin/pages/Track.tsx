@@ -1,6 +1,6 @@
 import { formatDuration } from 'src/utils'
 
-export const Track = (props: { track: Nullable<Track> }) => {
+export const Track = (props: { track: Nullable<ITrack> }) => {
   const { track } = props
   return (
     <li className="track-list__track">

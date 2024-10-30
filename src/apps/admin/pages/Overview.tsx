@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 
 import { AudioPlayer } from 'src/components'
 
 import './Overview.scss'
 
+import Disk from 'src/assets/svg/Disk.svg?react'
 import { SpotifyPlayerContext } from 'src/context'
 import { mockTrack } from 'src/mock'
-import Disk from 'src/assets/svg/Disk.svg?react'
 
 import { Track } from './Track'
 
@@ -15,11 +15,9 @@ export const Overview = () => {
   const [author, setAuthor] = useState('')
   const { currentTrack } = useContext(SpotifyPlayerContext)
   const [currentTrackImage, setCurrentTrackImage] = useState('')
+  const songTitleRef = useRef<HTMLHeadingElement>(null)
 
   useEffect(() => {
-    console.log('Hello')
-    console.log('Current track:', currentTrack)
-    console.log()
     if (currentTrack == undefined) {
       setSong('No song Playing')
       setAuthor('No Author')
@@ -32,6 +30,10 @@ export const Overview = () => {
           .join(', '),
       )
       setCurrentTrackImage(currentTrack?.album?.images[0].url)
+
+      if (currentTrack.name.length > 15) {
+        songTitleRef.current?.classList.add('song-title--small')
+      }
     }
   }, [currentTrack])
 
@@ -41,7 +43,9 @@ export const Overview = () => {
       <div className="grid">
         <div className="col-5 card">
           <div className="song-desc">
-            <div className="song-title">{song}</div>
+            <h2 className="song-title" ref={songTitleRef}>
+              {song}
+            </h2>
             <div className="song-author">{author}</div>
           </div>
           <AudioPlayer />

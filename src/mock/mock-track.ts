@@ -1,4 +1,4 @@
-export const mockTrack: Track = {
+export const mockTrack: ITrack = {
   album: {
     // album_type: 'compilation',
     // total_tracks: 9,

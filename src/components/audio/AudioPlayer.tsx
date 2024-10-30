@@ -9,7 +9,7 @@ import { ProgressBar } from './ProgressBar'
 import './ProgressBar.scss'
 
 export const AudioPlayerContext = createContext({
-  currentTrack: undefined as Nullable<Track>,
+  currentTrack: undefined as Nullable<ITrack>,
   isPlaying: false,
   timeProgress: 0,
   duration: 0,

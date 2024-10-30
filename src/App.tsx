@@ -5,6 +5,7 @@ import { SocketProvider, Theme } from './context'
 import { SpotifyPlayerProvider } from './context/PlayerContext'
 import {
   fetchCurrentClubInfo,
+  fetchJukeboxes,
   fetchUserInfo,
   initializeUser,
   logoutUser,
@@ -41,6 +42,7 @@ export const App = () => {
         setCurrentClub(resUserInfo.clubs[0])
         setAllClubs(resUserInfo.clubs)
         await fetchCurrentClubInfo()
+        await fetchJukeboxes()
       })
     } else if (userInfo || userIsLoggedIn === false) {
       logoutUser()
@@ -49,7 +51,7 @@ export const App = () => {
 
   return (
     <Theme>
-      <SpotifyPlayerProvider token={spotifyAuth?.accessToken}>
+      <SpotifyPlayerProvider token={spotifyAuth?.access_token}>
         <SocketProvider />
         <Outlet />
       </SpotifyPlayerProvider>

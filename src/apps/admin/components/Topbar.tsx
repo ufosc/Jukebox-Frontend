@@ -9,6 +9,7 @@ export const Topbar = () => {
   const user = useSelector(selectUser)
   const clubs = useSelector(selectAllClubs)
   const currentClub = useSelector(selectCurrentClub)
+  // const jukeboxes = useSelector()
 
   const handleClubChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedClubId = e.target.value
@@ -43,7 +44,7 @@ export const Topbar = () => {
           </button>
         </div>
         <button className="topbar__profile">
-          {user && <img src={user.image} alt={user.lastName} />}
+          {user && <img src={user.image} alt={user.last_name} />}
           {!user && <p>Login required.</p>}
         </button>
       </div>
