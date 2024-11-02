@@ -30,7 +30,7 @@ $font-definitions: (
   display: (
     family: 'Chango',
     weights: (
-      400
+      400,
     ),
     default-weight: 400,
     default-properties: (
@@ -88,6 +88,10 @@ $font-definitions: (
       sm: (
         font-size: 2.2rem,
         line-height: 2.5rem,
+      ),
+      xs: (
+        font-size: 1.7rem,
+        line-height: 2.7rem,
       ),
     ),
   ),

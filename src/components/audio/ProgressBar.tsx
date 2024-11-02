@@ -21,7 +21,7 @@ const ProgressBarComponent = (
         type="range"
         ref={ref}
         onChange={onProgressChange}
-        value={timeProgress}
+        // value={timeProgress}
       />
       <span className="time">{formatDuration(duration)}</span>
     </div>

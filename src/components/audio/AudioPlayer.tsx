@@ -1,7 +1,8 @@
 /**
  * @fileoverview Audio Player Component
  */
-import { createContext, useContext, useEffect, useRef } from 'react'
+import type { ChangeEvent } from 'react'
+import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import { SpotifyPlayerContext } from 'src/context'
 import './AudioPlayer.scss'
 import { Controls } from './Controls'
@@ -24,6 +25,7 @@ export const AudioPlayerContext = createContext({
 export const AudioPlayer = () => {
   const {
     nextTrack,
+    play,
     pause,
     player,
     previousTrack,
@@ -32,8 +34,10 @@ export const AudioPlayer = () => {
     currentTrack,
     progress: timeProgress,
     duration,
+    setTimeProgress,
   } = useContext(SpotifyPlayerContext)
   const progressBarRef = useRef<HTMLInputElement>(null)
+  const [editMode, setEditMode] = useState(false)
 
   useEffect(() => {
     if (progressBarRef.current) {
@@ -46,10 +50,38 @@ export const AudioPlayer = () => {
       '--range-progress',
       `${(timeProgress / duration) * 100}%`,
     )
+
+    if (!editMode && progressBarRef.current) {
+      progressBarRef.current.value = String(timeProgress)
+    }
   }, [timeProgress])
 
-  const setTimeProgress = () => {}
+  const onSetTimeProgress = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log('Progress:', e.target.value)
+    setTimeProgress(+e.target.value)
+  }
   const setDuration = () => {}
+
+  useEffect(() => {
+    const onMouseDown = () => {
+      pause()
+      setEditMode(true)
+      console.log('Mouse down')
+    }
+    const onMouseUp = () => {
+      play()
+      setEditMode(false)
+      console.log('Mouse up')
+    }
+
+    progressBarRef.current?.addEventListener('mousedown', onMouseDown)
+    progressBarRef.current?.addEventListener('mouseup', onMouseUp)
+
+    return () => {
+      progressBarRef.current?.removeEventListener('mousedown', onMouseDown)
+      progressBarRef.current?.removeEventListener('mouseup', onMouseUp)
+    }
+  }, [])
 
   // Refs
   const containerRef = useRef<HTMLDivElement>(null)
@@ -73,7 +105,7 @@ export const AudioPlayer = () => {
         <div className="audio-player__inner">
           <Controls />
           <ProgressBar
-            onProgressChange={setTimeProgress}
+            onProgressChange={onSetTimeProgress}
             ref={progressBarRef}
           />
         </div>

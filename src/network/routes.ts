@@ -13,5 +13,6 @@ export const NetworkRoutes = {
   jukebox: {
     list: `${base}/jukebox/jukeboxes`,
     activeLink: (id: number) => `${base}/jukebox/${id}/active-link/`,
+    connectDevice: (id: number) => `${base}/jukebox/${id}/connect/`,
   },
 }

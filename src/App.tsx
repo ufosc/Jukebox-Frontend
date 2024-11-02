@@ -2,14 +2,13 @@ import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { SocketProvider, Theme } from './context'
-import { SpotifyPlayerProvider } from './context/PlayerContext'
+import { SpotifyPlayer } from './SpotifyPlayer'
 import {
   fetchCurrentClubInfo,
   fetchJukeboxes,
   fetchUserInfo,
   initializeUser,
   logoutUser,
-  selectClubSpotifyAuth,
   selectUser,
   selectUserLoggedIn,
   setAllClubs,
@@ -19,7 +18,6 @@ import {
 export const App = () => {
   const userIsLoggedIn = useSelector(selectUserLoggedIn)
   const userInfo = useSelector(selectUser)
-  const spotifyAuth = useSelector(selectClubSpotifyAuth)
 
   const navigate = useNavigate()
 
@@ -51,10 +49,11 @@ export const App = () => {
 
   return (
     <Theme>
-      <SpotifyPlayerProvider token={spotifyAuth?.access_token}>
-        <SocketProvider />
-        <Outlet />
-      </SpotifyPlayerProvider>
+      <SocketProvider>
+        <SpotifyPlayer>
+          <Outlet />
+        </SpotifyPlayer>
+      </SocketProvider>
     </Theme>
   )
 }

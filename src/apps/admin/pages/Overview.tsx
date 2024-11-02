@@ -5,37 +5,50 @@ import { AudioPlayer } from 'src/components'
 import './Overview.scss'
 
 import Disk from 'src/assets/svg/Disk.svg?react'
-import { SpotifyPlayerContext } from 'src/context'
 import { mockTrack } from 'src/mock'
 
+import { useSelector } from 'react-redux'
+import { REACT_ENV, SPOTIFY_PLAYER_NAME } from 'src/config'
+import { SpotifyPlayerContext } from 'src/context'
+import { selectCurrentTrack, selectNextTracks } from 'src/store/track'
 import { Track } from './Track'
 
 export const Overview = () => {
   const [song, setSong] = useState('')
   const [author, setAuthor] = useState('')
-  const { currentTrack } = useContext(SpotifyPlayerContext)
+  // const { currentTrack } = useContext(SpotifyPlayerContext)
+  const storeCurrentTrack = useSelector(selectCurrentTrack)
+  const queuedTracks = useSelector(selectNextTracks)
   const [currentTrackImage, setCurrentTrackImage] = useState('')
   const songTitleRef = useRef<HTMLHeadingElement>(null)
 
+  const {
+    nextTracks: playerNextTracks,
+    currentTrack: playerCurrentTrack,
+    isActive,
+    isConnected,
+    connectDevice,
+  } = useContext(SpotifyPlayerContext)
+
   useEffect(() => {
-    if (currentTrack == undefined) {
+    if (!playerCurrentTrack) {
       setSong('No song Playing')
       setAuthor('No Author')
       setCurrentTrackImage(track?.album?.images[0].url)
     } else {
-      setSong(currentTrack.name)
+      setSong(playerCurrentTrack.name)
       setAuthor(
-        currentTrack.artists
+        playerCurrentTrack.artists
           .map((artist: { name: any }) => artist.name)
           .join(', '),
       )
-      setCurrentTrackImage(currentTrack?.album?.images[0].url)
+      setCurrentTrackImage(playerCurrentTrack?.album?.images[0].url)
 
-      if (currentTrack.name.length > 15) {
+      if (playerCurrentTrack.name.length > 15) {
         songTitleRef.current?.classList.add('song-title--small')
       }
     }
-  }, [currentTrack])
+  }, [playerCurrentTrack])
 
   const track = mockTrack
   return (
@@ -67,11 +80,45 @@ export const Overview = () => {
         <div className="col-12">
           <div className="song-queue scrollbar">
             <ol className="board__queue__list track-list scrollbar">
-              <Track track={track} />
-              <Track track={track} />
-              <Track track={track} />
-              <Track track={track} />
-              <Track track={track} />
+              {(queuedTracks.length > 0 && (
+                <>
+                  <h2 className="song-queue__title">Queued Tracks</h2>
+                  {queuedTracks.map((track) => (
+                    <Track track={track} />
+                  ))}
+                </>
+              )) ||
+                (playerNextTracks.length > 0 && (
+                  <>
+                    <h2 className="song-queue__title">Next Up</h2>
+                    {playerNextTracks.map((track) => (
+                      <Track track={track} />
+                    ))}
+                  </>
+                )) || (
+                  <>
+                    <h2 className="song-queue__title">Setup Spotify</h2>
+
+                    {(isConnected && !isActive && (
+                      <>
+                        <p>
+                          Your account is connected to Spotify, transfer
+                          playback to "{SPOTIFY_PLAYER_NAME}" to get started.
+                        </p>
+                        {REACT_ENV !== 'dev' && (
+                          <p>
+                            <button
+                              className="button-solid"
+                              onClick={connectDevice}
+                            >
+                              Connect
+                            </button>
+                          </p>
+                        )}
+                      </>
+                    )) || <p>Connect your Spotify account to get started.</p>}
+                  </>
+                )}
             </ol>
           </div>
         </div>

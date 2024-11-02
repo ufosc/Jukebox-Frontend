@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit'
-import type { TrackState } from './tracksSlice'
+import type { TrackState } from './trackSlice'
 
 type RootState = {
   track: TrackState

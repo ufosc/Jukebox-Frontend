@@ -1,7 +1,7 @@
 import { type AxiosRequestConfig } from 'axios'
 import { REACT_ENV } from 'src/config'
 import { httpRequest } from 'src/lib'
-import { mockUser } from 'src/mock'
+import { mockJukeboxes, mockUser } from 'src/mock'
 import {
   err,
   NetworkLoginError,
@@ -21,14 +21,6 @@ interface SpotifyLink {
   expires_in: number
   expires_at: string
   token_type: string
-}
-
-interface Jukebox {
-  id: number
-  name: string
-  club_id: number
-  spotify_links: SpotifyLink[]
-  active_spotify_link?: SpotifyLink
 }
 
 export class Network {
@@ -265,10 +257,23 @@ export class Network {
   public async sendGetJukeboxes(): Promise<IJukebox[]> {
     if (this.env === 'dev') {
       await sleep(1000)
-      return []
+      return mockJukeboxes
     }
 
     const res = await this.sendRequest(this.routes.jukebox.list)
     return (res.data ?? []).map((jbx: any) => this.parseJukebox(jbx))
+  }
+
+  public async connectSpotifyDevice(jukeboxId: number, deviceId: string) {
+    if (this.env === 'dev') {
+      await sleep(1000)
+      return
+    }
+
+    await this.sendRequest(
+      this.routes.jukebox.connectDevice(jukeboxId),
+      'POST',
+      { device_id: deviceId },
+    )
   }
 }
