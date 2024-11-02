@@ -1,7 +1,7 @@
 import { type AxiosRequestConfig } from 'axios'
 import { REACT_ENV } from 'src/config'
 import { httpRequest } from 'src/lib'
-import { mockUser } from 'src/mock'
+import { mockJukeboxes, mockUser } from 'src/mock'
 import {
   err,
   NetworkLoginError,
@@ -257,7 +257,7 @@ export class Network {
   public async sendGetJukeboxes(): Promise<IJukebox[]> {
     if (this.env === 'dev') {
       await sleep(1000)
-      return []
+      return mockJukeboxes
     }
 
     const res = await this.sendRequest(this.routes.jukebox.list)

@@ -90,6 +90,10 @@ export const SpotifyPlayerProvider = (props: {
     }
   }, [token])
 
+  useEffect(() => {
+    console.log('Current track:', currentTrack)
+  }, [currentTrack])
+
   const onPlayerStateChange = (state?: Spotify.PlaybackState) => {
     if (!state) {
       return
@@ -97,7 +101,7 @@ export const SpotifyPlayerProvider = (props: {
     const { current_track: spotifyTrack } = state.track_window
 
     setCurrentTrack((prev) => {
-      if (prev?.id !== spotifyTrack?.id && !paused) {
+      if ((prev?.id !== spotifyTrack?.id && !paused) || !prev) {
         debounce(() => {
           onTrackChange(spotifyTrack, prev ?? undefined)
         })
