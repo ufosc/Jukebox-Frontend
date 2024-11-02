@@ -6,6 +6,6 @@ const network = Network.getInstance()
 export const thunkFetchJukeboxes = createAsyncThunk(
   'jukebox/fetchJukeboxes',
   async () => {
-    return network.sendGetJukeboxes()
+    return await network.sendGetJukeboxes()
   },
 )

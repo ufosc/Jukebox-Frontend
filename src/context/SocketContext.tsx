@@ -1,11 +1,14 @@
+import type { ReactNode } from 'react'
 import { createContext, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { socket } from 'src/lib'
 import { selectUser, selectUserLoggedIn } from 'src/store'
 
-const SocketContext = createContext(null)
+export const SocketContext = createContext({
+  emitMessage: (ev: string, message: any) => {},
+})
 
-export const SocketProvider = () => {
+export const SocketProvider = (props: { children: ReactNode }) => {
   const [isConnected, setIsConnected] = useState(socket.connected)
   const isLoggedIn = useSelector(selectUserLoggedIn)
   const user = useSelector(selectUser)
@@ -54,5 +57,17 @@ export const SocketProvider = () => {
     }
   }, [isLoggedIn, user])
 
-  return <SocketContext.Provider value={null}></SocketContext.Provider>
+  const emitMessage = (ev: string, message: any) => {
+    if (isConnected) {
+      socket.emit(ev, message)
+    } else {
+      console.error('Socket not connected, cannot emit:', message)
+    }
+  }
+
+  return (
+    <SocketContext.Provider value={{ emitMessage }}>
+      {props.children}
+    </SocketContext.Provider>
+  )
 }

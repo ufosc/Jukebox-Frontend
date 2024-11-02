@@ -11,12 +11,6 @@ export const Settings = () => {
   const currentJukebox = useSelector(selectCurrentJukebox)
   const { connectDevice } = useContext(SpotifyPlayerContext)
 
-  const onTransferPlayback = () => {
-    if (currentJukebox) {
-      connectDevice(currentJukebox.id)
-    }
-  }
-
   return (
     <div>
       <section>
@@ -52,7 +46,7 @@ export const Settings = () => {
           ))}
         </ul>
         {currentJukebox && (
-          <button onClick={onTransferPlayback}>Transfer Playback</button>
+          <button onClick={connectDevice}>Transfer Playback</button>
         )}
       </section>
     </div>
