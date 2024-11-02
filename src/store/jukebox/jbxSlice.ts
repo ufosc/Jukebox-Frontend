@@ -8,11 +8,16 @@ export const jukeboxSlice = createSlice({
     status: 'idle' as StoreStatus,
     error: null as string | null,
     jukeboxes: [] as IJukebox[],
+    currentJukebox: null as IJukebox | null,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(thunkFetchJukeboxes.fulfilled, (state, action) => {
       state.jukeboxes = action.payload
+
+      if (action.payload.length > 0) {
+        state.currentJukebox = action.payload[0]
+      }
     })
 
     builderDefaults(builder)

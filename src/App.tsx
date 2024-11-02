@@ -1,8 +1,11 @@
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { SocketProvider, Theme } from './context'
-import { SpotifyPlayerProvider } from './context/PlayerContext'
+import {
+  SpotifyPlayerContext,
+  SpotifyPlayerProvider,
+} from './context/PlayerContext'
 import {
   fetchCurrentClubInfo,
   fetchJukeboxes,
@@ -20,6 +23,7 @@ export const App = () => {
   const userIsLoggedIn = useSelector(selectUserLoggedIn)
   const userInfo = useSelector(selectUser)
   const spotifyAuth = useSelector(selectClubSpotifyAuth)
+  const { currentTrack } = useContext(SpotifyPlayerContext)
 
   const navigate = useNavigate()
 

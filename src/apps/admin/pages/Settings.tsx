@@ -1,11 +1,21 @@
+import { useContext } from 'react'
 import { useSelector } from 'react-redux'
+import { SpotifyPlayerContext } from 'src/context'
 import { selectAllClubs, selectUser } from 'src/store'
-import { selectAllJukeboxes } from 'src/store/jukebox'
+import { selectAllJukeboxes, selectCurrentJukebox } from 'src/store/jukebox'
 
 export const Settings = () => {
   const clubs = useSelector(selectAllClubs)
   const user = useSelector(selectUser)
   const jukeboxes = useSelector(selectAllJukeboxes)
+  const currentJukebox = useSelector(selectCurrentJukebox)
+  const { connectDevice } = useContext(SpotifyPlayerContext)
+
+  const onTransferPlayback = () => {
+    if (currentJukebox) {
+      connectDevice(currentJukebox.id)
+    }
+  }
 
   return (
     <div>
@@ -33,13 +43,17 @@ export const Settings = () => {
         <ul>
           {jukeboxes.map((jbx) => (
             <li key={jbx.id}>
-              {jbx.name} (
+              {jbx.name}
+              {jbx.id === currentJukebox?.id ? '(active)' : ''} (
               {clubs.find((club) => +club.id === +jbx.club_id)?.name ??
                 'No Club Found'}
               )
             </li>
           ))}
         </ul>
+        {currentJukebox && (
+          <button onClick={onTransferPlayback}>Transfer Playback</button>
+        )}
       </section>
     </div>
   )

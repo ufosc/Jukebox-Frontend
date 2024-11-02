@@ -1,24 +1,27 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { AudioPlayer } from 'src/components'
 
 import './Overview.scss'
 
 import Disk from 'src/assets/svg/Disk.svg?react'
-import { SpotifyPlayerContext } from 'src/context'
 import { mockTrack } from 'src/mock'
 
+import { useSelector } from 'react-redux'
+import { selectCurrentTrack, selectNextTracks } from 'src/store/track'
 import { Track } from './Track'
 
 export const Overview = () => {
   const [song, setSong] = useState('')
   const [author, setAuthor] = useState('')
-  const { currentTrack } = useContext(SpotifyPlayerContext)
+  // const { currentTrack } = useContext(SpotifyPlayerContext)
+  const currentTrack = useSelector(selectCurrentTrack)
+  const nextTracks = useSelector(selectNextTracks)
   const [currentTrackImage, setCurrentTrackImage] = useState('')
   const songTitleRef = useRef<HTMLHeadingElement>(null)
 
   useEffect(() => {
-    if (currentTrack == undefined) {
+    if (!currentTrack) {
       setSong('No song Playing')
       setAuthor('No Author')
       setCurrentTrackImage(track?.album?.images[0].url)
@@ -67,11 +70,9 @@ export const Overview = () => {
         <div className="col-12">
           <div className="song-queue scrollbar">
             <ol className="board__queue__list track-list scrollbar">
-              <Track track={track} />
-              <Track track={track} />
-              <Track track={track} />
-              <Track track={track} />
-              <Track track={track} />
+              {nextTracks.map((track) => (
+                <Track track={track} />
+              ))}
             </ol>
           </div>
         </div>

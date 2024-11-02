@@ -11,3 +11,8 @@ export const selectAllJukeboxes = createSelector(
   jbxStateSelector,
   (state) => state.jukeboxes,
 )
+
+export const selectCurrentJukebox = createSelector(
+  jbxStateSelector,
+  (state) => state.currentJukebox,
+)

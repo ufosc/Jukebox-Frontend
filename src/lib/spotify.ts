@@ -1,15 +1,21 @@
 import { SPOTIFY_PLAYER_NAME } from 'src/config'
 
+interface PlayerContext {
+  player: Spotify.Player
+  deviceId: string
+}
+
 export class SpotifyPlayer {
   public static instance: SpotifyPlayer
   private token: string
   public player?: Spotify.Player
-  private resolvePlayer: (player: Spotify.Player) => void
+  public deviceId?: string
+  private resolvePlayer: (player: PlayerContext) => void
   private rejectPlayer: (e: any) => void
-  private playerPromise: Promise<Spotify.Player>
+  private playerPromise: Promise<PlayerContext>
 
   private constructor(token: string) {
-    const { resolve, reject, promise } = Promise.withResolvers<Spotify.Player>()
+    const { resolve, reject, promise } = Promise.withResolvers<PlayerContext>()
     this.resolvePlayer = resolve
     this.rejectPlayer = reject
     this.playerPromise = promise
@@ -43,6 +49,9 @@ export class SpotifyPlayer {
 
       player.addListener('ready', ({ device_id }) => {
         console.log('Ready with Device ID', device_id)
+        this.deviceId = device_id
+
+        this.resolvePlayer({ player, deviceId: device_id })
       })
       player.addListener('player_state_changed', (state) => {
         console.log('Player state changed:', state)
@@ -64,8 +73,6 @@ export class SpotifyPlayer {
         console.error(message)
       })
       player.connect()
-
-      this.resolvePlayer(player)
     }
 
     if (!window.Spotify) {
@@ -76,7 +83,7 @@ export class SpotifyPlayer {
     }
   }
 
-  public async getPlayer(): Promise<Spotify.Player> {
+  public async getPlayer(): Promise<PlayerContext> {
     return this.playerPromise
   }
 

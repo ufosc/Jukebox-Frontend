@@ -23,14 +23,6 @@ interface SpotifyLink {
   token_type: string
 }
 
-interface Jukebox {
-  id: number
-  name: string
-  club_id: number
-  spotify_links: SpotifyLink[]
-  active_spotify_link?: SpotifyLink
-}
-
 export class Network {
   static instance: Network
   protected routes: typeof NetworkRoutes
@@ -270,5 +262,18 @@ export class Network {
 
     const res = await this.sendRequest(this.routes.jukebox.list)
     return (res.data ?? []).map((jbx: any) => this.parseJukebox(jbx))
+  }
+
+  public async connectSpotifyDevice(jukeboxId: number, deviceId: string) {
+    if (this.env === 'dev') {
+      await sleep(1000)
+      return
+    }
+
+    await this.sendRequest(
+      this.routes.jukebox.connectDevice(jukeboxId),
+      'POST',
+      { device_id: deviceId },
+    )
   }
 }
