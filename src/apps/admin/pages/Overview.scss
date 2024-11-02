@@ -36,16 +36,18 @@
   min-height: 49.5vh;
 
   flex-direction: column;
-  padding-top: 4vh;
-  padding-bottom: 4vh;
-  padding-left: 0.5vw;
-  padding-right: 0.5vw;
-  border-radius: 10px;
-  margin-top: -10.5vh;
+
+  padding: 2.5rem;
+  border-radius: 1rem;
+  margin-top: -11.2rem;
 
   position: relative;
   z-index: 3;
   overflow: overlay;
+
+  &__title {
+    @include font-headline('xs');
+  }
 }
 
 .curr-song {

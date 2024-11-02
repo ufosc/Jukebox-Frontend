@@ -5,13 +5,16 @@ import { socket } from 'src/lib'
 import { selectUser, selectUserLoggedIn } from 'src/store'
 
 export const SocketContext = createContext({
-  emitMessage: (ev: string, message: any) => {},
+  emitMessage: <T,>(ev: string, message: T) => {},
+  onEvent: <T,>(ev: string, cb: (message: T) => void) => {},
+  isConnected: false,
 })
 
 export const SocketProvider = (props: { children: ReactNode }) => {
   const [isConnected, setIsConnected] = useState(socket.connected)
   const isLoggedIn = useSelector(selectUserLoggedIn)
   const user = useSelector(selectUser)
+  const [subEvents, setSubEvents] = useState<string[]>([])
 
   useEffect(() => {
     if (isConnected) {
@@ -27,6 +30,7 @@ export const SocketProvider = (props: { children: ReactNode }) => {
 
     const onDisconnect = () => {
       setIsConnected(false)
+      console.log('Socket disconnected.')
     }
 
     socket.on('connect', onConnect)
@@ -58,6 +62,7 @@ export const SocketProvider = (props: { children: ReactNode }) => {
   }, [isLoggedIn, user])
 
   const emitMessage = (ev: string, message: any) => {
+    socket.connect()
     if (isConnected) {
       socket.emit(ev, message)
     } else {
@@ -65,8 +70,18 @@ export const SocketProvider = (props: { children: ReactNode }) => {
     }
   }
 
+  const onEvent = <T,>(ev: string, cb: (message: T) => void) => {
+    if (subEvents.includes(ev)) {
+      socket.off(ev)
+    } else {
+      setSubEvents((prev) => [...prev, ev])
+    }
+    socket.connect()
+    socket.on(ev, cb)
+  }
+
   return (
-    <SocketContext.Provider value={{ emitMessage }}>
+    <SocketContext.Provider value={{ isConnected, emitMessage, onEvent }}>
       {props.children}
     </SocketContext.Provider>
   )

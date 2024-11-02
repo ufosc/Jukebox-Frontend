@@ -18,7 +18,8 @@ import { debounce } from 'src/utils'
 export const SpotifyPlayerContext = createContext({
   player: null as Nullable<Spotify.Player>,
   isPlaying: false,
-  playerActive: false,
+  isActive: false,
+  isConnected: false,
   currentTrack: null as Nullable<Spotify.Track>,
   progress: 0,
   duration: 0,
@@ -36,9 +37,10 @@ export const SpotifyPlayerProvider = (props: {
   children: ReactNode
   token: Nullable<string>
   jukebox: IJukebox | null
-  emitMessage: (ev: string, message: any) => void
+  onTrackChange: (newTrack: ITrack, prevTrack?: ITrack) => void
+  // emitMessage: (ev: string, message: any) => void
 }) => {
-  const { children, token, jukebox, emitMessage } = props
+  const { children, token, jukebox, onTrackChange } = props
   const [initialized, setInitialized] = useState(false)
   const playerRef = useRef<Nullable<Spotify.Player>>()
   const [currentTrack, setCurrentTrack] = useState<Nullable<Spotify.Track>>()
@@ -95,17 +97,13 @@ export const SpotifyPlayerProvider = (props: {
     const { current_track: spotifyTrack } = state.track_window
 
     setCurrentTrack((prev) => {
-      if (prev?.id !== spotifyTrack?.id) {
+      if (prev?.id !== spotifyTrack?.id && !paused) {
         debounce(() => {
-          emitMessage('track-state', {
-            new_track: true,
-            track: spotifyTrack,
-            jukebox_id: jukebox?.id,
-          })
+          onTrackChange(spotifyTrack, prev ?? undefined)
         })
+        return spotifyTrack
       }
-
-      return spotifyTrack
+      return prev
     })
     setPaused(state.paused)
     setProgress(state.position)
@@ -132,7 +130,7 @@ export const SpotifyPlayerProvider = (props: {
           onPlayerStateChange,
         )
     }
-  }, [initialized, jukebox])
+  }, [initialized, jukebox, onTrackChange])
 
   const nextTrack = () => {
     playerRef.current?.nextTrack()
@@ -166,7 +164,8 @@ export const SpotifyPlayerProvider = (props: {
         player: playerRef.current,
         currentTrack,
         isPlaying: !paused,
-        playerActive: active,
+        isActive: active,
+        isConnected: initialized,
         progress,
         duration,
         nextTracks,

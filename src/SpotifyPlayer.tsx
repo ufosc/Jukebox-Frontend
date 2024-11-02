@@ -1,20 +1,47 @@
-import { useContext, type ReactNode } from 'react'
+import { useCallback, useContext, useEffect, type ReactNode } from 'react'
 import { useSelector } from 'react-redux'
 import { SocketContext, SpotifyPlayerProvider } from './context'
-import { selectClubSpotifyAuth } from './store'
+import { selectClubSpotifyAuth, setCurrentTrack, setNextTracks } from './store'
 import { selectCurrentJukebox } from './store/jukebox'
 
 export const SpotifyPlayer = (props: { children?: ReactNode }) => {
   const { children } = props
   const spotifyAuth = useSelector(selectClubSpotifyAuth)
   const currentJukebox = useSelector(selectCurrentJukebox)
-  const { emitMessage } = useContext(SocketContext)
+  const {
+    emitMessage,
+    onEvent,
+    isConnected: socketIsConnected,
+  } = useContext(SocketContext)
+
+  // Passes updates from player context to server
+  const handlePlayerTrackChange = useCallback(
+    (newTrack: ITrack, prevTrack?: ITrack) => {
+      emitMessage<IPlayerUpdate>('player-update', {
+        current_track: newTrack,
+        jukebox_id: currentJukebox!.id,
+      })
+    },
+    [currentJukebox],
+  )
+
+  // Receives track updates from server, updates store
+  useEffect(() => {
+    onEvent<ITrackStateUpdate>('track-state-update', (data) => {
+      if (data.current_track) {
+        setCurrentTrack(data.current_track)
+      }
+      if (data.next_tracks) {
+        setNextTracks(data.next_tracks)
+      }
+    })
+  }, [currentJukebox, socketIsConnected])
 
   return (
     <SpotifyPlayerProvider
       token={spotifyAuth?.access_token}
       jukebox={currentJukebox}
-      emitMessage={emitMessage}
+      onTrackChange={handlePlayerTrackChange}
     >
       {children}
     </SpotifyPlayerProvider>

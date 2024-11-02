@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 
 import { AudioPlayer } from 'src/components'
 
@@ -8,6 +8,7 @@ import Disk from 'src/assets/svg/Disk.svg?react'
 import { mockTrack } from 'src/mock'
 
 import { useSelector } from 'react-redux'
+import { SpotifyPlayerContext } from 'src/context'
 import { selectCurrentTrack, selectNextTracks } from 'src/store/track'
 import { Track } from './Track'
 
@@ -16,9 +17,15 @@ export const Overview = () => {
   const [author, setAuthor] = useState('')
   // const { currentTrack } = useContext(SpotifyPlayerContext)
   const currentTrack = useSelector(selectCurrentTrack)
-  const nextTracks = useSelector(selectNextTracks)
+  const queuedTracks = useSelector(selectNextTracks)
   const [currentTrackImage, setCurrentTrackImage] = useState('')
   const songTitleRef = useRef<HTMLHeadingElement>(null)
+  const {
+    nextTracks: nextPlayerTracks,
+    isActive,
+    isConnected,
+    connectDevice,
+  } = useContext(SpotifyPlayerContext)
 
   useEffect(() => {
     if (!currentTrack) {
@@ -70,9 +77,48 @@ export const Overview = () => {
         <div className="col-12">
           <div className="song-queue scrollbar">
             <ol className="board__queue__list track-list scrollbar">
-              {nextTracks.map((track) => (
-                <Track track={track} />
-              ))}
+              {(queuedTracks.length > 0 && (
+                <>
+                  <h2 className="song-queue__title">Queued Tracks</h2>
+                  {queuedTracks.map((track) => (
+                    <Track track={track} />
+                  ))}
+                </>
+              )) ||
+                (nextPlayerTracks.length > 0 && (
+                  <>
+                    <h2 className="song-queue__title">Next Up</h2>
+                    {nextPlayerTracks.map((track) => (
+                      <Track track={track} />
+                    ))}
+                  </>
+                )) || (
+                  <>
+                    <h2 className="song-queue__title">Setup Spotify</h2>
+
+                    {(isConnected && !isActive && (
+                      <>
+                        <p>
+                          Your account is connected to Spotify, click below to
+                          transfer playback to this browser.
+                        </p>
+                        <p>
+                          <button
+                            className="button-solid"
+                            onClick={connectDevice}
+                          >
+                            Connect
+                          </button>
+                        </p>
+                      </>
+                    )) || (
+                      <p>
+                        Connect the jukebox to your spotify account to get
+                        started.
+                      </p>
+                    )}
+                  </>
+                )}
             </ol>
           </div>
         </div>
