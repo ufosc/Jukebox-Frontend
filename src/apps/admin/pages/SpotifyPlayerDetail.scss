@@ -1,0 +1,14 @@
+.spotify-player-detail-container {
+  display: grid;
+  grid-template-columns: 0.75fr 1.25fr;
+  text-align: left;
+  margin-bottom: 0.5%;
+}
+
+.spotify-player-detail-first {
+  @include font-body('md', 600);
+}
+
+.spotify-player-detail-second {
+  grid-column: span 1;
+}
