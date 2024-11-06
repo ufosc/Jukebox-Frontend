@@ -102,12 +102,12 @@ export const SpotifyPlayerProvider = (props: {
 
     setCurrentTrack((prev) => {
       if ((prev?.id !== spotifyTrack?.id && !paused) || !prev) {
+        console.log('Setting current track:', spotifyTrack)
         debounce(() => {
           onTrackChange(spotifyTrack, prev ?? undefined)
         })
-        return spotifyTrack
       }
-      return prev
+      return spotifyTrack
     })
     setPaused(state.paused)
     setProgress(state.position)
