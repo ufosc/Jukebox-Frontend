@@ -1,0 +1,36 @@
+.register-page {
+  display: grid;
+  place-content: center;
+  height: 100vh;
+  background-color: var(--color-surface-container);
+}
+
+.register-page__form-container {
+  grid-column-start: 5;
+  grid-column-end: 9;
+  text-align: center;
+}
+
+.register-page__form-container > h2 {
+  color: var(--color-surface-on);
+  padding-bottom: 2vw;
+}
+
+.register-page__form-authcontainer {
+  margin: 0 auto;
+  padding: 2vw 3vw 4vw 3vw;
+  box-sizing: border-box;
+  background-color: var(--color-surface);
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.form-row > div {
+  flex: 1;
+  min-width: 0;
+  box-sizing: border-box;
+}
