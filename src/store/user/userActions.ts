@@ -3,7 +3,11 @@ import { Network } from 'src/network'
 import { generateLocalData, isUser } from 'src/utils'
 import { store } from '../store'
 import { userSlice } from './userSlice'
-import { thunkFetchUserInfo, thunkLoginUser } from './userThunks'
+import {
+  thunkFetchUserInfo,
+  thunkGetUserSpotifyToken,
+  thunkLoginUser,
+} from './userThunks'
 
 const { logout, set, update } = userSlice.actions
 
@@ -43,6 +47,30 @@ export const loginUser = async (email: string, password: string) => {
 }
 
 /**
+ * Register user, needs work!!!
+ */
+export const registerUser = async (
+  email: string,
+  firstName: string,
+  lastName: string,
+  password: string,
+  confirmPassword: string,
+): Promise<{ success: boolean } & { [key: string]: any }> => {
+  if (password === confirmPassword) {
+    console.log(
+      `Registration successful - ${email}, ${firstName}, ${lastName}, ${password}, ${confirmPassword}`,
+    )
+    return {
+      success: true,
+    }
+  }
+  console.log('Registeratiion failed')
+  return {
+    success: false,
+  }
+}
+
+/**
  * Fetch user's info, return user
  */
 export const fetchUserInfo = async (): Promise<void | IUser> => {
@@ -79,6 +107,7 @@ export const initializeUser = async () => {
 
     if (isUser(user)) {
       setUser(user, token)
+      await store.dispatch(thunkGetUserSpotifyToken())
     } else {
       logoutUser()
     }
