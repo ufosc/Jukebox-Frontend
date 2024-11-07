@@ -1,11 +1,11 @@
 name: Code Linting
 
 on:
-  push:
-    branches:
-      - 'feature/**'
-      - 'main'
-      - 'production'
+  # push:
+  #   branches:
+  #     - 'feature/**'
+  #     - 'main'
+  #     - 'production'
   pull_request:
     branches:
       - 'feature/**'
