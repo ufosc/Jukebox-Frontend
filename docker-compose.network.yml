@@ -29,9 +29,6 @@ services:
       - HOST=localhost
       - LOG_LEVEL=debug
       - BASE_URL=http://localhost:8080
-      
-      - JWT_SECRET_KEY=changeme
-      - TOKEN_HEADER_KEY=Authorization
 
       - KAFKA_BROKERS=kafka-jbx-fe:9092
       
@@ -44,6 +41,9 @@ services:
       - DB_USER=devuser
       - DB_PASS=devpass
       - DB_NAME=devdatabase
+      
+      - REDIS_HOST=jbx-network-redis
+      - REDIS_PORT=6379
     ports:
       - 9000:9000
     depends_on:
@@ -72,6 +72,14 @@ services:
       - WEBSOCKET_URI=jbx-server-fe:9000
       - CLUB_MANAGER_URI=club-app-network-fe:9000
     # attach: false
+    
+  redis:
+    image: redis:alpine
+    container_name: jbx-network-redis-fe
+    ports:
+      - 6379:6379
+    networks:
+      - cluster
 
   # mongodb:
   #   image: mongo:6.0.9

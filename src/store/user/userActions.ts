@@ -3,11 +3,7 @@ import { Network } from 'src/network'
 import { generateLocalData, isUser } from 'src/utils'
 import { store } from '../store'
 import { userSlice } from './userSlice'
-import {
-  thunkFetchUserInfo,
-  thunkGetUserSpotifyToken,
-  thunkLoginUser,
-} from './userThunks'
+import { thunkFetchUserInfo, thunkLoginUser } from './userThunks'
 
 const { logout, set, update } = userSlice.actions
 
@@ -107,7 +103,6 @@ export const initializeUser = async () => {
 
     if (isUser(user)) {
       setUser(user, token)
-      await store.dispatch(thunkGetUserSpotifyToken())
     } else {
       logoutUser()
     }
