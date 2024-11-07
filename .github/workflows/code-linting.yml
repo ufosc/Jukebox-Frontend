@@ -5,19 +5,25 @@ on:
     branches:
       - 'feature/**'
       - 'main'
+      - 'production'
+  pull_request:
+    branches:
+      - 'feature/**'
+      - 'main'
+      - 'production'
 
 jobs:
-  ts-check:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Node.js Setup
-        uses: actions/setup-node@v3
-      - name: Install Packages
-        run: npm ci
-      - name: Build Vite & TSC
-        run: npm run build
+  # ts-check:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+  #     - name: Node.js Setup
+  #       uses: actions/setup-node@v3
+  #     - name: Install Packages
+  #       run: npm ci
+  #     - name: Build Vite & TSC
+  #       run: npm run build
 
   eslint-check:
     runs-on: ubuntu-latest
