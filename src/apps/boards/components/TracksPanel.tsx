@@ -1,4 +1,3 @@
-import { AudioPlayer } from 'src/components'
 import { TrackItem } from './TrackItem'
 
 export const TracksPanel = (props: {
@@ -17,9 +16,6 @@ export const TracksPanel = (props: {
           <ol className="board__currently-playing__list track-list">
             <TrackItem track={currentTrack} />
           </ol>
-          <div className="board__currently-playing__player">
-            <AudioPlayer />
-          </div>
         </div>
       </div>
       <div className="board__queue board__tracks__group">
