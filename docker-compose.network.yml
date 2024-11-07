@@ -42,7 +42,7 @@ services:
       - DB_PASS=devpass
       - DB_NAME=devdatabase
       
-      - REDIS_HOST=jbx-network-redis
+      - REDIS_HOST=jbx-network-redis-fe
       - REDIS_PORT=6379
     ports:
       - 9000:9000
