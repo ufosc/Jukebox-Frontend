@@ -7,15 +7,19 @@ services:
       context: .
     volumes:
       - ./src:/app/src
-      - ./.env.network:/app/.env.network
+      # - ./.env.network:/app/.env.network
       - ./vite.config.ts:/app/vite.config.ts
-      
+
       - client-dist-jbx:/app/dist
-      
+
+      - type: bind
+        source: ./.env.network
+        target: /app/.env.network
+
     ports:
       - 3000:3000
     command: npm run network
-      
+
   ####################################
   # Server & Network Config
   ####################################
@@ -31,17 +35,17 @@ services:
       - BASE_URL=http://localhost:8080
 
       - KAFKA_BROKERS=kafka-jbx-fe:9092
-      
+
       - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}
       - SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}
-      
+
       - PROXY_URL=http://proxy:8080
       - DB_HOST=jbx-network-db-fe
       - DB_PORT=5432
       - DB_USER=devuser
       - DB_PASS=devpass
       - DB_NAME=devdatabase
-      
+
       - REDIS_HOST=jbx-network-redis-fe
       - REDIS_PORT=6379
     ports:
@@ -72,7 +76,7 @@ services:
       - WEBSOCKET_URI=jbx-server-fe:9000
       - CLUB_MANAGER_URI=club-app-network-fe:9000
     # attach: false
-    
+
   redis:
     image: redis:alpine
     container_name: jbx-network-redis-fe
@@ -95,7 +99,7 @@ services:
   #   command: mongod --quiet --logpath /dev/null --bind_ip_all
   #   networks:
   #     - cluster
-  
+
   ####################################
   # Kafka Config
   ####################################
@@ -130,7 +134,7 @@ services:
   #   networks:
   #     - cluster
   #   attach: false
-  
+
   ####################################
   # Web Socket Config
   ####################################
@@ -146,13 +150,13 @@ services:
   #     - NODE_ENV=network
   #     - LOG_LEVEL=debug
   #     - LOG_NS=websocket
-      
+
   #     - KAFKA_BROKERS=kafka-jbx-fe:9092
   #     - KAFKA_GROUP_ID=websocket-jbx
   #   command: npm run dev:websocket
   #   networks:
   #     - cluster
-  
+
   ####################################
   # Club Manager Config
   ####################################
@@ -186,7 +190,7 @@ services:
       - postgres-clubs
     networks:
       - cluster
-  
+
   postgres-jukebox:
     image: postgres:13-alpine
     container_name: jbx-network-db-fe

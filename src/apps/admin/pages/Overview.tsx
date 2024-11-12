@@ -90,7 +90,6 @@ export const Overview = () => {
               )) ||
                 (playerNextTracks.length > 0 && (
                   <>
-                    <h2 className="song-queue__title">Next Up</h2>
                     {playerNextTracks.map((track) => (
                       <Track track={track} />
                     ))}
