@@ -149,6 +149,7 @@ export const SpotifyPlayerProvider = (props: {
     playerRef.current?.pause()
   }
   const togglePlay = () => {
+    console.log('I am in toggle play')
     playerRef.current?.togglePlay()
   }
 

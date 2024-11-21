@@ -1,6 +1,5 @@
 import { Outlet } from 'react-router-dom'
 import { Sidebar, Topbar } from '../components'
-
 import './Dashboard.scss'
 
 export const Dashboard = () => {
