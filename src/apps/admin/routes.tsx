@@ -6,6 +6,7 @@ import { Music } from './pages/Music'
 import { MusicQueue } from './pages/MusicQueue'
 import { MusicSearch } from './pages/MusicSearch'
 import { Settings } from './pages/Settings'
+import { SpotifyPlayer } from './pages/SpotifyPlayer'
 
 export const adminOutlet = <Dashboard />
 
@@ -13,6 +14,10 @@ export const adminRoutes: RouteObject[] = [
   {
     index: true,
     element: <Overview />,
+  },
+  {
+    path: 'player',
+    element: <SpotifyPlayer />,
   },
   {
     path: 'boards',
