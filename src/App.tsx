@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Outlet, useNavigate } from 'react-router-dom'
-import { SocketProvider, Theme } from './context'
+import { KeyboardProvider, SocketProvider, Theme } from './context'
 import { SpotifyPlayer } from './SpotifyPlayer'
 import {
   fetchCurrentClubInfo,
@@ -50,9 +50,11 @@ export const App = () => {
   return (
     <Theme>
       <SocketProvider>
-        <SpotifyPlayer>
-          <Outlet />
-        </SpotifyPlayer>
+        <KeyboardProvider>
+          <SpotifyPlayer>
+            <Outlet />
+          </SpotifyPlayer>
+        </KeyboardProvider>
       </SocketProvider>
     </Theme>
   )

@@ -242,7 +242,7 @@ export const Sidebar = (props: { className?: string }) => {
               <li className="navbar__nav__list__item">
                 <span className="navbar__nav__item">
                   <SpeakerIcon />
-                  <NavItem route="/admin" text="Player" end />
+                  <NavItem route="player" text="Player" end />
                 </span>
               </li>
               <li className="navbar__nav__list__item">
