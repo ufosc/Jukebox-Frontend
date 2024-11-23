@@ -6,6 +6,7 @@
  */
 import {
   createContext,
+  useContext,
   useEffect,
   useRef,
   useState,
@@ -14,6 +15,7 @@ import {
 import { SpotifyPlayer } from 'src/lib'
 import { Network } from 'src/network'
 import { debounce } from 'src/utils'
+import { KeyboardContext } from './KeyboardContext'
 
 export const SpotifyPlayerContext = createContext({
   player: null as Nullable<Spotify.Player>,
@@ -51,17 +53,13 @@ export const SpotifyPlayerProvider = (props: {
   const [timer, setTimer] = useState<Nullable<NodeJS.Timeout>>()
   const [nextTracks, setNextTracks] = useState<Spotify.Track[]>([])
   const [deviceId, setDeviceId] = useState('')
-  // const [jukeboxId, setJukeboxId] = useState<number | undefined>()
   const networkRef = useRef<Network>()
+
+  const { onSpace, onArrow } = useContext(KeyboardContext)
 
   useEffect(() => {
     networkRef.current = Network.getInstance()
   }, [])
-
-  // useEffect(() => {
-  //   setJukeboxId(jukebox?.id)
-  //   console.log('jukebox:', jukebox)
-  // }, [jukebox])
 
   useEffect(() => {
     if (timer) {
@@ -149,7 +147,6 @@ export const SpotifyPlayerProvider = (props: {
     playerRef.current?.pause()
   }
   const togglePlay = () => {
-    console.log('I am in toggle play')
     playerRef.current?.togglePlay()
   }
 
@@ -162,6 +159,36 @@ export const SpotifyPlayerProvider = (props: {
   const setTimeProgress = (timeMs: number) => {
     playerRef.current?.seek(timeMs)
   }
+
+  /**
+   * Get player asynchronously, from a global context.
+   * This is needed for functions that reference
+   * the player in another context/thread - like
+   * the global keybindings.
+   */
+  const getPlayerAsync = async () => {
+    const player = SpotifyPlayer.getInstance()
+    const currentPlayer = await player?.getPlayer()
+    return currentPlayer?.player
+  }
+
+  /**===================*
+   * Player Keybindings *
+   *====================*/
+  onSpace(async () => {
+    const player = await getPlayerAsync()
+    player?.togglePlay()
+  })
+
+  onArrow('right', async () => {
+    const player = await getPlayerAsync()
+    player?.nextTrack()
+  })
+
+  onArrow('left', async () => {
+    const player = await getPlayerAsync()
+    player?.previousTrack()
+  })
 
   return (
     <SpotifyPlayerContext.Provider

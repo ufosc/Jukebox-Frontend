@@ -1,11 +1,6 @@
 import { useCallback, useContext, useEffect, type ReactNode } from 'react'
 import { useSelector } from 'react-redux'
-import {
-  KeyboardContext,
-  SocketContext,
-  SpotifyPlayerContext,
-  SpotifyPlayerProvider,
-} from './context'
+import { SocketContext, SpotifyPlayerProvider } from './context'
 import { selectClubSpotifyAuth, setCurrentTrack, setNextTracks } from './store'
 import { selectCurrentJukebox } from './store/jukebox'
 
@@ -29,15 +24,6 @@ export const SpotifyPlayer = (props: { children?: ReactNode }) => {
     },
     [currentJukebox],
   )
-
-  // Creates functionality for keyboard input on player
-  const { togglePlay } = useContext(SpotifyPlayerContext)
-  const { onSpace } = useContext(KeyboardContext)
-
-  onSpace(() => {
-    console.log('HI')
-    togglePlay()
-  })
 
   // Receives track updates from server, updates store
   useEffect(() => {
