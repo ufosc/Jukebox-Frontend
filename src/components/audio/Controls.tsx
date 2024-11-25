@@ -5,27 +5,21 @@ import PauseIcon from 'src/assets/svg/PauseIcon.svg?react'
 import PlayIcon from 'src/assets/svg/PlayIcon.svg?react'
 import PreviousIcon from 'src/assets/svg/PreviousIcon.svg?react'
 import RepeatIcon from 'src/assets/svg/RepeatIcon.svg?react'
-import { AudioPlayerContext } from './AudioPlayer'
 
+import { SpotifyPlayerContext } from 'src/context'
 import './Controls.scss'
 
 export const Controls = () => {
-  const {
-    isPlaying,
-    togglePlayPause,
-    next,
-    previous,
-    duration,
-    setTimeProgress,
-  } = useContext(AudioPlayerContext)
+  const { isPlaying, togglePlay, nextTrack, previousTrack } =
+    useContext(SpotifyPlayerContext)
 
   const playAnimationRef = useRef<number>(0)
 
   const handlePrevious = () => {
-    previous()
+    previousTrack()
   }
   const handleNext = () => {
-    next()
+    nextTrack()
   }
 
   const handleLike = () => {
@@ -45,7 +39,7 @@ export const Controls = () => {
       </button>
 
       <button
-        onClick={togglePlayPause}
+        onClick={togglePlay}
         className={`audio-controls__icon ${isPlaying ? 'playing' : 'paused'}`}
       >
         {isPlaying ? <PauseIcon /> : <PlayIcon />}
