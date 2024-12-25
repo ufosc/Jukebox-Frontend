@@ -2,36 +2,17 @@
  * @fileoverview Audio Player Component
  */
 import type { ChangeEvent } from 'react'
-import { createContext, useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { SpotifyPlayerContext } from 'src/context'
 import './AudioPlayer.scss'
 import { Controls } from './Controls'
 import { ProgressBar } from './ProgressBar'
 import './ProgressBar.scss'
 
-export const AudioPlayerContext = createContext({
-  currentTrack: undefined as Nullable<ITrack>,
-  isPlaying: false,
-  timeProgress: 0,
-  duration: 0,
-  pause: () => {},
-  next: () => {},
-  previous: () => {},
-  togglePlayPause: () => {},
-  setDuration: (total: number) => {},
-  setTimeProgress: (loc: number) => {},
-})
-
 export const AudioPlayer = () => {
   const {
-    nextTrack,
     play,
     pause,
-    player,
-    previousTrack,
-    togglePlay,
-    isPlaying,
-    currentTrack,
     progress: timeProgress,
     duration,
     setTimeProgress,
@@ -88,28 +69,13 @@ export const AudioPlayer = () => {
 
   return (
     <div className="audio-player" ref={containerRef}>
-      <AudioPlayerContext.Provider
-        value={{
-          currentTrack,
-          isPlaying,
-          pause,
-          next: nextTrack,
-          previous: previousTrack,
-          togglePlayPause: togglePlay,
-          duration,
-          setDuration,
-          timeProgress,
-          setTimeProgress,
-        }}
-      >
-        <div className="audio-player__inner">
-          <Controls />
-          <ProgressBar
-            onProgressChange={onSetTimeProgress}
-            ref={progressBarRef}
-          />
-        </div>
-      </AudioPlayerContext.Provider>
+      <div className="audio-player__inner">
+        <Controls />
+        <ProgressBar
+          onProgressChange={onSetTimeProgress}
+          ref={progressBarRef}
+        />
+      </div>
     </div>
   )
 }

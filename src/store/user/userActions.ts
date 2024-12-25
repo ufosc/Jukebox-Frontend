@@ -2,7 +2,7 @@ import { unwrapResult } from '@reduxjs/toolkit'
 import { Network } from 'src/network'
 import { generateLocalData, isUser } from 'src/utils'
 import { store } from '../store'
-import { userSlice  } from './userSlice'
+import { userSlice } from './userSlice'
 import { thunkFetchUserInfo, thunkLoginUser } from './userThunks'
 
 const { logout, set, update } = userSlice.actions
