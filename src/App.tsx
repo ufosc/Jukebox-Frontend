@@ -1,6 +1,7 @@
 import { useCallback, useContext, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Outlet, useNavigate } from 'react-router-dom'
+import { SPOTIFY_AUTH_CHECK_MS } from './config'
 import {
   KeyboardProvider,
   SocketContext,
@@ -8,6 +9,7 @@ import {
   Theme,
 } from './context'
 import {
+  checkSpotifyAuth,
   fetchCurrentClubInfo,
   fetchJukeboxes,
   fetchUserInfo,
@@ -67,6 +69,16 @@ export const App = () => {
       logoutUser()
     }
   }, [userIsLoggedIn])
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      checkSpotifyAuth().then(() => {
+        console.log('Refreshed spotify token')
+      })
+    }, SPOTIFY_AUTH_CHECK_MS)
+
+    return () => clearInterval(timer)
+  }, [spotifyAuth])
 
   /**
    * ======================== *

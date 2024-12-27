@@ -1,9 +1,10 @@
 import { type AxiosRequestConfig } from 'axios'
-import { REACT_ENV } from 'src/config'
+import { CSRF_COOKIE_NAME, REACT_ENV, SESSION_COOKIE_NAME } from 'src/config'
 import { httpRequest } from 'src/lib'
 import { mockJukeboxes, mockUser } from 'src/mock'
 import {
   err,
+  getCookie,
   NetworkLoginError,
   NotImplementedError,
   ok,
@@ -144,9 +145,11 @@ export class Network {
     const res = await httpRequest({
       method: method || 'GET',
       url,
+      withCredentials: true,
       headers: {
-        Authorization: `Token ${this.token}`,
+        Authorization: this.token ? `Token ${this.token}` : '',
         'Content-Type': 'application/json',
+        // cookie: `csrftoken=${getCookie(CSRF_COOKIE_NAME)}; sessionid=${getCookie(SESSION_COOKIE_NAME)}`,
 
         ...config?.headers,
       },
@@ -166,6 +169,19 @@ export class Network {
 
   public setToken = (token: string) => {
     this.token = token
+  }
+
+  /**
+   * Get token, uses session info if any
+   */
+  public sendGetUserToken = async () => {
+    const res = await this.sendRequest(this.routes.user.token, 'GET')
+
+    if (res.status !== 200 || !res.data.token) {
+      return { success: false, error: res.data }
+    }
+
+    return { success: true, token: res.data.token as string }
   }
 
   /**

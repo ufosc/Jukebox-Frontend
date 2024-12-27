@@ -8,10 +8,10 @@ export const NetworkRoutes = {
     details: `${base}/user/me/`,
   },
   club: {
-    info: (id: number) => `${base}/club/clubs/${id}`,
+    info: (id: number) => `${base}/club/clubs/${id}/`,
   },
   jukebox: {
-    list: `${base}/jukebox/jukeboxes`,
+    list: `${base}/jukebox/jukeboxes/`,
     activeLink: (id: number) => `${base}/jukebox/${id}/active-link/`,
     connectDevice: (id: number) => `${base}/jukebox/${id}/connect/`,
   },

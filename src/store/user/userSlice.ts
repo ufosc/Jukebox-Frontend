@@ -1,6 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, isAnyOf } from '@reduxjs/toolkit'
 import { builderDefaults } from 'src/utils'
-import { thunkFetchUserInfo, thunkLoginUser } from './userThunks'
+import {
+  thunkFetchUserInfo,
+  thunkFetchUserToken,
+  thunkLoginUser,
+} from './userThunks'
 
 export const userSlice = createSlice({
   name: 'user',
@@ -48,16 +52,6 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(thunkLoginUser.fulfilled, (state, action) => {
-      const res = action.payload
-      if (res.success) {
-        state.token = res.token
-        state.loggedIn = true
-      } else {
-        state.loggedIn = false
-        state.error = res.error || null
-      }
-    })
     builder.addCase(thunkFetchUserInfo.fulfilled, (state, action) => {
       const { user } = action.payload
       state.user = user
@@ -66,6 +60,19 @@ export const userSlice = createSlice({
       state.loggedIn = false
       state.error = action.error.message || null
     })
+    builder.addMatcher(
+      isAnyOf(thunkLoginUser.fulfilled, thunkFetchUserToken.fulfilled),
+      (state, action) => {
+        const res = action.payload
+        if (res.success) {
+          state.token = res.token || null
+          state.loggedIn = true
+        } else {
+          state.loggedIn = false
+          state.error = res.error || null
+        }
+      },
+    )
 
     builderDefaults(builder)
   },
