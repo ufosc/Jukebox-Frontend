@@ -54,7 +54,7 @@ export const AuthForm = (props: {
   }
 
   useEffect(() => {
-    console.log('new errors:', errors)
+    console.log('new auth errors:', errors)
   }, [errors])
 
   return (

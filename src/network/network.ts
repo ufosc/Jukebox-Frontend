@@ -198,7 +198,7 @@ export class Network {
       return ok(token)
     }
 
-    const res = await this.sendRequest(this.routes.user.token, 'POST', {
+    const res = await this.sendRequest(this.routes.user.login, 'POST', {
       email,
       password,
     })
