@@ -26,14 +26,30 @@ declare interface ISpotifyAccount {
   token_type: string
 }
 
-declare interface ITrackStateUpdate {
-  current_track?: ITrack
-  // is_playing: boolean
-  next_tracks?: ITrack[]
+/**
+ * State of the current player stored in Redis
+ */
+declare interface IPlayerMetaState {
   jukebox_id: number
+  current_track?: ITrack
+  position: number
+  is_playing: boolean
+
+  /** Next up in Spotify's queue */
+  default_next_tracks: ITrack[]
 }
 
-declare interface IPlayerUpdate {
-  current_track?: ITrack
+/**
+ * The state of the player broadcast to socket subscribers
+ */
+declare interface IPlayerState {
   jukebox_id: number
+  current_track?: ITrack
+  position: number
+  is_playing: boolean
+
+  next_tracks: ITrack[]
 }
+
+type IPlayerAuxUpdate = IPlayerMetaState
+type IPlayerUpdate = IPlayerState

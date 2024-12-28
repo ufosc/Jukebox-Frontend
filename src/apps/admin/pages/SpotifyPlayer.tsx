@@ -1,12 +1,16 @@
 import { useContext, useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { Form, FormSelectGroup, FormSubmit } from 'src/components'
 import { AudioPlayer } from 'src/components/audio/AudioPlayer'
 import { REACT_ENV } from 'src/config'
 import { SpotifyPlayerContext } from 'src/context'
 import { mockTrack } from 'src/mock'
+import { connectJukeboxAux } from 'src/store'
+import { selectJukeboxLinks } from 'src/store/jukebox'
+import { SpotifyPlayerAccount } from '../components/SpotifyPlayer/SpotifyPlayerAccount'
+import { SpotifyPlayerDetail } from '../components/SpotifyPlayer/SpotifyPlayerDetail'
+import { SpotifyPlayerInfo } from '../components/SpotifyPlayer/SpotifyPlayerInfo'
 import './SpotifyPlayer.scss'
-import { SpotifyPlayerAccount } from './SpotifyPlayerAccount'
-import { SpotifyPlayerDetail } from './SpotifyPlayerDetail'
-import { SpotifyPlayerInfo } from './SpotifyPlayerInfo'
 import { Track } from './Track'
 
 const track = mockTrack
@@ -14,6 +18,7 @@ export const SpotifyPlayer = () => {
   const [song, setSong] = useState('')
   const [author, setAuthor] = useState('')
   const [album, setAlbum] = useState('')
+  const jukeboxLinks = useSelector(selectJukeboxLinks)
   const songTitleRef = useRef<HTMLHeadingElement>(null)
   const {
     nextTracks: playerNextTracks,
@@ -22,6 +27,8 @@ export const SpotifyPlayer = () => {
     isConnected,
     connectDevice,
   } = useContext(SpotifyPlayerContext)
+
+  const connectLinkIdRef = useRef<HTMLSelectElement>(null)
 
   useEffect(() => {
     if (!playerCurrentTrack) {
@@ -42,11 +49,41 @@ export const SpotifyPlayer = () => {
       }
     }
   }, [playerCurrentTrack])
+
+  const handleConnectPlayback = async () => {
+    if (!connectLinkIdRef.current) return
+
+    const link = jukeboxLinks?.find(
+      (link) => link.id === +connectLinkIdRef.current!.value,
+    )
+
+    if (!link)
+      throw new Error(`Link with id ${connectLinkIdRef.current} not found.`)
+
+    await connectJukeboxAux(link)
+  }
+
   return (
     <>
       <div className="spotify-player-title">Spotify Player</div>
       <div className="spotify-player-container grid">
         <div className="col-6 left-container">
+          {!isActive && (
+            <div>
+              My Accounts
+              <Form onSubmit={handleConnectPlayback}>
+                <FormSelectGroup
+                  id="link"
+                  ref={connectLinkIdRef}
+                  options={jukeboxLinks?.map((link) => ({
+                    label: link.email,
+                    value: link.id,
+                  }))}
+                />
+                <FormSubmit text="Connect Playback" />
+              </Form>
+            </div>
+          )}
           <div className="spotify-player-desc">
             <div className="spotify-song-title">{song}</div>
             <div className="spotify-song-author">{author}</div>
@@ -105,16 +142,7 @@ export const SpotifyPlayer = () => {
           </div>
           <SpotifyPlayerInfo title="Connected Spotify Accounts" />
           <div className="account-container">
-            <SpotifyPlayerAccount
-              profileImage="https://example.com"
-              isActive={true}
-              email="user@example.com"
-            />
-            <SpotifyPlayerAccount
-              profileImage="https://example.com"
-              isActive={false}
-              email="user@example.com"
-            />
+            {jukeboxLinks?.map((link) => <SpotifyPlayerAccount link={link} />)}
           </div>
           <div className="connect-button-container">
             {isConnected && !isActive && (

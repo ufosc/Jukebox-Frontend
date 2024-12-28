@@ -1,10 +1,9 @@
 import { type AxiosRequestConfig } from 'axios'
-import { CSRF_COOKIE_NAME, REACT_ENV, SESSION_COOKIE_NAME } from 'src/config'
+import { REACT_ENV } from 'src/config'
 import { httpRequest } from 'src/lib'
 import { mockJukeboxes, mockUser } from 'src/mock'
 import {
   err,
-  getCookie,
   NetworkLoginError,
   NotImplementedError,
   ok,
@@ -123,12 +122,12 @@ export class Network {
     return cb
   }
 
-  public sendRequest = async (
+  public sendRequest = async <T = any>(
     url: string,
     method?: 'GET' | 'POST' | 'PUT' | 'DELETE',
     body?: AxiosRequestConfig['data'],
     config?: Omit<AxiosRequestConfig, 'data'>,
-  ): Promise<NetworkResponse> => {
+  ): Promise<NetworkResponse<T>> => {
     if (this.env === 'test') {
       const res = this.mocks?.mockRequest(body)
       return {
@@ -138,7 +137,7 @@ export class Network {
       }
     }
 
-    if (this.env === 'network' || this.env === 'dev') {
+    if (this.env === 'network') {
       await sleep(1000)
     }
 
@@ -291,5 +290,45 @@ export class Network {
       'POST',
       { device_id: deviceId },
     )
+  }
+
+  public async sendUpdateActiveLink(jukeboxId: number, link: IJukeboxLink) {
+    if (this.env === 'dev') {
+      await sleep(1000)
+      return
+    }
+
+    await this.sendRequest(this.routes.jukebox.activeLink(jukeboxId), 'POST', {
+      type: link.type,
+      email: link.email,
+    })
+  }
+
+  public async sendGetCurrentlyPlaying(
+    jukeboxId: number,
+  ): Promise<IPlayerState | null> {
+    if (this.env === 'dev') {
+      await sleep(1000)
+      return null
+    }
+
+    const res = await this.sendRequest<IPlayerState | null>(
+      this.routes.jukebox.playerState(jukeboxId),
+    )
+
+    return res.data
+  }
+
+  public async sendGetNextTracks(jukeboxId: number): Promise<ITrack[]> {
+    if (this.env === 'dev') {
+      await sleep(1000)
+      return []
+    }
+
+    const res = await this.sendRequest<ITrack[]>(
+      this.routes.jukebox.nextTracks(jukeboxId),
+    )
+
+    return res.data
   }
 }

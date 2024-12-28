@@ -11,25 +11,30 @@ import {
 import {
   checkSpotifyAuth,
   fetchCurrentClubInfo,
+  fetchCurrentlyPlaying,
   fetchJukeboxes,
+  fetchNextTracks,
   fetchUserInfo,
   initializeUser,
   logoutUser,
-  selectClubSpotifyAuth,
   selectUser,
   selectUserLoggedIn,
   setAllClubs,
   setCurrentClub,
-  setCurrentTrack,
-  setNextTracks,
 } from './store'
-import { selectCurrentJukebox } from './store/jukebox'
+import {
+  selectCurrentJukebox,
+  selectHasJukeboxAux,
+  selectSpotifyAuth,
+} from './store/jukebox'
 
 export const App = () => {
   const userIsLoggedIn = useSelector(selectUserLoggedIn)
   const userInfo = useSelector(selectUser)
-  const spotifyAuth = useSelector(selectClubSpotifyAuth)
+  const spotifyAuth = useSelector(selectSpotifyAuth)
   const currentJukebox = useSelector(selectCurrentJukebox)
+  const hasAux = useSelector(selectHasJukeboxAux)
+
   const {
     emitMessage,
     onEvent,
@@ -86,23 +91,53 @@ export const App = () => {
    * ======================== *
    */
 
+  // On initialization, get currently playing and next tracks;
+  // assume this user is not an admin, and does not have aux
+
+  useEffect(() => {
+    if (currentJukebox) {
+      fetchCurrentlyPlaying().then((res) => {
+        console.log('Currently playing:', res)
+      })
+      fetchNextTracks().then(() => {})
+    }
+  }, [currentJukebox])
+
+  // On aux change, if has aux:
+  //  1. init player
+  //  2. authenticate with spotify
+  useEffect(() => {
+    // if (hasAux) {
+    // }
+  }, [hasAux])
+
   // Receives track updates from server, updates store
   useEffect(() => {
-    onEvent<ITrackStateUpdate>('track-state-update', (data) => {
-      if (data.current_track) {
-        setCurrentTrack(data.current_track)
-      }
-      if (data.next_tracks) {
-        setNextTracks(data.next_tracks)
-      }
-    })
+    // onEvent<ITrackStateUpdate>('track-state-update', (data) => {
+    //   if (data.current_track) {
+    //     // setCurrentTrack(data.current_track)
+    //   }
+    //   if (data.next_tracks) {
+    //     // setNextTracks(data.next_tracks)
+    //   }
+    // })
   }, [currentJukebox, socketIsConnected])
 
   const handlePlayerTrackChange = useCallback(
-    (newTrack: ITrack, prevTrack?: ITrack) => {
-      emitMessage<IPlayerUpdate>('player-update', {
-        current_track: newTrack,
+    (state: {
+      currentTrack: ITrack
+      position: number
+      isPlaying: boolean
+      nextTracks: ITrack[]
+    }) => {
+      const { currentTrack, position, isPlaying, nextTracks } = state
+
+      emitMessage<IPlayerAuxUpdate>('player-aux-update', {
         jukebox_id: currentJukebox!.id,
+        current_track: currentTrack,
+        position,
+        is_playing: isPlaying,
+        default_next_tracks: nextTracks,
       })
     },
     [currentJukebox],
@@ -114,7 +149,7 @@ export const App = () => {
         <SpotifyPlayerProvider
           token={spotifyAuth?.access_token}
           jukebox={currentJukebox}
-          onTrackChange={handlePlayerTrackChange}
+          onPlayerStateChange={handlePlayerTrackChange}
         >
           <Outlet />
         </SpotifyPlayerProvider>

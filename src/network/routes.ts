@@ -13,7 +13,13 @@ export const NetworkRoutes = {
   },
   jukebox: {
     list: `${base}/jukebox/jukeboxes/`,
-    activeLink: (id: number) => `${base}/jukebox/${id}/active-link/`,
-    connectDevice: (id: number) => `${base}/jukebox/${id}/connect/`,
+    activeLink: (jukeboxId: number) =>
+      `${base}/jukebox/${jukeboxId}/active-link/`,
+    connectDevice: (jukeboxId: number) =>
+      `${base}/jukebox/${jukeboxId}/connect/`,
+    playerState: (jukeboxId: number) =>
+      `${base}/jukebox/${jukeboxId}/player-state/`,
+    nextTracks: (jukeboxId: number) =>
+      `${base}/jukebox/${jukeboxId}/next-tracks/`,
   },
 }

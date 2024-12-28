@@ -10,14 +10,12 @@ import { mockTrack } from 'src/mock'
 import { useSelector } from 'react-redux'
 import { REACT_ENV, SPOTIFY_PLAYER_NAME } from 'src/config'
 import { SpotifyPlayerContext } from 'src/context'
-import { selectCurrentTrack, selectNextTracks } from 'src/store/track'
+import { selectNextTracks } from 'src/store/jukebox'
 import { Track } from './Track'
 
 export const Overview = () => {
   const [song, setSong] = useState('')
   const [author, setAuthor] = useState('')
-  // const { currentTrack } = useContext(SpotifyPlayerContext)
-  const storeCurrentTrack = useSelector(selectCurrentTrack)
   const queuedTracks = useSelector(selectNextTracks)
   const [currentTrackImage, setCurrentTrackImage] = useState('')
   const songTitleRef = useRef<HTMLHeadingElement>(null)
