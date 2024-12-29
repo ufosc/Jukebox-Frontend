@@ -16,12 +16,15 @@ export const jukeboxSlice = createSlice({
     jukeboxes: [] as IJukebox[],
     hasAux: false,
     currentJukebox: null as IJukebox | null,
-    playerState: null as IPlayerState | null,
+    playerState: null as IPlayerQueueState | null,
     nextTracks: [] as ITrack[],
     spotifyAuth: null as ISpotifyAccount | null,
   },
   reducers: {
-    setCurrentlyPlayingReducer: (state, action: { payload: IPlayerState }) => {
+    setCurrentlyPlayingReducer: (
+      state,
+      action: { payload: IPlayerQueueState },
+    ) => {
       state.playerState = action.payload
     },
     setNextTracksReducer: (state, action: { payload: ITrack[] }) => {

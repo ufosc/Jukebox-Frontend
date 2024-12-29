@@ -23,8 +23,8 @@ export const Overview = () => {
   const {
     nextTracks: playerNextTracks,
     currentTrack: playerCurrentTrack,
-    isActive,
-    isConnected,
+    deviceIsActive: isActive,
+    spotifyIsConnected: isConnected,
     connectDevice,
   } = useContext(SpotifyPlayerContext)
 

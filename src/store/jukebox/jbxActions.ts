@@ -12,13 +12,13 @@ import {
 
 const { setCurrentlyPlayingReducer, setNextTracksReducer } = jukeboxActions
 
-// export const setCurrentlyPlaying = (currentlyPlaying: ICurrentlyPlaying) => {
-//   store.dispatch(setCurrentlyPlayingReducer(currentlyPlaying))
-// }
+export const setPlayerState = (currentlyPlaying: IPlayerQueueState) => {
+  store.dispatch(setCurrentlyPlayingReducer(currentlyPlaying))
+}
 
-// export const setNextTracks = (nextTracks: ITrack[]) => {
-//   store.dispatch(setNextTracksReducer(nextTracks))
-// }
+export const setNextTracks = (nextTracks: ITrack[]) => {
+  store.dispatch(setNextTracksReducer(nextTracks))
+}
 
 export const fetchJukeboxes = async () => {
   await store.dispatch(thunkFetchJukeboxes())

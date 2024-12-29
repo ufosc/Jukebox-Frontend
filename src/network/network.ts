@@ -306,13 +306,13 @@ export class Network {
 
   public async sendGetCurrentlyPlaying(
     jukeboxId: number,
-  ): Promise<IPlayerState | null> {
+  ): Promise<IPlayerQueueState | null> {
     if (this.env === 'dev') {
       await sleep(1000)
       return null
     }
 
-    const res = await this.sendRequest<IPlayerState | null>(
+    const res = await this.sendRequest<IPlayerQueueState | null>(
       this.routes.jukebox.playerState(jukeboxId),
     )
 

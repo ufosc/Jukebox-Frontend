@@ -21,6 +21,7 @@ import {
   selectUserLoggedIn,
   setAllClubs,
   setCurrentClub,
+  setPlayerState,
 } from './store'
 import {
   selectCurrentJukebox,
@@ -113,14 +114,13 @@ export const App = () => {
 
   // Receives track updates from server, updates store
   useEffect(() => {
-    // onEvent<ITrackStateUpdate>('track-state-update', (data) => {
-    //   if (data.current_track) {
-    //     // setCurrentTrack(data.current_track)
-    //   }
-    //   if (data.next_tracks) {
-    //     // setNextTracks(data.next_tracks)
-    //   }
-    // })
+    onEvent<IPlayerUpdate>('track-state-update', (data) => {
+      setPlayerState(data)
+
+      if (data.next_tracks) {
+        // setNextTracks(data.next_tracks)
+      }
+    })
   }, [currentJukebox, socketIsConnected])
 
   const handlePlayerTrackChange = useCallback(

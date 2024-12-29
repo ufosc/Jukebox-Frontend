@@ -18,9 +18,12 @@ import { KeyboardContext } from './KeyboardContext'
 
 export const SpotifyPlayerContext = createContext({
   player: null as Nullable<Spotify.Player>,
+  /** The current track is actively playing */
   isPlaying: false,
-  isActive: false,
-  isConnected: false,
+  /** This device is connected for playback */
+  deviceIsActive: false,
+  /** The player has authenticated with Spotify */
+  spotifyIsConnected: false,
   currentTrack: null as Nullable<Spotify.Track>,
   progress: 0,
   duration: 0,
@@ -59,6 +62,7 @@ export const SpotifyPlayerProvider = (props: {
   const [timer, setTimer] = useState<Nullable<NodeJS.Timeout>>()
   const [nextTracks, setNextTracks] = useState<Spotify.Track[]>([])
   const [deviceId, setDeviceId] = useState('')
+  const [connected, setConnected] = useState(false)
 
   const { onSpace, onArrow } = useContext(KeyboardContext)
 
@@ -95,6 +99,7 @@ export const SpotifyPlayerProvider = (props: {
             jukebox.id,
             resDeviceId,
           )
+          setConnected(true)
         })
     }
   }, [token])
@@ -105,8 +110,11 @@ export const SpotifyPlayerProvider = (props: {
 
   const handlePlayerStateChange = (state?: Spotify.PlaybackState) => {
     if (!state) {
+      // Spotify returns null state if playback transferred to another device
+      setActive(false)
       return
     }
+
     const { current_track: spotifyTrack } = state.track_window
     onPlayerStateChange({
       currentTrack: spotifyTrack,
@@ -133,6 +141,27 @@ export const SpotifyPlayerProvider = (props: {
         'player_state_changed',
         handlePlayerStateChange,
       )
+
+      playerRef.current?.addListener('playback_error', () => {
+        // Happens if trying to play from browser after playback transferred away
+        setActive(false)
+      })
+      playerRef.current?.addListener('not_ready', () => {
+        setActive(false)
+        setConnected(false)
+      })
+      playerRef.current?.addListener('account_error', () => {
+        setActive(false)
+        setConnected(false)
+      })
+      playerRef.current?.addListener('initialization_error', () => {
+        setActive(false)
+        setConnected(false)
+      })
+      playerRef.current?.addListener('ready', () => {
+        setActive(false)
+        setConnected(true)
+      })
 
       return () =>
         playerRef.current?.removeListener(
@@ -204,8 +233,8 @@ export const SpotifyPlayerProvider = (props: {
         player: playerRef.current,
         currentTrack,
         isPlaying: !paused,
-        isActive: active,
-        isConnected: initialized,
+        deviceIsActive: active,
+        spotifyIsConnected: connected,
         progress,
         duration,
         nextTracks,

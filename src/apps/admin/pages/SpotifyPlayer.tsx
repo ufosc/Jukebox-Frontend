@@ -23,8 +23,8 @@ export const SpotifyPlayer = () => {
   const {
     nextTracks: playerNextTracks,
     currentTrack: playerCurrentTrack,
-    isActive,
-    isConnected,
+    deviceIsActive: isActive,
+    spotifyIsConnected: isConnected,
     connectDevice,
   } = useContext(SpotifyPlayerContext)
 
@@ -68,6 +68,12 @@ export const SpotifyPlayer = () => {
       <div className="spotify-player-title">Spotify Player</div>
       <div className="spotify-player-container grid">
         <div className="col-6 left-container">
+          <p>{(isActive && 'Player is active') || 'Player is not active'}</p>
+          <p>
+            {(isConnected && 'Player is connected') ||
+              'Player is not connected'}
+          </p>
+
           {!isActive && (
             <div>
               My Accounts
