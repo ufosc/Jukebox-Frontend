@@ -1,6 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react'
-
-import { ConnectedPlayer } from 'src/components'
+import { useContext, useEffect, useRef } from 'react'
 
 import './Overview.scss'
 
@@ -10,15 +8,17 @@ import { mockTrack } from 'src/mock'
 import { useSelector } from 'react-redux'
 import { REACT_ENV, SPOTIFY_PLAYER_NAME } from 'src/config'
 import { SpotifyPlayerContext } from 'src/context'
+import { CurrentlyPlayingContext } from 'src/context/CurrentlyPlayingContext'
 import { selectNextTracks, selectPlayerState } from 'src/store/jukebox'
 import { Track } from './Track'
+import { AudioPlayer } from 'src/components'
 
 export const Overview = () => {
   const queuedTracks = useSelector(selectNextTracks)
   const storePlayerState = useSelector(selectPlayerState)
 
+  const { currentTrack } = useContext(CurrentlyPlayingContext)
   const songTitleRef = useRef<HTMLHeadingElement>(null)
-  const [playerState, setPlayerState] = useState<IPlayerState | null>(null)
 
   const {
     playerState: spotifyPlayerState,
@@ -31,12 +31,6 @@ export const Overview = () => {
     if (+(songTitleRef.current?.textContent ?? 0) > 15) {
       songTitleRef.current?.classList.add('song-title--small')
     }
-
-    if (!spotifyPlayerState) {
-      setPlayerState(storePlayerState)
-    } else {
-      setPlayerState(spotifyPlayerState)
-    }
   }, [spotifyPlayerState?.current_track, storePlayerState?.current_track])
 
   return (
@@ -45,15 +39,14 @@ export const Overview = () => {
         <div className="col-5 card">
           <div className="song-desc">
             <h2 className="song-title" ref={songTitleRef}>
-              {playerState?.current_track?.name ?? 'No Track'}
+              {currentTrack?.name ?? 'No Track'}
             </h2>
             <div className="song-author">
-              {playerState?.current_track?.artists
-                .map((artist) => artist.name)
-                .join(', ') ?? 'No Artist'}
+              {currentTrack?.artists.map((artist) => artist.name).join(', ') ??
+                'No Artist'}
             </div>
           </div>
-          <ConnectedPlayer />
+          <AudioPlayer />
         </div>
 
         <div className="col-7">
@@ -61,10 +54,10 @@ export const Overview = () => {
             <img
               className="curr-song"
               src={
-                playerState?.current_track?.album?.images[0].url ??
+                currentTrack?.album?.images[0].url ??
                 mockTrack.album.images[0].url
               }
-              alt={playerState?.current_track?.name}
+              alt={currentTrack?.name}
             />
             <Disk />
           </div>

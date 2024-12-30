@@ -8,6 +8,7 @@ import {
   SpotifyPlayerProvider,
   Theme,
 } from './context'
+import { CurrentlyPlayingProvider } from './context/CurrentlyPlayingContext'
 import {
   authenticateLink,
   checkLinkAuth,
@@ -140,7 +141,9 @@ export const App = () => {
           jukebox={currentJukebox}
           onPlayerStateChange={handlePlayerTrackChange}
         >
-          <Outlet />
+          <CurrentlyPlayingProvider>
+            <Outlet />
+          </CurrentlyPlayingProvider>
         </SpotifyPlayerProvider>
       </KeyboardProvider>
     </Theme>

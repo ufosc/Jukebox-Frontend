@@ -1,13 +1,9 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useRef } from 'react'
 import { useSelector } from 'react-redux'
-import {
-  ConnectedPlayer,
-  Form,
-  FormSelectGroup,
-  FormSubmit,
-} from 'src/components'
+import { AudioPlayer, Form, FormSelectGroup, FormSubmit } from 'src/components'
 import { REACT_ENV } from 'src/config'
 import { SpotifyPlayerContext } from 'src/context'
+import { CurrentlyPlayingContext } from 'src/context/CurrentlyPlayingContext'
 import { mockTrack } from 'src/mock'
 import { authenticateLink } from 'src/store'
 import { selectJukeboxLinks } from 'src/store/jukebox'
@@ -19,40 +15,17 @@ import { Track } from './Track'
 
 const track = mockTrack
 export const SpotifyPlayer = () => {
-  const [song, setSong] = useState('')
-  const [author, setAuthor] = useState('')
-  const [album, setAlbum] = useState('')
   const jukeboxLinks = useSelector(selectJukeboxLinks)
-  const songTitleRef = useRef<HTMLHeadingElement>(null)
+  const { currentTrack } = useContext(CurrentlyPlayingContext)
+
   const {
     nextTracks: playerNextTracks,
-    playerState,
     deviceIsActive: isActive,
     spotifyIsConnected: isConnected,
     connectDevice,
   } = useContext(SpotifyPlayerContext)
 
   const connectLinkIdRef = useRef<HTMLSelectElement>(null)
-
-  useEffect(() => {
-    if (!playerState?.current_track) {
-      setSong('No song Playing')
-      setAuthor('No Author')
-      setAlbum('No Album')
-    } else {
-      setSong(playerState?.current_track.name)
-      setAlbum(playerState?.current_track.album.name)
-      console.log(album)
-      setAuthor(
-        playerState?.current_track.artists
-          .map((artist: { name: any }) => artist.name)
-          .join(', '),
-      )
-      if (playerState?.current_track.name.length > 15) {
-        songTitleRef.current?.classList.add('song-title--small')
-      }
-    }
-  }, [playerState?.current_track])
 
   const handleConnectPlayback = async () => {
     if (!connectLinkIdRef.current) return
@@ -98,16 +71,24 @@ export const SpotifyPlayer = () => {
             </div>
           )}
           <div className="spotify-player-desc">
-            <div className="spotify-song-title">{song}</div>
-            <div className="spotify-song-author">{author}</div>
+            <div className="spotify-song-title">
+              {currentTrack?.name ?? 'No Track Playing'}
+            </div>
+            <div className="spotify-song-author">
+              {currentTrack?.artists.map((artist) => artist.name).join(', ') ??
+                'Author Unavailable'}
+            </div>
           </div>
           <div className="audio-container">
-            <ConnectedPlayer />
+            <AudioPlayer />
           </div>
           <SpotifyPlayerInfo title="Track Info" />
           <div className="detail-container">
             <SpotifyPlayerDetail firstDetail="Explicit" secondDetail="False" />
-            <SpotifyPlayerDetail firstDetail={'Album'} secondDetail={album} />
+            <SpotifyPlayerDetail
+              firstDetail={'Album'}
+              secondDetail={currentTrack?.album.name ?? 'Unavailable'}
+            />
             <SpotifyPlayerDetail
               firstDetail="Release Date"
               secondDetail="1987"
@@ -155,7 +136,9 @@ export const SpotifyPlayer = () => {
           </div>
           <SpotifyPlayerInfo title="Connected Spotify Accounts" />
           <div className="account-container">
-            {jukeboxLinks?.map((link) => <SpotifyPlayerAccount link={link} />)}
+            {jukeboxLinks?.map((link) => (
+              <SpotifyPlayerAccount key={link.id} link={link} />
+            ))}
           </div>
           <div className="connect-button-container">
             {isConnected && !isActive && (

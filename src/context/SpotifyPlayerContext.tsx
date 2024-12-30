@@ -57,7 +57,6 @@ export const SpotifyPlayerProvider = (props: {
   const [paused, setPaused] = useState(true)
   const [active, setActive] = useState(false)
   const [progress, setProgress] = useState(0)
-  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null)
   const [nextTracks, setNextTracks] = useState<Spotify.Track[]>([])
   const [deviceId, setDeviceId] = useState('')
   const [connected, setConnected] = useState(false)
@@ -67,20 +66,6 @@ export const SpotifyPlayerProvider = (props: {
   useEffect(() => {
     networkRef.current = Network.getInstance()
   }, [])
-
-  useEffect(() => {
-    if (timer) {
-      clearInterval(timer)
-    }
-
-    if (!paused) {
-      const t = setInterval(() => {
-        setProgress((prev) => prev + 1000)
-      }, 1000)
-
-      setTimer(t)
-    }
-  }, [paused])
 
   useEffect(() => {
     if (token && jukebox) {
@@ -117,6 +102,7 @@ export const SpotifyPlayerProvider = (props: {
     }
 
     const { current_track: spotifyTrack } = state.track_window
+
     onPlayerStateChange({
       currentTrack: spotifyTrack,
       position: state.position,
@@ -243,7 +229,7 @@ export const SpotifyPlayerProvider = (props: {
           is_playing: !paused,
           jukebox_id: jukebox?.id,
           progress: progress,
-          current_track: currentTrack ?? undefined,
+          current_track: currentTrack || undefined,
         },
         nextTracks,
         nextTrack,
