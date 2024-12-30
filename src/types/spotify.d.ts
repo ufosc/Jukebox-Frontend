@@ -27,9 +27,9 @@ declare interface ISpotifyAccount {
 }
 
 declare interface IPlayerState {
-  jukebox_id: number
+  jukebox_id?: number
   current_track?: ITrack
-  position: number
+  progress: number
   is_playing: boolean
 }
 

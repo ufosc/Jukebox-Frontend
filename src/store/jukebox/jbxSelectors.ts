@@ -41,3 +41,12 @@ export const selectNextTracks = createSelector(
   jbxStateSelector,
   (state) => state.nextTracks,
 )
+
+export const selectActiveLink = createSelector(jbxStateSelector, (state) =>
+  state.currentJukebox?.links.find((link) => link.active),
+)
+
+export const selectCurrentTrack = createSelector(
+  jbxStateSelector,
+  (state) => state.playerState?.current_track,
+)

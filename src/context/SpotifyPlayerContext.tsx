@@ -14,27 +14,27 @@ import {
 } from 'react'
 import { SpotifyPlayer } from 'src/lib'
 import { Network } from 'src/network'
+import { setHasAux } from 'src/store'
 import { KeyboardContext } from './KeyboardContext'
 
 export const SpotifyPlayerContext = createContext({
-  player: null as Nullable<Spotify.Player>,
-  /** The current track is actively playing */
-  isPlaying: false,
+  player: null as Spotify.Player | null,
   /** This device is connected for playback */
   deviceIsActive: false,
   /** The player has authenticated with Spotify */
   spotifyIsConnected: false,
-  currentTrack: null as Nullable<Spotify.Track>,
-  progress: 0,
-  duration: 0,
+
+  playerState: null as IPlayerState | null,
   nextTracks: [] as Spotify.Track[],
   nextTrack: () => {},
-  previousTrack: () => {},
+  prevTrack: () => {},
   play: () => {},
   pause: () => {},
+  like: () => {},
+  repeat: () => {},
   togglePlay: () => {},
   connectDevice: () => {},
-  setTimeProgress: (timeMs: number) => {},
+  setProgress: (timeMs: number) => {},
 })
 
 export const SpotifyPlayerProvider = (props: {
@@ -47,19 +47,17 @@ export const SpotifyPlayerProvider = (props: {
     isPlaying: boolean
     nextTracks: ITrack[]
   }) => void
-  // emitMessage: (ev: string, message: any) => void
 }) => {
   const { children, token, jukebox, onPlayerStateChange } = props
-  const playerRef = useRef<Nullable<Spotify.Player>>()
+  const playerRef = useRef<Spotify.Player | null>(null)
   const networkRef = useRef<Network>()
 
   const [initialized, setInitialized] = useState(false)
-  const [currentTrack, setCurrentTrack] = useState<Nullable<Spotify.Track>>()
+  const [currentTrack, setCurrentTrack] = useState<Spotify.Track | null>(null)
   const [paused, setPaused] = useState(true)
   const [active, setActive] = useState(false)
   const [progress, setProgress] = useState(0)
-  const [duration, setDuration] = useState(0)
-  const [timer, setTimer] = useState<Nullable<NodeJS.Timeout>>()
+  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null)
   const [nextTracks, setNextTracks] = useState<Spotify.Track[]>([])
   const [deviceId, setDeviceId] = useState('')
   const [connected, setConnected] = useState(false)
@@ -93,12 +91,6 @@ export const SpotifyPlayerProvider = (props: {
           setDeviceId(resDeviceId)
 
           setInitialized(true)
-
-          // When successfully connected, transfer playback
-          await networkRef.current?.connectSpotifyDevice(
-            jukebox.id,
-            resDeviceId,
-          )
           setConnected(true)
         })
     }
@@ -107,6 +99,15 @@ export const SpotifyPlayerProvider = (props: {
   useEffect(() => {
     console.log('Current track:', currentTrack)
   }, [currentTrack])
+
+  // Control the aux value in state
+  useEffect(() => {
+    if (connected && active) {
+      setHasAux(true)
+    } else {
+      setHasAux(false)
+    }
+  }, [connected, active])
 
   const handlePlayerStateChange = (state?: Spotify.PlaybackState) => {
     if (!state) {
@@ -125,7 +126,6 @@ export const SpotifyPlayerProvider = (props: {
     setCurrentTrack(spotifyTrack)
     setPaused(state.paused)
     setProgress(state.position)
-    setDuration(state.duration)
     setNextTracks(state.track_window.next_tracks)
     setDeviceId(state.playback_id)
 
@@ -174,7 +174,7 @@ export const SpotifyPlayerProvider = (props: {
   const nextTrack = () => {
     playerRef.current?.nextTrack()
   }
-  const previousTrack = () => {
+  const prevTrack = () => {
     playerRef.current?.previousTrack()
   }
   const play = () => {
@@ -185,6 +185,12 @@ export const SpotifyPlayerProvider = (props: {
   }
   const togglePlay = () => {
     playerRef.current?.togglePlay()
+  }
+  const like = () => {
+    console.log('TODO: Like Track')
+  }
+  const repeat = () => {
+    console.log('TODO: Repeat Track')
   }
 
   const connectDevice = async () => {
@@ -231,20 +237,24 @@ export const SpotifyPlayerProvider = (props: {
     <SpotifyPlayerContext.Provider
       value={{
         player: playerRef.current,
-        currentTrack,
-        isPlaying: !paused,
         deviceIsActive: active,
         spotifyIsConnected: connected,
-        progress,
-        duration,
+        playerState: {
+          is_playing: !paused,
+          jukebox_id: jukebox?.id,
+          progress: progress,
+          current_track: currentTrack ?? undefined,
+        },
         nextTracks,
         nextTrack,
-        previousTrack,
+        prevTrack: prevTrack,
         play,
         pause,
+        like,
+        repeat,
         togglePlay,
         connectDevice,
-        setTimeProgress,
+        setProgress: setTimeProgress,
       }}
     >
       {children}

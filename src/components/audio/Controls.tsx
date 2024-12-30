@@ -1,4 +1,3 @@
-import { useContext, useRef } from 'react'
 import HeartIcon from 'src/assets/svg/HeartIcon.svg?react'
 import NextIcon from 'src/assets/svg/NextIcon.svg?react'
 import PauseIcon from 'src/assets/svg/PauseIcon.svg?react'
@@ -6,51 +5,60 @@ import PlayIcon from 'src/assets/svg/PlayIcon.svg?react'
 import PreviousIcon from 'src/assets/svg/PreviousIcon.svg?react'
 import RepeatIcon from 'src/assets/svg/RepeatIcon.svg?react'
 
-import { SpotifyPlayerContext } from 'src/context'
 import './Controls.scss'
 
-export const Controls = () => {
-  const { isPlaying, togglePlay, nextTrack, previousTrack } =
-    useContext(SpotifyPlayerContext)
+export const Controls = (props: {
+  playing: boolean
+  togglePlay?: () => void
+  nextTrack?: () => void
+  prevTrack?: () => void
+  like?: () => void
+  repeat?: () => void
+}) => {
+  // const { isPlaying, togglePlay, nextTrack, previousTrack } =
+  //   useContext(SpotifyPlayerContext)
+  const { playing, togglePlay, nextTrack, prevTrack, repeat, like } = props
 
-  const playAnimationRef = useRef<number>(0)
-
-  const handlePrevious = () => {
-    previousTrack()
-  }
-  const handleNext = () => {
-    nextTrack()
-  }
-
-  const handleLike = () => {
-    console.log('Pressed like.')
-  }
-  const handleRepeat = () => {
-    console.log('Pressed repeat.')
-  }
+  // const handleLike = () => {
+  //   console.log('Pressed like.')
+  // }
+  // const handleRepeat = () => {
+  //   console.log('Pressed repeat.')
+  // }
 
   return (
     <div className="audio-player__controls audio-controls">
-      <button className="audio-controls__icon" onClick={handleLike}>
-        <HeartIcon />
-      </button>
-      <button className="audio-controls__icon" onClick={handlePrevious}>
-        <PreviousIcon />
-      </button>
+      {like && (
+        <button className="audio-controls__icon" onClick={like}>
+          <HeartIcon />
+        </button>
+      )}
 
-      <button
-        onClick={togglePlay}
-        className={`audio-controls__icon ${isPlaying ? 'playing' : 'paused'}`}
-      >
-        {isPlaying ? <PauseIcon /> : <PlayIcon />}
-      </button>
+      {prevTrack && (
+        <button className="audio-controls__icon" onClick={prevTrack}>
+          <PreviousIcon />
+        </button>
+      )}
 
-      <button className="audio-controls__icon" onClick={handleNext}>
-        <NextIcon />
-      </button>
-      <button className="audio-controls__icon" onClick={handleRepeat}>
-        <RepeatIcon />
-      </button>
+      {togglePlay && (
+        <button
+          onClick={togglePlay}
+          className={`audio-controls__icon ${playing ? 'playing' : 'paused'}`}
+        >
+          {playing ? <PauseIcon /> : <PlayIcon />}
+        </button>
+      )}
+
+      {nextTrack && (
+        <button className="audio-controls__icon" onClick={nextTrack}>
+          <NextIcon />
+        </button>
+      )}
+      {repeat && (
+        <button className="audio-controls__icon" onClick={repeat}>
+          <RepeatIcon />
+        </button>
+      )}
     </div>
   )
 }

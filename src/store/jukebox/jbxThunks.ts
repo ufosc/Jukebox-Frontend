@@ -27,7 +27,8 @@ export const thunkFetchNextTracks = createAsyncThunk(
 export const thunkUpdateActiveLink = createAsyncThunk(
   'jukebox/updateActiveLink',
   async (payload: { jukeboxId: number; link: IJukeboxLink }) => {
-    return await network.sendUpdateActiveLink(payload.jukeboxId, payload.link)
+    await network.sendUpdateActiveLink(payload.jukeboxId, payload.link)
+    return { link: payload.link }
   },
 )
 

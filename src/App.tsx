@@ -9,7 +9,8 @@ import {
   Theme,
 } from './context'
 import {
-  checkSpotifyAuth,
+  authenticateLink,
+  checkLinkAuth,
   fetchCurrentClubInfo,
   fetchCurrentlyPlaying,
   fetchJukeboxes,
@@ -17,24 +18,20 @@ import {
   fetchUserInfo,
   initializeUser,
   logoutUser,
+  selectCurrentJukebox,
+  selectSpotifyAuth,
   selectUser,
   selectUserLoggedIn,
   setAllClubs,
   setCurrentClub,
   setPlayerState,
 } from './store'
-import {
-  selectCurrentJukebox,
-  selectHasJukeboxAux,
-  selectSpotifyAuth,
-} from './store/jukebox'
 
 export const App = () => {
   const userIsLoggedIn = useSelector(selectUserLoggedIn)
   const userInfo = useSelector(selectUser)
   const spotifyAuth = useSelector(selectSpotifyAuth)
   const currentJukebox = useSelector(selectCurrentJukebox)
-  const hasAux = useSelector(selectHasJukeboxAux)
 
   const {
     emitMessage,
@@ -49,19 +46,16 @@ export const App = () => {
    * User Authentication *
    * =================== *
    */
-
-  useEffect(() => {
-    if (userIsLoggedIn === false) {
-      navigate('/auth/admin/login')
-    }
-  }, [userIsLoggedIn])
-
+  // Initialization actions
   useEffect(() => {
     initializeUser()
   }, [])
 
+  // Triggers when login status changes
   useEffect(() => {
-    if (userIsLoggedIn) {
+    if (userIsLoggedIn === false) {
+      navigate('/auth/admin/login')
+    } else if (userIsLoggedIn) {
       // Store new user info
       fetchUserInfo().then(async (resUserInfo) => {
         if (!resUserInfo) return
@@ -76,9 +70,18 @@ export const App = () => {
     }
   }, [userIsLoggedIn])
 
+  /**
+   * ======================== *
+   * Spotify Track State Sync *
+   * ======================== *
+   */
+
+  // Triggers when receive spotify credentials from server
   useEffect(() => {
+    if (!spotifyAuth) return
+
     const timer = setInterval(() => {
-      checkSpotifyAuth().then(() => {
+      checkLinkAuth().then(() => {
         console.log('Refreshed spotify token')
       })
     }, SPOTIFY_AUTH_CHECK_MS)
@@ -86,15 +89,7 @@ export const App = () => {
     return () => clearInterval(timer)
   }, [spotifyAuth])
 
-  /**
-   * ======================== *
-   * Spotify Track State Sync *
-   * ======================== *
-   */
-
-  // On initialization, get currently playing and next tracks;
-  // assume this user is not an admin, and does not have aux
-
+  // Triggers when the current jukebox changes
   useEffect(() => {
     if (currentJukebox) {
       fetchCurrentlyPlaying().then((res) => {
@@ -104,16 +99,9 @@ export const App = () => {
     }
   }, [currentJukebox])
 
-  // On aux change, if has aux:
-  //  1. init player
-  //  2. authenticate with spotify
-  useEffect(() => {
-    // if (hasAux) {
-    // }
-  }, [hasAux])
-
   // Receives track updates from server, updates store
   useEffect(() => {
+    authenticateLink().then()
     onEvent<IPlayerUpdate>('track-state-update', (data) => {
       setPlayerState(data)
 
@@ -123,6 +111,7 @@ export const App = () => {
     })
   }, [currentJukebox, socketIsConnected])
 
+  // Primary function that runs when Spotify Player changes
   const handlePlayerTrackChange = useCallback(
     (state: {
       currentTrack: ITrack
@@ -135,7 +124,7 @@ export const App = () => {
       emitMessage<IPlayerAuxUpdate>('player-aux-update', {
         jukebox_id: currentJukebox!.id,
         current_track: currentTrack,
-        position,
+        progress: position,
         is_playing: isPlaying,
         default_next_tracks: nextTracks,
       })

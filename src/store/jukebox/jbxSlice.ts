@@ -5,7 +5,6 @@ import {
   thunkFetchJukeboxes,
   thunkFetchNextTracks,
   thunkSyncSpotifyTokens,
-  thunkUpdateActiveLink,
 } from './jbxThunks'
 
 export const jukeboxSlice = createSlice({
@@ -14,6 +13,7 @@ export const jukeboxSlice = createSlice({
     status: 'idle' as StoreStatus,
     error: null as string | null,
     jukeboxes: [] as IJukebox[],
+    /** User is connected to spotify, and the player is active */
     hasAux: false,
     currentJukebox: null as IJukebox | null,
     playerState: null as IPlayerQueueState | null,
@@ -29,6 +29,9 @@ export const jukeboxSlice = createSlice({
     },
     setNextTracksReducer: (state, action: { payload: ITrack[] }) => {
       state.nextTracks = action.payload
+    },
+    setHasAuxReducer: (state, action: { payload: boolean }) => {
+      state.hasAux = action.payload
     },
   },
   extraReducers: (builder) => {
@@ -46,9 +49,9 @@ export const jukeboxSlice = createSlice({
     builder.addCase(thunkFetchNextTracks.fulfilled, (state, action) => {
       state.nextTracks = action.payload
     })
-    builder.addCase(thunkUpdateActiveLink.fulfilled, (state, action) => {
-      state.hasAux = true
-    })
+    // builder.addCase(thunkUpdateActiveLink.fulfilled, (state, action) => {
+    //   state.hasAux = true
+    // })
     builder.addCase(thunkSyncSpotifyTokens.fulfilled, (state, action) => {
       state.spotifyAuth = action.payload
     })

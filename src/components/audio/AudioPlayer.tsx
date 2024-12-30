@@ -1,58 +1,89 @@
 /**
  * @fileoverview Audio Player Component
  */
-import type { ChangeEvent } from 'react'
-import { useContext, useEffect, useRef, useState } from 'react'
-import { SpotifyPlayerContext } from 'src/context'
+import { useEffect, useRef, useState } from 'react'
 import './AudioPlayer.scss'
 import { Controls } from './Controls'
 import { ProgressBar } from './ProgressBar'
 import './ProgressBar.scss'
 
-export const AudioPlayer = () => {
+/**
+ * Stateless audio player.
+ *
+ * It will work with what ever props it is given.
+ */
+export const AudioPlayer = (props: {
+  playerState: IPlayerState
+  disableControls?: boolean
+  play?: () => void
+  pause?: () => void
+  togglePlay?: () => void
+  setProgress?: (ms: number) => void
+  nextTrack?: () => void
+  prevTrack?: () => void
+  like?: () => void
+  repeat?: () => void
+}) => {
   const {
+    playerState,
+    disableControls,
     play,
     pause,
-    progress: timeProgress,
-    duration,
-    setTimeProgress,
-  } = useContext(SpotifyPlayerContext)
+    setProgress,
+    nextTrack,
+    prevTrack,
+    togglePlay,
+    like,
+    repeat,
+  } = props
+
+  // Refs
+  const containerRef = useRef<HTMLDivElement>(null)
   const progressBarRef = useRef<HTMLInputElement>(null)
+
+  // State
   const [editMode, setEditMode] = useState(false)
+  const [duration, setDuration] = useState<number | null>(null)
 
+  // Update track values
   useEffect(() => {
-    if (progressBarRef.current) {
-      progressBarRef.current.max = String(duration)
-    }
-  }, [duration])
+    setDuration(playerState?.current_track?.duration_ms ?? null)
 
+    if (!progressBarRef.current) return
+    progressBarRef.current.max = String(
+      playerState.current_track?.duration_ms ?? 1000,
+    )
+
+    // if (!progressBarRef.current || !playerState.current_track) return
+  }, [playerState.current_track])
+
+  // Update progress
   useEffect(() => {
+    if (!duration) return
+
     containerRef.current?.style.setProperty(
       '--range-progress',
-      `${(timeProgress / duration) * 100}%`,
+      `${(playerState.progress / duration) * 100}%`,
     )
 
     if (!editMode && progressBarRef.current) {
-      progressBarRef.current.value = String(timeProgress)
+      progressBarRef.current.value = String(playerState.progress)
     }
-  }, [timeProgress])
+  }, [playerState.progress])
 
-  const onSetTimeProgress = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log('Progress:', e.target.value)
-    setTimeProgress(+e.target.value)
-  }
-  const setDuration = () => {}
-
+  // Pause track when setting time progress
   useEffect(() => {
     const onMouseDown = () => {
+      if (!pause) return
+
       pause()
       setEditMode(true)
-      console.log('Mouse down')
     }
     const onMouseUp = () => {
+      if (!play) return
+
       play()
       setEditMode(false)
-      console.log('Mouse up')
     }
 
     progressBarRef.current?.addEventListener('mousedown', onMouseDown)
@@ -64,16 +95,24 @@ export const AudioPlayer = () => {
     }
   }, [])
 
-  // Refs
-  const containerRef = useRef<HTMLDivElement>(null)
-
   return (
     <div className="audio-player" ref={containerRef}>
       <div className="audio-player__inner">
-        <Controls />
+        {!disableControls && (
+          <Controls
+            playing={playerState.is_playing}
+            nextTrack={nextTrack}
+            prevTrack={prevTrack}
+            togglePlay={togglePlay}
+            like={like}
+            repeat={repeat}
+          />
+        )}
         <ProgressBar
-          onProgressChange={onSetTimeProgress}
+          setProgress={setProgress}
           ref={progressBarRef}
+          duration={playerState.current_track?.duration_ms}
+          progress={playerState.progress}
         />
       </div>
     </div>
