@@ -44,7 +44,7 @@ export const SocketProvider = (props: { children: ReactNode }) => {
     })
 
     socket.onAny((event, ...args) => {
-      console.log('Socket:', event, args)
+      console.debug('Socket:', event, args)
     })
 
     return () => {

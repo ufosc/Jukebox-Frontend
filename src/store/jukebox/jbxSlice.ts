@@ -43,15 +43,11 @@ export const jukeboxSlice = createSlice({
       }
     })
     builder.addCase(thunkFetchCurrentlyPlaying.fulfilled, (state, action) => {
-      console.log('Currently playing:', action)
       state.playerState = action.payload
     })
     builder.addCase(thunkFetchNextTracks.fulfilled, (state, action) => {
       state.nextTracks = action.payload
     })
-    // builder.addCase(thunkUpdateActiveLink.fulfilled, (state, action) => {
-    //   state.hasAux = true
-    // })
     builder.addCase(thunkSyncSpotifyTokens.fulfilled, (state, action) => {
       state.spotifyAuth = action.payload
     })

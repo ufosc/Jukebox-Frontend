@@ -25,6 +25,7 @@ import {
   selectUserLoggedIn,
   setAllClubs,
   setCurrentClub,
+  setNextTracks,
   setPlayerState,
 } from './store'
 
@@ -81,10 +82,8 @@ export const App = () => {
   useEffect(() => {
     if (!spotifyAuth) return
 
-    const timer = setInterval(() => {
-      checkLinkAuth().then(() => {
-        console.log('Refreshed spotify token')
-      })
+    const timer = setInterval(async () => {
+      await checkLinkAuth()
     }, SPOTIFY_AUTH_CHECK_MS)
 
     return () => clearInterval(timer)
@@ -93,22 +92,20 @@ export const App = () => {
   // Triggers when the current jukebox changes
   useEffect(() => {
     if (currentJukebox) {
-      fetchCurrentlyPlaying().then((res) => {
-        console.log('Currently playing:', res)
-      })
-      fetchNextTracks().then(() => {})
+      fetchCurrentlyPlaying().then()
+      fetchNextTracks().then()
     }
   }, [currentJukebox])
 
   // Receives track updates from server, updates store
   useEffect(() => {
     authenticateLink().then()
-    onEvent<IPlayerUpdate>('track-state-update', (data) => {
+    onEvent<IPlayerUpdate>('player-update', (data) => {
       setPlayerState(data)
+    })
 
-      if (data.next_tracks) {
-        // setNextTracks(data.next_tracks)
-      }
+    onEvent<ITrack[]>('track-queue-update', (data) => {
+      setNextTracks(data)
     })
   }, [currentJukebox, socketIsConnected])
 

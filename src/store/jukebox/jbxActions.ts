@@ -87,6 +87,7 @@ export const checkLinkAuth = async () => {
     if (expiresAt > expiresMax) return
 
     await store.dispatch(thunkSyncSpotifyTokens(jukebox.id))
+    console.log('Successfully refreshed spotify tokens')
   } else {
     throw new NotImplementedError(
       'Handling non-spotify auth credentials is not implemented yet.',

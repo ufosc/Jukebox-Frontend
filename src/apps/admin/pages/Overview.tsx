@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from 'react'
+import { useContext, useRef } from 'react'
 
 import './Overview.scss'
 
@@ -6,32 +6,21 @@ import Disk from 'src/assets/svg/Disk.svg?react'
 import { mockTrack } from 'src/mock'
 
 import { useSelector } from 'react-redux'
+import { AudioPlayer } from 'src/components'
 import { REACT_ENV, SPOTIFY_PLAYER_NAME } from 'src/config'
 import { SpotifyPlayerContext } from 'src/context'
 import { CurrentlyPlayingContext } from 'src/context/CurrentlyPlayingContext'
-import { selectNextTracks, selectPlayerState } from 'src/store/jukebox'
+import { selectNextTracks } from 'src/store/jukebox'
 import { Track } from './Track'
-import { AudioPlayer } from 'src/components'
 
 export const Overview = () => {
   const queuedTracks = useSelector(selectNextTracks)
-  const storePlayerState = useSelector(selectPlayerState)
 
   const { currentTrack } = useContext(CurrentlyPlayingContext)
   const songTitleRef = useRef<HTMLHeadingElement>(null)
 
-  const {
-    playerState: spotifyPlayerState,
-    deviceIsActive,
-    spotifyIsConnected,
-    connectDevice,
-  } = useContext(SpotifyPlayerContext)
-
-  useEffect(() => {
-    if (+(songTitleRef.current?.textContent ?? 0) > 15) {
-      songTitleRef.current?.classList.add('song-title--small')
-    }
-  }, [spotifyPlayerState?.current_track, storePlayerState?.current_track])
+  const { deviceIsActive, spotifyIsConnected, connectDevice } =
+    useContext(SpotifyPlayerContext)
 
   return (
     <>

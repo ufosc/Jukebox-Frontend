@@ -22,12 +22,8 @@
 }
 
 .song-title {
-  @include font-display('sm');
+  @include font-display('xs');
   padding-bottom: 1.5rem;
-
-  &--small {
-    @include font-display('xs');
-  }
 }
 
 .song-queue {
