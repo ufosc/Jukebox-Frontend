@@ -4,6 +4,8 @@ declare interface ITrackMeta extends ITrack {
   queue_id: string
   recommended_by?: string
   spotify_queued?: boolean
+  likes?: number
+  dislikes?: number
 }
 
 declare interface IJukebox {
@@ -34,7 +36,7 @@ declare interface ISpotifyAccount {
 
 declare interface IPlayerState {
   jukebox_id: number
-  current_track?: ITrack
+  current_track?: ITrackMeta
   progress: number
   is_playing: boolean
 }

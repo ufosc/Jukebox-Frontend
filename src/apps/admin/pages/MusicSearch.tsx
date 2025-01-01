@@ -1,6 +1,6 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
 import { mockTrack } from 'src/mock'
-import { Track } from '../../../components/Track'
+import { TrackItem } from '../../../components/track-list/TrackItem'
 import './MusicSearch.scss'
 
 const track = mockTrack
@@ -62,7 +62,7 @@ export const MusicSearch = () => {
         <div className="music-search-title">Results</div>
         <div className="track-container">
           {trackArray.map((track) => {
-            return <Track track={track} />
+            return <TrackItem track={track} />
           })}
         </div>
       </div>

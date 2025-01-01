@@ -6,12 +6,10 @@ import Disk from 'src/assets/svg/Disk.svg?react'
 import { mockTrack } from 'src/mock'
 
 import { useSelector } from 'react-redux'
-import { AudioPlayer } from 'src/components'
-import { REACT_ENV, SPOTIFY_PLAYER_NAME } from 'src/config'
+import { AudioPlayer, TrackList } from 'src/components'
 import { SpotifyPlayerContext } from 'src/context'
 import { CurrentlyPlayingContext } from 'src/context/CurrentlyPlayingContext'
 import { selectNextTracks } from 'src/store/jukebox'
-import { Track } from '../../../components/Track'
 
 export const Overview = () => {
   const queuedTracks = useSelector(selectNextTracks)
@@ -56,41 +54,7 @@ export const Overview = () => {
       <div className="grid">
         <div className="col-12">
           <div className="song-queue scrollbar">
-            <ol className="board__queue__list track-list scrollbar">
-              {queuedTracks.length >= 1 && (
-                <>
-                  <h2 className="song-queue__title">Queued Tracks</h2>
-                  {queuedTracks.map(
-                    (track) =>
-                      track && <Track track={track} key={track.queue_id} />,
-                  )}
-                </>
-              )}
-              {queuedTracks.length < 1 && (
-                <>
-                  <h2 className="song-queue__title">Setup Spotify</h2>
-
-                  {(spotifyIsConnected && !deviceIsActive && (
-                    <>
-                      <p>
-                        Your account is connected to Spotify, transfer playback
-                        to "{SPOTIFY_PLAYER_NAME}" to get started.
-                      </p>
-                      {REACT_ENV !== 'dev' && (
-                        <p>
-                          <button
-                            className="button-solid"
-                            onClick={connectDevice}
-                          >
-                            Connect
-                          </button>
-                        </p>
-                      )}
-                    </>
-                  )) || <p>Connect your Spotify account to get started.</p>}
-                </>
-              )}
-            </ol>
+            <TrackList tracks={queuedTracks} />
           </div>
         </div>
       </div>

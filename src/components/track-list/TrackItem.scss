@@ -1,0 +1,72 @@
+.track-list-track {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  counter-increment: index;
+  gap: 1.1rem;
+
+  $flex-g-s: 0 1;
+
+  &::before {
+    content: counter(index, decimal-leading-zero);
+
+    color: var(--color-label-variant);
+    opacity: 0.8;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+
+    flex: $flex-g-s 5%;
+  }
+
+  &__preview {
+    $size: 5rem;
+    display: inline-block;
+
+    img {
+      width: $size;
+      height: $size;
+      object-fit: cover;
+    }
+  }
+  &__name-group {
+    flex: $flex-g-s 45%;
+  }
+  &__name {
+    @include font-title('md');
+  }
+  &__artists {
+    @include font-title('sm', 300);
+    color: var(--color-label);
+  }
+  &__info {
+    @include font-body('md');
+    color: var(--color-label);
+
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+
+    &__icon {
+      &--likes {
+        color: var(--color-good);
+      }
+      &--dislikes {
+        color: var(--color-error);
+      }
+    }
+  }
+  &__rec-by {
+    flex: $flex-g-s 30%;
+  }
+  &__duration {
+    flex: $flex-g-s 15%;
+  }
+  &__likes {
+    flex: $flex-g-s 5%;
+  }
+  &__dislikes {
+    flex: $flex-g-s 5%;
+  }
+}

@@ -1,8 +1,8 @@
-import { TrackItem } from './TrackItem'
+import { TrackList } from 'src/components'
 
 export const TracksPanel = (props: {
-  currentTrack?: Nullable<ITrack>
-  nextTracks: ITrack[]
+  currentTrack?: Nullable<ITrackMeta>
+  nextTracks: ITrackMeta[]
 }) => {
   const { currentTrack, nextTracks } = props
 
@@ -13,9 +13,7 @@ export const TracksPanel = (props: {
           Currently Playing
         </h2>
         <div className="board__tracks__group__inner">
-          <ol className="board__currently-playing__list track-list">
-            <TrackItem track={currentTrack} />
-          </ol>
+          <TrackList tracks={(currentTrack && [currentTrack]) || []} />
         </div>
       </div>
       <div className="board__queue board__tracks__group">
@@ -23,11 +21,7 @@ export const TracksPanel = (props: {
           Up Next
         </h2>
         <div className="board__tracks__group__inner">
-          <ol className="board__queue__list track-list track-list-offset">
-            {nextTracks.map((track) => (
-              <TrackItem key={track.id} track={track} />
-            ))}
-          </ol>
+          <TrackList tracks={nextTracks} offsetCount={true} />
         </div>
       </div>
     </div>
