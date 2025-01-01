@@ -54,7 +54,7 @@ export class SpotifyPlayer {
         this.resolvePlayer({ player, deviceId: device_id })
       })
       player.addListener('player_state_changed', (state) => {
-        console.log('Player state changed:', state)
+        console.debug('Player state changed:', state)
       })
 
       // Not Ready
@@ -62,15 +62,15 @@ export class SpotifyPlayer {
         console.log('Device ID has gone offline', device_id)
       })
       player.addListener('initialization_error', ({ message }) => {
-        console.error(message)
+        console.error('Initialization Error:', message)
       })
 
       player.addListener('authentication_error', ({ message }) => {
-        console.error(message)
+        console.error('Authentication Error:', message)
       })
 
       player.addListener('account_error', ({ message }) => {
-        console.error(message)
+        console.error('Account Error:', message)
       })
       player.connect()
     }

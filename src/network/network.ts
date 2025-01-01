@@ -122,12 +122,12 @@ export class Network {
     return cb
   }
 
-  public sendRequest = async (
+  public sendRequest = async <T = any>(
     url: string,
     method?: 'GET' | 'POST' | 'PUT' | 'DELETE',
     body?: AxiosRequestConfig['data'],
     config?: Omit<AxiosRequestConfig, 'data'>,
-  ): Promise<NetworkResponse> => {
+  ): Promise<NetworkResponse<T>> => {
     if (this.env === 'test') {
       const res = this.mocks?.mockRequest(body)
       return {
@@ -137,16 +137,18 @@ export class Network {
       }
     }
 
-    if (this.env === 'network' || this.env === 'dev') {
+    if (this.env === 'network') {
       await sleep(1000)
     }
 
     const res = await httpRequest({
       method: method || 'GET',
       url,
+      withCredentials: true,
       headers: {
-        Authorization: `Token ${this.token}`,
+        Authorization: this.token ? `Token ${this.token}` : '',
         'Content-Type': 'application/json',
+        // cookie: `csrftoken=${getCookie(CSRF_COOKIE_NAME)}; sessionid=${getCookie(SESSION_COOKIE_NAME)}`,
 
         ...config?.headers,
       },
@@ -169,6 +171,19 @@ export class Network {
   }
 
   /**
+   * Get token, uses session info if any
+   */
+  public sendGetUserToken = async () => {
+    const res = await this.sendRequest(this.routes.user.token, 'GET')
+
+    if (res.status !== 200 || !res.data.token) {
+      return { success: false, error: res.data }
+    }
+
+    return { success: true, token: res.data.token as string }
+  }
+
+  /**
    * Login user and return token.
    */
   public sendLoginUser = async (
@@ -182,7 +197,7 @@ export class Network {
       return ok(token)
     }
 
-    const res = await this.sendRequest(this.routes.user.token, 'POST', {
+    const res = await this.sendRequest(this.routes.user.login, 'POST', {
       email,
       password,
     })
@@ -248,7 +263,7 @@ export class Network {
     }
 
     const res = await this.sendRequest(
-      this.routes.jukebox.activeLink(jukeboxId),
+      this.routes.jukebox.refreshSpotifyToken(jukeboxId),
     )
 
     return this.parseSpotifyAccount(res.data)
@@ -275,5 +290,54 @@ export class Network {
       'POST',
       { device_id: deviceId },
     )
+  }
+
+  public async sendUpdateActiveLink(jukeboxId: number, link: IJukeboxLink) {
+    if (this.env === 'dev') {
+      await sleep(1000)
+      return
+    }
+
+    await this.sendRequest(this.routes.jukebox.activeLink(jukeboxId), 'POST', {
+      type: link.type,
+      email: link.email,
+    })
+  }
+
+  public async sendGetCurrentlyPlaying(
+    jukeboxId: number,
+  ): Promise<IPlayerQueueState | null> {
+    if (this.env === 'dev') {
+      await sleep(1000)
+      return null
+    }
+
+    const res = await this.sendRequest<IPlayerQueueState | null>(
+      this.routes.jukebox.playerState(jukeboxId),
+    )
+
+    return res.data
+  }
+
+  public async sendGetNextTracks(jukeboxId: number): Promise<ITrackMeta[]> {
+    if (this.env === 'dev') {
+      await sleep(1000)
+      return []
+    }
+
+    const res = await this.sendRequest<ITrackMeta[]>(
+      this.routes.jukebox.nextTracks(jukeboxId),
+    )
+
+    return res.data
+  }
+
+  public async sendClearNextTracks(jukeboxId: number) {
+    if (this.env === 'dev') {
+      await sleep(1000)
+      return
+    }
+
+    await this.sendRequest(this.routes.jukebox.nextTracks(jukeboxId), 'DELETE')
   }
 }

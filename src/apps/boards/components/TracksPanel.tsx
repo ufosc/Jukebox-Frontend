@@ -1,10 +1,10 @@
-import { TrackItem } from './TrackItem'
+import { useSelector } from 'react-redux'
+import { TrackList } from 'src/components'
+import { selectCurrentTrack, selectNextTracks } from 'src/store'
 
-export const TracksPanel = (props: {
-  currentTrack?: Nullable<ITrack>
-  nextTracks: ITrack[]
-}) => {
-  const { currentTrack, nextTracks } = props
+export const TracksPanel = () => {
+  const currentTrack = useSelector(selectCurrentTrack)
+  const nextTracks = useSelector(selectNextTracks)
 
   return (
     <div className="board__col board__tracks">
@@ -13,9 +13,7 @@ export const TracksPanel = (props: {
           Currently Playing
         </h2>
         <div className="board__tracks__group__inner">
-          <ol className="board__currently-playing__list track-list">
-            <TrackItem track={currentTrack} />
-          </ol>
+          <TrackList tracks={(currentTrack && [currentTrack]) || []} />
         </div>
       </div>
       <div className="board__queue board__tracks__group">
@@ -23,11 +21,7 @@ export const TracksPanel = (props: {
           Up Next
         </h2>
         <div className="board__tracks__group__inner">
-          <ol className="board__queue__list track-list track-list-offset">
-            {nextTracks.map((track) => (
-              <TrackItem key={track.id} track={track} />
-            ))}
-          </ol>
+          <TrackList tracks={nextTracks} offsetCount={true} />
         </div>
       </div>
     </div>

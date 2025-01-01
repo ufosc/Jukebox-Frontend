@@ -1,9 +1,7 @@
 export class NotImplementedError extends Error {
-  constructor(module?: string, method?: string) {
-    if (method) {
-      super(`${module} > ${method} is not implemented yet.`)
-    } else if (module && !method) {
-      super(`${module} is not implemented yet.`)
+  constructor(message?: string) {
+    if (message) {
+      super(message)
     } else {
       super(`This feature is not implemented yet.`)
     }

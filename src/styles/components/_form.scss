@@ -24,6 +24,7 @@
   &-section {
     margin-top: calc(#{$gap} * 1.5);
     background-color: inherit;
+    color: inherit;
 
     display: flex;
     gap: $gap;
@@ -42,6 +43,7 @@
       border-color 0.2s ease;
     position: relative;
     background-color: inherit;
+    color: inherit;
 
     &.success,
     &.error,

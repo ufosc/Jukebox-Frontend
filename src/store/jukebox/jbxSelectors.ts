@@ -16,3 +16,37 @@ export const selectCurrentJukebox = createSelector(
   jbxStateSelector,
   (state) => state.currentJukebox,
 )
+
+export const selectHasJukeboxAux = createSelector(
+  jbxStateSelector,
+  (state) => state.hasAux,
+)
+
+export const selectJukeboxLinks = createSelector(
+  jbxStateSelector,
+  (state) => state.currentJukebox?.links,
+)
+
+export const selectSpotifyAuth = createSelector(
+  jbxStateSelector,
+  (state) => state.spotifyAuth,
+)
+
+export const selectPlayerState = createSelector(
+  jbxStateSelector,
+  (state) => state.playerState,
+)
+
+export const selectNextTracks = createSelector(
+  jbxStateSelector,
+  (state) => state.nextTracks,
+)
+
+export const selectActiveLink = createSelector(jbxStateSelector, (state) =>
+  state.currentJukebox?.links.find((link) => link.active),
+)
+
+export const selectCurrentTrack = createSelector(
+  jbxStateSelector,
+  (state) => state.playerState?.current_track,
+)

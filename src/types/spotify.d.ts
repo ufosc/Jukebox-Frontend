@@ -1,5 +1,13 @@
 declare type ITrack = Spotify.Track
 
+declare interface ITrackMeta extends ITrack {
+  queue_id: string
+  recommended_by?: string
+  spotify_queued?: boolean
+  likes?: number
+  dislikes?: number
+}
+
 declare interface IJukebox {
   id: number
   name: string
@@ -26,14 +34,36 @@ declare interface ISpotifyAccount {
   token_type: string
 }
 
-declare interface ITrackStateUpdate {
-  current_track?: ITrack
-  // is_playing: boolean
-  next_tracks?: ITrack[]
+declare interface IPlayerState {
   jukebox_id: number
+  current_track?: ITrack
+  progress: number
+  is_playing: boolean
 }
 
-declare interface IPlayerUpdate {
-  current_track?: ITrack
-  jukebox_id: number
+/**
+ * State of the current player stored in Redis
+ */
+declare interface IPlayerMetaState extends IPlayerState {
+  current_track?: ITrackMeta
+  /** Next up in Spotify's queue */
+  default_next_tracks: ITrack[]
+}
+
+/**
+ * The state of the player broadcast to socket subscribers
+ */
+declare interface IPlayerQueueState extends IPlayerMetaState {
+  /** Tracks queued up in server */
+  next_tracks: ITrack[]
+}
+
+declare interface IPlayerAuxUpdate extends IPlayerState {
+  changed_tracks?: boolean
+  default_next_tracks: ITrack[]
+}
+type IPlayerUpdate = IPlayerQueueState
+
+declare interface IPlayerAction extends Partial<IPlayerState> {
+  current_track?: Partial<ITrackMeta>
 }

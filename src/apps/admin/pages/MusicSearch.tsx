@@ -1,10 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
-import { mockTrack } from 'src/mock'
+import { TrackList } from 'src/components'
 import './MusicSearch.scss'
-import { Track } from './Track'
 
-const track = mockTrack
-const trackArray = [track, track, track, track]
 export const MusicSearch = () => {
   const [inputs, setInputs] = useState({ track: '', album: '', artist: '' })
 
@@ -61,9 +58,7 @@ export const MusicSearch = () => {
       <div className="result-container">
         <div className="music-search-title">Results</div>
         <div className="track-container">
-          {trackArray.map((track) => {
-            return <Track track={track} />
-          })}
+          <TrackList tracks={[]} />
         </div>
       </div>
     </div>

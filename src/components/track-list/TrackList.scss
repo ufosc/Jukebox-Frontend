@@ -1,0 +1,12 @@
+.track-list {
+  counter-reset: index;
+  list-style-type: decimal-leading-zero;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+
+  &-offset {
+    counter-reset: index 1;
+  }
+}

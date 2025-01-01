@@ -1,30 +1,22 @@
 import './SpotifyPlayerAccount.scss'
 
-interface AccountProps {
-  profileImage: string
-  isActive: boolean
-  email: string
-}
+export const SpotifyPlayerAccount = (props: { link: IJukeboxLink }) => {
+  const { link } = props
 
-export const SpotifyPlayerAccount: React.FC<AccountProps> = ({
-  profileImage,
-  isActive,
-  email,
-}) => {
   return (
     <>
       <div className="spotify-player-account">
         <div className="profile-border-container">
           <div className="profile-image-container">
-            <img src={profileImage} />
+            <img src={'#'} />
           </div>
         </div>
         <div className="userInfo">
-          <div className="email-container">{email}</div>
+          <div className="email-container">{link.email}</div>
           <div className="attribute-container">
             <div className="account-type-container">Spotify Account</div>
             <div className="account-active-container">
-              {isActive && 'Active'}
+              {link.active && 'Active'}
             </div>
           </div>
         </div>
