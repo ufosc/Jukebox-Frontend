@@ -23,6 +23,7 @@ import {
   selectSpotifyAuth,
   selectUser,
   selectUserLoggedIn,
+  selectUserToken,
   setAllClubs,
   setCurrentClub,
   setNextTracks,
@@ -34,6 +35,7 @@ export const App = () => {
   const userInfo = useSelector(selectUser)
   const spotifyAuth = useSelector(selectSpotifyAuth)
   const currentJukebox = useSelector(selectCurrentJukebox)
+  const userToken = useSelector(selectUserToken)
 
   const {
     emitMessage,
@@ -70,7 +72,7 @@ export const App = () => {
     } else if (userInfo || userIsLoggedIn === false) {
       logoutUser()
     }
-  }, [userIsLoggedIn])
+  }, [userIsLoggedIn, userToken])
 
   /**
    * ======================== *
@@ -104,7 +106,7 @@ export const App = () => {
       setPlayerState(data)
     })
 
-    onEvent<ITrack[]>('track-queue-update', (data) => {
+    onEvent<ITrackMeta[]>('track-queue-update', (data) => {
       setNextTracks(data)
     })
   }, [currentJukebox, socketIsConnected])
@@ -116,8 +118,10 @@ export const App = () => {
       position: number
       isPlaying: boolean
       nextTracks: ITrack[]
+      changedTracks: boolean
     }) => {
-      const { currentTrack, position, isPlaying, nextTracks } = state
+      const { currentTrack, position, isPlaying, nextTracks, changedTracks } =
+        state
 
       emitMessage<IPlayerAuxUpdate>('player-aux-update', {
         jukebox_id: currentJukebox!.id,
@@ -125,6 +129,7 @@ export const App = () => {
         progress: position,
         is_playing: isPlaying,
         default_next_tracks: nextTracks,
+        changed_tracks: changedTracks,
       })
     },
     [currentJukebox],

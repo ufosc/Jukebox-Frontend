@@ -1,7 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
 import { mockTrack } from 'src/mock'
+import { Track } from '../../../components/Track'
 import './MusicSearch.scss'
-import { Track } from './Track'
 
 const track = mockTrack
 const trackArray = [track, track, track, track]

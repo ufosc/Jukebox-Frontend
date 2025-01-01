@@ -263,7 +263,7 @@ export class Network {
     }
 
     const res = await this.sendRequest(
-      this.routes.jukebox.activeLink(jukeboxId),
+      this.routes.jukebox.refreshSpotifyToken(jukeboxId),
     )
 
     return this.parseSpotifyAccount(res.data)
@@ -319,16 +319,25 @@ export class Network {
     return res.data
   }
 
-  public async sendGetNextTracks(jukeboxId: number): Promise<ITrack[]> {
+  public async sendGetNextTracks(jukeboxId: number): Promise<ITrackMeta[]> {
     if (this.env === 'dev') {
       await sleep(1000)
       return []
     }
 
-    const res = await this.sendRequest<ITrack[]>(
+    const res = await this.sendRequest<ITrackMeta[]>(
       this.routes.jukebox.nextTracks(jukeboxId),
     )
 
     return res.data
+  }
+
+  public async sendClearNextTracks(jukeboxId: number) {
+    if (this.env === 'dev') {
+      await sleep(1000)
+      return
+    }
+
+    await this.sendRequest(this.routes.jukebox.nextTracks(jukeboxId), 'DELETE')
   }
 }

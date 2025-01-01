@@ -11,7 +11,7 @@ import { REACT_ENV, SPOTIFY_PLAYER_NAME } from 'src/config'
 import { SpotifyPlayerContext } from 'src/context'
 import { CurrentlyPlayingContext } from 'src/context/CurrentlyPlayingContext'
 import { selectNextTracks } from 'src/store/jukebox'
-import { Track } from './Track'
+import { Track } from '../../../components/Track'
 
 export const Overview = () => {
   const queuedTracks = useSelector(selectNextTracks)
@@ -60,9 +60,10 @@ export const Overview = () => {
               {queuedTracks.length >= 1 && (
                 <>
                   <h2 className="song-queue__title">Queued Tracks</h2>
-                  {queuedTracks.map((track) => (
-                    <Track track={track} key={track.id} />
-                  ))}
+                  {queuedTracks.map(
+                    (track) =>
+                      track && <Track track={track} key={track.queue_id} />,
+                  )}
                 </>
               )}
               {queuedTracks.length < 1 && (

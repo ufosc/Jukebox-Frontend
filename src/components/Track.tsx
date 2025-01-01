@@ -1,6 +1,6 @@
 import { formatDuration } from 'src/utils'
 
-export const Track = (props: { track: Nullable<ITrack> }) => {
+export const Track = (props: { track: Nullable<ITrackMeta> }) => {
   const { track } = props
   return (
     <li className="track-list__track">
@@ -17,7 +17,7 @@ export const Track = (props: { track: Nullable<ITrack> }) => {
             </span>
           </div>
           <span className="track-list__track__info track-list__track__rec-by">
-            Alex Smith
+            {track.recommended_by || 'Spotify'}
           </span>
           <span className="track-list__track__info track-list__track__duration">
             {formatDuration(track.duration_ms)}

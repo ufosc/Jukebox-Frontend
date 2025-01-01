@@ -25,12 +25,6 @@ export const CurrentlyPlayingProvider = (props: { children?: ReactNode }) => {
   const [playerState, setPlayerState] = useState<IPlayerState | null>(null)
   const [liveProgress, setLiveProgress] = useState<number | null>(0)
 
-  const clearTimer = () => {
-    if (timer) {
-      clearInterval(timer)
-    }
-  }
-
   const {
     playerState: spotifyPlayerState,
     play,
@@ -44,7 +38,6 @@ export const CurrentlyPlayingProvider = (props: { children?: ReactNode }) => {
   } = useContext(SpotifyPlayerContext)
 
   useEffect(() => {
-    console.log('Currently playing state changed')
     setLiveProgress(playerState?.progress ?? null)
 
     if (timer) clearInterval(timer)

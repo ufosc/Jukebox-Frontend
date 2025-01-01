@@ -46,6 +46,7 @@ export const SpotifyPlayerProvider = (props: {
     position: number
     isPlaying: boolean
     nextTracks: ITrack[]
+    changedTracks: boolean
   }) => void
 }) => {
   const { children, token, jukebox, onPlayerStateChange } = props
@@ -88,6 +89,7 @@ export const SpotifyPlayerProvider = (props: {
     }
   }, [connected, active])
 
+  // Actions to run when state changes
   const handlePlayerStateChange = (state?: Spotify.PlaybackState) => {
     if (!state) {
       // Spotify returns null state if playback transferred to another device
@@ -97,17 +99,26 @@ export const SpotifyPlayerProvider = (props: {
 
     const { current_track: spotifyTrack } = state.track_window
 
-    onPlayerStateChange({
-      currentTrack: spotifyTrack,
-      position: state.position,
-      isPlaying: !state.paused,
-      nextTracks: state.track_window.next_tracks,
-    })
-    setPlayerState({
-      jukebox_id: jukebox!.id,
-      current_track: spotifyTrack,
-      is_playing: !state.paused,
-      progress: state.position,
+    console.debug('Player state changed:', state)
+
+    setPlayerState((prev) => {
+      const changedTracks =
+        spotifyTrack.id !== prev?.current_track?.id || state.position === 0
+
+      onPlayerStateChange({
+        currentTrack: spotifyTrack,
+        position: state.position,
+        isPlaying: !state.paused,
+        nextTracks: state.track_window.next_tracks,
+        changedTracks,
+      })
+
+      return {
+        jukebox_id: jukebox!.id,
+        current_track: spotifyTrack,
+        is_playing: !state.paused,
+        progress: state.position,
+      }
     })
     setNextTracks(state.track_window.next_tracks)
     setDeviceId(state.playback_id)

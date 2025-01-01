@@ -37,14 +37,13 @@ export const SocketProvider = (props: { children: ReactNode }) => {
     socket.on('disconnect', onDisconnect)
     socket.on('connect_error', (err) => {
       console.error(`Socket connection error due to ${err.message}`)
-      console.log(err)
     })
     socket.on('ping-pong', (data: string) => {
       window.alert(`Pong: ${data}`)
     })
 
     socket.onAny((event, ...args) => {
-      console.debug('Socket:', event, args)
+      console.debug('Socket received:', event, args)
     })
 
     return () => {

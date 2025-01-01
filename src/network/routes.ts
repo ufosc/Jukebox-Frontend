@@ -15,11 +15,13 @@ export const NetworkRoutes = {
     list: `${base}/jukebox/jukeboxes/`,
     activeLink: (jukeboxId: number) =>
       `${base}/jukebox/${jukeboxId}/active-link/`,
+    refreshSpotifyToken: (jukeboxId: number) =>
+      `${base}/jukebox/${jukeboxId}/active-link/?force-refresh=true`,
     connectDevice: (jukeboxId: number) =>
       `${base}/jukebox/${jukeboxId}/connect/`,
     playerState: (jukeboxId: number) =>
       `${base}/jukebox/${jukeboxId}/player-state/`,
     nextTracks: (jukeboxId: number) =>
-      `${base}/jukebox/${jukeboxId}/next-tracks/`,
+      `${base}/jukebox/${jukeboxId}/tracks-queue/`,
   },
 }

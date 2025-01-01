@@ -17,7 +17,6 @@ export const AudioPlayer = (props: { disableControls?: boolean }) => {
   const { disableControls } = props
   const {
     playerState,
-    // disableControls,
     liveProgress,
     play,
     pause,

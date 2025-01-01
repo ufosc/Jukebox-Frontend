@@ -17,7 +17,7 @@ export const jukeboxSlice = createSlice({
     hasAux: false,
     currentJukebox: null as IJukebox | null,
     playerState: null as IPlayerQueueState | null,
-    nextTracks: [] as ITrack[],
+    nextTracks: [] as ITrackMeta[],
     spotifyAuth: null as ISpotifyAccount | null,
   },
   reducers: {
@@ -27,7 +27,7 @@ export const jukeboxSlice = createSlice({
     ) => {
       state.playerState = action.payload
     },
-    setNextTracksReducer: (state, action: { payload: ITrack[] }) => {
+    setNextTracksReducer: (state, action: { payload: ITrackMeta[] }) => {
       state.nextTracks = action.payload
     },
     setHasAuxReducer: (state, action: { payload: boolean }) => {

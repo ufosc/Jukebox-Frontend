@@ -24,6 +24,13 @@ export const thunkFetchNextTracks = createAsyncThunk(
   },
 )
 
+export const thunkClearNextTracks = createAsyncThunk(
+  'jukebox/clearNextTracks',
+  async (jukeboxId: number) => {
+    await network.sendClearNextTracks(jukeboxId)
+  },
+)
+
 export const thunkUpdateActiveLink = createAsyncThunk(
   'jukebox/updateActiveLink',
   async (payload: { jukeboxId: number; link: IJukeboxLink }) => {

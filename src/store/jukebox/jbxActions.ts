@@ -8,6 +8,7 @@ import {
   selectSpotifyAuth,
 } from './jbxSelectors'
 import {
+  thunkClearNextTracks,
   thunkFetchCurrentlyPlaying,
   thunkFetchJukeboxes,
   thunkFetchNextTracks,
@@ -22,7 +23,7 @@ export const setPlayerState = (currentlyPlaying: IPlayerQueueState) => {
   store.dispatch(setCurrentlyPlayingReducer(currentlyPlaying))
 }
 
-export const setNextTracks = (nextTracks: ITrack[]) => {
+export const setNextTracks = (nextTracks: ITrackMeta[]) => {
   store.dispatch(setNextTracksReducer(nextTracks))
 }
 
@@ -42,6 +43,13 @@ export const fetchNextTracks = async () => {
   if (!jukeboxId) return
 
   await store.dispatch(thunkFetchNextTracks(jukeboxId))
+}
+
+export const clearNextTracks = async () => {
+  const jukeboxId = selectCurrentJukebox(store.getState())?.id
+  if (!jukeboxId) return
+
+  await store.dispatch(thunkClearNextTracks(jukeboxId))
 }
 
 export const setHasAux = (value: boolean) => {

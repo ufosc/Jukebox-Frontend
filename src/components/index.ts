@@ -1,2 +1,2 @@
-export * from './audio'
+export * from './audio-player'
 export * from './form'

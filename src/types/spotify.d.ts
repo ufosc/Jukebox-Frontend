@@ -1,5 +1,11 @@
 declare type ITrack = Spotify.Track
 
+declare interface ITrackMeta extends ITrack {
+  queue_id: string
+  recommended_by?: string
+  spotify_queued?: boolean
+}
+
 declare interface IJukebox {
   id: number
   name: string
@@ -49,5 +55,7 @@ declare interface IPlayerQueueState extends IPlayerState {
   next_tracks: ITrack[]
 }
 
-type IPlayerAuxUpdate = IPlayerMetaState
+declare interface IPlayerAuxUpdate extends IPlayerMetaState {
+  changed_tracks?: boolean
+}
 type IPlayerUpdate = IPlayerQueueState
