@@ -15,6 +15,7 @@ import {
 import { SpotifyPlayer } from 'src/lib'
 import { Network } from 'src/network'
 import { setHasAux } from 'src/store'
+import { uniqueId } from 'src/utils'
 import { KeyboardContext } from './KeyboardContext'
 
 export const SpotifyPlayerContext = createContext({

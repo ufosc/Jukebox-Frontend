@@ -28,6 +28,7 @@ import {
   setCurrentClub,
   setNextTracks,
   setPlayerState,
+  updatePlayerState,
 } from './store'
 
 export const App = () => {
@@ -104,6 +105,10 @@ export const App = () => {
     authenticateLink().then()
     onEvent<IPlayerUpdate>('player-update', (data) => {
       setPlayerState(data)
+    })
+
+    onEvent<IPlayerAction>('player-action', (data) => {
+      updatePlayerState(data)
     })
 
     onEvent<ITrackMeta[]>('track-queue-update', (data) => {

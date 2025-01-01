@@ -21,11 +21,26 @@ export const jukeboxSlice = createSlice({
     spotifyAuth: null as ISpotifyAccount | null,
   },
   reducers: {
-    setCurrentlyPlayingReducer: (
-      state,
-      action: { payload: IPlayerQueueState },
-    ) => {
+    setPlayerStateReducer: (state, action: { payload: IPlayerQueueState }) => {
       state.playerState = action.payload
+    },
+    updatePlayerStateReducer: (state, action: { payload: IPlayerAction }) => {
+      // const playerState: IPlayerQueueState = {
+      //   ...state.playerState,
+      //   jukebox_id: state.currentJukebox!.id,
+      //   next_tracks: state.playerState?.next_tracks ?? [],
+      //   ...action.payload,
+      // }
+      if (!state.playerState?.current_track) return
+
+      state.playerState = {
+        ...state.playerState,
+        ...action.payload,
+        current_track: {
+          ...(state.playerState.current_track || {}),
+          ...(action.payload?.current_track || {}),
+        },
+      }
     },
     setNextTracksReducer: (state, action: { payload: ITrackMeta[] }) => {
       state.nextTracks = action.payload

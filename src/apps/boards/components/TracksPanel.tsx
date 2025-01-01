@@ -1,10 +1,10 @@
+import { useSelector } from 'react-redux'
 import { TrackList } from 'src/components'
+import { selectCurrentTrack, selectNextTracks } from 'src/store'
 
-export const TracksPanel = (props: {
-  currentTrack?: Nullable<ITrackMeta>
-  nextTracks: ITrackMeta[]
-}) => {
-  const { currentTrack, nextTracks } = props
+export const TracksPanel = () => {
+  const currentTrack = useSelector(selectCurrentTrack)
+  const nextTracks = useSelector(selectNextTracks)
 
   return (
     <div className="board__col board__tracks">

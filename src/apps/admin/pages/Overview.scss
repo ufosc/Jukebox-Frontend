@@ -43,6 +43,7 @@
 
   &__title {
     @include font-headline('xs');
+    padding-bottom: 2rem;
   }
 }
 

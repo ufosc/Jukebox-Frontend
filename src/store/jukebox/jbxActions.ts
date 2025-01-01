@@ -16,11 +16,19 @@ import {
   thunkUpdateActiveLink,
 } from './jbxThunks'
 
-const { setCurrentlyPlayingReducer, setNextTracksReducer, setHasAuxReducer } =
-  jukeboxActions
+const {
+  setPlayerStateReducer,
+  setNextTracksReducer,
+  setHasAuxReducer,
+  updatePlayerStateReducer,
+} = jukeboxActions
 
 export const setPlayerState = (currentlyPlaying: IPlayerQueueState) => {
-  store.dispatch(setCurrentlyPlayingReducer(currentlyPlaying))
+  store.dispatch(setPlayerStateReducer(currentlyPlaying))
+}
+
+export const updatePlayerState = (payload: IPlayerAction) => {
+  store.dispatch(updatePlayerStateReducer(payload))
 }
 
 export const setNextTracks = (nextTracks: ITrackMeta[]) => {

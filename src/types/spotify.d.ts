@@ -36,7 +36,7 @@ declare interface ISpotifyAccount {
 
 declare interface IPlayerState {
   jukebox_id: number
-  current_track?: ITrackMeta
+  current_track?: ITrack
   progress: number
   is_playing: boolean
 }
@@ -45,6 +45,7 @@ declare interface IPlayerState {
  * State of the current player stored in Redis
  */
 declare interface IPlayerMetaState extends IPlayerState {
+  current_track?: ITrackMeta
   /** Next up in Spotify's queue */
   default_next_tracks: ITrack[]
 }
@@ -52,12 +53,17 @@ declare interface IPlayerMetaState extends IPlayerState {
 /**
  * The state of the player broadcast to socket subscribers
  */
-declare interface IPlayerQueueState extends IPlayerState {
+declare interface IPlayerQueueState extends IPlayerMetaState {
   /** Tracks queued up in server */
   next_tracks: ITrack[]
 }
 
-declare interface IPlayerAuxUpdate extends IPlayerMetaState {
+declare interface IPlayerAuxUpdate extends IPlayerState {
   changed_tracks?: boolean
+  default_next_tracks: ITrack[]
 }
 type IPlayerUpdate = IPlayerQueueState
+
+declare interface IPlayerAction extends Partial<IPlayerState> {
+  current_track?: Partial<ITrackMeta>
+}
