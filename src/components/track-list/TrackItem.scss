@@ -47,26 +47,11 @@
     display: flex;
     justify-content: center;
     gap: 5px;
-
-    &__icon {
-      &--likes {
-        color: var(--color-success);
-      }
-      &--dislikes {
-        color: var(--color-error);
-      }
-    }
   }
   &__rec-by {
     flex: $flex-g-s 30%;
   }
   &__duration {
     flex: $flex-g-s 15%;
-  }
-  &__likes {
-    flex: $flex-g-s 5%;
-  }
-  &__dislikes {
-    flex: $flex-g-s 5%;
   }
 }

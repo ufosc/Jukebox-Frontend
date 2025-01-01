@@ -47,6 +47,16 @@
   }
 }
 
+.song-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.song-rec {
+  @include font-body('sm');
+  color: var(--color-label);
+}
+
 .curr-song {
   @include absCenter;
   border-radius: 50%;

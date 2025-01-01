@@ -1,10 +1,11 @@
-import { ThumbDownAltOutlined, ThumbUpAltOutlined } from '@mui/icons-material'
 import { formatDuration } from 'src/utils'
 
+import { TrackActivity } from './TrackActivity'
 import './TrackItem.scss'
 
 export const TrackItem = (props: { track: Nullable<ITrackMeta> }) => {
   const { track } = props
+
   return (
     <li className="track-list-track">
       {!track && <p>No track specified.</p>}
@@ -25,21 +26,8 @@ export const TrackItem = (props: { track: Nullable<ITrackMeta> }) => {
           <div className="track-list-track__info track-list-track__duration">
             {formatDuration(track.duration_ms)}
           </div>
-          <div className="track-list-track__info track-list-track__likes">
-            <span className="track-list-track__info__icon track-list-track__info__icon--likes">
-              <ThumbUpAltOutlined />
-            </span>
-            <span className="track-list-track__info__number">
-              {track.likes ?? 0}
-            </span>
-          </div>
-          <div className="track-list-track__info track-list-track__dislikes">
-            <span className="track-list-track__info__icon track-list-track__info__icon--dislikes">
-              <ThumbDownAltOutlined />
-            </span>
-            <span className="track-list-track__info__number">
-              {track.dislikes ?? 0}
-            </span>
+          <div className="track-list-track__info track-list-track__activity">
+            <TrackActivity track={track} />
           </div>
         </>
       )}
