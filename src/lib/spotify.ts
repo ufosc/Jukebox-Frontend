@@ -31,6 +31,7 @@ export class SpotifyPlayer {
       SpotifyPlayer.instance = new SpotifyPlayer(token)
     }
 
+    SpotifyPlayer.instance.setToken(token)
     return SpotifyPlayer.instance
   }
 
@@ -97,8 +98,10 @@ export class SpotifyPlayer {
     }
   }
 
-  public nextTrack = this.callPlayer('nextTrack')
-  public previousTrack = this.callPlayer('previousTrack')
-  public togglePlay = this.callPlayer('togglePlay')
-  public pause = this.callPlayer('pause')
+  public setToken(token?: string) {
+    if (!token) return
+
+    this.token = token
+    this.connect()
+  }
 }
