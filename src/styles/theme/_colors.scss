@@ -42,7 +42,7 @@ $theme-colors: (
       on: 'r-100',
     ),
   ),
-  caution: (
+  warning: (
     light: (
       default: 'y-55',
       on: 'y-100',
@@ -92,7 +92,7 @@ $theme-colors: (
       on: 'r-20',
     ),
   ),
-  caution-contrast: (
+  warning-contrast: (
     light: (
       default: 'y-30',
       on: 'y-100',
@@ -142,7 +142,7 @@ $theme-colors: (
       on: 'r-95',
     ),
   ),
-  caution-container: (
+  warning-container: (
     light: (
       default: 'y-85',
       on: 'y-10',
@@ -185,41 +185,13 @@ $theme-colors: (
   surface-accent: (
     light: (
       default: 't-20',
+      bright: 't-30',
       on: 'n-97',
     ),
     dark: (
       default: 't-15',
+      bright: 't-25',
       on: 'n-95',
-    ),
-  ),
-  surface-accent-bright: (
-    light: (
-      default: 't-30',
-      on: 'n-97',
-    ),
-    dark: (
-      default: 't-25',
-      on: 'n-97',
-    ),
-  ),
-  inverse-surface: (
-    light: (
-      default: 'c-20',
-      on: 'n-95',
-    ),
-    dark: (
-      default: 'c-80',
-      on: 'n-10',
-    ),
-  ),
-  container: (
-    light: (
-      default: 'n-90',
-      on: 'n-10',
-    ),
-    dark: (
-      default: 'n-80',
-      on: 'n-10',
     ),
   ),
   outline: (
