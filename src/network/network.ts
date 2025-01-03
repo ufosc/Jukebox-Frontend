@@ -186,6 +186,12 @@ export class Network {
    * Get token, uses session info if any
    */
   public sendGetUserToken = async () => {
+    if (this.env === 'dev') {
+      await sleep(1000)
+      const token = mockUser.token
+
+      return { success: true, token }
+    }
     const res = await this.sendRequest(this.routes.user.token, 'GET')
 
     if (res.status !== 200 || !res.data.token) {

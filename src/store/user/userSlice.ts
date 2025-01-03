@@ -31,23 +31,26 @@ export const userSlice = createSlice({
     },
     update: (state, action: { payload: { user: IUser } }) => {
       const {
-        first_name: firstName,
-        last_name: lastName,
+        first_name,
+        last_name,
         email,
         image,
         id,
         username,
+        created_at,
+        updated_at,
       } = action.payload.user
-      const name = `${firstName} ${lastName}`
 
       state.user = {
-        first_name: firstName ?? state.user?.first_name,
-        last_name: lastName ?? state.user?.last_name,
+        first_name: first_name ?? state.user?.first_name,
+        last_name: last_name ?? state.user?.last_name,
         email: email ?? state.user?.email,
         username: username ?? state.user?.username,
         image: image ?? state.user?.image,
         id: id ?? state.user?.id,
         clubs: [],
+        created_at: created_at,
+        updated_at: updated_at,
       }
     },
   },

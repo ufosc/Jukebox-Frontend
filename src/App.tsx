@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { SPOTIFY_AUTH_CHECK_MS } from './config'
 import {
   KeyboardProvider,
@@ -12,68 +12,24 @@ import { CurrentlyPlayingProvider } from './context/CurrentlyPlayingContext'
 import {
   authenticateLink,
   checkLinkAuth,
-  fetchCurrentClubInfo,
   fetchCurrentlyPlaying,
-  fetchJukeboxes,
   fetchNextTracks,
-  fetchUserInfo,
-  initializeUser,
-  logoutUser,
   selectCurrentJukebox,
   selectSpotifyAuth,
-  selectUser,
-  selectUserLoggedIn,
-  selectUserToken,
-  setAllClubs,
-  setCurrentClub,
   setNextTracks,
   setPlayerState,
   updatePlayerState,
 } from './store'
 
 export const App = () => {
-  const userIsLoggedIn = useSelector(selectUserLoggedIn)
-  const userInfo = useSelector(selectUser)
   const spotifyAuth = useSelector(selectSpotifyAuth)
   const currentJukebox = useSelector(selectCurrentJukebox)
-  const userToken = useSelector(selectUserToken)
 
   const {
     emitMessage,
     onEvent,
     isConnected: socketIsConnected,
   } = useContext(SocketContext)
-
-  const navigate = useNavigate()
-
-  /**
-   * =================== *
-   * User Authentication *
-   * =================== *
-   */
-  // Initialization actions
-  useEffect(() => {
-    initializeUser()
-  }, [])
-
-  // Triggers when login status changes
-  useEffect(() => {
-    if (userIsLoggedIn === false) {
-      navigate('/auth/admin/login')
-    } else if (userIsLoggedIn) {
-      // Store new user info
-      fetchUserInfo().then(async (resUserInfo) => {
-        if (!resUserInfo) return
-
-        setCurrentClub(resUserInfo.clubs[0])
-        setAllClubs(resUserInfo.clubs)
-        await fetchCurrentClubInfo()
-        await fetchJukeboxes()
-      })
-    } else if (userInfo || userIsLoggedIn === false) {
-      logoutUser()
-    }
-  }, [userIsLoggedIn, userToken])
 
   /**
    * ======================== *
