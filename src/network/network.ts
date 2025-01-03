@@ -207,8 +207,8 @@ export class Network {
         expires_in: 3600,
         token_type: 'Bearer',
         expires_at: new Date(Date.now() + 1000 * 60 * 60 * 24).getTime(),
-        created_at: new Date(),
-        updated_at: new Date(),
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
       }
     }
 

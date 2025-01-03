@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react'
 import { createContext, useContext, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { selectPlayerState } from 'src/store'
+import { REACT_ENV } from 'src/config'
+import { selectPlayerState, selectSpotifyAuth } from 'src/store'
 import { SpotifyPlayerContext } from './SpotifyPlayerContext'
 
 export const CurrentlyPlayingContext = createContext({
@@ -20,6 +21,7 @@ export const CurrentlyPlayingContext = createContext({
 
 export const CurrentlyPlayingProvider = (props: { children?: ReactNode }) => {
   const storePlayerState = useSelector(selectPlayerState)
+  const spotifyAuth = useSelector(selectSpotifyAuth)
 
   const [timer, setTimer] = useState<NodeJS.Timeout | null>(null)
   const [playerState, setPlayerState] = useState<IPlayerState | null>(null)
@@ -69,6 +71,16 @@ export const CurrentlyPlayingProvider = (props: { children?: ReactNode }) => {
     storePlayerState?.is_playing,
     storePlayerState?.progress,
   ])
+
+  useEffect(() => {
+    if (
+      REACT_ENV === 'dev' &&
+      spotifyAuth &&
+      spotifyPlayerState?.current_track
+    ) {
+      setPlayerState(spotifyPlayerState)
+    }
+  }, [spotifyAuth, spotifyPlayerState])
 
   return (
     <CurrentlyPlayingContext.Provider

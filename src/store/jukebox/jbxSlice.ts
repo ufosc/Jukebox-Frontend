@@ -25,12 +25,6 @@ export const jukeboxSlice = createSlice({
       state.playerState = action.payload
     },
     updatePlayerStateReducer: (state, action: { payload: IPlayerAction }) => {
-      // const playerState: IPlayerQueueState = {
-      //   ...state.playerState,
-      //   jukebox_id: state.currentJukebox!.id,
-      //   next_tracks: state.playerState?.next_tracks ?? [],
-      //   ...action.payload,
-      // }
       if (!state.playerState?.current_track) return
 
       state.playerState = {

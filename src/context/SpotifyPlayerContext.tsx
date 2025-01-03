@@ -125,6 +125,7 @@ export const SpotifyPlayerProvider = (props: {
 
     playerRef.current?.getCurrentState().then((state) => {
       !state ? setActive(false) : setActive(true)
+      return state
     })
   }
 
@@ -157,7 +158,6 @@ export const SpotifyPlayerProvider = (props: {
         setConnected(false)
       })
       playerRef.current?.addListener('ready', () => {
-        setActive(false)
         setConnected(true)
       })
 

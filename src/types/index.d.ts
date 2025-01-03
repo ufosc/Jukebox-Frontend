@@ -23,6 +23,6 @@ declare type ThemeMode = 'light' | 'dark'
 
 declare interface IModel {
   id: number
-  created_at: Date
-  updated_at: Date
+  created_at: string
+  updated_at: string
 }
