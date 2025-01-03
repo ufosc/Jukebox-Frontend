@@ -12,8 +12,7 @@ declare interface ITrackMeta extends ITrack {
   dislikes?: number
 }
 
-declare interface ISpotifyAccount {
-  id: number
+declare interface ISpotifyAccount extends IModel {
   access_token: string
   user_id: number
   spotify_email: string

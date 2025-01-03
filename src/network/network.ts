@@ -2,30 +2,26 @@ import { AxiosError, type AxiosRequestConfig } from 'axios'
 import { REACT_ENV } from 'src/config'
 import { httpRequest } from 'src/lib'
 import {
+  ClubSchema,
+  JukeboxSchema,
+  SpotifyAccountSchema,
+  UserSchema,
+} from 'src/schemas'
+import {
   err,
+  getRandomSample,
   mockClubs,
   mockJukeboxes,
   mockPlayerQueueState,
+  mockTrackMetas,
   mockUser,
   NetworkLoginError,
   ok,
   sleep,
   type Result,
 } from 'src/utils'
-import { mockTrackMetas } from 'src/utils/mock/mock-track-meta'
-import { getRandomSample } from './../utils/helpers/random'
 import { NetworkRoutes } from './routes'
 import type { NetworkResponse } from './types'
-
-interface SpotifyLink {
-  id: number
-  access_token: string
-  user_id: number
-  spotify_email: string
-  expires_in: number
-  expires_at: string
-  token_type: string
-}
 
 export class Network {
   static instance: Network
@@ -41,80 +37,6 @@ export class Network {
     this.env = REACT_ENV
     this.routes = NetworkRoutes
     this.token = null
-  }
-
-  private parseSpotifyAccount(data: any): ISpotifyAccount {
-    return {
-      id: +data.id,
-      user_id: data.user_id,
-      token_type: data.token_type,
-      spotify_email: data.spotify_email,
-      access_token: data.access_token,
-      expires_in: data.expires_in,
-      expires_at: new Date(data.expires_at).getTime(),
-    }
-  }
-
-  private parseJukeboxLink(data: any): IJukeboxLink {
-    return {
-      id: +data.id,
-      type: data.type,
-      email: data.email,
-      active: data.active,
-      created_at: data.created_at,
-      updated_at: data.updated_at,
-    }
-  }
-
-  private parseJukebox(data: any): IJukebox {
-    return {
-      id: +data.id,
-      club_id: data.club_id,
-      links: (data.links ?? []).map((link: any) => this.parseJukeboxLink(link)),
-      name: data.name,
-      created_at: data.created_at,
-      updated_at: data.updated_at,
-    }
-  }
-
-  private parseClubMember(data: any): IClubMember {
-    return {
-      id: +data.id,
-      user_id: +data.user_id,
-      owner: data.owner,
-      role: data.role,
-      username: data.username,
-      points: data.points,
-      created_at: data.created_at,
-      updated_at: data.updated_at,
-    }
-  }
-
-  private parseClub(data: any): IClub {
-    return {
-      id: +data.id,
-      name: data.name,
-      logo: data.logo,
-      members: (data.members ?? []).map((member: any) =>
-        this.parseClubMember(member),
-      ),
-      created_at: data.created_at,
-      updated_at: data.updated_at,
-    }
-  }
-
-  private parseUser(data: any): IUser {
-    return {
-      id: +data.id,
-      username: data.username,
-      first_name: data.first_name,
-      last_name: data.last_name,
-      email: data.email,
-      image: data.image,
-      clubs: (data.clubs ?? []).map((club: any) => this.parseClub(club)),
-      created_at: data.created_at,
-      updated_at: data.updated_at,
-    }
   }
 
   public static getInstance = (): Network => {
@@ -253,7 +175,7 @@ export class Network {
       }
     }
     const res = await this.sendRequest(this.routes.user.details)
-    return this.parseUser(res.data)
+    return UserSchema.parse(res.data)
   }
 
   public async sendGetClubInfo(clubId: number): Promise<IClub> {
@@ -268,7 +190,7 @@ export class Network {
     }
 
     const res = await this.sendRequest(this.routes.club.info(clubId))
-    return this.parseClub(res.data)
+    return ClubSchema.parse(res.data)
   }
 
   public async sendGetSpotifyToken(
@@ -285,6 +207,8 @@ export class Network {
         expires_in: 3600,
         token_type: 'Bearer',
         expires_at: new Date(Date.now() + 1000 * 60 * 60 * 24).getTime(),
+        created_at: new Date(),
+        updated_at: new Date(),
       }
     }
 
@@ -292,7 +216,7 @@ export class Network {
       this.routes.jukebox.refreshSpotifyToken(jukeboxId),
     )
 
-    return this.parseSpotifyAccount(res.data)
+    return SpotifyAccountSchema.parse(res.data)
   }
 
   public async sendGetJukeboxes(): Promise<IJukebox[]> {
@@ -302,7 +226,7 @@ export class Network {
     }
 
     const res = await this.sendRequest(this.routes.jukebox.list)
-    return (res.data ?? []).map((jbx: any) => this.parseJukebox(jbx))
+    return (res.data || []).map((jbx: any) => JukeboxSchema.parse(jbx))
   }
 
   public async connectSpotifyDevice(jukeboxId: number, deviceId: string) {

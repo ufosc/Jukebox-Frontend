@@ -35,7 +35,8 @@
     "react-router-dom": "^6.26.2",
     "recharts": "^2.10.2",
     "socket.io-client": "^4.7.4",
-    "uuid": "^10.0.0"
+    "uuid": "^10.0.0",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.24.7",
