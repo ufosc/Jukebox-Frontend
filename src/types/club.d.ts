@@ -1,5 +1,4 @@
-declare interface IClubMember {
-  id: number
+declare interface IClubMember extends IModel {
   user_id: number
   username: string
   owner: boolean
@@ -7,8 +6,7 @@ declare interface IClubMember {
   points: number
 }
 
-declare interface IClub {
-  id: number
+declare interface IClub extends IModel {
   name: string
   logo?: string
   members: IClubMember[]

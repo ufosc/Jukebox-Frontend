@@ -12,7 +12,7 @@ export const TrackItem = (props: { track: Nullable<ITrackMeta> }) => {
       {track && (
         <>
           <div className="track-list-track__preview">
-            <img src={track?.album?.images[0].url} alt={track.name} />
+            <img src={track?.album?.images[0]?.url} alt={track.name} />
           </div>
           <div className="track-list-track__name-group">
             <h3 className="track-list-track__name">{track.name}</h3>

@@ -21,7 +21,7 @@ export const TracksPanel = () => {
           Up Next
         </h2>
         <div className="board__tracks__group__inner">
-          <TrackList tracks={nextTracks} offsetCount={true} />
+          <TrackList tracks={nextTracks} offsetCount={true} maxCount={5} />
         </div>
       </div>
     </div>

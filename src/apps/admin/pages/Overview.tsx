@@ -1,7 +1,7 @@
 import './Overview.scss'
 
+import FallbackImg from 'src/assets/img/jukeboxImage.png'
 import Disk from 'src/assets/svg/Disk.svg?react'
-import { mockTrack } from 'src/mock'
 
 import { useSelector } from 'react-redux'
 import { AudioPlayer, TrackList } from 'src/components'
@@ -37,10 +37,7 @@ export const Overview = () => {
           <div className="disk">
             <img
               className="curr-song"
-              src={
-                currentTrack?.album?.images[0].url ??
-                mockTrack.album.images[0].url
-              }
+              src={currentTrack?.album?.images[0].url ?? FallbackImg}
               alt={currentTrack?.name}
             />
             <Disk />

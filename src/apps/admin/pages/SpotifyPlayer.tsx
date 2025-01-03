@@ -4,7 +4,6 @@ import { AudioPlayer, Form, FormSelectGroup, FormSubmit } from 'src/components'
 import { REACT_ENV } from 'src/config'
 import { SpotifyPlayerContext } from 'src/context'
 import { CurrentlyPlayingContext } from 'src/context/CurrentlyPlayingContext'
-import { mockTrack } from 'src/mock'
 import { authenticateLink } from 'src/store'
 import { selectJukeboxLinks } from 'src/store/jukebox'
 import { formatDuration } from 'src/utils'
@@ -13,7 +12,6 @@ import { SpotifyPlayerDetail } from '../components/SpotifyPlayer/SpotifyPlayerDe
 import { SpotifyPlayerInfo } from '../components/SpotifyPlayer/SpotifyPlayerInfo'
 import './SpotifyPlayer.scss'
 
-const track = mockTrack
 export const SpotifyPlayer = () => {
   const jukeboxLinks = useSelector(selectJukeboxLinks)
   const { currentTrack } = useContext(CurrentlyPlayingContext)

@@ -1,4 +1,4 @@
-declare interface IUser {
+declare interface IUser extends IModel {
   id: number
   email: string
   username: string

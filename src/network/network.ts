@@ -1,15 +1,19 @@
-import { type AxiosRequestConfig } from 'axios'
+import { AxiosError, type AxiosRequestConfig } from 'axios'
 import { REACT_ENV } from 'src/config'
 import { httpRequest } from 'src/lib'
-import { mockJukeboxes, mockUser } from 'src/mock'
 import {
   err,
+  mockClubs,
+  mockJukeboxes,
+  mockPlayerQueueState,
+  mockUser,
   NetworkLoginError,
-  NotImplementedError,
   ok,
   sleep,
   type Result,
 } from 'src/utils'
+import { mockTrackMetas } from 'src/utils/mock/mock-track-meta'
+import { getRandomSample } from './../utils/helpers/random'
 import { NetworkRoutes } from './routes'
 import type { NetworkResponse } from './types'
 
@@ -57,6 +61,8 @@ export class Network {
       type: data.type,
       email: data.email,
       active: data.active,
+      created_at: data.created_at,
+      updated_at: data.updated_at,
     }
   }
 
@@ -66,6 +72,8 @@ export class Network {
       club_id: data.club_id,
       links: (data.links ?? []).map((link: any) => this.parseJukeboxLink(link)),
       name: data.name,
+      created_at: data.created_at,
+      updated_at: data.updated_at,
     }
   }
 
@@ -77,6 +85,8 @@ export class Network {
       role: data.role,
       username: data.username,
       points: data.points,
+      created_at: data.created_at,
+      updated_at: data.updated_at,
     }
   }
 
@@ -88,6 +98,8 @@ export class Network {
       members: (data.members ?? []).map((member: any) =>
         this.parseClubMember(member),
       ),
+      created_at: data.created_at,
+      updated_at: data.updated_at,
     }
   }
 
@@ -100,6 +112,8 @@ export class Network {
       email: data.email,
       image: data.image,
       clubs: (data.clubs ?? []).map((club: any) => this.parseClub(club)),
+      created_at: data.created_at,
+      updated_at: data.updated_at,
     }
   }
 
@@ -148,8 +162,6 @@ export class Network {
       headers: {
         Authorization: this.token ? `Token ${this.token}` : '',
         'Content-Type': 'application/json',
-        // cookie: `csrftoken=${getCookie(CSRF_COOKIE_NAME)}; sessionid=${getCookie(SESSION_COOKIE_NAME)}`,
-
         ...config?.headers,
       },
       data: body,
@@ -230,6 +242,8 @@ export class Network {
         image:
           'https://alliancebjjmn.com/wp-content/uploads/2019/07/placeholder-profile-sq-491x407.jpg',
         clubs: mockUser.clubs,
+        created_at: mockUser.created_at,
+        updated_at: mockUser.updated_at,
       }
     }
     const res = await this.sendRequest(this.routes.user.details)
@@ -238,7 +252,13 @@ export class Network {
 
   public async sendGetClubInfo(clubId: number): Promise<IClub> {
     if (this.env === 'dev') {
-      throw new NotImplementedError('network.sendGetClubInfo')
+      await sleep(1000)
+      const club = mockClubs.find((club) => club.id === clubId)
+      if (!club) {
+        throw new AxiosError(`Club with id ${clubId} not found.`, '404')
+      }
+
+      return club
     }
 
     const res = await this.sendRequest(this.routes.club.info(clubId))
@@ -253,7 +273,7 @@ export class Network {
 
       return {
         id: 0,
-        access_token: String(import.meta.env.VITE_SPOTIFY_ACCESS_TOKEN),
+        access_token: String(import.meta.env.VITE_SPOTIFY_ACCESS_TOKEN ?? ''),
         user_id: 0,
         spotify_email: 'user@example.com',
         expires_in: 3600,
@@ -309,7 +329,7 @@ export class Network {
   ): Promise<IPlayerQueueState | null> {
     if (this.env === 'dev') {
       await sleep(1000)
-      return null
+      return mockPlayerQueueState
     }
 
     const res = await this.sendRequest<IPlayerQueueState | null>(
@@ -322,7 +342,7 @@ export class Network {
   public async sendGetNextTracks(jukeboxId: number): Promise<ITrackMeta[]> {
     if (this.env === 'dev') {
       await sleep(1000)
-      return []
+      return getRandomSample(mockTrackMetas)
     }
 
     const res = await this.sendRequest<ITrackMeta[]>(
