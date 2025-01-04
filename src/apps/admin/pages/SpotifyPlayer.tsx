@@ -3,23 +3,24 @@ import { useSelector } from 'react-redux'
 import { AudioPlayer, Form, FormSelectGroup, FormSubmit } from 'src/components'
 import { REACT_ENV } from 'src/config'
 import { SpotifyPlayerContext } from 'src/context'
-import { CurrentlyPlayingContext } from 'src/context/CurrentlyPlayingContext'
-import { mockTrack } from 'src/mock'
 import { authenticateLink } from 'src/store'
-import { selectJukeboxLinks } from 'src/store/jukebox'
+import {
+  selectCurrentTrack,
+  selectJukeboxLinks,
+  selectNextTracks,
+} from 'src/store/jukebox'
 import { formatDuration } from 'src/utils'
 import { SpotifyPlayerAccount } from '../components/SpotifyPlayer/SpotifyPlayerAccount'
 import { SpotifyPlayerDetail } from '../components/SpotifyPlayer/SpotifyPlayerDetail'
 import { SpotifyPlayerInfo } from '../components/SpotifyPlayer/SpotifyPlayerInfo'
 import './SpotifyPlayer.scss'
 
-const track = mockTrack
 export const SpotifyPlayer = () => {
   const jukeboxLinks = useSelector(selectJukeboxLinks)
-  const { currentTrack } = useContext(CurrentlyPlayingContext)
+  const currentTrack = useSelector(selectCurrentTrack)
+  const nextTracks = useSelector(selectNextTracks)
 
   const {
-    nextTracks: playerNextTracks,
     deviceIsActive: isActive,
     spotifyIsConnected: isConnected,
     connectDevice,
@@ -111,11 +112,11 @@ export const SpotifyPlayer = () => {
           <div className="next-track-container">
             <SpotifyPlayerInfo title="Next Tracks" />
           </div>
-          {playerNextTracks.length > 0 && (
+          {nextTracks.length > 0 && (
             <>
               <h2 className="song-queue__title">Next Up</h2>
               <ol>
-                {playerNextTracks.map((track) => (
+                {nextTracks.map((track) => (
                   <li className="track-list-track" key={track.id}>
                     {/* TODO: Make different set of styles for track list */}
                     {!track && <p>No track specified.</p>}

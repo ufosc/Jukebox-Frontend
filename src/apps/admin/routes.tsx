@@ -1,5 +1,4 @@
 import { type RouteObject } from 'react-router-dom'
-import { Dashboard } from './layout/Dashboard'
 import { Overview } from './pages'
 import { AdminBoard } from './pages/AdminBoard'
 import { Music } from './pages/Music'
@@ -7,8 +6,6 @@ import { MusicQueue } from './pages/MusicQueue'
 import { MusicSearch } from './pages/MusicSearch'
 import { Settings } from './pages/Settings'
 import { SpotifyPlayer } from './pages/SpotifyPlayer'
-
-export const adminOutlet = <Dashboard />
 
 export const adminRoutes: RouteObject[] = [
   {

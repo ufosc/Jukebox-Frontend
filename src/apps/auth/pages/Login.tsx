@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { loginUser, selectUserLoggedIn, selectUserStatus } from 'src/store'
 import { AuthForm } from '../components/AuthForm'
-import './AdminLogin.scss'
+import './Login.scss'
 
-export const AdminLogin = () => {
+export const Login = () => {
   const userStatus = useSelector(selectUserStatus)
   const userIsLoggedIn = useSelector(selectUserLoggedIn)
 

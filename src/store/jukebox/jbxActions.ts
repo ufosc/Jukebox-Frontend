@@ -5,6 +5,7 @@ import { store } from '../store'
 import {
   selectActiveLink,
   selectCurrentJukebox,
+  selectPlayerState,
   selectSpotifyAuth,
 } from './jbxSelectors'
 import {
@@ -20,15 +21,37 @@ const {
   setPlayerStateReducer,
   setNextTracksReducer,
   setHasAuxReducer,
-  updatePlayerStateReducer,
+  performPlayerActionReducer: updatePlayerStateReducer,
+  setLiveProgressReducer,
+  incrementLiveProgressReducer,
 } = jukeboxActions
 
-export const setPlayerState = (currentlyPlaying: IPlayerQueueState) => {
+export const setPlayerState = (currentlyPlaying: IPlayerMetaState) => {
   store.dispatch(setPlayerStateReducer(currentlyPlaying))
 }
 
-export const updatePlayerState = (payload: IPlayerAction) => {
+export const updatePlayerState = (currentlyPlaying: IPlayerMetaUpdate) => {
+  const prevState = selectPlayerState(store.getState())
+  const payload: IPlayerMetaState = {
+    ...prevState,
+    ...currentlyPlaying,
+    default_next_tracks: currentlyPlaying.default_next_tracks ?? [],
+    is_playing: currentlyPlaying.is_playing ?? false,
+  }
+  setLiveProgress(payload.progress)
+  store.dispatch(setPlayerStateReducer(payload))
+}
+
+export const doPlayerAction = (payload: IPlayerAction) => {
   store.dispatch(updatePlayerStateReducer(payload))
+}
+
+export const setLiveProgress = (ms?: number) => {
+  store.dispatch(setLiveProgressReducer({ ms }))
+}
+
+export const incrementLiveProgress = () => {
+  store.dispatch(incrementLiveProgressReducer())
 }
 
 export const setNextTracks = (nextTracks: ITrackMeta[]) => {

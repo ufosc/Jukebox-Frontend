@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { createContext, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { REACT_ENV } from 'src/config'
 import { socket } from 'src/lib'
 import { selectUser, selectUserLoggedIn } from 'src/store'
 
@@ -23,6 +24,8 @@ export const SocketProvider = (props: { children: ReactNode }) => {
   }, [isConnected])
 
   useEffect(() => {
+    if (REACT_ENV === 'dev') return
+
     const onConnect = () => {
       setIsConnected(true)
       console.log('Socket connected.')
@@ -54,6 +57,8 @@ export const SocketProvider = (props: { children: ReactNode }) => {
   }, [])
 
   useEffect(() => {
+    if (REACT_ENV === 'dev') return
+
     if (isLoggedIn && user) {
       socket.auth = { userId: user.id }
       socket.connect()
@@ -61,6 +66,8 @@ export const SocketProvider = (props: { children: ReactNode }) => {
   }, [isLoggedIn, user])
 
   const emitMessage = (ev: string, message: any) => {
+    if (REACT_ENV === 'dev') return
+
     socket.connect()
     if (isConnected) {
       socket.emit(ev, message)
@@ -70,6 +77,8 @@ export const SocketProvider = (props: { children: ReactNode }) => {
   }
 
   const onEvent = <T,>(ev: string, cb: (message: T) => void) => {
+    if (REACT_ENV === 'dev') return
+
     if (subEvents.includes(ev)) {
       socket.off(ev)
     } else {

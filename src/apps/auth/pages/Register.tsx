@@ -2,9 +2,9 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { AuthRegisterForm } from 'src/apps/auth/components/AuthRegisterForm'
 import { registerUser, selectUserStatus } from 'src/store'
-import './AdminRegister.scss'
+import './Register.scss'
 
-export const AdminRegister = () => {
+export const Register = () => {
   const userStatus = useSelector(selectUserStatus)
   const navigate = useNavigate()
 

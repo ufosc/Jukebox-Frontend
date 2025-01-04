@@ -24,6 +24,6 @@
 }
 
 .login-page__form-container > div {
-    background-color: var(--color-surface);
+    @include color-role('surface');
     padding: 2vh 3vh 5vh 3vh;
 }

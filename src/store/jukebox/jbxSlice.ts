@@ -16,21 +16,16 @@ export const jukeboxSlice = createSlice({
     /** User is connected to spotify, and the player is active */
     hasAux: false,
     currentJukebox: null as IJukebox | null,
-    playerState: null as IPlayerQueueState | null,
+    playerState: null as IPlayerMetaState | null,
     nextTracks: [] as ITrackMeta[],
     spotifyAuth: null as ISpotifyAccount | null,
+    liveProgress: 0 as number | null,
   },
   reducers: {
-    setPlayerStateReducer: (state, action: { payload: IPlayerQueueState }) => {
+    setPlayerStateReducer: (state, action: { payload: IPlayerMetaState }) => {
       state.playerState = action.payload
     },
-    updatePlayerStateReducer: (state, action: { payload: IPlayerAction }) => {
-      // const playerState: IPlayerQueueState = {
-      //   ...state.playerState,
-      //   jukebox_id: state.currentJukebox!.id,
-      //   next_tracks: state.playerState?.next_tracks ?? [],
-      //   ...action.payload,
-      // }
+    performPlayerActionReducer: (state, action: { payload: IPlayerAction }) => {
       if (!state.playerState?.current_track) return
 
       state.playerState = {
@@ -47,6 +42,12 @@ export const jukeboxSlice = createSlice({
     },
     setHasAuxReducer: (state, action: { payload: boolean }) => {
       state.hasAux = action.payload
+    },
+    setLiveProgressReducer: (state, action: { payload: { ms?: number } }) => {
+      state.liveProgress = action.payload.ms ?? null
+    },
+    incrementLiveProgressReducer: (state) => {
+      state.liveProgress = (state.liveProgress ?? 0) + 1000
     },
   },
   extraReducers: (builder) => {

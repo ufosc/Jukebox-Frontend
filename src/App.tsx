@@ -1,6 +1,6 @@
-import { useCallback, useContext, useEffect } from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { SPOTIFY_AUTH_CHECK_MS } from './config'
 import {
   KeyboardProvider,
@@ -8,35 +8,29 @@ import {
   SpotifyPlayerProvider,
   Theme,
 } from './context'
-import { CurrentlyPlayingProvider } from './context/CurrentlyPlayingContext'
 import {
   authenticateLink,
   checkLinkAuth,
-  fetchCurrentClubInfo,
+  doPlayerAction,
   fetchCurrentlyPlaying,
-  fetchJukeboxes,
   fetchNextTracks,
-  fetchUserInfo,
-  initializeUser,
-  logoutUser,
+  incrementLiveProgress,
   selectCurrentJukebox,
+  selectPlayerState,
   selectSpotifyAuth,
-  selectUser,
-  selectUserLoggedIn,
-  selectUserToken,
-  setAllClubs,
-  setCurrentClub,
   setNextTracks,
   setPlayerState,
   updatePlayerState,
 } from './store'
+import { uniqueId } from './utils'
 
 export const App = () => {
-  const userIsLoggedIn = useSelector(selectUserLoggedIn)
-  const userInfo = useSelector(selectUser)
   const spotifyAuth = useSelector(selectSpotifyAuth)
   const currentJukebox = useSelector(selectCurrentJukebox)
-  const userToken = useSelector(selectUserToken)
+  const storePlayerState = useSelector(selectPlayerState)
+  const [initialized, setInitialized] = useState(false)
+
+  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null)
 
   const {
     emitMessage,
@@ -44,46 +38,39 @@ export const App = () => {
     isConnected: socketIsConnected,
   } = useContext(SocketContext)
 
-  const navigate = useNavigate()
-
-  /**
-   * =================== *
-   * User Authentication *
-   * =================== *
-   */
-  // Initialization actions
   useEffect(() => {
-    initializeUser()
+    setTimeout(() => {
+      setInitialized(true)
+    }, 60 * 1000)
   }, [])
-
-  // Triggers when login status changes
-  useEffect(() => {
-    if (userIsLoggedIn === false) {
-      navigate('/auth/admin/login')
-    } else if (userIsLoggedIn) {
-      // Store new user info
-      fetchUserInfo().then(async (resUserInfo) => {
-        if (!resUserInfo) return
-
-        setCurrentClub(resUserInfo.clubs[0])
-        setAllClubs(resUserInfo.clubs)
-        await fetchCurrentClubInfo()
-        await fetchJukeboxes()
-      })
-    } else if (userInfo || userIsLoggedIn === false) {
-      logoutUser()
-    }
-  }, [userIsLoggedIn, userToken])
 
   /**
    * ======================== *
    * Spotify Track State Sync *
    * ======================== *
    */
+  useEffect(() => {
+    if (timer) clearInterval(timer)
+    if (storePlayerState?.is_playing) {
+      const t = setInterval(() => {
+        incrementLiveProgress()
+      }, 1000)
+
+      setTimer(t)
+    }
+
+    return () => {
+      if (timer) clearInterval(timer)
+    }
+  }, [
+    storePlayerState?.current_track,
+    storePlayerState?.is_playing,
+    storePlayerState?.progress,
+  ])
 
   // Triggers when receive spotify credentials from server
   useEffect(() => {
-    if (!spotifyAuth) return
+    if (!spotifyAuth || !initialized) return
 
     const timer = setInterval(async () => {
       await checkLinkAuth()
@@ -108,7 +95,7 @@ export const App = () => {
     })
 
     onEvent<IPlayerAction>('player-action', (data) => {
-      updatePlayerState(data)
+      doPlayerAction(data)
     })
 
     onEvent<ITrackMeta[]>('track-queue-update', (data) => {
@@ -118,24 +105,20 @@ export const App = () => {
 
   // Primary function that runs when Spotify Player changes
   const handlePlayerTrackChange = useCallback(
-    (state: {
-      currentTrack: ITrack
-      position: number
-      isPlaying: boolean
-      nextTracks: ITrack[]
-      changedTracks: boolean
-    }) => {
-      const { currentTrack, position, isPlaying, nextTracks, changedTracks } =
-        state
+    (state?: IPlayerAuxUpdate) => {
+      if (!state) {
+        emitMessage('player-aux-update', {})
+        return
+      }
 
-      emitMessage<IPlayerAuxUpdate>('player-aux-update', {
-        jukebox_id: currentJukebox!.id,
-        current_track: currentTrack,
-        progress: position,
-        is_playing: isPlaying,
-        default_next_tracks: nextTracks,
-        changed_tracks: changedTracks,
+      updatePlayerState({
+        ...state,
+        current_track: state.current_track && {
+          ...state.current_track,
+          queue_id: uniqueId(),
+        },
       })
+      emitMessage<IPlayerAuxUpdate>('player-aux-update', state)
     },
     [currentJukebox],
   )
@@ -148,9 +131,7 @@ export const App = () => {
           jukebox={currentJukebox}
           onPlayerStateChange={handlePlayerTrackChange}
         >
-          <CurrentlyPlayingProvider>
-            <Outlet />
-          </CurrentlyPlayingProvider>
+          <Outlet />
         </SpotifyPlayerProvider>
       </KeyboardProvider>
     </Theme>

@@ -1,3 +1,7 @@
+/** Full track info returned from Spotify API */
+declare type IFullTrack = Track
+
+/** Type of track returned from the web player */
 declare type ITrack = Spotify.Track
 
 declare interface ITrackMeta extends ITrack {
@@ -8,24 +12,7 @@ declare interface ITrackMeta extends ITrack {
   dislikes?: number
 }
 
-declare interface IJukebox {
-  id: number
-  name: string
-  club_id: number
-  links: IJukeboxLink[]
-}
-
-declare type JukeboxLinkType = 'spotify'
-
-declare interface IJukeboxLink {
-  id: number
-  type: JukeboxLinkType
-  email: string
-  active: boolean
-}
-
-declare interface ISpotifyAccount {
-  id: number
+declare interface ISpotifyAccount extends IModel {
   access_token: string
   user_id: number
   spotify_email: string
@@ -37,7 +24,7 @@ declare interface ISpotifyAccount {
 declare interface IPlayerState {
   jukebox_id: number
   current_track?: ITrack
-  progress: number
+  progress?: number
   is_playing: boolean
 }
 
@@ -61,6 +48,10 @@ declare interface IPlayerQueueState extends IPlayerMetaState {
 declare interface IPlayerAuxUpdate extends IPlayerState {
   changed_tracks?: boolean
   default_next_tracks: ITrack[]
+}
+
+declare interface IPlayerMetaUpdate extends Partial<IPlayerMetaState> {
+  jukebox_id: number
 }
 type IPlayerUpdate = IPlayerQueueState
 
