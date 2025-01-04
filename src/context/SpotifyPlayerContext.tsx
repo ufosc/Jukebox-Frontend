@@ -15,6 +15,7 @@ import {
 import { SpotifyPlayer } from 'src/lib'
 import { Network } from 'src/network'
 import { setHasAux } from 'src/store'
+import { uniqueId } from 'src/utils'
 import { KeyboardContext } from './KeyboardContext'
 
 export const SpotifyPlayerContext = createContext({
@@ -24,8 +25,8 @@ export const SpotifyPlayerContext = createContext({
   /** The player has authenticated with Spotify */
   spotifyIsConnected: false,
 
-  playerState: null as IPlayerState | null,
-  nextTracks: [] as Spotify.Track[],
+  playerState: null as IPlayerMetaState | null,
+  // nextTracks: [] as Spotify.Track[],
   nextTrack: () => {},
   prevTrack: () => {},
   play: () => {},
@@ -41,22 +42,15 @@ export const SpotifyPlayerProvider = (props: {
   children: ReactNode
   token: Nullable<string>
   jukebox: IJukebox | null
-  onPlayerStateChange: (state: {
-    currentTrack: ITrack
-    position: number
-    isPlaying: boolean
-    nextTracks: ITrack[]
-    changedTracks: boolean
-  }) => void
+  onPlayerStateChange: (state?: IPlayerAuxUpdate) => void
 }) => {
   const { children, token, jukebox, onPlayerStateChange } = props
   const playerRef = useRef<Spotify.Player | null>(null)
   const networkRef = useRef<Network>()
 
   const [initialized, setInitialized] = useState(false)
-  const [playerState, setPlayerState] = useState<IPlayerState | null>(null)
+  const [playerState, setPlayerState] = useState<IPlayerMetaState | null>(null)
   const [active, setActive] = useState(false)
-  const [nextTracks, setNextTracks] = useState<Spotify.Track[]>([])
   const [deviceId, setDeviceId] = useState('')
   const [connected, setConnected] = useState(false)
 
@@ -67,10 +61,10 @@ export const SpotifyPlayerProvider = (props: {
   }, [])
 
   useEffect(() => {
-    if (token && jukebox) {
+    if (token && jukebox && !playerRef.current) {
       SpotifyPlayer.getInstance(token)
         .getPlayer()
-        .then(async ({ player, deviceId: resDeviceId }) => {
+        .then(({ player, deviceId: resDeviceId }) => {
           playerRef.current = player
           setDeviceId(resDeviceId)
 
@@ -91,9 +85,11 @@ export const SpotifyPlayerProvider = (props: {
 
   // Actions to run when state changes
   const handlePlayerStateChange = (state?: Spotify.PlaybackState) => {
-    if (!state) {
+    if (!state || !jukebox) {
       // Spotify returns null state if playback transferred to another device
       setActive(false)
+      onPlayerStateChange()
+
       return
     }
 
@@ -105,22 +101,38 @@ export const SpotifyPlayerProvider = (props: {
       const changedTracks =
         spotifyTrack.id !== prev?.current_track?.id || state.position === 0
 
+      let currentMetaTrack: ITrackMeta | undefined
+
+      if (changedTracks) {
+        currentMetaTrack = {
+          ...spotifyTrack,
+          queue_id: uniqueId(),
+          spotify_queued: true,
+        }
+      } else if (prev.current_track) {
+        currentMetaTrack = { ...prev.current_track, ...spotifyTrack }
+      } else {
+        currentMetaTrack = undefined
+      }
+
       onPlayerStateChange({
-        currentTrack: spotifyTrack,
-        position: state.position,
-        isPlaying: !state.paused,
-        nextTracks: state.track_window.next_tracks,
-        changedTracks,
+        jukebox_id: jukebox?.id,
+        current_track: spotifyTrack,
+        progress: state.position,
+        is_playing: !state.paused,
+        default_next_tracks: state.track_window.next_tracks,
+        changed_tracks: changedTracks,
       })
 
       return {
+        ...prev,
         jukebox_id: jukebox!.id,
-        current_track: spotifyTrack,
+        current_track: currentMetaTrack,
         is_playing: !state.paused,
         progress: state.position,
+        default_next_tracks: state.track_window.next_tracks,
       }
     })
-    setNextTracks(state.track_window.next_tracks)
     setDeviceId(state.playback_id)
 
     playerRef.current?.getCurrentState().then((state) => {
@@ -238,7 +250,6 @@ export const SpotifyPlayerProvider = (props: {
         deviceIsActive: active,
         spotifyIsConnected: connected,
         playerState,
-        nextTracks,
         nextTrack,
         prevTrack: prevTrack,
         play,

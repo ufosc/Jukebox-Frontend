@@ -1,8 +1,10 @@
 /**
  * @fileoverview Audio Player Component
  */
-import { useContext, useEffect, useRef, useState } from 'react'
-import { CurrentlyPlayingContext } from 'src/context/CurrentlyPlayingContext'
+import { useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { usePlayerControls } from 'src/hooks'
+import { selectLiveProgress, selectPlayerState } from 'src/store'
 import './AudioPlayer.scss'
 import { Controls } from './Controls'
 import { ProgressBar } from './ProgressBar'
@@ -15,9 +17,10 @@ import './ProgressBar.scss'
  */
 export const AudioPlayer = (props: { disableControls?: boolean }) => {
   const { disableControls } = props
+  const playerState = useSelector(selectPlayerState)
+  const liveProgress = useSelector(selectLiveProgress)
+
   const {
-    playerState,
-    liveProgress,
     play,
     pause,
     setProgress,
@@ -26,7 +29,7 @@ export const AudioPlayer = (props: { disableControls?: boolean }) => {
     togglePlay,
     like,
     repeat,
-  } = useContext(CurrentlyPlayingContext)
+  } = usePlayerControls()
 
   // Refs
   const containerRef = useRef<HTMLDivElement>(null)

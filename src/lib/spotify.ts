@@ -19,9 +19,11 @@ export class SpotifyPlayer {
     this.resolvePlayer = resolve
     this.rejectPlayer = reject
     this.playerPromise = promise
+    console.log('init spotify')
 
     this.token = token
     this.connect()
+    // this.setToken(token)
   }
   public static getInstance(): SpotifyPlayer | null
   public static getInstance(token: string): SpotifyPlayer
@@ -36,9 +38,17 @@ export class SpotifyPlayer {
   }
 
   private connect() {
-    if (this.token === 'YOUR-LONG-TOKEN-HERE') return
+    if (this.token === 'YOUR-LONG-TOKEN-HERE' || !this.token) return
 
-    window.onSpotifyWebPlaybackSDKReady = async () => {
+    if (!window.Spotify) {
+      console.log('added spotify script')
+      const scriptTag = document.createElement('script')
+      scriptTag.src = 'https://sdk.scdn.co/spotify-player.js'
+
+      document.head!.appendChild(scriptTag)
+    }
+
+    window.onSpotifyWebPlaybackSDKReady = () => {
       const player = new Spotify.Player({
         name: SPOTIFY_PLAYER_NAME,
         getOAuthToken: (cb) => {
@@ -75,13 +85,6 @@ export class SpotifyPlayer {
       })
       player.connect()
     }
-
-    if (!window.Spotify) {
-      const scriptTag = document.createElement('script')
-      scriptTag.src = 'https://sdk.scdn.co/spotify-player.js'
-
-      document.head!.appendChild(scriptTag)
-    }
   }
 
   public async getPlayer(): Promise<PlayerContext> {
@@ -102,6 +105,6 @@ export class SpotifyPlayer {
     if (!token) return
 
     this.token = token
-    this.connect()
+    // this.connect()
   }
 }

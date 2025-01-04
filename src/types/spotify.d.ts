@@ -24,7 +24,7 @@ declare interface ISpotifyAccount extends IModel {
 declare interface IPlayerState {
   jukebox_id: number
   current_track?: ITrack
-  progress: number
+  progress?: number
   is_playing: boolean
 }
 
@@ -48,6 +48,10 @@ declare interface IPlayerQueueState extends IPlayerMetaState {
 declare interface IPlayerAuxUpdate extends IPlayerState {
   changed_tracks?: boolean
   default_next_tracks: ITrack[]
+}
+
+declare interface IPlayerMetaUpdate extends Partial<IPlayerMetaState> {
+  jukebox_id: number
 }
 type IPlayerUpdate = IPlayerQueueState
 
