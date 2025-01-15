@@ -5,5 +5,5 @@ declare interface IUser extends IModel {
   first_name?: string
   last_name?: string
   image?: string
-  clubs: IClub[]
+  clubs: { id: number; name: string; role: string }[]
 }
