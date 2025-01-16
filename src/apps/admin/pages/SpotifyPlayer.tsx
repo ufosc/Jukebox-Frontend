@@ -116,36 +116,39 @@ export const SpotifyPlayer = () => {
             <>
               <h2 className="song-queue__title">Next Up</h2>
               <ol>
-                {nextTracks.map((track) => (
-                  <li className="track-list-track" key={track.id}>
-                    {/* TODO: Make different set of styles for track list */}
-                    {!track && <p>No track specified.</p>}
-                    {track && (
-                      <>
-                        <span className="track-list-track__preview">
-                          <img
-                            src={track?.album?.images[0].url}
-                            alt={track.name}
-                          />
-                        </span>
-                        <div className="track-list-track__name-group">
-                          <h3 className="track-list-track__name">
-                            {track.name}
-                          </h3>
-                          <span className="track-list-track__artists">
-                            {track.artists
-                              .map((artist) => artist.name)
-                              .join(', ')}
-                          </span>
-                        </div>
+                {nextTracks.map(
+                  (track) =>
+                    track && (
+                      <li className="track-list-track" key={track.id}>
+                        {/* TODO: Make different set of styles for track list */}
+                        {!track && <p>No track specified.</p>}
+                        {track && (
+                          <>
+                            <span className="track-list-track__preview">
+                              <img
+                                src={track?.album?.images[0].url}
+                                alt={track.name}
+                              />
+                            </span>
+                            <div className="track-list-track__name-group">
+                              <h3 className="track-list-track__name">
+                                {track.name}
+                              </h3>
+                              <span className="track-list-track__artists">
+                                {track.artists
+                                  .map((artist) => artist.name)
+                                  .join(', ')}
+                              </span>
+                            </div>
 
-                        <span className="track-list-track__info track-list-track__duration">
-                          {formatDuration(track.duration_ms)}
-                        </span>
-                      </>
-                    )}
-                  </li>
-                ))}
+                            <span className="track-list-track__info track-list-track__duration">
+                              {formatDuration(track.duration_ms)}
+                            </span>
+                          </>
+                        )}
+                      </li>
+                    ),
+                )}
               </ol>
             </>
           )}
