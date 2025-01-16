@@ -10,7 +10,13 @@ export const jukeboxSlice = createSlice({
     jukeboxes: [] as IJukebox[],
     currentJukebox: null as IJukebox | null,
   },
-  reducers: {},
+  reducers: {
+    setCurrentJukeboxReducer: (state, action:{payload:{jukebox : IJukebox}}) =>{
+      state.currentJukebox = action.payload.jukebox;
+    },
+
+
+  },
   extraReducers: (builder) => {
     builder.addCase(thunkFetchJukeboxes.fulfilled, (state, action) => {
       state.jukeboxes = action.payload
