@@ -3,10 +3,9 @@ import { Network } from 'src/network'
 
 const network = Network.getInstance()
 
-export const thunkFetchAdminClubs = createAsyncThunk(
-  'club/fetchAdminClubs',
-  async (clubId: string) => {},
-)
+export const thunkFetchClubs = createAsyncThunk('club/fetchClubs', async () => {
+  return await network.sendGetClubs()
+})
 
 export const thunkFetchClubInfo = createAsyncThunk(
   'club/fetchClubInfo',

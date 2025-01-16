@@ -2,6 +2,7 @@ import { useEffect, type ReactNode } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {
+  fetchAllClubs,
   fetchCurrentClubInfo,
   fetchJukeboxes,
   fetchUserInfo,
@@ -10,8 +11,6 @@ import {
   selectUser,
   selectUserLoggedIn,
   selectUserToken,
-  setAllClubs,
-  setCurrentClub,
 } from 'src/store'
 
 export const AuthGuard = (props: { children?: ReactNode }) => {
@@ -34,8 +33,9 @@ export const AuthGuard = (props: { children?: ReactNode }) => {
       fetchUserInfo().then(async (resUserInfo) => {
         if (!resUserInfo) return
 
-        setCurrentClub(resUserInfo.clubs[0])
-        setAllClubs(resUserInfo.clubs)
+        // setCurrentClub(resUserInfo.clubs[0].id)
+        // setAllClubs(resUserInfo.clubs)
+        await fetchAllClubs()
         await fetchCurrentClubInfo()
         await fetchJukeboxes()
       })

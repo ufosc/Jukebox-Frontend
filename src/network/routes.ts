@@ -9,6 +9,7 @@ export const NetworkRoutes = {
     details: `${base}/user/me/`,
   },
   club: {
+    list: `${base}/club/clubs/`,
     info: (id: number) => `${base}/club/clubs/${id}/`,
   },
   jukebox: {
