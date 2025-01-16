@@ -1,10 +1,18 @@
 import { store } from '../store'
 import { selectCurrentClub } from './clubSelectors'
 import { clubSlice } from './clubSlice'
-import { thunkFetchClubInfo, thunkFetchClubSpotifyAuth } from './clubThunks'
+import {
+  thunkFetchClubInfo,
+  thunkFetchClubs,
+  thunkFetchClubSpotifyAuth,
+} from './clubThunks'
 
 const { setAllClubsReducer, setCurrentClubReducer: setCurrentClubReducer } =
   clubSlice.actions
+
+export const fetchAllClubs = async () => {
+  await store.dispatch(thunkFetchClubs())
+}
 
 export const fetchCurrentClubInfo = async () => {
   const club = selectCurrentClub(store.getState())

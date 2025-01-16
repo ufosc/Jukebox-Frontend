@@ -178,6 +178,16 @@ export class Network {
     return UserSchema.parse(res.data)
   }
 
+  public async sendGetClubs(): Promise<IClub[]> {
+    if (this.env === 'dev') {
+      await sleep(1000)
+      return mockClubs
+    }
+
+    const res = await this.sendRequest(this.routes.club.list)
+    return res.data.map((obj: any) => ClubSchema.parse(obj))
+  }
+
   public async sendGetClubInfo(clubId: number): Promise<IClub> {
     if (this.env === 'dev') {
       await sleep(1000)

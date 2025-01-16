@@ -1,8 +1,9 @@
+declare type ClubRole = 'president' | 'officer' | 'member'
 declare interface IClubMember extends IModel {
   user_id: number
   username: string
   owner: boolean
-  role: 'president' | 'officer' | 'member'
+  role: ClubRole
   points: number
 }
 

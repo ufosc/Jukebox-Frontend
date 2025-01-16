@@ -1,5 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { thunkFetchClubInfo, thunkFetchClubSpotifyAuth } from './clubThunks'
+import {
+  thunkFetchClubInfo,
+  thunkFetchClubs,
+  thunkFetchClubSpotifyAuth,
+} from './clubThunks'
 
 export const clubSlice = createSlice({
   name: 'club',
@@ -19,6 +23,13 @@ export const clubSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(thunkFetchClubs.fulfilled, (state, action) => {
+      state.allClubs = action.payload
+
+      if (action.payload.length > 0) {
+        state.currentClub = action.payload[0]
+      }
+    })
     builder.addCase(thunkFetchClubSpotifyAuth.fulfilled, (state, action) => {
       state.spotifyAuth = action.payload
     })
