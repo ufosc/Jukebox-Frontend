@@ -1,11 +1,34 @@
-.disk {
-  align-items: center;
-  float: right;
-  display: flex;
-  height: 100%;
-  position: relative;
+.grid {
+  display: grid;
+  gap: 16px;
 
-  z-index: 2;
+  @include media-max(get-breakpoint('md')) {
+    grid-template-columns: 1fr; // Single column on tablets and smaller
+  }
+
+  @include media-max(get-breakpoint('lg')) {
+    grid-template-columns: repeat(2, 1fr); // Two columns for laptops
+  }
+}
+
+.col-5 {
+  grid-column: span 5;
+
+  @include media-max(get-breakpoint('md')) {
+    grid-column: span 12; // Full width on smaller screens
+  }
+}
+
+.col-7 {
+  grid-column: span 7;
+
+  @include media-max(get-breakpoint('md')) {
+    grid-column: span 12; // Full width on smaller screens
+  }
+}
+
+.col-12 {
+  grid-column: span 12;
 }
 
 .card {
@@ -15,57 +38,89 @@
   width: 100%;
   position: relative;
   transform: translate(0, -25%);
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  @include media-max(get-breakpoint('sm')) {
+    padding: 12px; // Adjust padding for smaller devices
+  }
 }
 
 .song-desc {
   margin: 2vh 0 3vh 0;
+
+  .song-title {
+    @include font-display('xs');
+    font-size: 1.5rem;
+    padding-bottom: 1.5rem;
+
+    @include media-max(get-breakpoint('sm')) {
+      font-size: 1.25rem; // Adjust font size for smaller devices
+    }
+  }
+
+  .song-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-size: 1rem;
+
+    @include media-max(get-breakpoint('sm')) {
+      font-size: 0.875rem; // Adjust font size for smaller devices
+    }
+  }
+
+  .song-rec {
+    @include font-body('sm');
+    color: var(--color-label);
+  }
 }
 
-.song-title {
-  @include font-display('xs');
-  padding-bottom: 1.5rem;
+.disk {
+  align-items: center;
+  float: right;
+  display: flex;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+
+  .curr-song {
+    @include absCenter;
+    border-radius: 50%;
+    border-color: #ca6b4f;
+    border-width: 3px;
+    border-style: solid;
+    width: 28vh;
+    height: 28vh;
+    object-fit: cover;
+    max-width: 100%;
+    height: auto;
+  }
 }
 
 .song-queue {
   background-color: var(--color-surface);
   display: flex;
   min-height: 49.5vh;
-
   flex-direction: column;
-
   padding: 2.5rem;
   border-radius: 1rem;
   margin-top: -11.2rem;
-
   position: relative;
   z-index: 3;
   overflow: overlay;
 
-  &__title {
+  .song-queue__title {
     @include font-headline('xs');
+    font-size: 1.25rem;
     padding-bottom: 2rem;
+
+    @include media-max(get-breakpoint('sm')) {
+      font-size: 1rem; // Adjust font size for smaller devices
+    }
   }
-}
-
-.song-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-.song-rec {
-  @include font-body('sm');
-  color: var(--color-label);
-}
-
-.curr-song {
-  @include absCenter;
-  border-radius: 50%;
-  border-color: #ca6b4f;
-  border-width: 3px;
-  border-style: solid;
-  width: 28vh;
-  height: 28vh;
-  object-fit: cover;
 }
 
 ::-webkit-scrollbar {
