@@ -1,6 +1,6 @@
-import { type RouteObject } from 'react-router-dom'
+import { Navigate, type RouteObject } from 'react-router-dom'
 import { Overview } from './pages'
-import { AdminBoard } from './pages/AdminBoard'
+import { AdminBoards } from './pages/AdminBoards'
 import { Music } from './pages/Music'
 import { MusicQueue } from './pages/MusicQueue'
 import { MusicSearch } from './pages/MusicSearch'
@@ -18,12 +18,16 @@ export const adminRoutes: RouteObject[] = [
   },
   {
     path: 'boards',
-    element: <AdminBoard />,
+    element: <AdminBoards />,
   },
   {
     path: 'music',
     element: <Music />,
     children: [
+      {
+        path: '',
+        element: <Navigate to="queue" />,
+      },
       {
         path: 'search',
         element: <MusicSearch />,

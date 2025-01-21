@@ -26,6 +26,9 @@ Other systems can be viewed here: <https://open-ui.org/design-systems/>
   - [Label](#label)
   - [Body](#body)
 - [Figma Definitions](#figma-definitions)
+- [Responsive Design](#responsive-design)
+  - [Breakpoints](#breakpoints)
+  - [Responsive Utilities](#responsive-utilities)
 
 ## TL;DR
 
@@ -444,3 +447,43 @@ _Color System_
 
 _Typography System_
 ![Typography in figma](./assets/Typography.png)
+
+## Responsive Design
+
+### Breakpoints
+
+- `xs`: 320px, Small phone
+- `sm`: 480px, Phone
+- `md`: 768px, Tablet
+- `lg`: 1024px, Laptop
+- `xl`: 1800px, Desktop
+
+### Responsive Utilities
+
+- Breakpoints are defined in `styles/abstracts/_variables.scss`
+  - These only need to be used if doing fine-grained responsive work with css/js
+- Responsive mixins are defined in `styles/abstracts/_mixins.scss`
+
+  - Example usage:
+
+    ```scss
+    .example {
+      // Hide by default
+      display: none;
+
+      @include breakpoint('md') {
+        // Display it on screen sizes 768px and lower
+        display: block;
+      }
+    }
+    ```
+
+  - The mixins use the `@media max-width` strategy, meaning the code inside of the mixin will only apply for screen sizes matching the breakpoint and lower. For example, in the snippet above, the `display: block` line will only apply when the screen's width is 768px or smaller.
+
+- Responsive css classes are defined in `styles/layout/_responsive.scss`
+
+  - Example usage:
+
+    ```html
+    <p class="responsive-show-sm">Current breakpoint: sm</p>
+    ```

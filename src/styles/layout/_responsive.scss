@@ -1,3 +1,31 @@
+$breakpoints: (
+  'xs': $screen-xs,
+  'sm': $screen-sm,
+  'md': $screen-md,
+  'lg': $screen-lg,
+  'xl': $screen-xl,
+);
+
+@mixin media-max($size) {
+  @media screen and (max-width: $size) {
+    @content;
+  }
+}
+
+@mixin media-hide($size) {
+  @include media-max($size) {
+    display: none;
+  }
+}
+
+@mixin media-show($size) {
+  display: none;
+
+  @include media-max($size) {
+    display: inherit;
+  }
+}
+
 .responsive {
   &-hide {
     @each $bp, $size in $breakpoints {
@@ -11,17 +39,6 @@
     @each $bp, $size in $breakpoints {
       &-#{$bp} {
         @include media-show($size);
-      }
-    }
-  }
-
-  &-role {
-    &-nav {
-      &--hide {
-        @include media-hide($screen-role-nav);
-      }
-      &--show {
-        @include media-show($screen-role-nav);
       }
     }
   }
