@@ -17,6 +17,12 @@ src/
 |-- store/
 |   |-- store.ts
 |   |-- index.ts
+|   |-- [slice]/
+|   |   |-- slice.ts
+|   |   |-- actions.ts
+|   |   |-- thunks.ts
+|   |   |-- selectors.ts
+|   |   |-- index.ts
 |-- styles/
 |   |-- abstracts/
 |   |-- base/

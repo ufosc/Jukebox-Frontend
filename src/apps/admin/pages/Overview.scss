@@ -6,6 +6,10 @@
   position: relative;
 
   z-index: 2;
+  
+  @include breakpoint('md') {
+    display: none;
+  }
 }
 
 .card {
