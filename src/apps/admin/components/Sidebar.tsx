@@ -300,8 +300,8 @@ export const Sidebar = (props: { className?: string }) => {
                 </span>
                 {isDropdown3Open && (
                   <div className="navbar__dropdown__content">
-                    <a href="#">All Members</a>
-                    <a href="#">Add Member</a>
+                    <NavItem route="members/list" text="All Members" />
+                    <NavItem route="members/new" text="Add Member" />
                   </div>
                 )}
               </li>
