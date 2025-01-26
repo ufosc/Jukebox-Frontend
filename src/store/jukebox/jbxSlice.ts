@@ -16,16 +16,16 @@ export const jukeboxSlice = createSlice({
     /** User is connected to spotify, and the player is active */
     hasAux: false,
     currentJukebox: null as IJukebox | null,
-    playerState: null as IPlayerMetaState | null,
-    nextTracks: [] as ITrackMeta[],
+    playerState: null as IPlayerState | null,
+    nextTracks: [] as IQueuedTrack[],
     spotifyAuth: null as ISpotifyAccount | null,
     liveProgress: 0 as number | null,
   },
   reducers: {
-    setPlayerStateReducer: (state, action: { payload: IPlayerMetaState }) => {
+    setPlayerStateReducer: (state, action: { payload: IPlayerState }) => {
       state.playerState = action.payload
     },
-    performPlayerActionReducer: (state, action: { payload: IPlayerAction }) => {
+    performPlayerUpdateReducer: (state, action: { payload: IPlayerUpdate }) => {
       if (!state.playerState?.current_track) return
 
       state.playerState = {
@@ -37,7 +37,7 @@ export const jukeboxSlice = createSlice({
         },
       }
     },
-    setNextTracksReducer: (state, action: { payload: ITrackMeta[] }) => {
+    setNextTracksReducer: (state, action: { payload: IQueuedTrack[] }) => {
       state.nextTracks = action.payload
     },
     setHasAuxReducer: (state, action: { payload: boolean }) => {

@@ -3,7 +3,7 @@ import { TrackItem } from './TrackItem'
 import './TrackList.scss'
 
 export const TrackList = (props: {
-  tracks: ITrackMeta[]
+  tracks: IQueuedTrack[]
   offsetCount?: boolean
   maxCount?: number
 }) => {

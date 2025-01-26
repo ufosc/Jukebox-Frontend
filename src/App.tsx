@@ -11,7 +11,6 @@ import {
 import {
   authenticateLink,
   checkLinkAuth,
-  doPlayerAction,
   fetchCurrentlyPlaying,
   fetchNextTracks,
   incrementLiveProgress,
@@ -19,10 +18,8 @@ import {
   selectPlayerState,
   selectSpotifyAuth,
   setNextTracks,
-  setPlayerState,
   updatePlayerState,
 } from './store'
-import { uniqueId } from './utils'
 
 export const App = () => {
   const spotifyAuth = useSelector(selectSpotifyAuth)
@@ -30,7 +27,7 @@ export const App = () => {
   const storePlayerState = useSelector(selectPlayerState)
   const [initialized, setInitialized] = useState(false)
 
-  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null)
+  const [timer, setTimer] = useState<number | null>(null)
 
   const {
     emitMessage,
@@ -91,14 +88,14 @@ export const App = () => {
   useEffect(() => {
     authenticateLink().then()
     onEvent<IPlayerUpdate>('player-update', (data) => {
-      setPlayerState(data)
+      updatePlayerState(data)
     })
 
-    onEvent<IPlayerAction>('player-action', (data) => {
-      doPlayerAction(data)
+    onEvent<IPlayerUpdate>('player-action', (data) => {
+      updatePlayerState(data)
     })
 
-    onEvent<ITrackMeta[]>('track-queue-update', (data) => {
+    onEvent<IQueuedTrack[]>('track-queue-update', (data) => {
       setNextTracks(data)
     })
   }, [currentJukebox, socketIsConnected])
@@ -111,13 +108,6 @@ export const App = () => {
         return
       }
 
-      updatePlayerState({
-        ...state,
-        current_track: state.current_track && {
-          ...state.current_track,
-          queue_id: uniqueId(),
-        },
-      })
       emitMessage<IPlayerAuxUpdate>('player-aux-update', state)
     },
     [currentJukebox],

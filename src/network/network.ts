@@ -5,7 +5,7 @@ import {
   ClubSchema,
   JukeboxSchema,
   SpotifyAccountSchema,
-  UserSchema,
+  UserDetailsSchema,
 } from 'src/schemas'
 import {
   err,
@@ -158,7 +158,7 @@ export class Network {
     return ok(String(this.token))
   }
 
-  public sendGetUserInfo = async (): Promise<IUser> => {
+  public sendGetUserInfo = async (): Promise<IUserDetails> => {
     if (this.env === 'dev') {
       await sleep(1000)
       return {
@@ -175,7 +175,7 @@ export class Network {
       }
     }
     const res = await this.sendRequest(this.routes.user.details)
-    return UserSchema.parse(res.data)
+    return UserDetailsSchema.parse(res.data)
   }
 
   public async sendGetClubs(): Promise<IClub[]> {
@@ -212,11 +212,12 @@ export class Network {
       return {
         id: 0,
         access_token: String(import.meta.env.VITE_SPOTIFY_ACCESS_TOKEN ?? ''),
+        refresh_token: '',
         user_id: 0,
         spotify_email: 'user@example.com',
         expires_in: 3600,
         token_type: 'Bearer',
-        expires_at: new Date(Date.now() + 1000 * 60 * 60 * 24).getTime(),
+        expires_at: new Date(Date.now() + 1000 * 60 * 60 * 24).toISOString(),
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       }
@@ -279,13 +280,13 @@ export class Network {
     return res.data
   }
 
-  public async sendGetNextTracks(jukeboxId: number): Promise<ITrackMeta[]> {
+  public async sendGetNextTracks(jukeboxId: number): Promise<IQueuedTrack[]> {
     if (this.env === 'dev') {
       await sleep(1000)
       return getRandomSample(mockTrackMetas)
     }
 
-    const res = await this.sendRequest<ITrackMeta[]>(
+    const res = await this.sendRequest<IQueuedTrack[]>(
       this.routes.jukebox.nextTracks(jukeboxId),
     )
 

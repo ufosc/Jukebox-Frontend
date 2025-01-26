@@ -30,28 +30,7 @@ export const userSlice = createSlice({
       state.user = null
     },
     update: (state, action: { payload: { user: IUser } }) => {
-      const {
-        first_name,
-        last_name,
-        email,
-        image,
-        id,
-        username,
-        created_at,
-        updated_at,
-      } = action.payload.user
-
-      state.user = {
-        first_name: first_name ?? state.user?.first_name,
-        last_name: last_name ?? state.user?.last_name,
-        email: email ?? state.user?.email,
-        username: username ?? state.user?.username,
-        image: image ?? state.user?.image,
-        id: id ?? state.user?.id,
-        clubs: [],
-        created_at: created_at,
-        updated_at: updated_at,
-      }
+      state.user = { ...(state.user || {}), ...action.payload.user }
     },
   },
   extraReducers: (builder) => {
