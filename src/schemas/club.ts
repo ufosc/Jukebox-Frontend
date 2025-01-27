@@ -13,8 +13,8 @@ export const ClubMemberSchema: z.ZodSchema<IClubMember> = z.object({
 export const ClubSchema: z.ZodSchema<IClub> = z.object({
   ...ModelSchemaBase,
   name: z.string(),
-  logo: z.string().optional(),
-  members: z.array(ClubMemberSchema),
+  logo: z.string().nullish(),
+  // members: z.array(ClubMemberSchema),
 })
 
 export const ClubInlineSchema = z.object({

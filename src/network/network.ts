@@ -185,7 +185,17 @@ export class Network {
     }
 
     const res = await this.sendRequest(this.routes.club.list)
-    return res.data.map((obj: any) => ClubSchema.parse(obj))
+    console.log('clubs res:', res)
+    const clubs = []
+
+    for (const club of res.data) {
+      console.log('club:', club)
+      clubs.push(ClubSchema.parse(club))
+    }
+
+    // const clubs = res.data.map((obj: any) => ClubSchema.parse(obj))
+    // console.log('clubs returned:', clubs)
+    return clubs
   }
 
   public async sendGetClubInfo(clubId: number): Promise<IClub> {

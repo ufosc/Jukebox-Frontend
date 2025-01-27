@@ -14,6 +14,7 @@ import {
   fetchCurrentlyPlaying,
   fetchNextTracks,
   incrementLiveProgress,
+  selectCurrentClub,
   selectCurrentJukebox,
   selectPlayerState,
   selectSpotifyAuth,
@@ -25,6 +26,8 @@ export const App = () => {
   const spotifyAuth = useSelector(selectSpotifyAuth)
   const currentJukebox = useSelector(selectCurrentJukebox)
   const storePlayerState = useSelector(selectPlayerState)
+  const currentClub = useSelector(selectCurrentClub)
+
   const [initialized, setInitialized] = useState(false)
 
   const [timer, setTimer] = useState<number | null>(null)
@@ -75,6 +78,10 @@ export const App = () => {
 
     return () => clearInterval(timer)
   }, [spotifyAuth])
+
+  useEffect(() => {
+    // TODO: Fetch jukebox
+  }, [currentClub])
 
   // Triggers when the current jukebox changes
   useEffect(() => {

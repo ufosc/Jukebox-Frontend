@@ -100,22 +100,17 @@ export const SpotifyPlayerProvider = (props: {
       const changedTracks =
         spotifyTrack.id !== prev?.current_track?.id || state.position === 0
 
-      onPlayerStateChange({
+      const newState = {
+        ...prev,
         jukebox_id: jukebox?.id,
-        current_track: spotifyTrack,
+        current_track: spotifyTrack.id ? (spotifyTrack as IPlayerTrack) : null,
         progress: state.position,
         is_playing: !state.paused,
         changed_tracks: changedTracks,
-      })
-
-      return {
-        ...prev,
-        jukebox_id: jukebox!.id,
-        current_track: spotifyTrack,
-        is_playing: !state.paused,
-        progress: state.position,
-        default_next_tracks: state.track_window.next_tracks,
       }
+
+      onPlayerStateChange(newState)
+      return newState
     })
     setDeviceId(state.playback_id)
 
