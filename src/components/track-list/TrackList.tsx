@@ -16,11 +16,14 @@ export const TrackList = (props: {
         offsetCount && 'track-list-offset',
       )}
     >
-      {tracks
-        .map(
-          (track) => track && <TrackItem track={track} key={track.queue_id} />,
-        )
-        .splice(0, maxCount ?? tracks.length)}
+      {tracks &&
+        tracks.length > 0 &&
+        tracks
+          .map(
+            (track) =>
+              track && <TrackItem track={track} key={track.queue_id} />,
+          )
+          .splice(0, maxCount ?? tracks.length)}
       {tracks.length < 1 && <p>No tracks available.</p>}
     </ol>
   )

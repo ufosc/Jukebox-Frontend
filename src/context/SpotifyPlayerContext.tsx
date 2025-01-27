@@ -98,12 +98,12 @@ export const SpotifyPlayerProvider = (props: {
 
     setPlayerState((prev) => {
       const changedTracks =
-        spotifyTrack.id !== prev?.current_track?.id || state.position === 0
+        spotifyTrack?.id !== prev?.current_track?.id || state.position === 0
 
       const newState = {
         ...prev,
         jukebox_id: jukebox?.id,
-        current_track: spotifyTrack.id ? (spotifyTrack as IPlayerTrack) : null,
+        current_track: spotifyTrack?.id ? (spotifyTrack as IPlayerTrack) : null,
         progress: state.position,
         is_playing: !state.paused,
         changed_tracks: changedTracks,

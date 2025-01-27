@@ -17,7 +17,8 @@ export const NetworkRoutes = {
     activeLink: (jukeboxId: number) =>
       `${base}/jukebox/${jukeboxId}/active-link/`,
     refreshSpotifyToken: (jukeboxId: number) =>
-      `${base}/jukebox/${jukeboxId}/active-link/?force-refresh=true`,
+      `${base}/jukebox/${jukeboxId}/active-link/`,
+    // `${base}/jukebox/${jukeboxId}/active-link/?force-refresh=true`,
     connectDevice: (jukeboxId: number) =>
       `${base}/jukebox/${jukeboxId}/connect/`,
     playerState: (jukeboxId: number) =>

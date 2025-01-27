@@ -21,8 +21,9 @@ const {
   setNextTracksReducer,
   setHasAuxReducer,
   performPlayerUpdateReducer: updatePlayerStateReducer,
-  setLiveProgressReducer,
   incrementLiveProgressReducer,
+  setProgressReducer,
+  setIsPlayingReducer,
 } = jukeboxActions
 
 export const setPlayerState = (currentlyPlaying: IPlayerState) => {
@@ -33,8 +34,12 @@ export const updatePlayerState = (payload: IPlayerUpdate) => {
   store.dispatch(updatePlayerStateReducer(payload))
 }
 
-export const setLiveProgress = (ms?: number) => {
-  store.dispatch(setLiveProgressReducer({ ms }))
+export const setPlayerProgress = (ms: number) => {
+  store.dispatch(setProgressReducer(ms))
+}
+
+export const setPlayerIsPlaying = (isPlaying: boolean) => {
+  store.dispatch(setIsPlayingReducer(isPlaying))
 }
 
 export const incrementLiveProgress = () => {
