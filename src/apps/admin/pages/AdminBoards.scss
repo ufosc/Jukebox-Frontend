@@ -1,0 +1,42 @@
+.header {
+    font-family: Chango;
+    font-size: 3vh;
+    margin-top: 6vh;
+    margin-bottom: 5vh;
+}
+
+.Board {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.boardImage {
+    width: 100%;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .header {
+        font-size: 2.5vh;
+        margin-top: 4vh;
+        margin-bottom: 3vh;
+    }
+
+    .Board {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        font-size: 2vh;
+        margin-top: 3vh;
+        margin-bottom: 2vh;
+    }
+
+    .boardImage {
+        width: 100%;
+    }
+}

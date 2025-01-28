@@ -1,21 +1,70 @@
 $size: 4rem;
 
 .topbar {
-  // height: 7.7rem;
+  background-color: var(--color-surface-container);
   position: relative;
   width: 100%;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 5;
+
+  &__nav-toggle {
+    position: relative;
+    display: none;
+    
+    @include breakpoint('lg') {
+      display: block;
+    }
+
+    #nav-toggle {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      opacity: 0;
+    }
+
+    &__button__icon {
+      position: relative;
+      margin-top: 50%;
+      transform: translate(0, -50%);
+
+      &,
+      &::before,
+      &::after {
+        width: 3rem;
+        height: 2px;
+        background-color: white;
+        display: inline-block;
+      }
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        transition: all 0.2s;
+      }
+      &::before {
+        top: -0.8rem;
+      }
+      &::after {
+        top: 0.8rem;
+      }
+    }
+  }
 
   &__group-dropdown {
+    --control-width: 225px; // Used in base styles form component
+    
     select {
-      width: 225px;
       padding: 6px;
       border-radius: 500px;
-      background: transparent;
-      border: none;
+      background: inherit;
+      border: 1px solid var(--color-outline-variant);
       color: #b6b1af;
       letter-spacing: 1px;
     }

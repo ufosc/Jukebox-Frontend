@@ -19,7 +19,13 @@ export const Topbar = () => {
 
   return (
     <div className="topbar">
-      <div className="topbar__group-dropdown">
+      <div className="topbar__nav-toggle">
+        <input type="checkbox" name="nav" id="nav-toggle" />
+        <label htmlFor="nav-toggle" className="topbar__nav-toggle__button">
+          <span className="topbar__nav-toggle__button__icon">&nbsp;</span>
+        </label>
+      </div>
+      <div className="topbar__group-dropdown form-select-control">
         <select
           name="current-club"
           id="current-club"

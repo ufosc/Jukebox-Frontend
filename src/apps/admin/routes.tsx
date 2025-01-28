@@ -1,11 +1,15 @@
-import { type RouteObject } from 'react-router-dom'
+import { Navigate, type RouteObject } from 'react-router-dom'
 import { Overview } from './pages'
-import { AdminBoard } from './pages/AdminBoard'
+import { AdminBoards } from './pages/AdminBoards'
 import { Music } from './pages/Music'
 import { MusicQueue } from './pages/MusicQueue'
 import { MusicSearch } from './pages/MusicSearch'
 import { Settings } from './pages/Settings'
 import { SpotifyPlayer } from './pages/SpotifyPlayer'
+import { MemberDetail } from './pages/members/MemberDetail'
+import { MemberNew } from './pages/members/MemberNew'
+import { MembersList } from './pages/members/MembersList'
+import { MembersOverview } from './pages/members/MembersOverview'
 
 export const adminRoutes: RouteObject[] = [
   {
@@ -18,12 +22,16 @@ export const adminRoutes: RouteObject[] = [
   },
   {
     path: 'boards',
-    element: <AdminBoard />,
+    element: <AdminBoards />,
   },
   {
     path: 'music',
     element: <Music />,
     children: [
+      {
+        path: '',
+        element: <Navigate to="queue" />,
+      },
       {
         path: 'search',
         element: <MusicSearch />,
@@ -50,15 +58,22 @@ export const adminRoutes: RouteObject[] = [
   },
   {
     path: 'members',
-    element: <div>Members Overview</div>,
     children: [
       {
-        path: 'all',
-        element: <div>List all members</div>,
+        index: true,
+        element: <MembersOverview />,
+      },
+      {
+        path: 'list',
+        element: <MembersList />,
       },
       {
         path: 'new',
-        element: <div>Add new member</div>,
+        element: <MemberNew />,
+      },
+      {
+        path: ':id',
+        element: <MemberDetail />,
       },
     ],
   },

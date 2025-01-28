@@ -18,6 +18,7 @@
   $border-size-heavy: 0.2rem;
 
   --form-border-color: #{$outline};
+  --control-width: 100%;
 
   background-color: $bg-color;
 
@@ -81,6 +82,8 @@
     transition: inherit;
   }
   &-control {
+    
+    
     padding: 1.5rem $padding-inline;
     border: $border-size solid var(--form-border-color);
     align-self: stretch;
@@ -100,7 +103,8 @@
     // Source: https://blog.logrocket.com/creating-custom-select-dropdown-css/
     position: relative;
     // @include color-role('surface');
-    width: 100%;
+    // width: 100%;
+    width: var(--control-width);
 
     &::before,
     &::after {
