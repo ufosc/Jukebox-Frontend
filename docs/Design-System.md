@@ -7,7 +7,9 @@ Other systems can be viewed here: <https://open-ui.org/design-systems/>
 ## Table of Contents
 
 - [Table of Contents](#table-of-contents)
-- [TLDR](#tldr)
+- [TL;DR](#tldr)
+  - [Color Summary](#color-summary)
+  - [Typography Summary](#typography-summary)
 - [Tokens](#tokens)
   - [Global elements](#global-elements)
   - [Local/scoped elements](#localscoped-elements)
@@ -23,16 +25,26 @@ Other systems can be viewed here: <https://open-ui.org/design-systems/>
   - [Title](#title)
   - [Label](#label)
   - [Body](#body)
+- [Figma Definitions](#figma-definitions)
 
-## TLDR
+## TL;DR
+
+### Color Summary
 
 To use colors that change with light/dark mode:
 
 ```css
 .example-component {
   background-color: var(--color-primary-container);
+  color: var(--color-primary-container-on);
 }
 ```
+
+Main color tokens: `primary`, `secondary`, `tertiary`, `error`, `warning`, `success`.
+
+Common modifiers: `contrast`, `container`, `accent`, `dim`, `bright`
+
+### Typography Summary
 
 Use the predefined typography using SCSS mixins:
 
@@ -44,9 +56,11 @@ Use the predefined typography using SCSS mixins:
 
 .example-component-bold {
   // Uses a custom weight of 600
-  @include font-body('md', 600);
+  @include font-title('md', 600);
 }
 ```
+
+Font groups: `display`, `headline`, `title`, `label`, `body`
 
 ## Tokens
 
@@ -111,7 +125,7 @@ When nesting, elements can be children of their nearest parent, or of a further 
 
 ```html
 <!-- 
-The image and list are shown as a child of nav-bar, despite being nestted inside the group containers. The reasoning is because these elements don't necessarily identify with the group, but with the nav as a whole.
+The image and list are shown as a child of nav-bar, despite being nested inside the group containers. The reasoning is because these elements don't necessarily identify with the group, but with the nav as a whole.
    
 However, the divider element is shown as a child of group because it might not be useful or relevant except as an element inside of a group.
 -->
@@ -420,3 +434,13 @@ Use:
   @include font-body('md', 700);
 }
 ```
+
+## Figma Definitions
+
+These are the Figma definitions of everything as of 1/1/25.
+
+_Color System_
+![Color palettes in figma](./assets/Colors.png)
+
+_Typography System_
+![Typography in figma](./assets/Typography.png)

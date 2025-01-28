@@ -1,14 +1,13 @@
-declare interface IClubMember {
-  id: number
+declare type ClubRole = 'president' | 'officer' | 'member'
+declare interface IClubMember extends IModel {
   user_id: number
   username: string
   owner: boolean
-  role: 'president' | 'officer' | 'member'
+  role: ClubRole
   points: number
 }
 
-declare interface IClub {
-  id: number
+declare interface IClub extends IModel {
   name: string
   logo?: string
   members: IClubMember[]

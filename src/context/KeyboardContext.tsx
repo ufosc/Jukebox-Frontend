@@ -25,7 +25,7 @@ export const KeyboardProvider = (props: { children?: ReactNode }) => {
     left: 'ArrowLeft',
   }
 
-  const deboundedTimeout = 500
+  const debouncedTimeout = 250
 
   const addKeyCb = (key: string, cb: () => void) => {
     if (Object.keys(keyCallbacks).includes(key)) {
@@ -66,7 +66,7 @@ export const KeyboardProvider = (props: { children?: ReactNode }) => {
   ) => {
     if (Object.keys(keyCallbacks).includes(key)) {
       e.preventDefault()
-      const delay = (debounceAction && deboundedTimeout) || 0
+      const delay = (debounceAction && debouncedTimeout) || 0
 
       for (const cb of keyCallbacks[key]) {
         debounce(cb, delay)

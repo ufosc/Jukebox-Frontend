@@ -2,27 +2,35 @@ services:
   ####################################
   # React Client
   ####################################
-  client:
-    build:
-      context: .
-    volumes:
-      - ./src:/app/src
-      - ./.env.network:/app/.env.network
-      - ./vite.config.ts:/app/vite.config.ts
-      
-      - client-dist-jbx:/app/dist
-      
-    ports:
-      - 3000:3000
-    command: npm run network
-      
+  # client:
+  #   build:
+  #     context: .
+  #   volumes:
+  #     - ./src:/app/src
+  #     # - ./.env.network:/app/.env.network
+  #     - ./vite.config.ts:/app/vite.config.ts
+
+  #     - client-dist-jbx:/app/dist
+
+  #     - type: bind
+  #       source: ./.env.network
+  #       target: /app/.env.network
+
+  #   ports:
+  #     - 3000:3000
+  #   command: npm run network
+
   ####################################
   # Server & Network Config
   ####################################
   jukebox:
     restart: always
     image: ikehunter5/jukebox-server:latest
+    # image: jukebox-server-local:latest
+    pull_policy: always
     container_name: jbx-server-fe
+    env_file:
+      - .env.network
     environment:
       - NODE_ENV=network
       - PORT=9000
@@ -30,25 +38,22 @@ services:
       - LOG_LEVEL=debug
       - BASE_URL=http://localhost:8080
 
-      - KAFKA_BROKERS=kafka-jbx-fe:9092
-      
       - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}
       - SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}
-      
+
       - PROXY_URL=http://proxy:8080
       - DB_HOST=jbx-network-db-fe
       - DB_PORT=5432
       - DB_USER=devuser
       - DB_PASS=devpass
       - DB_NAME=devdatabase
-      
+
       - REDIS_HOST=jbx-network-redis-fe
       - REDIS_PORT=6379
     ports:
       - 9000:9000
     depends_on:
       - postgres-jukebox
-      # - kafka
     networks:
       - cluster
     command: npm run start:network
@@ -71,8 +76,9 @@ services:
       - SERVER_URI=jbx-server-fe:9000
       - WEBSOCKET_URI=jbx-server-fe:9000
       - CLUB_MANAGER_URI=club-app-network-fe:9000
+      - PUBLIC_STATIC_URI=jukebox-client-631bab280a434e28995fd3fcafd1fa5a.s3-website-us-east-1.amazonaws.com
     # attach: false
-    
+
   redis:
     image: redis:alpine
     container_name: jbx-network-redis-fe
@@ -81,78 +87,6 @@ services:
     networks:
       - cluster
 
-  # mongodb:
-  #   image: mongo:6.0.9
-  #   restart: always
-  #   container_name: mongo-network-jbx-fe
-  #   ports:
-  #     - 27017:27017
-  #   volumes:
-  #     - mongo-data-fe:/data/db
-  #   environment:
-  #     - MONGO_INITDB_ROOT_USERNAME=root
-  #     - MONGO_INITDB_ROOT_PASSWORD=changeme
-  #   command: mongod --quiet --logpath /dev/null --bind_ip_all
-  #   networks:
-  #     - cluster
-  
-  ####################################
-  # Kafka Config
-  ####################################
-  # zookeeper:
-  #   image: confluentinc/cp-zookeeper:latest
-  #   container_name: zookeeper-jbx-fe
-  #   environment:
-  #     ZOOKEEPER_CLIENT_PORT: 2181
-  #     ZOOKEEPER_TICK_TIME: 2000
-  #   ports:
-  #     - 2181:2181
-  #   networks:
-  #     - cluster
-  #   attach: false
-
-  # kafka:
-  #   image: confluentinc/cp-kafka:latest
-  #   container_name: kafka-jbx-fe
-  #   depends_on:
-  #     - zookeeper
-  #   ports:
-  #     - 9092:9092
-  #     - 29092:29092
-  #   environment:
-  #     KAFKA_BROKER_ID: 1
-  #     KAFKA_ZOOKEEPER_CONNECT: zookeeper-jbx-fe:2181
-  #     KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
-  #     KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-  #     KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-  #     KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-  #     KAFKA_AUTO_CREATE_TOPICS_ENABLE: true
-  #   networks:
-  #     - cluster
-  #   attach: false
-  
-  ####################################
-  # Web Socket Config
-  ####################################
-  # websocket:
-  #   image: ikehunter5/jukebox-websocket:latest
-  #   restart: always
-  #   ports:
-  #     - 9001:9001
-  #   container_name: websocket-jbx-fe
-  #   environment:
-  #     - HOST=0.0.0.0
-  #     - PORT=9001
-  #     - NODE_ENV=network
-  #     - LOG_LEVEL=debug
-  #     - LOG_NS=websocket
-      
-  #     - KAFKA_BROKERS=kafka-jbx-fe:9092
-  #     - KAFKA_GROUP_ID=websocket-jbx
-  #   command: npm run dev:websocket
-  #   networks:
-  #     - cluster
-  
   ####################################
   # Club Manager Config
   ####################################
@@ -169,6 +103,8 @@ services:
              python manage.py migrate &&
              python manage.py init_superuser &&
              entrypoint.sh"
+    env_file:
+      - .env.network
     environment:
       - PORT=9000
       - DJANGO_ENV=dev
@@ -186,7 +122,7 @@ services:
       - postgres-clubs
     networks:
       - cluster
-  
+
   postgres-jukebox:
     image: postgres:13-alpine
     container_name: jbx-network-db-fe

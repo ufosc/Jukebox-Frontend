@@ -12,11 +12,6 @@ export const selectCurrentClub = createSelector(
   (state) => state.currentClub,
 )
 
-export const selectClubSpotifyAuth = createSelector(
-  clubStateSelector,
-  (state) => state.spotifyAuth,
-)
-
 export const selectAllClubs = createSelector(
   clubStateSelector,
   (state) => state.allClubs,
@@ -24,4 +19,9 @@ export const selectAllClubs = createSelector(
 
 export const selectOtherClubs = createSelector(clubStateSelector, (state) =>
   state.allClubs.filter((club) => club.id !== state.currentClub?.id),
+)
+
+export const selectSpotifyAuthExpiration = createSelector(
+  clubStateSelector,
+  (state) => state.spotifyAuth?.expires_at,
 )

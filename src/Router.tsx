@@ -1,10 +1,16 @@
-import { Link, RouterProvider, createBrowserRouter } from 'react-router-dom'
+import {
+  createBrowserRouter,
+  Link,
+  Outlet,
+  RouterProvider,
+} from 'react-router-dom'
 import { App } from 'src/App'
-import { adminOutlet, adminRoutes } from 'src/apps/admin'
+import { adminRoutes, Dashboard } from 'src/apps/admin'
 import { authRoutes } from 'src/apps/auth'
 import { boardsRoutes } from 'src/apps/boards'
 import { membersRoutes } from 'src/apps/members'
 import { publicRoutes } from 'src/apps/public'
+import { AuthGuard } from './components/AuthGuard'
 
 const routes = createBrowserRouter([
   {
@@ -47,11 +53,20 @@ const routes = createBrowserRouter([
       },
       {
         path: 'admin',
-        element: adminOutlet,
+        element: (
+          <AuthGuard>
+            <Dashboard />
+          </AuthGuard>
+        ),
         children: adminRoutes,
       },
       {
         path: 'boards',
+        element: (
+          <AuthGuard>
+            <Outlet />
+          </AuthGuard>
+        ),
         children: boardsRoutes,
       },
       {

@@ -22,12 +22,8 @@
 }
 
 .song-title {
-  @include font-display('sm');
+  @include font-display('xs');
   padding-bottom: 1.5rem;
-
-  &--small {
-    @include font-display('xs');
-  }
 }
 
 .song-queue {
@@ -47,7 +43,18 @@
 
   &__title {
     @include font-headline('xs');
+    padding-bottom: 2rem;
   }
+}
+
+.song-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.song-rec {
+  @include font-body('sm');
+  color: var(--color-label);
 }
 
 .curr-song {
@@ -57,6 +64,8 @@
   border-width: 3px;
   border-style: solid;
   width: 28vh;
+  height: 28vh;
+  object-fit: cover;
 }
 
 ::-webkit-scrollbar {

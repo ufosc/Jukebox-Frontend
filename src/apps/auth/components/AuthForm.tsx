@@ -54,11 +54,11 @@ export const AuthForm = (props: {
   }
 
   useEffect(() => {
-    console.log('new errors:', errors)
+    console.log('new auth errors:', errors)
   }, [errors])
 
   return (
-    <Form onSubmit={handleLoginSubmit}>
+    <Form onSubmit={handleLoginSubmit} className="auth-form">
       <FormSection>
         <FormInputGroup
           label="Email"
@@ -68,6 +68,7 @@ export const AuthForm = (props: {
           disabled={userStatus === 'loading'}
           required
           error={errors.email}
+          className="auth-form__group"
         />
         <FormInputGroup
           label="Password"
@@ -77,8 +78,9 @@ export const AuthForm = (props: {
           disabled={userStatus === 'loading'}
           required
           error={errors.password}
+          className="auth-form__group"
         />
-        <div>
+        <div className="auth-form__group">
           {errors.error && (
             <p className="form-feedback error">{errors.error}</p>
           )}

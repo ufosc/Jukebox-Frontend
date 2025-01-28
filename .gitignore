@@ -3,6 +3,7 @@
 .env
 .env.dev
 .env.network
+_NOTES.md
 
 # dependencies
 /node_modules

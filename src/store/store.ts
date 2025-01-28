@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { clubReducer } from './club'
 import { jukeboxReducer } from './jukebox'
-import { trackReducer } from './track'
 import { userReducer } from './user'
 
 export const store = configureStore({
@@ -9,7 +8,6 @@ export const store = configureStore({
     user: userReducer,
     club: clubReducer,
     jukebox: jukeboxReducer,
-    track: trackReducer,
   },
 })
 

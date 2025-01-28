@@ -19,9 +19,11 @@ export class SpotifyPlayer {
     this.resolvePlayer = resolve
     this.rejectPlayer = reject
     this.playerPromise = promise
+    console.log('init spotify')
 
     this.token = token
     this.connect()
+    // this.setToken(token)
   }
   public static getInstance(): SpotifyPlayer | null
   public static getInstance(token: string): SpotifyPlayer
@@ -31,13 +33,22 @@ export class SpotifyPlayer {
       SpotifyPlayer.instance = new SpotifyPlayer(token)
     }
 
+    SpotifyPlayer.instance.setToken(token)
     return SpotifyPlayer.instance
   }
 
   private connect() {
-    if (this.token === 'YOUR-LONG-TOKEN-HERE') return
+    if (this.token === 'YOUR-LONG-TOKEN-HERE' || !this.token) return
 
-    window.onSpotifyWebPlaybackSDKReady = async () => {
+    if (!window.Spotify) {
+      console.log('added spotify script')
+      const scriptTag = document.createElement('script')
+      scriptTag.src = 'https://sdk.scdn.co/spotify-player.js'
+
+      document.head!.appendChild(scriptTag)
+    }
+
+    window.onSpotifyWebPlaybackSDKReady = () => {
       const player = new Spotify.Player({
         name: SPOTIFY_PLAYER_NAME,
         getOAuthToken: (cb) => {
@@ -54,7 +65,7 @@ export class SpotifyPlayer {
         this.resolvePlayer({ player, deviceId: device_id })
       })
       player.addListener('player_state_changed', (state) => {
-        console.log('Player state changed:', state)
+        console.debug('Player state changed:', state)
       })
 
       // Not Ready
@@ -62,24 +73,17 @@ export class SpotifyPlayer {
         console.log('Device ID has gone offline', device_id)
       })
       player.addListener('initialization_error', ({ message }) => {
-        console.error(message)
+        console.error('Initialization Error:', message)
       })
 
       player.addListener('authentication_error', ({ message }) => {
-        console.error(message)
+        console.error('Authentication Error:', message)
       })
 
       player.addListener('account_error', ({ message }) => {
-        console.error(message)
+        console.error('Account Error:', message)
       })
       player.connect()
-    }
-
-    if (!window.Spotify) {
-      const scriptTag = document.createElement('script')
-      scriptTag.src = 'https://sdk.scdn.co/spotify-player.js'
-
-      document.head!.appendChild(scriptTag)
     }
   }
 
@@ -97,8 +101,10 @@ export class SpotifyPlayer {
     }
   }
 
-  public nextTrack = this.callPlayer('nextTrack')
-  public previousTrack = this.callPlayer('previousTrack')
-  public togglePlay = this.callPlayer('togglePlay')
-  public pause = this.callPlayer('pause')
+  public setToken(token?: string) {
+    if (!token) return
+
+    this.token = token
+    // this.connect()
+  }
 }

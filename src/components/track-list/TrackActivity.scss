@@ -1,0 +1,18 @@
+.track-activity {
+  display: flex;
+  gap: 1rem;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 500;
+    
+    &--likes svg {
+      color: var(--color-success);
+    }
+    &--dislikes svg {
+      color: var(--color-error);
+    }
+  }
+}

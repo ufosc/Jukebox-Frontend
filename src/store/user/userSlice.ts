@@ -1,6 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, isAnyOf } from '@reduxjs/toolkit'
 import { builderDefaults } from 'src/utils'
-import { thunkFetchUserInfo, thunkLoginUser } from './userThunks'
+import {
+  thunkFetchUserInfo,
+  thunkFetchUserToken,
+  thunkLoginUser,
+} from './userThunks'
 
 export const userSlice = createSlice({
   name: 'user',
@@ -27,37 +31,30 @@ export const userSlice = createSlice({
     },
     update: (state, action: { payload: { user: IUser } }) => {
       const {
-        first_name: firstName,
-        last_name: lastName,
+        first_name,
+        last_name,
         email,
         image,
         id,
         username,
+        created_at,
+        updated_at,
       } = action.payload.user
-      const name = `${firstName} ${lastName}`
 
       state.user = {
-        first_name: firstName ?? state.user?.first_name,
-        last_name: lastName ?? state.user?.last_name,
+        first_name: first_name ?? state.user?.first_name,
+        last_name: last_name ?? state.user?.last_name,
         email: email ?? state.user?.email,
         username: username ?? state.user?.username,
         image: image ?? state.user?.image,
         id: id ?? state.user?.id,
         clubs: [],
+        created_at: created_at,
+        updated_at: updated_at,
       }
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(thunkLoginUser.fulfilled, (state, action) => {
-      const res = action.payload
-      if (res.success) {
-        state.token = res.token
-        state.loggedIn = true
-      } else {
-        state.loggedIn = false
-        state.error = res.error || null
-      }
-    })
     builder.addCase(thunkFetchUserInfo.fulfilled, (state, action) => {
       const { user } = action.payload
       state.user = user
@@ -66,6 +63,19 @@ export const userSlice = createSlice({
       state.loggedIn = false
       state.error = action.error.message || null
     })
+    builder.addMatcher(
+      isAnyOf(thunkLoginUser.fulfilled, thunkFetchUserToken.fulfilled),
+      (state, action) => {
+        const res = action.payload
+        if (res.success) {
+          state.token = res.token || null
+          state.loggedIn = true
+        } else {
+          state.loggedIn = false
+          state.error = res.error || null
+        }
+      },
+    )
 
     builderDefaults(builder)
   },
