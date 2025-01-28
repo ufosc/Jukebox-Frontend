@@ -61,14 +61,6 @@ export const setNextTracks = (nextTracks: ITrackMeta[]) => {
 export const fetchJukeboxes = async () => {
   await store.dispatch(thunkFetchJukeboxes())
 }
-
-<<<<<<< HEAD
-
-export const setCurrentJukebox = async () => {
-  //needs to store the current jukebox (state.currentJukebox) here to local storage
-  
-}
-=======
 export const fetchCurrentlyPlaying = async () => {
   const jukeboxId = selectCurrentJukebox(store.getState())?.id
   if (!jukeboxId) return
@@ -140,4 +132,3 @@ export const checkLinkAuth = async () => {
     )
   }
 }
->>>>>>> e5f6f449c37df3f83fe8b6139cbec1ddeb7e32e2

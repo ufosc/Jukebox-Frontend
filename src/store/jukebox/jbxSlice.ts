@@ -50,16 +50,6 @@ export const jukeboxSlice = createSlice({
       state.liveProgress = (state.liveProgress ?? 0) + 1000
     },
   },
-<<<<<<< HEAD
-  reducers: {
-    setCurrentJukeboxReducer: (state, action:{payload:{jukebox : IJukebox}}) =>{
-      state.currentJukebox = action.payload.jukebox;
-    },
-
-
-  },
-=======
->>>>>>> e5f6f449c37df3f83fe8b6139cbec1ddeb7e32e2
   extraReducers: (builder) => {
     builder.addCase(thunkFetchJukeboxes.fulfilled, (state, action) => {
       state.jukeboxes = action.payload

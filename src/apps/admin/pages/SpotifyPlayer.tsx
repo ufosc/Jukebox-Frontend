@@ -55,10 +55,11 @@ export const SpotifyPlayer = () => {
           {!isActive && (
             <div>
               My Accounts
-              <Form onSubmit={handleConnectPlayback}>
+              <Form onSubmit={handleConnectPlayback}> 
                 <FormSelectGroup
                   id="link"
                   ref={connectLinkIdRef}
+                  
                   options={jukeboxLinks?.map((link) => ({
                     label: link.email,
                     value: link.id,
