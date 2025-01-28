@@ -1,4 +1,4 @@
-export const mockTracks: ITrack[] = [
+export const mockTracks: IPlayerTrack[] = [
   {
     uid: '274c57e5-b7b5-4026-a85d-49e12a040b48',
     id: '63ad6cd4-fd23-46b4-9dbd-eb336cefd005',
@@ -22,24 +22,21 @@ export const mockTracks: ITrack[] = [
       {
         uri: 'org.creativecommons.Lotlux',
         name: 'Skipp Reader',
-        url: 'http://statcounter.com/velit/id/pretium.png?cursus=maecenas&vestibulum=rhoncus&proin=aliquam&eu=lacus&mi=morbi&nulla=quis&ac=tortor&enim=id&in=nulla&tempor=ultrices&turpis=aliquet&nec=maecenas&euismod=leo&scelerisque=odio&quam=condimentum&turpis=id&adipiscing=luctus&lorem=nec&vitae=molestie&mattis=sed&nibh=justo&ligula=pellentesque&nec=viverra&sem=pede&duis=ac&aliquam=diam&convallis=cras&nunc=pellentesque&proin=volutpat&at=dui&turpis=maecenas&a=tristique&pede=est',
       },
       {
         uri: 'com.sciencedaily.Stringtough',
         name: 'Caspar Slowgrove',
-        url: 'https://youtu.be/mauris/vulputate/elementum.js?a=aliquet&pede=at&posuere=feugiat&nonummy=non&integer=pretium&non=quis&velit=lectus&donec=suspendisse&diam=potenti&neque=in&vestibulum=eleifend&eget=quam&vulputate=a&ut=odio&ultrices=in&vel=hac&augue=habitasse&vestibulum=platea&ante=dictumst&ipsum=maecenas&primis=ut&in=massa&faucibus=quis',
       },
       {
         uri: 'com.dell.Fixflex',
         name: 'Justino Staite',
-        url: 'https://csmonitor.com/vestibulum/proin/eu/mi.aspx?maecenas=vitae&tristique=nisl&est=aenean&et=lectus&tempus=pellentesque&semper=eget&est=nunc&quam=donec&pharetra=quis&magna=orci&ac=eget&consequat=orci&metus=vehicula&sapien=condimentum&ut=curabitur&nunc=in&vestibulum=libero&ante=ut&ipsum=massa&primis=volutpat&in=convallis&faucibus=morbi&orci=odio&luctus=odio&et=elementum&ultrices=eu&posuere=interdum&cubilia=eu&curae=tincidunt&mauris=in&viverra=leo&diam=maecenas&vitae=pulvinar&quam=lobortis&suspendisse=est&potenti=phasellus&nullam=sit&porttitor=amet&lacus=erat&at=nulla&turpis=tempus&donec=vivamus&posuere=in&metus=felis&vitae=eu&ipsum=sapien&aliquam=cursus&non=vestibulum&mauris=proin&morbi=eu&non=mi&lectus=nulla&aliquam=ac&sit=enim&amet=in&diam=tempor&in=turpis&magna=nec&bibendum=euismod&imperdiet=scelerisque&nullam=quam&orci=turpis&pede=adipiscing&venenatis=lorem&non=vitae&sodales=mattis&sed=nibh&tincidunt=ligula&eu=nec&felis=sem&fusce=duis&posuere=aliquam&felis=convallis&sed=nunc&lacus=proin&morbi=at&sem=turpis&mauris=a&laoreet=pede&ut=posuere&rhoncus=nonummy&aliquet=integer&pulvinar=non&sed=velit&nisl=donec&nunc=diam&rhoncus=neque&dui=vestibulum',
       },
       {
         uri: 'com.walmart.Bigtax',
         name: 'Munroe Millgate',
-        url: 'http://fema.gov/fusce/congue/diam/id.png?felis=venenatis&sed=non&interdum=sodales&venenatis=sed&turpis=tincidunt&enim=eu&blandit=felis&mi=fusce&in=posuere&porttitor=felis&pede=sed&justo=lacus&eu=morbi&massa=sem&donec=mauris&dapibus=laoreet&duis=ut&at=rhoncus&velit=aliquet&eu=pulvinar&est=sed&congue=nisl&elementum=nunc&in=rhoncus&hac=dui&habitasse=vel&platea=sem&dictumst=sed&morbi=sagittis&vestibulum=nam&velit=congue&id=risus&pretium=semper&iaculis=porta&diam=volutpat&erat=quam&fermentum=pede&justo=lobortis&nec=ligula&condimentum=sit&neque=amet&sapien=eleifend&placerat=pede&ante=libero&nulla=quis&justo=orci&aliquam=nullam&quis=molestie&turpis=nibh&eget=in&elit=lectus&sodales=pellentesque&scelerisque=at&mauris=nulla&sit=suspendisse&amet=potenti&eros=cras&suspendisse=in&accumsan=purus&tortor=eu&quis=magna&turpis=vulputate&sed=luctus&ante=cum&vivamus=sociis&tortor=natoque&duis=penatibus&mattis=et&egestas=magnis&metus=dis&aenean=parturient&fermentum=montes&donec=nascetur&ut=ridiculus',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '4bb65897-3d3c-41dd-8b11-54e191cec0b1',
@@ -58,25 +55,19 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'https://home.pl/integer/ac/leo/pellentesque/ultrices/mattis/odio.png?vestibulum=dui&eget=vel&vulputate=sem&ut=sed&ultrices=sagittis&vel=nam&augue=congue&vestibulum=risus&ante=semper&ipsum=porta&primis=volutpat&in=quam&faucibus=pede&orci=lobortis&luctus=ligula&et=sit&ultrices=amet&posuere=eleifend&cubilia=pede&curae=libero&donec=quis&pharetra=orci&magna=nullam&vestibulum=molestie&aliquet=nibh&ultrices=in&erat=lectus&tortor=pellentesque&sollicitudin=at&mi=nulla&sit=suspendisse&amet=potenti&lobortis=cras&sapien=in&sapien=purus&non=eu&mi=magna&integer=vulputate&ac=luctus&neque=cum&duis=sociis&bibendum=natoque&morbi=penatibus&non=et&quam=magnis&nec=dis&dui=parturient&luctus=montes&rutrum=nascetur&nulla=ridiculus&tellus=mus',
       name: 'Internet Yellow Pages',
-      images: [
-        { url: 'http://dummyimage.com/228x100.png/5fa2dd/ffffff' },
-        { url: 'http://dummyimage.com/134x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/149x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/176x100.png/ff4444/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'com.wikia.Y-Solowarm',
         name: 'Curtis Burkert',
-        url: 'https://geocities.com/libero.xml?semper=aliquet&est=maecenas&quam=leo&pharetra=odio&magna=condimentum&ac=id&consequat=luctus&metus=nec&sapien=molestie&ut=sed&nunc=justo&vestibulum=pellentesque&ante=viverra&ipsum=pede&primis=ac&in=diam&faucibus=cras&orci=pellentesque&luctus=volutpat&et=dui&ultrices=maecenas&posuere=tristique',
       },
       {
         uri: 'edu.cornell.Overhold',
         name: 'Natty Nairne',
-        url: 'http://about.com/ipsum/aliquam/non/mauris/morbi.json?nunc=ante&viverra=ipsum',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '5ef33500-d170-4048-acf4-ae6dda78a332',
@@ -95,34 +86,27 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'http://cpanel.net/est/quam/pharetra/magna/ac/consequat.jsp?scelerisque=dui&mauris=vel&sit=nisl&amet=duis&eros=ac&suspendisse=nibh&accumsan=fusce&tortor=lacus&quis=purus&turpis=aliquet&sed=at&ante=feugiat',
       name: 'Appeals',
-      images: [
-        { url: 'http://dummyimage.com/250x100.png/dddddd/000000' },
-        { url: 'http://dummyimage.com/127x100.png/dddddd/000000' },
-        { url: 'http://dummyimage.com/242x100.png/cc0000/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'com.seattletimes.Cardify',
         name: 'Nola Sinkins',
-        url: 'http://comcast.net/erat/vestibulum.jsp?posuere=sit&felis=amet&sed=eleifend&lacus=pede&morbi=libero&sem=quis&mauris=orci&laoreet=nullam&ut=molestie&rhoncus=nibh&aliquet=in&pulvinar=lectus&sed=pellentesque&nisl=at&nunc=nulla&rhoncus=suspendisse&dui=potenti&vel=cras&sem=in&sed=purus&sagittis=eu&nam=magna&congue=vulputate&risus=luctus&semper=cum&porta=sociis&volutpat=natoque&quam=penatibus&pede=et&lobortis=magnis&ligula=dis&sit=parturient&amet=montes&eleifend=nascetur&pede=ridiculus&libero=mus&quis=vivamus&orci=vestibulum&nullam=sagittis&molestie=sapien&nibh=cum&in=sociis&lectus=natoque&pellentesque=penatibus&at=et&nulla=magnis&suspendisse=dis&potenti=parturient&cras=montes&in=nascetur&purus=ridiculus&eu=mus&magna=etiam&vulputate=vel&luctus=augue&cum=vestibulum&sociis=rutrum&natoque=rutrum&penatibus=neque&et=aenean&magnis=auctor&dis=gravida&parturient=sem&montes=praesent&nascetur=id&ridiculus=massa&mus=id&vivamus=nisl&vestibulum=venenatis&sagittis=lacinia&sapien=aenean&cum=sit&sociis=amet&natoque=justo&penatibus=morbi&et=ut&magnis=odio&dis=cras&parturient=mi',
       },
       {
         uri: 'hk.com.google.Viva',
         name: 'Anabelle Radke',
-        url: 'http://spiegel.de/integer/pede/justo/lacinia/eget/tincidunt/eget.js?convallis=a&duis=libero&consequat=nam&dui=dui&nec=proin&nisi=leo&volutpat=odio&eleifend=porttitor&donec=id&ut=consequat&dolor=in&morbi=consequat&vel=ut&lectus=nulla&in=sed&quam=accumsan&fringilla=felis&rhoncus=ut&mauris=at&enim=dolor&leo=quis&rhoncus=odio&sed=consequat',
       },
       {
         uri: 'de.google.Bigtax',
         name: 'Dennie Manderson',
-        url: 'http://netscape.com/eu/est/congue/elementum.png?quis=pharetra&orci=magna&eget=ac&orci=consequat&vehicula=metus&condimentum=sapien&curabitur=ut&in=nunc&libero=vestibulum&ut=ante&massa=ipsum&volutpat=primis&convallis=in&morbi=faucibus&odio=orci&odio=luctus&elementum=et&eu=ultrices&interdum=posuere&eu=cubilia&tincidunt=curae&in=mauris&leo=viverra&maecenas=diam&pulvinar=vitae&lobortis=quam&est=suspendisse&phasellus=potenti&sit=nullam&amet=porttitor&erat=lacus&nulla=at&tempus=turpis&vivamus=donec&in=posuere&felis=metus&eu=vitae&sapien=ipsum&cursus=aliquam&vestibulum=non&proin=mauris&eu=morbi&mi=non&nulla=lectus&ac=aliquam&enim=sit&in=amet&tempor=diam&turpis=in&nec=magna&euismod=bibendum&scelerisque=imperdiet&quam=nullam&turpis=orci&adipiscing=pede&lorem=venenatis&vitae=non&mattis=sodales&nibh=sed&ligula=tincidunt&nec=eu&sem=felis&duis=fusce&aliquam=posuere&convallis=felis',
       },
       {
         uri: 'com.msn.Transcof',
         name: 'Kingsly Stopforth',
-        url: 'http://yelp.com/pellentesque.aspx?nibh=neque&in=duis&hac=bibendum&habitasse=morbi&platea=non&dictumst=quam&aliquam=nec&augue=dui&quam=luctus&sollicitudin=rutrum&vitae=nulla&consectetuer=tellus&eget=in&rutrum=sagittis&at=dui&lorem=vel&integer=nisl&tincidunt=duis&ante=ac&vel=nibh&ipsum=fusce&praesent=lacus&blandit=purus&lacinia=aliquet&erat=at&vestibulum=feugiat&sed=non&magna=pretium&at=quis&nunc=lectus&commodo=suspendisse&placerat=potenti&praesent=in&blandit=eleifend&nam=quam&nulla=a&integer=odio&pede=in&justo=hac&lacinia=habitasse&eget=platea&tincidunt=dictumst&eget=maecenas&tempus=ut&vel=massa&pede=quis&morbi=augue&porttitor=luctus&lorem=tincidunt&id=nulla&ligula=mollis&suspendisse=molestie&ornare=lorem&consequat=quisque&lectus=ut&in=erat&est=curabitur&risus=gravida&auctor=nisi&sed=at&tristique=nibh&in=in&tempus=hac&sit=habitasse',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '3ebfbc3b-2e27-458e-a333-901d9019e6d6',
@@ -141,20 +125,19 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'http://theguardian.com/varius/integer.xml?et=ipsum&tempus=primis&semper=in&est=faucibus&quam=orci&pharetra=luctus&magna=et&ac=ultrices&consequat=posuere&metus=cubilia&sapien=curae&ut=donec&nunc=pharetra&vestibulum=magna&ante=vestibulum&ipsum=aliquet&primis=ultrices&in=erat&faucibus=tortor&orci=sollicitudin&luctus=mi&et=sit&ultrices=amet&posuere=lobortis&cubilia=sapien&curae=sapien&mauris=non&viverra=mi&diam=integer&vitae=ac&quam=neque&suspendisse=duis&potenti=bibendum&nullam=morbi&porttitor=non&lacus=quam&at=nec&turpis=dui&donec=luctus&posuere=rutrum&metus=nulla&vitae=tellus&ipsum=in&aliquam=sagittis&non=dui&mauris=vel&morbi=nisl&non=duis&lectus=ac&aliquam=nibh&sit=fusce&amet=lacus&diam=purus&in=aliquet&magna=at&bibendum=feugiat&imperdiet=non&nullam=pretium&orci=quis&pede=lectus&venenatis=suspendisse&non=potenti&sodales=in&sed=eleifend&tincidunt=quam&eu=a&felis=odio&fusce=in&posuere=hac&felis=habitasse&sed=platea&lacus=dictumst&morbi=maecenas&sem=ut&mauris=massa&laoreet=quis&ut=augue&rhoncus=luctus&aliquet=tincidunt&pulvinar=nulla&sed=mollis&nisl=molestie&nunc=lorem&rhoncus=quisque&dui=ut&vel=erat&sem=curabitur&sed=gravida&sagittis=nisi',
       name: 'Guitar',
-      images: [{ url: 'http://dummyimage.com/151x100.png/5fa2dd/ffffff' }],
+      images: [],
     },
     artists: [
       {
         uri: 'com.discovery.Cardify',
         name: 'Livvyy Hold',
-        url: 'http://tuttocitta.it/mi/sit.aspx?ultrices=in&enim=est&lorem=risus&ipsum=auctor&dolor=sed&sit=tristique&amet=in&consectetuer=tempus&adipiscing=sit&elit=amet&proin=sem&interdum=fusce&mauris=consequat&non=nulla&ligula=nisl&pellentesque=nunc&ultrices=nisl&phasellus=duis&id=bibendum&sapien=felis&in=sed&sapien=interdum&iaculis=venenatis&congue=turpis&vivamus=enim&metus=blandit&arcu=mi&adipiscing=in&molestie=porttitor&hendrerit=pede&at=justo&vulputate=eu&vitae=massa&nisl=donec&aenean=dapibus&lectus=duis&pellentesque=at&eget=velit&nunc=eu&donec=est&quis=congue&orci=elementum&eget=in&orci=hac&vehicula=habitasse&condimentum=platea&curabitur=dictumst&in=morbi&libero=vestibulum&ut=velit&massa=id&volutpat=pretium&convallis=iaculis&morbi=diam&odio=erat',
       },
       {
         uri: 'com.stumbleupon.Hatity',
         name: 'Llewellyn Nicklen',
-        url: 'http://google.nl/mus/etiam/vel.js?felis=amet&sed=diam&interdum=in&venenatis=magna&turpis=bibendum&enim=imperdiet&blandit=nullam&mi=orci&in=pede&porttitor=venenatis&pede=non&justo=sodales&eu=sed&massa=tincidunt&donec=eu&dapibus=felis&duis=fusce&at=posuere&velit=felis&eu=sed&est=lacus&congue=morbi&elementum=sem&in=mauris&hac=laoreet&habitasse=ut&platea=rhoncus&dictumst=aliquet&morbi=pulvinar&vestibulum=sed&velit=nisl&id=nunc&pretium=rhoncus&iaculis=dui',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '3e109792-be9f-4b10-9fa5-4ed27728ce5d',
@@ -173,35 +156,27 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'http://xrea.com/id/ornare/imperdiet/sapien/urna.png?neque=pede&sapien=posuere&placerat=nonummy&ante=integer&nulla=non&justo=velit&aliquam=donec&quis=diam&turpis=neque&eget=vestibulum&elit=eget&sodales=vulputate&scelerisque=ut&mauris=ultrices&sit=vel&amet=augue&eros=vestibulum&suspendisse=ante&accumsan=ipsum&tortor=primis&quis=in&turpis=faucibus&sed=orci&ante=luctus&vivamus=et&tortor=ultrices&duis=posuere&mattis=cubilia&egestas=curae&metus=donec&aenean=pharetra&fermentum=magna&donec=vestibulum&ut=aliquet&mauris=ultrices&eget=erat&massa=tortor&tempor=sollicitudin&convallis=mi&nulla=sit&neque=amet&libero=lobortis&convallis=sapien&eget=sapien&eleifend=non&luctus=mi&ultricies=integer&eu=ac&nibh=neque&quisque=duis&id=bibendum&justo=morbi&sit=non&amet=quam&sapien=nec&dignissim=dui&vestibulum=luctus&vestibulum=rutrum&ante=nulla&ipsum=tellus&primis=in&in=sagittis&faucibus=dui&orci=vel&luctus=nisl&et=duis&ultrices=ac&posuere=nibh&cubilia=fusce&curae=lacus&nulla=purus&dapibus=aliquet&dolor=at&vel=feugiat&est=non&donec=pretium&odio=quis&justo=lectus&sollicitudin=suspendisse&ut=potenti&suscipit=in&a=eleifend&feugiat=quam&et=a&eros=odio&vestibulum=in&ac=hac&est=habitasse&lacinia=platea&nisi=dictumst&venenatis=maecenas&tristique=ut',
       name: 'PCB Design',
-      images: [
-        { url: 'http://dummyimage.com/175x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/162x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/181x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/116x100.png/cc0000/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'com.cnn.Transcof',
         name: 'Norri Neno',
-        url: 'https://bluehost.com/duis/mattis/egestas/metus.jsp?sed=semper&sagittis=interdum&nam=mauris&congue=ullamcorper&risus=purus&semper=sit&porta=amet&volutpat=nulla&quam=quisque&pede=arcu&lobortis=libero&ligula=rutrum&sit=ac&amet=lobortis&eleifend=vel&pede=dapibus&libero=at&quis=diam',
       },
       {
         uri: 'net.behance.Bamity',
         name: 'Enrica Bray',
-        url: 'http://icq.com/varius/ut/blandit/non.png?diam=ut&in=nunc&magna=vestibulum&bibendum=ante&imperdiet=ipsum&nullam=primis&orci=in&pede=faucibus&venenatis=orci&non=luctus&sodales=et&sed=ultrices&tincidunt=posuere&eu=cubilia&felis=curae&fusce=mauris&posuere=viverra&felis=diam&sed=vitae&lacus=quam&morbi=suspendisse&sem=potenti&mauris=nullam&laoreet=porttitor&ut=lacus&rhoncus=at&aliquet=turpis&pulvinar=donec&sed=posuere&nisl=metus&nunc=vitae&rhoncus=ipsum&dui=aliquam',
       },
       {
         uri: 'uk.co.webeden.Domainer',
         name: 'Daveen Bertwistle',
-        url: 'https://amazon.co.uk/felis/sed/interdum/venenatis.js?in=rutrum&lacus=rutrum&curabitur=neque&at=aenean&ipsum=auctor&ac=gravida&tellus=sem&semper=praesent&interdum=id&mauris=massa&ullamcorper=id&purus=nisl&sit=venenatis&amet=lacinia',
       },
       {
         uri: 'com.reverbnation.Redhold',
         name: 'Rebecca Pocock',
-        url: 'http://livejournal.com/pede.js?tristique=aliquet&est=massa&et=id&tempus=lobortis&semper=convallis&est=tortor&quam=risus&pharetra=dapibus&magna=augue&ac=vel&consequat=accumsan&metus=tellus&sapien=nisi&ut=eu&nunc=orci&vestibulum=mauris&ante=lacinia&ipsum=sapien&primis=quis&in=libero&faucibus=nullam&orci=sit&luctus=amet&et=turpis&ultrices=elementum&posuere=ligula&cubilia=vehicula&curae=consequat&mauris=morbi&viverra=a&diam=ipsum&vitae=integer&quam=a&suspendisse=nibh&potenti=in&nullam=quis&porttitor=justo&lacus=maecenas&at=rhoncus&turpis=aliquam&donec=lacus&posuere=morbi&metus=quis&vitae=tortor&ipsum=id&aliquam=nulla&non=ultrices&mauris=aliquet&morbi=maecenas&non=leo&lectus=odio&aliquam=condimentum&sit=id',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: 'c6406a19-df94-484c-a740-3be2a76b4029',
@@ -220,29 +195,23 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'https://apache.org/luctus/tincidunt/nulla/mollis/molestie/lorem/quisque.png?eget=sed&orci=augue&vehicula=aliquam&condimentum=erat&curabitur=volutpat&in=in&libero=congue&ut=etiam&massa=justo&volutpat=etiam&convallis=pretium&morbi=iaculis&odio=justo&odio=in&elementum=hac&eu=habitasse&interdum=platea&eu=dictumst&tincidunt=etiam&in=faucibus&leo=cursus&maecenas=urna&pulvinar=ut&lobortis=tellus&est=nulla&phasellus=ut&sit=erat&amet=id&erat=mauris&nulla=vulputate&tempus=elementum&vivamus=nullam&in=varius&felis=nulla&eu=facilisi&sapien=cras&cursus=non&vestibulum=velit&proin=nec&eu=nisi&mi=vulputate&nulla=nonummy&ac=maecenas&enim=tincidunt&in=lacus&tempor=at&turpis=velit&nec=vivamus&euismod=vel&scelerisque=nulla&quam=eget&turpis=eros&adipiscing=elementum&lorem=pellentesque&vitae=quisque&mattis=porta&nibh=volutpat&ligula=erat&nec=quisque&sem=erat&duis=eros&aliquam=viverra&convallis=eget',
       name: 'LSAT',
-      images: [
-        { url: 'http://dummyimage.com/216x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/245x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/146x100.png/dddddd/000000' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'gov.epa.Bitchip',
         name: 'Frederik Atherley',
-        url: 'http://cloudflare.com/ipsum/primis/in/faucibus/orci/luctus.json?dui=consequat&maecenas=lectus&tristique=in&est=est&et=risus&tempus=auctor&semper=sed&est=tristique&quam=in&pharetra=tempus&magna=sit&ac=amet&consequat=sem&metus=fusce&sapien=consequat&ut=nulla&nunc=nisl&vestibulum=nunc&ante=nisl&ipsum=duis&primis=bibendum&in=felis&faucibus=sed&orci=interdum&luctus=venenatis&et=turpis&ultrices=enim&posuere=blandit&cubilia=mi&curae=in&mauris=porttitor&viverra=pede&diam=justo&vitae=eu&quam=massa&suspendisse=donec&potenti=dapibus&nullam=duis&porttitor=at&lacus=velit&at=eu&turpis=est&donec=congue',
       },
       {
         uri: 'edu.msu.Wrapsafe',
         name: 'Merilyn Sissens',
-        url: 'https://parallels.com/justo/morbi/ut/odio.js?pede=sit&libero=amet&quis=consectetuer&orci=adipiscing&nullam=elit&molestie=proin&nibh=risus&in=praesent&lectus=lectus&pellentesque=vestibulum&at=quam&nulla=sapien&suspendisse=varius&potenti=ut&cras=blandit&in=non&purus=interdum&eu=in&magna=ante&vulputate=vestibulum&luctus=ante&cum=ipsum&sociis=primis&natoque=in&penatibus=faucibus&et=orci&magnis=luctus&dis=et&parturient=ultrices&montes=posuere&nascetur=cubilia&ridiculus=curae&mus=duis&vivamus=faucibus&vestibulum=accumsan&sagittis=odio&sapien=curabitur&cum=convallis&sociis=duis&natoque=consequat&penatibus=dui&et=nec&magnis=nisi&dis=volutpat&parturient=eleifend&montes=donec&nascetur=ut&ridiculus=dolor&mus=morbi&etiam=vel&vel=lectus&augue=in&vestibulum=quam&rutrum=fringilla&rutrum=rhoncus&neque=mauris&aenean=enim&auctor=leo&gravida=rhoncus&sem=sed&praesent=vestibulum&id=sit&massa=amet&id=cursus&nisl=id&venenatis=turpis&lacinia=integer&aenean=aliquet&sit=massa&amet=id&justo=lobortis&morbi=convallis&ut=tortor&odio=risus&cras=dapibus&mi=augue',
       },
       {
         uri: 'edu.nyu.Prodder',
         name: 'Phillida Sambals',
-        url: 'http://buzzfeed.com/pellentesque/ultrices/phasellus/id/sapien/in.aspx?nulla=molestie&nisl=nibh&nunc=in&nisl=lectus&duis=pellentesque&bibendum=at&felis=nulla&sed=suspendisse&interdum=potenti&venenatis=cras&turpis=in&enim=purus&blandit=eu&mi=magna&in=vulputate&porttitor=luctus&pede=cum&justo=sociis&eu=natoque&massa=penatibus&donec=et&dapibus=magnis&duis=dis&at=parturient&velit=montes&eu=nascetur&est=ridiculus&congue=mus&elementum=vivamus&in=vestibulum&hac=sagittis&habitasse=sapien&platea=cum&dictumst=sociis&morbi=natoque&vestibulum=penatibus&velit=et&id=magnis&pretium=dis&iaculis=parturient&diam=montes&erat=nascetur&fermentum=ridiculus&justo=mus&nec=etiam&condimentum=vel&neque=augue&sapien=vestibulum&placerat=rutrum&ante=rutrum&nulla=neque&justo=aenean&aliquam=auctor&quis=gravida&turpis=sem&eget=praesent&elit=id&sodales=massa&scelerisque=id&mauris=nisl&sit=venenatis&amet=lacinia&eros=aenean&suspendisse=sit&accumsan=amet&tortor=justo&quis=morbi&turpis=ut&sed=odio&ante=cras&vivamus=mi&tortor=pede&duis=malesuada&mattis=in&egestas=imperdiet&metus=et&aenean=commodo&fermentum=vulputate&donec=justo&ut=in&mauris=blandit&eget=ultrices&massa=enim&tempor=lorem&convallis=ipsum&nulla=dolor&neque=sit&libero=amet&convallis=consectetuer&eget=adipiscing',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '547a9772-a9de-43cb-9211-d4f43e1d1a01',
@@ -261,25 +230,19 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'https://hexun.com/curabitur/gravida/nisi/at/nibh.json?leo=nisl&maecenas=duis&pulvinar=bibendum&lobortis=felis&est=sed&phasellus=interdum&sit=venenatis&amet=turpis&erat=enim&nulla=blandit&tempus=mi&vivamus=in&in=porttitor&felis=pede&eu=justo&sapien=eu&cursus=massa&vestibulum=donec&proin=dapibus&eu=duis&mi=at&nulla=velit&ac=eu&enim=est&in=congue&tempor=elementum&turpis=in&nec=hac&euismod=habitasse&scelerisque=platea&quam=dictumst&turpis=morbi&adipiscing=vestibulum&lorem=velit&vitae=id&mattis=pretium&nibh=iaculis&ligula=diam&nec=erat&sem=fermentum&duis=justo&aliquam=nec&convallis=condimentum&nunc=neque&proin=sapien&at=placerat&turpis=ante&a=nulla&pede=justo&posuere=aliquam&nonummy=quis&integer=turpis&non=eget&velit=elit&donec=sodales&diam=scelerisque&neque=mauris&vestibulum=sit&eget=amet&vulputate=eros&ut=suspendisse&ultrices=accumsan&vel=tortor&augue=quis&vestibulum=turpis&ante=sed&ipsum=ante&primis=vivamus',
       name: 'CPOE',
-      images: [
-        { url: 'http://dummyimage.com/116x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/248x100.png/dddddd/000000' },
-        { url: 'http://dummyimage.com/110x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/200x100.png/ff4444/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'com.biblegateway.Regrant',
         name: 'Klemens Skullet',
-        url: 'https://sbwire.com/nulla/neque/libero/convallis/eget.jpg?auctor=nunc&gravida=purus&sem=phasellus&praesent=in&id=felis&massa=donec&id=semper&nisl=sapien&venenatis=a&lacinia=libero&aenean=nam&sit=dui',
       },
       {
         uri: 'be.youtu.Trippledex',
         name: 'Brenn Conachy',
-        url: 'http://dion.ne.jp/semper.html?risus=in&auctor=magna&sed=bibendum&tristique=imperdiet&in=nullam&tempus=orci&sit=pede&amet=venenatis&sem=non&fusce=sodales&consequat=sed&nulla=tincidunt&nisl=eu&nunc=felis&nisl=fusce&duis=posuere&bibendum=felis&felis=sed&sed=lacus&interdum=morbi&venenatis=sem&turpis=mauris&enim=laoreet&blandit=ut&mi=rhoncus&in=aliquet&porttitor=pulvinar&pede=sed&justo=nisl&eu=nunc&massa=rhoncus&donec=dui&dapibus=vel&duis=sem&at=sed&velit=sagittis',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: 'd7067af3-f33e-4cc6-9a61-67e680928847',
@@ -298,34 +261,27 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'https://google.ca/purus.json?mus=nec&vivamus=condimentum&vestibulum=neque&sagittis=sapien&sapien=placerat&cum=ante&sociis=nulla&natoque=justo&penatibus=aliquam&et=quis&magnis=turpis&dis=eget&parturient=elit&montes=sodales&nascetur=scelerisque&ridiculus=mauris&mus=sit&etiam=amet&vel=eros&augue=suspendisse&vestibulum=accumsan&rutrum=tortor&rutrum=quis&neque=turpis&aenean=sed&auctor=ante&gravida=vivamus&sem=tortor&praesent=duis&id=mattis&massa=egestas&id=metus&nisl=aenean&venenatis=fermentum&lacinia=donec&aenean=ut&sit=mauris&amet=eget&justo=massa&morbi=tempor&ut=convallis&odio=nulla&cras=neque&mi=libero&pede=convallis&malesuada=eget&in=eleifend&imperdiet=luctus&et=ultricies&commodo=eu&vulputate=nibh&justo=quisque&in=id&blandit=justo&ultrices=sit&enim=amet&lorem=sapien&ipsum=dignissim&dolor=vestibulum&sit=vestibulum&amet=ante&consectetuer=ipsum&adipiscing=primis&elit=in&proin=faucibus&interdum=orci&mauris=luctus&non=et&ligula=ultrices&pellentesque=posuere&ultrices=cubilia&phasellus=curae&id=nulla&sapien=dapibus&in=dolor&sapien=vel&iaculis=est&congue=donec&vivamus=odio&metus=justo&arcu=sollicitudin&adipiscing=ut&molestie=suscipit&hendrerit=a&at=feugiat&vulputate=et&vitae=eros&nisl=vestibulum&aenean=ac&lectus=est',
       name: 'CD Mastering',
-      images: [
-        { url: 'http://dummyimage.com/205x100.png/dddddd/000000' },
-        { url: 'http://dummyimage.com/108x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/107x100.png/dddddd/000000' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'com.businesswire.Greenlam',
         name: 'Rachele Ganley',
-        url: 'https://geocities.com/risus/auctor/sed/tristique/in/tempus/sit.json?duis=lectus&faucibus=pellentesque&accumsan=eget&odio=nunc&curabitur=donec&convallis=quis&duis=orci&consequat=eget&dui=orci&nec=vehicula&nisi=condimentum&volutpat=curabitur&eleifend=in&donec=libero&ut=ut',
       },
       {
         uri: 'com.163.Bigtax',
         name: 'Ephrem Keizman',
-        url: 'https://java.com/a/odio.jsp?vestibulum=consequat&proin=dui&eu=nec&mi=nisi&nulla=volutpat&ac=eleifend&enim=donec&in=ut&tempor=dolor&turpis=morbi&nec=vel&euismod=lectus&scelerisque=in&quam=quam&turpis=fringilla&adipiscing=rhoncus&lorem=mauris&vitae=enim&mattis=leo&nibh=rhoncus&ligula=sed&nec=vestibulum&sem=sit&duis=amet&aliquam=cursus&convallis=id&nunc=turpis&proin=integer&at=aliquet&turpis=massa&a=id&pede=lobortis&posuere=convallis&nonummy=tortor&integer=risus&non=dapibus&velit=augue&donec=vel&diam=accumsan&neque=tellus&vestibulum=nisi&eget=eu&vulputate=orci&ut=mauris&ultrices=lacinia&vel=sapien&augue=quis&vestibulum=libero&ante=nullam&ipsum=sit&primis=amet&in=turpis&faucibus=elementum&orci=ligula&luctus=vehicula&et=consequat&ultrices=morbi&posuere=a&cubilia=ipsum&curae=integer&donec=a&pharetra=nibh&magna=in&vestibulum=quis&aliquet=justo&ultrices=maecenas&erat=rhoncus&tortor=aliquam&sollicitudin=lacus&mi=morbi&sit=quis&amet=tortor&lobortis=id&sapien=nulla&sapien=ultrices&non=aliquet',
       },
       {
         uri: 'co.g.Zamit',
         name: 'Umberto Rollingson',
-        url: 'https://phoca.cz/nulla/pede/ullamcorper/augue/a/suscipit/nulla.xml?a=ante&pede=ipsum&posuere=primis&nonummy=in&integer=faucibus&non=orci&velit=luctus&donec=et&diam=ultrices&neque=posuere&vestibulum=cubilia&eget=curae&vulputate=duis&ut=faucibus&ultrices=accumsan&vel=odio&augue=curabitur&vestibulum=convallis&ante=duis&ipsum=consequat&primis=dui&in=nec&faucibus=nisi&orci=volutpat&luctus=eleifend&et=donec&ultrices=ut&posuere=dolor&cubilia=morbi&curae=vel&donec=lectus&pharetra=in&magna=quam&vestibulum=fringilla&aliquet=rhoncus&ultrices=mauris&erat=enim&tortor=leo&sollicitudin=rhoncus&mi=sed&sit=vestibulum&amet=sit&lobortis=amet&sapien=cursus&sapien=id&non=turpis&mi=integer&integer=aliquet&ac=massa&neque=id&duis=lobortis&bibendum=convallis&morbi=tortor&non=risus&quam=dapibus&nec=augue&dui=vel&luctus=accumsan&rutrum=tellus&nulla=nisi&tellus=eu&in=orci&sagittis=mauris&dui=lacinia&vel=sapien&nisl=quis&duis=libero&ac=nullam&nibh=sit',
       },
       {
         uri: 'com.huffingtonpost.Cardify',
         name: 'Sascha Skingle',
-        url: 'http://arstechnica.com/massa/quis/augue/luctus/tincidunt/nulla.png?sapien=sapien&quis=varius&libero=ut&nullam=blandit&sit=non&amet=interdum&turpis=in&elementum=ante&ligula=vestibulum&vehicula=ante&consequat=ipsum&morbi=primis&a=in&ipsum=faucibus&integer=orci&a=luctus&nibh=et&in=ultrices&quis=posuere&justo=cubilia&maecenas=curae&rhoncus=duis&aliquam=faucibus&lacus=accumsan&morbi=odio&quis=curabitur&tortor=convallis&id=duis&nulla=consequat&ultrices=dui&aliquet=nec&maecenas=nisi&leo=volutpat&odio=eleifend&condimentum=donec&id=ut&luctus=dolor&nec=morbi&molestie=vel&sed=lectus&justo=in&pellentesque=quam&viverra=fringilla&pede=rhoncus&ac=mauris&diam=enim&cras=leo&pellentesque=rhoncus&volutpat=sed&dui=vestibulum&maecenas=sit&tristique=amet&est=cursus&et=id&tempus=turpis&semper=integer&est=aliquet&quam=massa&pharetra=id&magna=lobortis&ac=convallis&consequat=tortor&metus=risus&sapien=dapibus&ut=augue&nunc=vel&vestibulum=accumsan&ante=tellus&ipsum=nisi&primis=eu&in=orci&faucibus=mauris&orci=lacinia&luctus=sapien&et=quis&ultrices=libero&posuere=nullam&cubilia=sit&curae=amet&mauris=turpis&viverra=elementum&diam=ligula&vitae=vehicula&quam=consequat&suspendisse=morbi',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '753c44e5-501c-4e6f-b4d8-88bcdcd44b7c',
@@ -344,15 +300,15 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'http://prweb.com/vestibulum/ante/ipsum/primis.json?sapien=ridiculus&arcu=mus&sed=vivamus&augue=vestibulum&aliquam=sagittis&erat=sapien&volutpat=cum&in=sociis&congue=natoque&etiam=penatibus&justo=et&etiam=magnis&pretium=dis&iaculis=parturient&justo=montes&in=nascetur&hac=ridiculus&habitasse=mus&platea=etiam&dictumst=vel&etiam=augue&faucibus=vestibulum&cursus=rutrum&urna=rutrum&ut=neque&tellus=aenean&nulla=auctor&ut=gravida&erat=sem&id=praesent&mauris=id&vulputate=massa&elementum=id&nullam=nisl&varius=venenatis&nulla=lacinia&facilisi=aenean&cras=sit&non=amet&velit=justo&nec=morbi&nisi=ut&vulputate=odio&nonummy=cras&maecenas=mi&tincidunt=pede&lacus=malesuada&at=in&velit=imperdiet&vivamus=et&vel=commodo&nulla=vulputate&eget=justo&eros=in&elementum=blandit&pellentesque=ultrices&quisque=enim&porta=lorem&volutpat=ipsum&erat=dolor&quisque=sit&erat=amet&eros=consectetuer&viverra=adipiscing&eget=elit&congue=proin&eget=interdum&semper=mauris&rutrum=non&nulla=ligula&nunc=pellentesque&purus=ultrices&phasellus=phasellus&in=id&felis=sapien&donec=in&semper=sapien&sapien=iaculis&a=congue&libero=vivamus&nam=metus&dui=arcu&proin=adipiscing&leo=molestie&odio=hendrerit&porttitor=at&id=vulputate&consequat=vitae&in=nisl&consequat=aenean&ut=lectus&nulla=pellentesque&sed=eget&accumsan=nunc&felis=donec&ut=quis&at=orci&dolor=eget&quis=orci',
       name: 'XNA',
-      images: [{ url: 'http://dummyimage.com/125x100.png/dddddd/000000' }],
+      images: [],
     },
     artists: [
       {
         uri: 'edu.washington.Cardify',
         name: 'Durant Trelease',
-        url: 'http://webmd.com/et.xml?eget=porttitor&elit=lorem&sodales=id&scelerisque=ligula&mauris=suspendisse&sit=ornare&amet=consequat&eros=lectus&suspendisse=in&accumsan=est&tortor=risus&quis=auctor&turpis=sed&sed=tristique&ante=in&vivamus=tempus&tortor=sit&duis=amet&mattis=sem&egestas=fusce&metus=consequat&aenean=nulla&fermentum=nisl&donec=nunc&ut=nisl&mauris=duis&eget=bibendum&massa=felis&tempor=sed&convallis=interdum&nulla=venenatis&neque=turpis&libero=enim&convallis=blandit&eget=mi&eleifend=in&luctus=porttitor&ultricies=pede&eu=justo&nibh=eu&quisque=massa&id=donec&justo=dapibus&sit=duis&amet=at&sapien=velit&dignissim=eu&vestibulum=est&vestibulum=congue&ante=elementum&ipsum=in&primis=hac&in=habitasse&faucibus=platea&orci=dictumst&luctus=morbi&et=vestibulum&ultrices=velit&posuere=id&cubilia=pretium&curae=iaculis&nulla=diam&dapibus=erat&dolor=fermentum&vel=justo&est=nec&donec=condimentum&odio=neque&justo=sapien&sollicitudin=placerat&ut=ante&suscipit=nulla&a=justo&feugiat=aliquam&et=quis&eros=turpis&vestibulum=eget&ac=elit&est=sodales&lacinia=scelerisque&nisi=mauris&venenatis=sit&tristique=amet',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '0d4dd8e2-51bc-49b7-b6c7-f51a2f964168',
@@ -371,31 +327,23 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'https://irs.gov/quis.html?aenean=feugiat&lectus=et&pellentesque=eros&eget=vestibulum&nunc=ac&donec=est&quis=lacinia&orci=nisi&eget=venenatis&orci=tristique&vehicula=fusce&condimentum=congue&curabitur=diam&in=id&libero=ornare&ut=imperdiet&massa=sapien&volutpat=urna&convallis=pretium&morbi=nisl&odio=ut&odio=volutpat&elementum=sapien&eu=arcu&interdum=sed&eu=augue&tincidunt=aliquam&in=erat&leo=volutpat&maecenas=in&pulvinar=congue&lobortis=etiam&est=justo&phasellus=etiam&sit=pretium&amet=iaculis&erat=justo&nulla=in&tempus=hac&vivamus=habitasse&in=platea&felis=dictumst&eu=etiam&sapien=faucibus&cursus=cursus&vestibulum=urna&proin=ut&eu=tellus&mi=nulla&nulla=ut&ac=erat&enim=id&in=mauris&tempor=vulputate&turpis=elementum&nec=nullam&euismod=varius&scelerisque=nulla&quam=facilisi&turpis=cras&adipiscing=non&lorem=velit&vitae=nec&mattis=nisi&nibh=vulputate&ligula=nonummy&nec=maecenas&sem=tincidunt&duis=lacus&aliquam=at&convallis=velit&nunc=vivamus&proin=vel&at=nulla&turpis=eget&a=eros&pede=elementum&posuere=pellentesque&nonummy=quisque&integer=porta&non=volutpat&velit=erat&donec=quisque&diam=erat&neque=eros&vestibulum=viverra&eget=eget&vulputate=congue&ut=eget&ultrices=semper&vel=rutrum&augue=nulla&vestibulum=nunc&ante=purus&ipsum=phasellus&primis=in&in=felis&faucibus=donec',
       name: 'OTDR',
-      images: [
-        { url: 'http://dummyimage.com/188x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/111x100.png/dddddd/000000' },
-        { url: 'http://dummyimage.com/137x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/231x100.png/dddddd/000000' },
-        { url: 'http://dummyimage.com/184x100.png/ff4444/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'com.hostgator.Otcom',
         name: 'Sasha Benedite',
-        url: 'https://about.me/proin/leo/odio/porttitor/id/consequat/in.aspx?venenatis=justo&non=in&sodales=hac&sed=habitasse&tincidunt=platea&eu=dictumst&felis=etiam&fusce=faucibus&posuere=cursus&felis=urna',
       },
       {
         uri: 'org.redcross.Subin',
         name: 'Astra Bertelmot',
-        url: 'http://slashdot.org/leo/pellentesque/ultrices/mattis/odio/donec/vitae.jsp?aliquet=nascetur&pulvinar=ridiculus&sed=mus&nisl=etiam&nunc=vel&rhoncus=augue&dui=vestibulum&vel=rutrum&sem=rutrum&sed=neque&sagittis=aenean&nam=auctor&congue=gravida&risus=sem&semper=praesent&porta=id&volutpat=massa&quam=id&pede=nisl&lobortis=venenatis&ligula=lacinia&sit=aenean&amet=sit&eleifend=amet&pede=justo&libero=morbi&quis=ut&orci=odio&nullam=cras&molestie=mi&nibh=pede&in=malesuada&lectus=in&pellentesque=imperdiet&at=et&nulla=commodo&suspendisse=vulputate&potenti=justo&cras=in&in=blandit&purus=ultrices&eu=enim&magna=lorem&vulputate=ipsum&luctus=dolor&cum=sit&sociis=amet&natoque=consectetuer&penatibus=adipiscing&et=elit&magnis=proin&dis=interdum&parturient=mauris&montes=non&nascetur=ligula&ridiculus=pellentesque&mus=ultrices&vivamus=phasellus&vestibulum=id&sagittis=sapien&sapien=in&cum=sapien&sociis=iaculis&natoque=congue&penatibus=vivamus&et=metus&magnis=arcu&dis=adipiscing&parturient=molestie&montes=hendrerit&nascetur=at&ridiculus=vulputate&mus=vitae&etiam=nisl&vel=aenean&augue=lectus&vestibulum=pellentesque&rutrum=eget&rutrum=nunc&neque=donec&aenean=quis&auctor=orci&gravida=eget&sem=orci&praesent=vehicula&id=condimentum&massa=curabitur&id=in&nisl=libero&venenatis=ut&lacinia=massa&aenean=volutpat&sit=convallis&amet=morbi&justo=odio',
       },
       {
         uri: 'org.drupal.Temp',
         name: 'Clara Sonner',
-        url: 'https://biblegateway.com/vestibulum/quam/sapien/varius/ut/blandit.jpg?consequat=nunc&varius=proin&integer=at&ac=turpis&leo=a&pellentesque=pede&ultrices=posuere&mattis=nonummy&odio=integer&donec=non&vitae=velit&nisi=donec&nam=diam&ultrices=neque&libero=vestibulum&non=eget&mattis=vulputate&pulvinar=ut&nulla=ultrices&pede=vel&ullamcorper=augue&augue=vestibulum&a=ante&suscipit=ipsum&nulla=primis&elit=in&ac=faucibus&nulla=orci&sed=luctus&vel=et&enim=ultrices&sit=posuere&amet=cubilia&nunc=curae&viverra=donec&dapibus=pharetra&nulla=magna&suscipit=vestibulum&ligula=aliquet&in=ultrices&lacus=erat&curabitur=tortor&at=sollicitudin&ipsum=mi&ac=sit&tellus=amet&semper=lobortis&interdum=sapien&mauris=sapien&ullamcorper=non&purus=mi&sit=integer&amet=ac&nulla=neque&quisque=duis&arcu=bibendum&libero=morbi&rutrum=non&ac=quam&lobortis=nec',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '9483ae45-f9a5-4827-ae63-92a6b1586b43',
@@ -414,26 +362,19 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'http://a8.net/ornare/consequat/lectus/in/est/risus/auctor.aspx?duis=phasellus&aliquam=sit&convallis=amet&nunc=erat&proin=nulla&at=tempus&turpis=vivamus&a=in&pede=felis&posuere=eu&nonummy=sapien&integer=cursus&non=vestibulum&velit=proin&donec=eu&diam=mi&neque=nulla&vestibulum=ac&eget=enim&vulputate=in&ut=tempor&ultrices=turpis&vel=nec&augue=euismod&vestibulum=scelerisque&ante=quam&ipsum=turpis&primis=adipiscing&in=lorem&faucibus=vitae&orci=mattis&luctus=nibh&et=ligula&ultrices=nec&posuere=sem&cubilia=duis&curae=aliquam&donec=convallis&pharetra=nunc&magna=proin&vestibulum=at&aliquet=turpis&ultrices=a&erat=pede&tortor=posuere&sollicitudin=nonummy&mi=integer&sit=non&amet=velit&lobortis=donec&sapien=diam&sapien=neque&non=vestibulum&mi=eget&integer=vulputate&ac=ut&neque=ultrices&duis=vel&bibendum=augue&morbi=vestibulum&non=ante&quam=ipsum&nec=primis&dui=in&luctus=faucibus',
       name: 'Mac OS',
-      images: [
-        { url: 'http://dummyimage.com/155x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/154x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/217x100.png/dddddd/000000' },
-        { url: 'http://dummyimage.com/194x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/198x100.png/5fa2dd/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'com.tmall.Konklab',
         name: 'Melonie Willimot',
-        url: 'http://marriott.com/amet/eleifend/pede/libero/quis.js?nisi=rhoncus&nam=sed&ultrices=vestibulum&libero=sit&non=amet&mattis=cursus&pulvinar=id&nulla=turpis&pede=integer&ullamcorper=aliquet&augue=massa&a=id&suscipit=lobortis&nulla=convallis&elit=tortor&ac=risus&nulla=dapibus&sed=augue&vel=vel&enim=accumsan&sit=tellus&amet=nisi&nunc=eu&viverra=orci&dapibus=mauris&nulla=lacinia&suscipit=sapien&ligula=quis&in=libero&lacus=nullam&curabitur=sit&at=amet&ipsum=turpis&ac=elementum&tellus=ligula&semper=vehicula&interdum=consequat&mauris=morbi',
       },
       {
         uri: 'edu.uiuc.Greenlam',
         name: 'Fernandina Treversh',
-        url: 'http://blinklist.com/dictumst.js?donec=habitasse&posuere=platea&metus=dictumst&vitae=maecenas&ipsum=ut&aliquam=massa&non=quis&mauris=augue&morbi=luctus&non=tincidunt&lectus=nulla&aliquam=mollis&sit=molestie&amet=lorem&diam=quisque&in=ut&magna=erat&bibendum=curabitur&imperdiet=gravida&nullam=nisi&orci=at&pede=nibh&venenatis=in&non=hac&sodales=habitasse&sed=platea&tincidunt=dictumst&eu=aliquam&felis=augue&fusce=quam&posuere=sollicitudin&felis=vitae&sed=consectetuer&lacus=eget&morbi=rutrum&sem=at&mauris=lorem&laoreet=integer&ut=tincidunt&rhoncus=ante&aliquet=vel&pulvinar=ipsum&sed=praesent&nisl=blandit&nunc=lacinia&rhoncus=erat&dui=vestibulum&vel=sed&sem=magna&sed=at&sagittis=nunc&nam=commodo&congue=placerat&risus=praesent&semper=blandit&porta=nam&volutpat=nulla&quam=integer&pede=pede&lobortis=justo&ligula=lacinia&sit=eget&amet=tincidunt&eleifend=eget&pede=tempus&libero=vel&quis=pede&orci=morbi&nullam=porttitor&molestie=lorem&nibh=id&in=ligula&lectus=suspendisse&pellentesque=ornare&at=consequat&nulla=lectus&suspendisse=in&potenti=est&cras=risus&in=auctor&purus=sed&eu=tristique&magna=in&vulputate=tempus&luctus=sit&cum=amet&sociis=sem&natoque=fusce&penatibus=consequat&et=nulla&magnis=nisl&dis=nunc&parturient=nisl&montes=duis',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '0dacb149-02aa-4bb2-a560-6d55b3a0af79',
@@ -458,19 +399,17 @@ export const mockTracks: ITrack[] = [
       {
         uri: 'cn.gov.miibeian.Zoolab',
         name: 'Hally Verrell',
-        url: 'https://com.com/maecenas/leo.xml?risus=ut&praesent=blandit&lectus=non&vestibulum=interdum&quam=in&sapien=ante&varius=vestibulum&ut=ante&blandit=ipsum&non=primis&interdum=in&in=faucibus&ante=orci&vestibulum=luctus&ante=et&ipsum=ultrices&primis=posuere&in=cubilia&faucibus=curae&orci=duis&luctus=faucibus&et=accumsan&ultrices=odio&posuere=curabitur&cubilia=convallis&curae=duis&duis=consequat&faucibus=dui&accumsan=nec&odio=nisi&curabitur=volutpat&convallis=eleifend&duis=donec&consequat=ut&dui=dolor&nec=morbi&nisi=vel&volutpat=lectus&eleifend=in&donec=quam&ut=fringilla&dolor=rhoncus&morbi=mauris&vel=enim&lectus=leo&in=rhoncus&quam=sed&fringilla=vestibulum&rhoncus=sit&mauris=amet&enim=cursus&leo=id&rhoncus=turpis&sed=integer&vestibulum=aliquet&sit=massa&amet=id&cursus=lobortis&id=convallis&turpis=tortor&integer=risus&aliquet=dapibus&massa=augue&id=vel&lobortis=accumsan&convallis=tellus&tortor=nisi&risus=eu&dapibus=orci&augue=mauris&vel=lacinia&accumsan=sapien&tellus=quis&nisi=libero&eu=nullam&orci=sit&mauris=amet&lacinia=turpis&sapien=elementum&quis=ligula&libero=vehicula&nullam=consequat&sit=morbi&amet=a&turpis=ipsum&elementum=integer&ligula=a&vehicula=nibh',
       },
       {
         uri: 'com.amazon.Zathin',
         name: 'Homer Davenhill',
-        url: 'https://xing.com/vestibulum/eget.png?nisl=vivamus&nunc=in&nisl=felis&duis=eu&bibendum=sapien&felis=cursus&sed=vestibulum&interdum=proin&venenatis=eu&turpis=mi&enim=nulla&blandit=ac&mi=enim&in=in&porttitor=tempor&pede=turpis&justo=nec&eu=euismod&massa=scelerisque&donec=quam&dapibus=turpis&duis=adipiscing&at=lorem&velit=vitae&eu=mattis&est=nibh&congue=ligula&elementum=nec&in=sem&hac=duis&habitasse=aliquam&platea=convallis&dictumst=nunc&morbi=proin&vestibulum=at&velit=turpis&id=a&pretium=pede&iaculis=posuere&diam=nonummy&erat=integer&fermentum=non&justo=velit&nec=donec&condimentum=diam&neque=neque&sapien=vestibulum&placerat=eget&ante=vulputate&nulla=ut&justo=ultrices&aliquam=vel&quis=augue&turpis=vestibulum&eget=ante&elit=ipsum&sodales=primis&scelerisque=in&mauris=faucibus&sit=orci&amet=luctus&eros=et&suspendisse=ultrices&accumsan=posuere&tortor=cubilia&quis=curae&turpis=donec&sed=pharetra&ante=magna&vivamus=vestibulum&tortor=aliquet&duis=ultrices&mattis=erat&egestas=tortor&metus=sollicitudin&aenean=mi&fermentum=sit&donec=amet&ut=lobortis&mauris=sapien&eget=sapien&massa=non&tempor=mi&convallis=integer&nulla=ac&neque=neque&libero=duis&convallis=bibendum&eget=morbi&eleifend=non',
       },
       {
         uri: 'it.google.Prodder',
         name: 'Elysia Ioannou',
-        url: 'http://miitbeian.gov.cn/porttitor.js?amet=nullam&sem=sit&fusce=amet&consequat=turpis&nulla=elementum&nisl=ligula&nunc=vehicula&nisl=consequat&duis=morbi&bibendum=a&felis=ipsum&sed=integer&interdum=a&venenatis=nibh&turpis=in&enim=quis&blandit=justo&mi=maecenas&in=rhoncus&porttitor=aliquam&pede=lacus&justo=morbi&eu=quis&massa=tortor&donec=id&dapibus=nulla&duis=ultrices&at=aliquet&velit=maecenas&eu=leo&est=odio&congue=condimentum&elementum=id&in=luctus&hac=nec&habitasse=molestie&platea=sed&dictumst=justo&morbi=pellentesque&vestibulum=viverra&velit=pede&id=ac&pretium=diam&iaculis=cras&diam=pellentesque&erat=volutpat&fermentum=dui&justo=maecenas&nec=tristique&condimentum=est&neque=et&sapien=tempus&placerat=semper&ante=est',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '80feab8d-01b1-4431-b73f-141307a4bdeb',
@@ -489,28 +428,23 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'http://dailymail.co.uk/in.jsp?orci=varius&luctus=integer&et=ac&ultrices=leo&posuere=pellentesque&cubilia=ultrices&curae=mattis&mauris=odio&viverra=donec&diam=vitae&vitae=nisi&quam=nam&suspendisse=ultrices&potenti=libero&nullam=non&porttitor=mattis&lacus=pulvinar&at=nulla&turpis=pede&donec=ullamcorper&posuere=augue&metus=a&vitae=suscipit&ipsum=nulla&aliquam=elit&non=ac&mauris=nulla&morbi=sed&non=vel&lectus=enim&aliquam=sit&sit=amet&amet=nunc',
       name: 'MBOX',
-      images: [
-        { url: 'http://dummyimage.com/171x100.png/5fa2dd/ffffff' },
-        { url: 'http://dummyimage.com/189x100.png/cc0000/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'com.acquirethisname.Lotlux',
         name: 'Creight Yeates',
-        url: 'http://psu.edu/elementum/pellentesque.js?et=donec&commodo=ut&vulputate=dolor&justo=morbi&in=vel&blandit=lectus&ultrices=in&enim=quam&lorem=fringilla&ipsum=rhoncus&dolor=mauris&sit=enim&amet=leo&consectetuer=rhoncus&adipiscing=sed&elit=vestibulum&proin=sit&interdum=amet&mauris=cursus&non=id&ligula=turpis&pellentesque=integer&ultrices=aliquet&phasellus=massa&id=id&sapien=lobortis&in=convallis&sapien=tortor&iaculis=risus&congue=dapibus&vivamus=augue&metus=vel&arcu=accumsan&adipiscing=tellus&molestie=nisi&hendrerit=eu&at=orci&vulputate=mauris&vitae=lacinia&nisl=sapien&aenean=quis&lectus=libero&pellentesque=nullam&eget=sit&nunc=amet&donec=turpis&quis=elementum&orci=ligula&eget=vehicula&orci=consequat&vehicula=morbi&condimentum=a&curabitur=ipsum&in=integer&libero=a&ut=nibh&massa=in&volutpat=quis&convallis=justo&morbi=maecenas&odio=rhoncus&odio=aliquam&elementum=lacus&eu=morbi&interdum=quis&eu=tortor&tincidunt=id&in=nulla&leo=ultrices&maecenas=aliquet&pulvinar=maecenas&lobortis=leo&est=odio&phasellus=condimentum&sit=id&amet=luctus&erat=nec&nulla=molestie&tempus=sed',
       },
       {
         uri: 'com.nationalgeographic.Bytecard',
         name: 'Michail Dulany',
-        url: 'http://about.com/risus/auctor/sed/tristique/in/tempus/sit.png?ac=sit&consequat=amet&metus=sapien&sapien=dignissim&ut=vestibulum&nunc=vestibulum&vestibulum=ante&ante=ipsum&ipsum=primis&primis=in&in=faucibus&faucibus=orci&orci=luctus&luctus=et&et=ultrices&ultrices=posuere&posuere=cubilia&cubilia=curae&curae=nulla&mauris=dapibus&viverra=dolor&diam=vel&vitae=est&quam=donec&suspendisse=odio&potenti=justo&nullam=sollicitudin&porttitor=ut&lacus=suscipit&at=a&turpis=feugiat&donec=et&posuere=eros&metus=vestibulum&vitae=ac&ipsum=est&aliquam=lacinia&non=nisi&mauris=venenatis&morbi=tristique&non=fusce&lectus=congue&aliquam=diam&sit=id&amet=ornare&diam=imperdiet&in=sapien&magna=urna&bibendum=pretium&imperdiet=nisl&nullam=ut&orci=volutpat&pede=sapien&venenatis=arcu&non=sed&sodales=augue',
       },
       {
         uri: 'edu.washington.Bitwolf',
         name: 'Broderic Trousdale',
-        url: 'http://accuweather.com/nullam.json?est=in&donec=lectus&odio=pellentesque&justo=at&sollicitudin=nulla&ut=suspendisse&suscipit=potenti&a=cras&feugiat=in&et=purus&eros=eu&vestibulum=magna&ac=vulputate&est=luctus&lacinia=cum&nisi=sociis&venenatis=natoque&tristique=penatibus&fusce=et&congue=magnis&diam=dis&id=parturient&ornare=montes&imperdiet=nascetur&sapien=ridiculus&urna=mus&pretium=vivamus&nisl=vestibulum&ut=sagittis&volutpat=sapien&sapien=cum&arcu=sociis&sed=natoque&augue=penatibus&aliquam=et&erat=magnis&volutpat=dis&in=parturient&congue=montes&etiam=nascetur&justo=ridiculus&etiam=mus&pretium=etiam&iaculis=vel&justo=augue&in=vestibulum&hac=rutrum&habitasse=rutrum&platea=neque&dictumst=aenean&etiam=auctor',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '7dc42b67-3943-4d82-8c92-5793d85ec88f',
@@ -529,25 +463,19 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'http://weather.com/lorem/vitae.html?urna=vestibulum&pretium=ante&nisl=ipsum&ut=primis&volutpat=in&sapien=faucibus&arcu=orci&sed=luctus&augue=et&aliquam=ultrices&erat=posuere&volutpat=cubilia&in=curae&congue=duis&etiam=faucibus&justo=accumsan&etiam=odio&pretium=curabitur&iaculis=convallis&justo=duis&in=consequat&hac=dui&habitasse=nec&platea=nisi&dictumst=volutpat&etiam=eleifend&faucibus=donec&cursus=ut&urna=dolor&ut=morbi&tellus=vel&nulla=lectus&ut=in&erat=quam&id=fringilla&mauris=rhoncus&vulputate=mauris&elementum=enim&nullam=leo&varius=rhoncus&nulla=sed&facilisi=vestibulum',
       name: 'Smartphones',
-      images: [
-        { url: 'http://dummyimage.com/240x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/243x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/135x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/244x100.png/5fa2dd/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'org.mozilla.Temp',
         name: 'Norina Makey',
-        url: 'https://devhub.com/convallis/morbi.json?morbi=sapien&porttitor=ut&lorem=nunc&id=vestibulum&ligula=ante&suspendisse=ipsum&ornare=primis&consequat=in&lectus=faucibus&in=orci&est=luctus&risus=et&auctor=ultrices&sed=posuere',
       },
       {
         uri: 'com.businessinsider.Zamit',
         name: 'Kevon Djorevic',
-        url: 'http://homestead.com/fermentum.png?vestibulum=massa',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: 'da572215-075d-4acc-a6ea-435e344fff70',
@@ -566,15 +494,15 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'https://dmoz.org/id/mauris.jsp?tincidunt=pharetra&ante=magna&vel=ac&ipsum=consequat&praesent=metus&blandit=sapien&lacinia=ut&erat=nunc&vestibulum=vestibulum&sed=ante&magna=ipsum&at=primis&nunc=in&commodo=faucibus&placerat=orci&praesent=luctus&blandit=et&nam=ultrices&nulla=posuere&integer=cubilia&pede=curae&justo=mauris&lacinia=viverra&eget=diam&tincidunt=vitae&eget=quam&tempus=suspendisse&vel=potenti&pede=nullam&morbi=porttitor&porttitor=lacus&lorem=at&id=turpis&ligula=donec&suspendisse=posuere&ornare=metus&consequat=vitae&lectus=ipsum&in=aliquam&est=non&risus=mauris&auctor=morbi&sed=non&tristique=lectus&in=aliquam&tempus=sit&sit=amet&amet=diam&sem=in&fusce=magna&consequat=bibendum&nulla=imperdiet&nisl=nullam&nunc=orci&nisl=pede&duis=venenatis&bibendum=non&felis=sodales&sed=sed&interdum=tincidunt&venenatis=eu&turpis=felis&enim=fusce&blandit=posuere&mi=felis&in=sed&porttitor=lacus&pede=morbi&justo=sem&eu=mauris',
       name: 'Hospitality',
-      images: [{ url: 'http://dummyimage.com/103x100.png/dddddd/000000' }],
+      images: [],
     },
     artists: [
       {
         uri: 'com.bloomberg.Andalax',
         name: 'Jehu Braham',
-        url: 'http://oracle.com/nisi/volutpat/eleifend/donec/ut/dolor/morbi.jsp?pede=nulla&justo=integer&lacinia=pede&eget=justo&tincidunt=lacinia&eget=eget&tempus=tincidunt&vel=eget&pede=tempus&morbi=vel&porttitor=pede&lorem=morbi&id=porttitor&ligula=lorem&suspendisse=id&ornare=ligula&consequat=suspendisse&lectus=ornare&in=consequat&est=lectus&risus=in&auctor=est&sed=risus&tristique=auctor&in=sed&tempus=tristique&sit=in&amet=tempus&sem=sit&fusce=amet&consequat=sem&nulla=fusce&nisl=consequat&nunc=nulla&nisl=nisl&duis=nunc&bibendum=nisl&felis=duis&sed=bibendum&interdum=felis&venenatis=sed&turpis=interdum&enim=venenatis&blandit=turpis&mi=enim&in=blandit&porttitor=mi&pede=in&justo=porttitor&eu=pede&massa=justo&donec=eu&dapibus=massa&duis=donec&at=dapibus&velit=duis&eu=at&est=velit&congue=eu&elementum=est&in=congue&hac=elementum&habitasse=in&platea=hac&dictumst=habitasse&morbi=platea&vestibulum=dictumst&velit=morbi&id=vestibulum&pretium=velit&iaculis=id&diam=pretium&erat=iaculis&fermentum=diam&justo=erat&nec=fermentum&condimentum=justo&neque=nec&sapien=condimentum&placerat=neque&ante=sapien&nulla=placerat&justo=ante&aliquam=nulla&quis=justo&turpis=aliquam&eget=quis&elit=turpis',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '19c8d204-2726-4da8-aeb9-099327fb17b0',
@@ -593,20 +521,19 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'https://mozilla.org/platea/dictumst/etiam/faucibus.aspx?lobortis=quis&ligula=lectus&sit=suspendisse&amet=potenti&eleifend=in&pede=eleifend&libero=quam&quis=a&orci=odio&nullam=in&molestie=hac&nibh=habitasse&in=platea&lectus=dictumst&pellentesque=maecenas&at=ut&nulla=massa&suspendisse=quis&potenti=augue&cras=luctus&in=tincidunt&purus=nulla&eu=mollis&magna=molestie&vulputate=lorem&luctus=quisque&cum=ut&sociis=erat&natoque=curabitur&penatibus=gravida&et=nisi&magnis=at&dis=nibh&parturient=in&montes=hac&nascetur=habitasse&ridiculus=platea&mus=dictumst&vivamus=aliquam&vestibulum=augue&sagittis=quam&sapien=sollicitudin&cum=vitae&sociis=consectetuer&natoque=eget&penatibus=rutrum&et=at&magnis=lorem&dis=integer&parturient=tincidunt&montes=ante&nascetur=vel&ridiculus=ipsum&mus=praesent&etiam=blandit&vel=lacinia&augue=erat&vestibulum=vestibulum&rutrum=sed&rutrum=magna&neque=at&aenean=nunc&auctor=commodo&gravida=placerat&sem=praesent&praesent=blandit&id=nam&massa=nulla&id=integer&nisl=pede&venenatis=justo&lacinia=lacinia&aenean=eget&sit=tincidunt&amet=eget&justo=tempus&morbi=vel&ut=pede&odio=morbi&cras=porttitor&mi=lorem&pede=id&malesuada=ligula&in=suspendisse&imperdiet=ornare&et=consequat&commodo=lectus&vulputate=in&justo=est&in=risus&blandit=auctor&ultrices=sed',
       name: 'TL1',
-      images: [{ url: 'http://dummyimage.com/101x100.png/dddddd/000000' }],
+      images: [],
     },
     artists: [
       {
         uri: 'cz.phoca.Fintone',
         name: 'Si Endrizzi',
-        url: 'https://dyndns.org/quisque.html?adipiscing=mattis&lorem=nibh&vitae=ligula&mattis=nec&nibh=sem&ligula=duis&nec=aliquam&sem=convallis&duis=nunc&aliquam=proin&convallis=at&nunc=turpis&proin=a&at=pede&turpis=posuere&a=nonummy&pede=integer&posuere=non&nonummy=velit&integer=donec&non=diam&velit=neque&donec=vestibulum&diam=eget&neque=vulputate&vestibulum=ut&eget=ultrices&vulputate=vel&ut=augue&ultrices=vestibulum&vel=ante&augue=ipsum&vestibulum=primis&ante=in&ipsum=faucibus&primis=orci&in=luctus&faucibus=et&orci=ultrices&luctus=posuere&et=cubilia&ultrices=curae&posuere=donec&cubilia=pharetra&curae=magna&donec=vestibulum&pharetra=aliquet&magna=ultrices&vestibulum=erat&aliquet=tortor&ultrices=sollicitudin&erat=mi&tortor=sit&sollicitudin=amet&mi=lobortis&sit=sapien&amet=sapien&lobortis=non&sapien=mi&sapien=integer&non=ac&mi=neque&integer=duis&ac=bibendum&neque=morbi&duis=non&bibendum=quam&morbi=nec',
       },
       {
         uri: 'com.wsj.Sub-Ex',
         name: 'Jdavie Mogford',
-        url: 'https://e-recht24.de/vulputate/nonummy/maecenas/tincidunt/lacus/at.html?non=sed&lectus=ante&aliquam=vivamus&sit=tortor&amet=duis&diam=mattis&in=egestas&magna=metus&bibendum=aenean&imperdiet=fermentum&nullam=donec&orci=ut&pede=mauris&venenatis=eget&non=massa&sodales=tempor&sed=convallis&tincidunt=nulla&eu=neque&felis=libero&fusce=convallis&posuere=eget&felis=eleifend&sed=luctus&lacus=ultricies&morbi=eu&sem=nibh&mauris=quisque&laoreet=id&ut=justo&rhoncus=sit&aliquet=amet&pulvinar=sapien&sed=dignissim&nisl=vestibulum&nunc=vestibulum&rhoncus=ante&dui=ipsum&vel=primis&sem=in&sed=faucibus&sagittis=orci&nam=luctus&congue=et&risus=ultrices&semper=posuere&porta=cubilia&volutpat=curae&quam=nulla&pede=dapibus&lobortis=dolor&ligula=vel&sit=est&amet=donec&eleifend=odio&pede=justo&libero=sollicitudin&quis=ut&orci=suscipit&nullam=a&molestie=feugiat&nibh=et&in=eros&lectus=vestibulum&pellentesque=ac&at=est&nulla=lacinia&suspendisse=nisi&potenti=venenatis&cras=tristique&in=fusce&purus=congue&eu=diam&magna=id&vulputate=ornare&luctus=imperdiet&cum=sapien&sociis=urna&natoque=pretium&penatibus=nisl&et=ut&magnis=volutpat',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '61d35b68-a5cb-4cff-9800-a1c6dce31c3c',
@@ -625,19 +552,15 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'http://moonfruit.com/augue.aspx?cubilia=est&curae=lacinia&duis=nisi&faucibus=venenatis&accumsan=tristique&odio=fusce&curabitur=congue&convallis=diam&duis=id&consequat=ornare&dui=imperdiet&nec=sapien&nisi=urna&volutpat=pretium&eleifend=nisl&donec=ut&ut=volutpat&dolor=sapien&morbi=arcu&vel=sed&lectus=augue&in=aliquam&quam=erat&fringilla=volutpat&rhoncus=in&mauris=congue&enim=etiam&leo=justo&rhoncus=etiam&sed=pretium&vestibulum=iaculis&sit=justo&amet=in&cursus=hac&id=habitasse&turpis=platea&integer=dictumst&aliquet=etiam&massa=faucibus&id=cursus&lobortis=urna&convallis=ut&tortor=tellus&risus=nulla&dapibus=ut&augue=erat&vel=id&accumsan=mauris&tellus=vulputate&nisi=elementum&eu=nullam&orci=varius&mauris=nulla&lacinia=facilisi&sapien=cras&quis=non&libero=velit&nullam=nec&sit=nisi&amet=vulputate&turpis=nonummy&elementum=maecenas&ligula=tincidunt&vehicula=lacus&consequat=at&morbi=velit&a=vivamus&ipsum=vel&integer=nulla&a=eget&nibh=eros&in=elementum&quis=pellentesque&justo=quisque&maecenas=porta&rhoncus=volutpat&aliquam=erat&lacus=quisque&morbi=erat',
       name: 'LTSpice',
-      images: [
-        { url: 'http://dummyimage.com/191x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/210x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/124x100.png/cc0000/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'com.etsy.Sonair',
         name: 'Ethelbert Sparks',
-        url: 'http://wordpress.org/convallis.aspx?hac=ligula&habitasse=sit&platea=amet&dictumst=eleifend&etiam=pede&faucibus=libero&cursus=quis&urna=orci&ut=nullam&tellus=molestie&nulla=nibh&ut=in&erat=lectus&id=pellentesque&mauris=at&vulputate=nulla&elementum=suspendisse&nullam=potenti&varius=cras&nulla=in&facilisi=purus&cras=eu&non=magna&velit=vulputate&nec=luctus&nisi=cum&vulputate=sociis&nonummy=natoque&maecenas=penatibus&tincidunt=et&lacus=magnis&at=dis&velit=parturient&vivamus=montes&vel=nascetur&nulla=ridiculus&eget=mus&eros=vivamus&elementum=vestibulum&pellentesque=sagittis&quisque=sapien&porta=cum&volutpat=sociis&erat=natoque&quisque=penatibus&erat=et&eros=magnis&viverra=dis&eget=parturient&congue=montes&eget=nascetur&semper=ridiculus&rutrum=mus&nulla=etiam&nunc=vel&purus=augue&phasellus=vestibulum&in=rutrum&felis=rutrum&donec=neque&semper=aenean&sapien=auctor&a=gravida&libero=sem&nam=praesent&dui=id&proin=massa&leo=id&odio=nisl&porttitor=venenatis&id=lacinia&consequat=aenean&in=sit&consequat=amet&ut=justo&nulla=morbi&sed=ut&accumsan=odio&felis=cras&ut=mi&at=pede&dolor=malesuada&quis=in&odio=imperdiet&consequat=et&varius=commodo&integer=vulputate&ac=justo&leo=in&pellentesque=blandit&ultrices=ultrices&mattis=enim&odio=lorem&donec=ipsum&vitae=dolor&nisi=sit&nam=amet&ultrices=consectetuer',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '1f3a6c0c-0eec-46cc-bcc1-00af1eb0a169',
@@ -662,9 +585,9 @@ export const mockTracks: ITrack[] = [
       {
         uri: 'com.nationalgeographic.Latlux',
         name: 'Traver Landrean',
-        url: 'http://feedburner.com/quam/pharetra/magna.jsp?morbi=aliquet&vel=at',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: 'cd091f56-f009-48c1-9461-186cd9e054f5',
@@ -683,33 +606,27 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'http://fastcompany.com/quisque/porta.html?suspendisse=lectus&potenti=suspendisse&cras=potenti&in=in&purus=eleifend&eu=quam&magna=a&vulputate=odio&luctus=in&cum=hac&sociis=habitasse&natoque=platea&penatibus=dictumst&et=maecenas&magnis=ut&dis=massa&parturient=quis&montes=augue&nascetur=luctus&ridiculus=tincidunt&mus=nulla&vivamus=mollis&vestibulum=molestie&sagittis=lorem&sapien=quisque&cum=ut&sociis=erat&natoque=curabitur&penatibus=gravida&et=nisi&magnis=at&dis=nibh&parturient=in&montes=hac&nascetur=habitasse&ridiculus=platea&mus=dictumst&etiam=aliquam&vel=augue&augue=quam&vestibulum=sollicitudin&rutrum=vitae&rutrum=consectetuer&neque=eget&aenean=rutrum&auctor=at&gravida=lorem&sem=integer&praesent=tincidunt&id=ante&massa=vel&id=ipsum&nisl=praesent&venenatis=blandit',
       name: 'What-if Analysis',
-      images: [
-        { url: 'http://dummyimage.com/171x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/250x100.png/cc0000/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'com.howstuffworks.Home Ing',
         name: 'Sela Nairns',
-        url: 'http://biglobe.ne.jp/magna/vulputate.jpg?eu=non&tincidunt=mi&in=integer&leo=ac&maecenas=neque&pulvinar=duis&lobortis=bibendum&est=morbi&phasellus=non&sit=quam&amet=nec&erat=dui&nulla=luctus&tempus=rutrum&vivamus=nulla&in=tellus&felis=in&eu=sagittis&sapien=dui&cursus=vel&vestibulum=nisl&proin=duis&eu=ac&mi=nibh&nulla=fusce&ac=lacus&enim=purus&in=aliquet&tempor=at&turpis=feugiat&nec=non&euismod=pretium&scelerisque=quis&quam=lectus&turpis=suspendisse&adipiscing=potenti&lorem=in&vitae=eleifend&mattis=quam&nibh=a&ligula=odio&nec=in&sem=hac&duis=habitasse&aliquam=platea&convallis=dictumst&nunc=maecenas&proin=ut&at=massa&turpis=quis&a=augue&pede=luctus&posuere=tincidunt&nonummy=nulla&integer=mollis&non=molestie&velit=lorem&donec=quisque&diam=ut&neque=erat&vestibulum=curabitur&eget=gravida&vulputate=nisi&ut=at&ultrices=nibh&vel=in&augue=hac&vestibulum=habitasse&ante=platea&ipsum=dictumst&primis=aliquam&in=augue&faucibus=quam&orci=sollicitudin&luctus=vitae&et=consectetuer&ultrices=eget&posuere=rutrum&cubilia=at&curae=lorem&donec=integer&pharetra=tincidunt&magna=ante&vestibulum=vel&aliquet=ipsum&ultrices=praesent',
       },
       {
         uri: 'edu.berkeley.Zoolab',
         name: 'Abeu Dacca',
-        url: 'https://free.fr/nibh/ligula/nec/sem/duis.xml?eu=faucibus&nibh=orci&quisque=luctus&id=et&justo=ultrices&sit=posuere&amet=cubilia&sapien=curae&dignissim=mauris&vestibulum=viverra&vestibulum=diam&ante=vitae&ipsum=quam&primis=suspendisse&in=potenti&faucibus=nullam&orci=porttitor&luctus=lacus&et=at&ultrices=turpis&posuere=donec&cubilia=posuere&curae=metus&nulla=vitae&dapibus=ipsum&dolor=aliquam&vel=non&est=mauris&donec=morbi&odio=non&justo=lectus&sollicitudin=aliquam&ut=sit&suscipit=amet&a=diam&feugiat=in&et=magna&eros=bibendum&vestibulum=imperdiet&ac=nullam&est=orci&lacinia=pede&nisi=venenatis&venenatis=non&tristique=sodales&fusce=sed&congue=tincidunt&diam=eu&id=felis&ornare=fusce&imperdiet=posuere&sapien=felis&urna=sed&pretium=lacus&nisl=morbi&ut=sem&volutpat=mauris&sapien=laoreet&arcu=ut&sed=rhoncus&augue=aliquet&aliquam=pulvinar&erat=sed&volutpat=nisl&in=nunc&congue=rhoncus&etiam=dui&justo=vel&etiam=sem&pretium=sed&iaculis=sagittis&justo=nam&in=congue',
       },
       {
         uri: 'com.studiopress.Latlux',
         name: 'Norean Rizon',
-        url: 'https://epa.gov/integer.aspx?diam=amet&in=sapien&magna=dignissim&bibendum=vestibulum&imperdiet=vestibulum&nullam=ante&orci=ipsum&pede=primis&venenatis=in&non=faucibus&sodales=orci&sed=luctus&tincidunt=et&eu=ultrices&felis=posuere&fusce=cubilia&posuere=curae&felis=nulla&sed=dapibus&lacus=dolor&morbi=vel&sem=est&mauris=donec&laoreet=odio&ut=justo&rhoncus=sollicitudin&aliquet=ut&pulvinar=suscipit&sed=a&nisl=feugiat&nunc=et',
       },
       {
         uri: 'com.tmall.Konklab',
         name: 'Lorelle Dechelette',
-        url: 'http://storify.com/in/purus/eu/magna.png?felis=vitae&fusce=ipsum&posuere=aliquam&felis=non&sed=mauris&lacus=morbi&morbi=non&sem=lectus&mauris=aliquam&laoreet=sit&ut=amet&rhoncus=diam&aliquet=in&pulvinar=magna&sed=bibendum&nisl=imperdiet&nunc=nullam&rhoncus=orci&dui=pede&vel=venenatis&sem=non&sed=sodales&sagittis=sed&nam=tincidunt&congue=eu&risus=felis&semper=fusce&porta=posuere&volutpat=felis&quam=sed&pede=lacus&lobortis=morbi&ligula=sem&sit=mauris&amet=laoreet&eleifend=ut&pede=rhoncus&libero=aliquet&quis=pulvinar&orci=sed&nullam=nisl&molestie=nunc&nibh=rhoncus&in=dui&lectus=vel&pellentesque=sem&at=sed&nulla=sagittis&suspendisse=nam&potenti=congue&cras=risus&in=semper&purus=porta&eu=volutpat&magna=quam&vulputate=pede&luctus=lobortis&cum=ligula&sociis=sit&natoque=amet&penatibus=eleifend&et=pede&magnis=libero&dis=quis&parturient=orci&montes=nullam&nascetur=molestie&ridiculus=nibh&mus=in&vivamus=lectus',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '8999effc-ab72-4946-91ed-8a4f557c52a4',
@@ -734,19 +651,17 @@ export const mockTracks: ITrack[] = [
       {
         uri: 'org.drupal.Alpha',
         name: 'Casar Patifield',
-        url: 'http://gov.uk/donec/ut/mauris.html?volutpat=sed&dui=sagittis&maecenas=nam&tristique=congue&est=risus&et=semper&tempus=porta&semper=volutpat&est=quam&quam=pede&pharetra=lobortis&magna=ligula&ac=sit&consequat=amet&metus=eleifend&sapien=pede&ut=libero&nunc=quis&vestibulum=orci&ante=nullam&ipsum=molestie&primis=nibh&in=in&faucibus=lectus&orci=pellentesque&luctus=at&et=nulla&ultrices=suspendisse&posuere=potenti&cubilia=cras&curae=in&mauris=purus&viverra=eu&diam=magna&vitae=vulputate&quam=luctus&suspendisse=cum&potenti=sociis&nullam=natoque&porttitor=penatibus&lacus=et&at=magnis&turpis=dis&donec=parturient&posuere=montes&metus=nascetur&vitae=ridiculus&ipsum=mus&aliquam=vivamus&non=vestibulum&mauris=sagittis&morbi=sapien&non=cum&lectus=sociis&aliquam=natoque&sit=penatibus&amet=et&diam=magnis&in=dis&magna=parturient&bibendum=montes&imperdiet=nascetur&nullam=ridiculus',
       },
       {
         uri: 'com.alexa.Redhold',
         name: 'Eydie Penylton',
-        url: 'https://wikispaces.com/turpis/donec/posuere/metus/vitae/ipsum/aliquam.xml?ultrices=at&posuere=vulputate&cubilia=vitae&curae=nisl&duis=aenean&faucibus=lectus&accumsan=pellentesque&odio=eget&curabitur=nunc&convallis=donec&duis=quis&consequat=orci&dui=eget',
       },
       {
         uri: 'com.pinterest.Treeflex',
         name: 'Lorelei Boyce',
-        url: 'http://netvibes.com/in/tempor/turpis/nec/euismod/scelerisque/quam.aspx?dui=lacus&vel=at&sem=turpis&sed=donec&sagittis=posuere&nam=metus&congue=vitae&risus=ipsum&semper=aliquam&porta=non&volutpat=mauris&quam=morbi&pede=non&lobortis=lectus&ligula=aliquam&sit=sit&amet=amet&eleifend=diam&pede=in&libero=magna&quis=bibendum&orci=imperdiet&nullam=nullam&molestie=orci&nibh=pede&in=venenatis&lectus=non&pellentesque=sodales&at=sed&nulla=tincidunt&suspendisse=eu&potenti=felis&cras=fusce&in=posuere&purus=felis&eu=sed&magna=lacus&vulputate=morbi&luctus=sem&cum=mauris&sociis=laoreet&natoque=ut&penatibus=rhoncus&et=aliquet&magnis=pulvinar',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: 'da8cef3a-4423-4cb1-b54f-9ae14dddf076',
@@ -765,25 +680,19 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'http://domainmarket.com/consectetuer/eget/rutrum/at.aspx?habitasse=lectus&platea=pellentesque&dictumst=at&etiam=nulla&faucibus=suspendisse&cursus=potenti&urna=cras&ut=in&tellus=purus&nulla=eu&ut=magna&erat=vulputate&id=luctus&mauris=cum&vulputate=sociis&elementum=natoque&nullam=penatibus&varius=et&nulla=magnis&facilisi=dis&cras=parturient&non=montes&velit=nascetur&nec=ridiculus&nisi=mus&vulputate=vivamus&nonummy=vestibulum&maecenas=sagittis&tincidunt=sapien&lacus=cum&at=sociis&velit=natoque&vivamus=penatibus&vel=et&nulla=magnis&eget=dis&eros=parturient&elementum=montes&pellentesque=nascetur&quisque=ridiculus&porta=mus&volutpat=etiam&erat=vel&quisque=augue&erat=vestibulum',
       name: 'TCD',
-      images: [
-        { url: 'http://dummyimage.com/148x100.png/5fa2dd/ffffff' },
-        { url: 'http://dummyimage.com/182x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/248x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/105x100.png/ff4444/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'org.dyndns.Treeflex',
         name: 'Erastus Guidelli',
-        url: 'https://cnbc.com/ipsum/dolor.js?habitasse=vestibulum&platea=ante&dictumst=ipsum&maecenas=primis&ut=in&massa=faucibus&quis=orci&augue=luctus&luctus=et&tincidunt=ultrices&nulla=posuere&mollis=cubilia&molestie=curae&lorem=duis&quisque=faucibus&ut=accumsan&erat=odio&curabitur=curabitur&gravida=convallis&nisi=duis&at=consequat&nibh=dui&in=nec&hac=nisi',
       },
       {
         uri: 'com.imgur.Holdlamis',
         name: 'Esme Flohard',
-        url: 'https://yahoo.com/ultrices/posuere.html?quis=sed&augue=justo&luctus=pellentesque&tincidunt=viverra&nulla=pede&mollis=ac&molestie=diam&lorem=cras&quisque=pellentesque&ut=volutpat',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '39565fc6-bc2f-4d9a-9a8d-4b246a6236ca',
@@ -808,19 +717,17 @@ export const mockTracks: ITrack[] = [
       {
         uri: 'com.hexun.Zontrax',
         name: 'Atlante Cauldfield',
-        url: 'http://admin.ch/ut/nunc/vestibulum/ante.xml?amet=turpis&eros=enim&suspendisse=blandit&accumsan=mi&tortor=in&quis=porttitor&turpis=pede&sed=justo&ante=eu&vivamus=massa&tortor=donec&duis=dapibus&mattis=duis&egestas=at&metus=velit&aenean=eu&fermentum=est&donec=congue&ut=elementum&mauris=in&eget=hac&massa=habitasse&tempor=platea&convallis=dictumst&nulla=morbi&neque=vestibulum&libero=velit&convallis=id&eget=pretium',
       },
       {
         uri: 'net.comcast.Prodder',
         name: 'Donovan Denington',
-        url: 'http://oracle.com/id/sapien.json?odio=malesuada&consequat=in&varius=imperdiet&integer=et&ac=commodo&leo=vulputate&pellentesque=justo&ultrices=in&mattis=blandit&odio=ultrices&donec=enim&vitae=lorem&nisi=ipsum&nam=dolor&ultrices=sit&libero=amet&non=consectetuer&mattis=adipiscing',
       },
       {
         uri: 'uk.co.123-reg.Alpha',
         name: 'Amble Turvey',
-        url: 'http://dot.gov/ipsum/primis/in.jsp?dignissim=mus&vestibulum=etiam&vestibulum=vel&ante=augue&ipsum=vestibulum&primis=rutrum&in=rutrum&faucibus=neque&orci=aenean&luctus=auctor&et=gravida&ultrices=sem&posuere=praesent&cubilia=id&curae=massa&nulla=id&dapibus=nisl&dolor=venenatis&vel=lacinia&est=aenean&donec=sit&odio=amet&justo=justo&sollicitudin=morbi&ut=ut&suscipit=odio&a=cras&feugiat=mi&et=pede&eros=malesuada&vestibulum=in&ac=imperdiet&est=et&lacinia=commodo&nisi=vulputate&venenatis=justo&tristique=in&fusce=blandit&congue=ultrices&diam=enim&id=lorem&ornare=ipsum&imperdiet=dolor&sapien=sit&urna=amet&pretium=consectetuer&nisl=adipiscing&ut=elit&volutpat=proin&sapien=interdum&arcu=mauris&sed=non&augue=ligula&aliquam=pellentesque&erat=ultrices&volutpat=phasellus&in=id&congue=sapien&etiam=in&justo=sapien&etiam=iaculis&pretium=congue&iaculis=vivamus&justo=metus&in=arcu&hac=adipiscing&habitasse=molestie&platea=hendrerit&dictumst=at&etiam=vulputate&faucibus=vitae&cursus=nisl&urna=aenean&ut=lectus&tellus=pellentesque&nulla=eget&ut=nunc&erat=donec&id=quis&mauris=orci&vulputate=eget&elementum=orci&nullam=vehicula&varius=condimentum&nulla=curabitur&facilisi=in&cras=libero&non=ut&velit=massa&nec=volutpat',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '82648927-6f64-4210-8c73-8eae9562748c',
@@ -839,31 +746,23 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'http://oaic.gov.au/amet/sapien.png?praesent=nunc&blandit=rhoncus&nam=dui&nulla=vel&integer=sem&pede=sed&justo=sagittis&lacinia=nam&eget=congue&tincidunt=risus&eget=semper&tempus=porta&vel=volutpat&pede=quam&morbi=pede&porttitor=lobortis&lorem=ligula&id=sit&ligula=amet&suspendisse=eleifend&ornare=pede&consequat=libero&lectus=quis&in=orci&est=nullam&risus=molestie&auctor=nibh&sed=in&tristique=lectus&in=pellentesque&tempus=at&sit=nulla&amet=suspendisse&sem=potenti&fusce=cras&consequat=in&nulla=purus&nisl=eu&nunc=magna&nisl=vulputate&duis=luctus&bibendum=cum&felis=sociis&sed=natoque&interdum=penatibus&venenatis=et&turpis=magnis&enim=dis&blandit=parturient&mi=montes&in=nascetur&porttitor=ridiculus&pede=mus&justo=vivamus&eu=vestibulum&massa=sagittis&donec=sapien&dapibus=cum',
       name: 'Pthreads',
-      images: [
-        { url: 'http://dummyimage.com/163x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/150x100.png/dddddd/000000' },
-        { url: 'http://dummyimage.com/131x100.png/5fa2dd/ffffff' },
-        { url: 'http://dummyimage.com/232x100.png/dddddd/000000' },
-        { url: 'http://dummyimage.com/177x100.png/5fa2dd/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'int.who.Sub-Ex',
         name: 'Weber Rossetti',
-        url: 'http://ucoz.com/elementum/in.jsp?proin=non&at=mattis&turpis=pulvinar&a=nulla&pede=pede&posuere=ullamcorper&nonummy=augue&integer=a&non=suscipit&velit=nulla&donec=elit&diam=ac&neque=nulla&vestibulum=sed&eget=vel&vulputate=enim&ut=sit&ultrices=amet&vel=nunc&augue=viverra&vestibulum=dapibus&ante=nulla&ipsum=suscipit&primis=ligula&in=in&faucibus=lacus&orci=curabitur&luctus=at&et=ipsum&ultrices=ac&posuere=tellus&cubilia=semper&curae=interdum&donec=mauris&pharetra=ullamcorper&magna=purus&vestibulum=sit&aliquet=amet&ultrices=nulla',
       },
       {
         uri: 'com.adobe.Tampflex',
         name: 'Harman Candy',
-        url: 'https://ucoz.ru/sit/amet/turpis/elementum/ligula.jpg?orci=nisi&nullam=eu&molestie=orci&nibh=mauris&in=lacinia&lectus=sapien&pellentesque=quis&at=libero&nulla=nullam&suspendisse=sit&potenti=amet&cras=turpis&in=elementum&purus=ligula&eu=vehicula&magna=consequat&vulputate=morbi&luctus=a&cum=ipsum',
       },
       {
         uri: 'com.seattletimes.Hatity',
         name: 'Kerwin Dightham',
-        url: 'https://census.gov/luctus/et/ultrices/posuere/cubilia/curae.js?vel=maecenas&nulla=tincidunt&eget=lacus&eros=at&elementum=velit&pellentesque=vivamus&quisque=vel&porta=nulla&volutpat=eget&erat=eros&quisque=elementum&erat=pellentesque&eros=quisque&viverra=porta&eget=volutpat&congue=erat&eget=quisque&semper=erat&rutrum=eros&nulla=viverra&nunc=eget&purus=congue&phasellus=eget&in=semper&felis=rutrum&donec=nulla&semper=nunc&sapien=purus&a=phasellus',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: 'c928252b-f16b-4c76-9055-bae91a68a222',
@@ -882,18 +781,15 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'https://delicious.com/luctus/ultricies.aspx?pede=velit&posuere=id&nonummy=pretium&integer=iaculis&non=diam&velit=erat&donec=fermentum&diam=justo&neque=nec',
       name: 'JMeter',
-      images: [
-        { url: 'http://dummyimage.com/118x100.png/dddddd/000000' },
-        { url: 'http://dummyimage.com/122x100.png/cc0000/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'jp.ne.so-net.Y-find',
         name: 'Christy Tisor',
-        url: 'http://nsw.gov.au/porta/volutpat.png?primis=pede&in=malesuada&faucibus=in&orci=imperdiet&luctus=et&et=commodo&ultrices=vulputate&posuere=justo&cubilia=in&curae=blandit&mauris=ultrices&viverra=enim&diam=lorem&vitae=ipsum&quam=dolor&suspendisse=sit&potenti=amet&nullam=consectetuer&porttitor=adipiscing&lacus=elit&at=proin&turpis=interdum&donec=mauris&posuere=non&metus=ligula&vitae=pellentesque&ipsum=ultrices&aliquam=phasellus&non=id&mauris=sapien&morbi=in&non=sapien&lectus=iaculis&aliquam=congue&sit=vivamus&amet=metus&diam=arcu&in=adipiscing&magna=molestie&bibendum=hendrerit&imperdiet=at&nullam=vulputate&orci=vitae&pede=nisl&venenatis=aenean&non=lectus&sodales=pellentesque&sed=eget&tincidunt=nunc&eu=donec&felis=quis&fusce=orci&posuere=eget&felis=orci&sed=vehicula&lacus=condimentum&morbi=curabitur&sem=in&mauris=libero&laoreet=ut&ut=massa&rhoncus=volutpat&aliquet=convallis&pulvinar=morbi&sed=odio',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '85d0d250-5d59-4c91-a5fc-5a193e50d706',
@@ -918,9 +814,9 @@ export const mockTracks: ITrack[] = [
       {
         uri: 'jp.i2i.Sonair',
         name: 'Myer Monteath',
-        url: 'https://cbsnews.com/luctus/et/ultrices/posuere.js?lacinia=venenatis&nisi=lacinia&venenatis=aenean&tristique=sit&fusce=amet&congue=justo&diam=morbi&id=ut&ornare=odio&imperdiet=cras&sapien=mi&urna=pede&pretium=malesuada&nisl=in&ut=imperdiet&volutpat=et&sapien=commodo&arcu=vulputate&sed=justo&augue=in&aliquam=blandit&erat=ultrices&volutpat=enim&in=lorem&congue=ipsum&etiam=dolor&justo=sit&etiam=amet&pretium=consectetuer&iaculis=adipiscing&justo=elit&in=proin&hac=interdum&habitasse=mauris&platea=non&dictumst=ligula&etiam=pellentesque&faucibus=ultrices&cursus=phasellus&urna=id&ut=sapien&tellus=in&nulla=sapien&ut=iaculis&erat=congue&id=vivamus&mauris=metus&vulputate=arcu&elementum=adipiscing&nullam=molestie&varius=hendrerit&nulla=at&facilisi=vulputate&cras=vitae&non=nisl&velit=aenean&nec=lectus&nisi=pellentesque&vulputate=eget&nonummy=nunc&maecenas=donec&tincidunt=quis&lacus=orci&at=eget&velit=orci&vivamus=vehicula&vel=condimentum&nulla=curabitur&eget=in&eros=libero&elementum=ut&pellentesque=massa&quisque=volutpat&porta=convallis&volutpat=morbi&erat=odio&quisque=odio&erat=elementum',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: 'c1429608-e636-4468-a5f1-4d406e19b666',
@@ -939,21 +835,15 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'http://geocities.jp/libero/nam/dui/proin/leo.js?vehicula=in&consequat=lectus&morbi=pellentesque&a=at&ipsum=nulla&integer=suspendisse&a=potenti&nibh=cras&in=in&quis=purus&justo=eu&maecenas=magna&rhoncus=vulputate&aliquam=luctus&lacus=cum&morbi=sociis&quis=natoque&tortor=penatibus&id=et&nulla=magnis&ultrices=dis&aliquet=parturient&maecenas=montes&leo=nascetur&odio=ridiculus&condimentum=mus&id=vivamus&luctus=vestibulum&nec=sagittis&molestie=sapien&sed=cum&justo=sociis&pellentesque=natoque&viverra=penatibus&pede=et&ac=magnis&diam=dis&cras=parturient&pellentesque=montes&volutpat=nascetur&dui=ridiculus&maecenas=mus&tristique=etiam&est=vel&et=augue&tempus=vestibulum&semper=rutrum&est=rutrum&quam=neque&pharetra=aenean&magna=auctor&ac=gravida',
       name: 'CBI',
-      images: [
-        { url: 'http://dummyimage.com/163x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/154x100.png/5fa2dd/ffffff' },
-        { url: 'http://dummyimage.com/148x100.png/5fa2dd/ffffff' },
-        { url: 'http://dummyimage.com/242x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/128x100.png/5fa2dd/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'com.cdbaby.Fix San',
         name: 'Stillman Palatino',
-        url: 'http://google.ru/nibh.json?ut=leo&erat=rhoncus&curabitur=sed&gravida=vestibulum&nisi=sit',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '3182719c-5666-489a-9fb6-f3230cb7928c',
@@ -972,30 +862,23 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'https://free.fr/consequat/lectus/in/est/risus.png?ultrices=ac&vel=diam&augue=cras&vestibulum=pellentesque&ante=volutpat&ipsum=dui&primis=maecenas&in=tristique&faucibus=est&orci=et&luctus=tempus&et=semper&ultrices=est&posuere=quam&cubilia=pharetra&curae=magna&donec=ac&pharetra=consequat&magna=metus&vestibulum=sapien&aliquet=ut&ultrices=nunc&erat=vestibulum&tortor=ante&sollicitudin=ipsum&mi=primis&sit=in&amet=faucibus&lobortis=orci&sapien=luctus&sapien=et&non=ultrices&mi=posuere&integer=cubilia&ac=curae&neque=mauris&duis=viverra&bibendum=diam&morbi=vitae&non=quam&quam=suspendisse&nec=potenti&dui=nullam&luctus=porttitor&rutrum=lacus&nulla=at&tellus=turpis&in=donec&sagittis=posuere&dui=metus&vel=vitae&nisl=ipsum&duis=aliquam&ac=non&nibh=mauris&fusce=morbi&lacus=non&purus=lectus&aliquet=aliquam',
       name: 'CBI',
-      images: [
-        { url: 'http://dummyimage.com/120x100.png/5fa2dd/ffffff' },
-        { url: 'http://dummyimage.com/105x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/173x100.png/5fa2dd/ffffff' },
-        { url: 'http://dummyimage.com/171x100.png/ff4444/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'com.squarespace.Fix San',
         name: 'Lorrayne McCormick',
-        url: 'https://bizjournals.com/magna/vulputate/luctus.png?nullam=dui&varius=vel&nulla=sem&facilisi=sed&cras=sagittis&non=nam&velit=congue',
       },
       {
         uri: 'com.weebly.Cookley',
         name: 'Carmencita Inston',
-        url: 'https://nytimes.com/elementum/nullam/varius/nulla/facilisi/cras/non.html?volutpat=tristique&sapien=fusce&arcu=congue&sed=diam&augue=id&aliquam=ornare&erat=imperdiet&volutpat=sapien&in=urna&congue=pretium&etiam=nisl&justo=ut&etiam=volutpat&pretium=sapien&iaculis=arcu&justo=sed&in=augue&hac=aliquam&habitasse=erat&platea=volutpat&dictumst=in&etiam=congue&faucibus=etiam&cursus=justo&urna=etiam&ut=pretium&tellus=iaculis&nulla=justo&ut=in&erat=hac&id=habitasse&mauris=platea&vulputate=dictumst&elementum=etiam&nullam=faucibus&varius=cursus&nulla=urna&facilisi=ut&cras=tellus&non=nulla&velit=ut&nec=erat&nisi=id&vulputate=mauris&nonummy=vulputate&maecenas=elementum&tincidunt=nullam&lacus=varius&at=nulla&velit=facilisi&vivamus=cras&vel=non&nulla=velit&eget=nec',
       },
       {
         uri: 'com.slate.Flexidy',
         name: 'Joe McMillam',
-        url: 'http://delicious.com/augue/quam.png?et=primis&tempus=in&semper=faucibus&est=orci&quam=luctus&pharetra=et&magna=ultrices&ac=posuere&consequat=cubilia&metus=curae&sapien=mauris&ut=viverra&nunc=diam&vestibulum=vitae&ante=quam&ipsum=suspendisse&primis=potenti&in=nullam&faucibus=porttitor&orci=lacus&luctus=at&et=turpis&ultrices=donec&posuere=posuere&cubilia=metus&curae=vitae&mauris=ipsum&viverra=aliquam&diam=non&vitae=mauris&quam=morbi&suspendisse=non&potenti=lectus&nullam=aliquam&porttitor=sit&lacus=amet&at=diam&turpis=in&donec=magna&posuere=bibendum&metus=imperdiet&vitae=nullam&ipsum=orci&aliquam=pede&non=venenatis&mauris=non&morbi=sodales&non=sed&lectus=tincidunt&aliquam=eu&sit=felis&amet=fusce&diam=posuere&in=felis&magna=sed&bibendum=lacus&imperdiet=morbi&nullam=sem&orci=mauris&pede=laoreet&venenatis=ut&non=rhoncus&sodales=aliquet&sed=pulvinar',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '2b739df4-13b8-4138-ad21-832b1d809768',
@@ -1014,30 +897,27 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'https://twitter.com/duis/mattis/egestas/metus.html?libero=nulla&nam=dapibus&dui=dolor&proin=vel&leo=est&odio=donec&porttitor=odio&id=justo&consequat=sollicitudin&in=ut',
       name: 'CFK',
-      images: [{ url: 'http://dummyimage.com/191x100.png/5fa2dd/ffffff' }],
+      images: [],
     },
     artists: [
       {
         uri: 'com.baidu.Holdlamis',
         name: 'Denice Fransseni',
-        url: 'http://liveinternet.ru/est/phasellus.xml?morbi=et&odio=ultrices&odio=posuere&elementum=cubilia&eu=curae',
       },
       {
         uri: 'de.google.Tampflex',
         name: 'Natalina Puddicombe',
-        url: 'http://reddit.com/sodales/sed/tincidunt/eu/felis.html?quis=morbi&turpis=ut&sed=odio&ante=cras&vivamus=mi&tortor=pede&duis=malesuada&mattis=in&egestas=imperdiet&metus=et&aenean=commodo&fermentum=vulputate&donec=justo&ut=in&mauris=blandit&eget=ultrices&massa=enim&tempor=lorem&convallis=ipsum&nulla=dolor&neque=sit&libero=amet&convallis=consectetuer&eget=adipiscing&eleifend=elit&luctus=proin&ultricies=interdum&eu=mauris&nibh=non&quisque=ligula&id=pellentesque&justo=ultrices&sit=phasellus',
       },
       {
         uri: 'edu.si.Alphazap',
         name: 'Lev Lamdin',
-        url: 'http://sbwire.com/sollicitudin/mi/sit/amet/lobortis/sapien/sapien.xml?sed=neque&ante=duis&vivamus=bibendum&tortor=morbi&duis=non&mattis=quam&egestas=nec&metus=dui&aenean=luctus&fermentum=rutrum&donec=nulla&ut=tellus&mauris=in&eget=sagittis&massa=dui&tempor=vel&convallis=nisl&nulla=duis&neque=ac&libero=nibh&convallis=fusce&eget=lacus&eleifend=purus&luctus=aliquet&ultricies=at&eu=feugiat&nibh=non&quisque=pretium&id=quis&justo=lectus&sit=suspendisse&amet=potenti&sapien=in&dignissim=eleifend&vestibulum=quam&vestibulum=a&ante=odio&ipsum=in&primis=hac&in=habitasse&faucibus=platea&orci=dictumst&luctus=maecenas&et=ut&ultrices=massa&posuere=quis&cubilia=augue&curae=luctus&nulla=tincidunt&dapibus=nulla&dolor=mollis&vel=molestie&est=lorem&donec=quisque&odio=ut&justo=erat&sollicitudin=curabitur&ut=gravida&suscipit=nisi&a=at&feugiat=nibh&et=in&eros=hac&vestibulum=habitasse&ac=platea&est=dictumst&lacinia=aliquam&nisi=augue&venenatis=quam&tristique=sollicitudin&fusce=vitae&congue=consectetuer&diam=eget&id=rutrum&ornare=at&imperdiet=lorem&sapien=integer&urna=tincidunt',
       },
       {
         uri: 'com.nba.Konklux',
         name: 'Tadio Cheson',
-        url: 'http://newsvine.com/potenti/cras/in/purus/eu.png?sed=aliquam&tincidunt=non&eu=mauris&felis=morbi&fusce=non&posuere=lectus&felis=aliquam&sed=sit&lacus=amet&morbi=diam&sem=in&mauris=magna&laoreet=bibendum&ut=imperdiet&rhoncus=nullam&aliquet=orci&pulvinar=pede&sed=venenatis&nisl=non&nunc=sodales&rhoncus=sed&dui=tincidunt&vel=eu&sem=felis&sed=fusce&sagittis=posuere&nam=felis&congue=sed&risus=lacus&semper=morbi&porta=sem&volutpat=mauris&quam=laoreet&pede=ut&lobortis=rhoncus&ligula=aliquet&sit=pulvinar&amet=sed&eleifend=nisl&pede=nunc&libero=rhoncus&quis=dui&orci=vel',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '04226521-a883-414f-8421-e6bd827891e4',
@@ -1056,33 +936,27 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'http://ucsd.edu/non.png?in=volutpat&blandit=in&ultrices=congue&enim=etiam&lorem=justo&ipsum=etiam&dolor=pretium&sit=iaculis&amet=justo&consectetuer=in&adipiscing=hac&elit=habitasse&proin=platea&interdum=dictumst&mauris=etiam&non=faucibus&ligula=cursus&pellentesque=urna&ultrices=ut&phasellus=tellus&id=nulla&sapien=ut&in=erat&sapien=id&iaculis=mauris&congue=vulputate&vivamus=elementum&metus=nullam&arcu=varius&adipiscing=nulla&molestie=facilisi&hendrerit=cras&at=non&vulputate=velit&vitae=nec',
       name: 'VTAM',
-      images: [
-        { url: 'http://dummyimage.com/219x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/235x100.png/ff4444/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'com.xrea.Aerified',
         name: 'Lars Bussons',
-        url: 'http://privacy.gov.au/quisque.js?amet=blandit&sem=mi&fusce=in&consequat=porttitor&nulla=pede&nisl=justo&nunc=eu&nisl=massa&duis=donec&bibendum=dapibus&felis=duis&sed=at&interdum=velit&venenatis=eu&turpis=est',
       },
       {
         uri: 'com.sitemeter.Konklab',
         name: 'Lacey Monery',
-        url: 'http://blog.com/tempor/convallis.html?donec=sit&ut=amet&dolor=justo&morbi=morbi&vel=ut&lectus=odio&in=cras&quam=mi&fringilla=pede&rhoncus=malesuada&mauris=in&enim=imperdiet&leo=et&rhoncus=commodo&sed=vulputate&vestibulum=justo&sit=in&amet=blandit&cursus=ultrices&id=enim&turpis=lorem&integer=ipsum&aliquet=dolor&massa=sit&id=amet&lobortis=consectetuer&convallis=adipiscing&tortor=elit&risus=proin&dapibus=interdum&augue=mauris&vel=non&accumsan=ligula&tellus=pellentesque&nisi=ultrices&eu=phasellus&orci=id&mauris=sapien&lacinia=in&sapien=sapien&quis=iaculis&libero=congue&nullam=vivamus&sit=metus&amet=arcu&turpis=adipiscing&elementum=molestie&ligula=hendrerit&vehicula=at&consequat=vulputate&morbi=vitae&a=nisl&ipsum=aenean&integer=lectus&a=pellentesque&nibh=eget&in=nunc&quis=donec&justo=quis&maecenas=orci&rhoncus=eget&aliquam=orci&lacus=vehicula&morbi=condimentum&quis=curabitur&tortor=in&id=libero&nulla=ut&ultrices=massa&aliquet=volutpat&maecenas=convallis&leo=morbi&odio=odio&condimentum=odio&id=elementum&luctus=eu&nec=interdum&molestie=eu&sed=tincidunt&justo=in&pellentesque=leo&viverra=maecenas&pede=pulvinar&ac=lobortis&diam=est&cras=phasellus&pellentesque=sit&volutpat=amet&dui=erat&maecenas=nulla&tristique=tempus&est=vivamus&et=in&tempus=felis&semper=eu&est=sapien&quam=cursus&pharetra=vestibulum&magna=proin',
       },
       {
         uri: 'com.tmall.Sonair',
         name: 'Rosamund Bertson',
-        url: 'http://google.com.hk/sapien/arcu/sed.js?nisi=in&eu=est&orci=risus&mauris=auctor&lacinia=sed&sapien=tristique&quis=in&libero=tempus&nullam=sit&sit=amet&amet=sem&turpis=fusce&elementum=consequat&ligula=nulla&vehicula=nisl&consequat=nunc&morbi=nisl&a=duis&ipsum=bibendum&integer=felis&a=sed&nibh=interdum&in=venenatis&quis=turpis&justo=enim&maecenas=blandit&rhoncus=mi&aliquam=in&lacus=porttitor&morbi=pede&quis=justo&tortor=eu&id=massa&nulla=donec&ultrices=dapibus&aliquet=duis&maecenas=at',
       },
       {
         uri: 'jp.co.yahoo.Treeflex',
         name: 'Aline Tait',
-        url: 'http://sourceforge.net/euismod/scelerisque/quam/turpis/adipiscing.jsp?platea=ut&dictumst=nunc&morbi=vestibulum&vestibulum=ante&velit=ipsum&id=primis&pretium=in&iaculis=faucibus&diam=orci&erat=luctus&fermentum=et&justo=ultrices&nec=posuere&condimentum=cubilia&neque=curae&sapien=mauris&placerat=viverra&ante=diam&nulla=vitae&justo=quam&aliquam=suspendisse&quis=potenti&turpis=nullam&eget=porttitor&elit=lacus&sodales=at&scelerisque=turpis&mauris=donec&sit=posuere&amet=metus&eros=vitae&suspendisse=ipsum&accumsan=aliquam&tortor=non&quis=mauris&turpis=morbi&sed=non&ante=lectus&vivamus=aliquam&tortor=sit&duis=amet&mattis=diam&egestas=in&metus=magna&aenean=bibendum&fermentum=imperdiet&donec=nullam&ut=orci&mauris=pede&eget=venenatis&massa=non&tempor=sodales&convallis=sed&nulla=tincidunt&neque=eu&libero=felis&convallis=fusce&eget=posuere&eleifend=felis&luctus=sed&ultricies=lacus&eu=morbi&nibh=sem',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '7289d0da-0f2e-4764-b765-02b70aaeb814',
@@ -1101,30 +975,23 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'https://drupal.org/turpis/sed/ante/vivamus/tortor/duis.js?dictumst=neque&maecenas=libero&ut=convallis&massa=eget&quis=eleifend&augue=luctus&luctus=ultricies&tincidunt=eu&nulla=nibh&mollis=quisque&molestie=id&lorem=justo&quisque=sit&ut=amet&erat=sapien&curabitur=dignissim&gravida=vestibulum&nisi=vestibulum&at=ante&nibh=ipsum&in=primis&hac=in&habitasse=faucibus&platea=orci&dictumst=luctus&aliquam=et&augue=ultrices&quam=posuere&sollicitudin=cubilia&vitae=curae&consectetuer=nulla&eget=dapibus&rutrum=dolor&at=vel&lorem=est&integer=donec&tincidunt=odio&ante=justo&vel=sollicitudin&ipsum=ut&praesent=suscipit&blandit=a&lacinia=feugiat&erat=et&vestibulum=eros&sed=vestibulum&magna=ac&at=est&nunc=lacinia&commodo=nisi&placerat=venenatis&praesent=tristique&blandit=fusce&nam=congue&nulla=diam&integer=id&pede=ornare&justo=imperdiet&lacinia=sapien&eget=urna&tincidunt=pretium&eget=nisl&tempus=ut&vel=volutpat&pede=sapien&morbi=arcu&porttitor=sed&lorem=augue&id=aliquam&ligula=erat&suspendisse=volutpat&ornare=in',
       name: 'Amadeus',
-      images: [
-        { url: 'http://dummyimage.com/200x100.png/dddddd/000000' },
-        { url: 'http://dummyimage.com/100x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/100x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/126x100.png/cc0000/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'jp.jugem.Bytecard',
         name: 'Miguelita Dartnall',
-        url: 'https://odnoklassniki.ru/vestibulum/sed/magna/at/nunc/commodo.js?ut=orci&massa=luctus&quis=et&augue=ultrices&luctus=posuere&tincidunt=cubilia&nulla=curae&mollis=donec&molestie=pharetra&lorem=magna&quisque=vestibulum&ut=aliquet&erat=ultrices&curabitur=erat&gravida=tortor&nisi=sollicitudin&at=mi&nibh=sit&in=amet&hac=lobortis&habitasse=sapien&platea=sapien&dictumst=non&aliquam=mi&augue=integer&quam=ac&sollicitudin=neque&vitae=duis&consectetuer=bibendum&eget=morbi&rutrum=non&at=quam',
       },
       {
         uri: 'com.theatlantic.Cardify',
         name: 'Jamesy Aleavy',
-        url: 'https://gmpg.org/nec/sem.jsp?ante=molestie&vivamus=nibh&tortor=in&duis=lectus&mattis=pellentesque&egestas=at&metus=nulla&aenean=suspendisse&fermentum=potenti&donec=cras&ut=in&mauris=purus&eget=eu&massa=magna&tempor=vulputate&convallis=luctus&nulla=cum&neque=sociis&libero=natoque&convallis=penatibus&eget=et&eleifend=magnis&luctus=dis&ultricies=parturient&eu=montes&nibh=nascetur&quisque=ridiculus&id=mus&justo=vivamus&sit=vestibulum&amet=sagittis&sapien=sapien&dignissim=cum&vestibulum=sociis&vestibulum=natoque&ante=penatibus&ipsum=et&primis=magnis&in=dis&faucibus=parturient&orci=montes&luctus=nascetur&et=ridiculus&ultrices=mus&posuere=etiam&cubilia=vel&curae=augue&nulla=vestibulum&dapibus=rutrum&dolor=rutrum&vel=neque&est=aenean&donec=auctor&odio=gravida&justo=sem&sollicitudin=praesent&ut=id&suscipit=massa&a=id&feugiat=nisl&et=venenatis&eros=lacinia&vestibulum=aenean&ac=sit&est=amet&lacinia=justo&nisi=morbi&venenatis=ut&tristique=odio&fusce=cras&congue=mi&diam=pede&id=malesuada&ornare=in&imperdiet=imperdiet&sapien=et&urna=commodo&pretium=vulputate&nisl=justo&ut=in&volutpat=blandit&sapien=ultrices',
       },
       {
         uri: 'jp.co.google.Tresom',
         name: 'Anastasia Shutler',
-        url: 'http://hugedomains.com/in/congue/etiam/justo/etiam/pretium.jsp?turpis=tristique&enim=est&blandit=et&mi=tempus&in=semper&porttitor=est&pede=quam&justo=pharetra&eu=magna&massa=ac&donec=consequat&dapibus=metus&duis=sapien&at=ut&velit=nunc&eu=vestibulum&est=ante&congue=ipsum&elementum=primis&in=in&hac=faucibus&habitasse=orci&platea=luctus&dictumst=et&morbi=ultrices&vestibulum=posuere&velit=cubilia&id=curae&pretium=mauris&iaculis=viverra&diam=diam&erat=vitae&fermentum=quam&justo=suspendisse&nec=potenti&condimentum=nullam&neque=porttitor&sapien=lacus&placerat=at&ante=turpis&nulla=donec&justo=posuere&aliquam=metus&quis=vitae&turpis=ipsum&eget=aliquam&elit=non&sodales=mauris&scelerisque=morbi&mauris=non&sit=lectus&amet=aliquam&eros=sit&suspendisse=amet&accumsan=diam&tortor=in&quis=magna&turpis=bibendum&sed=imperdiet&ante=nullam&vivamus=orci&tortor=pede&duis=venenatis&mattis=non&egestas=sodales&metus=sed&aenean=tincidunt&fermentum=eu&donec=felis&ut=fusce&mauris=posuere&eget=felis&massa=sed&tempor=lacus&convallis=morbi&nulla=sem&neque=mauris&libero=laoreet&convallis=ut&eget=rhoncus&eleifend=aliquet&luctus=pulvinar&ultricies=sed&eu=nisl&nibh=nunc&quisque=rhoncus&id=dui&justo=vel&sit=sem&amet=sed',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: 'cda8bfea-31c0-4642-9f78-5380d5d6a3f0',
@@ -1143,31 +1010,23 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'http://google.es/eget/vulputate/ut/ultrices.json?a=vestibulum&ipsum=quam&integer=sapien&a=varius&nibh=ut&in=blandit&quis=non&justo=interdum&maecenas=in&rhoncus=ante&aliquam=vestibulum&lacus=ante&morbi=ipsum&quis=primis&tortor=in&id=faucibus&nulla=orci&ultrices=luctus&aliquet=et&maecenas=ultrices&leo=posuere&odio=cubilia&condimentum=curae&id=duis&luctus=faucibus&nec=accumsan&molestie=odio&sed=curabitur&justo=convallis&pellentesque=duis&viverra=consequat&pede=dui&ac=nec&diam=nisi&cras=volutpat&pellentesque=eleifend&volutpat=donec&dui=ut&maecenas=dolor&tristique=morbi&est=vel&et=lectus&tempus=in&semper=quam&est=fringilla&quam=rhoncus&pharetra=mauris&magna=enim&ac=leo&consequat=rhoncus&metus=sed&sapien=vestibulum&ut=sit&nunc=amet&vestibulum=cursus&ante=id&ipsum=turpis&primis=integer&in=aliquet&faucibus=massa&orci=id&luctus=lobortis&et=convallis&ultrices=tortor&posuere=risus&cubilia=dapibus&curae=augue&mauris=vel&viverra=accumsan&diam=tellus&vitae=nisi&quam=eu&suspendisse=orci&potenti=mauris&nullam=lacinia&porttitor=sapien&lacus=quis&at=libero&turpis=nullam&donec=sit&posuere=amet&metus=turpis&vitae=elementum&ipsum=ligula&aliquam=vehicula&non=consequat&mauris=morbi&morbi=a&non=ipsum&lectus=integer&aliquam=a&sit=nibh&amet=in&diam=quis',
       name: 'Ice Hockey',
-      images: [
-        { url: 'http://dummyimage.com/234x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/249x100.png/dddddd/000000' },
-        { url: 'http://dummyimage.com/108x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/230x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/115x100.png/5fa2dd/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'edu.princeton.Flexidy',
         name: 'Sally Eloy',
-        url: 'https://howstuffworks.com/cras/pellentesque/volutpat/dui/maecenas/tristique/est.jsp?ullamcorper=ut&augue=massa&a=quis&suscipit=augue&nulla=luctus&elit=tincidunt&ac=nulla&nulla=mollis&sed=molestie&vel=lorem&enim=quisque&sit=ut&amet=erat&nunc=curabitur&viverra=gravida&dapibus=nisi&nulla=at&suscipit=nibh&ligula=in&in=hac&lacus=habitasse&curabitur=platea&at=dictumst&ipsum=aliquam&ac=augue&tellus=quam&semper=sollicitudin&interdum=vitae&mauris=consectetuer&ullamcorper=eget&purus=rutrum&sit=at',
       },
       {
         uri: 'com.yellowbook.Konklux',
         name: 'Koren Gainsbury',
-        url: 'http://google.ru/augue/a/suscipit.png?ut=etiam&suscipit=pretium&a=iaculis&feugiat=justo&et=in&eros=hac&vestibulum=habitasse&ac=platea&est=dictumst&lacinia=etiam&nisi=faucibus&venenatis=cursus&tristique=urna&fusce=ut&congue=tellus&diam=nulla&id=ut&ornare=erat&imperdiet=id&sapien=mauris&urna=vulputate&pretium=elementum&nisl=nullam&ut=varius&volutpat=nulla&sapien=facilisi&arcu=cras&sed=non&augue=velit&aliquam=nec&erat=nisi&volutpat=vulputate&in=nonummy&congue=maecenas&etiam=tincidunt&justo=lacus&etiam=at&pretium=velit&iaculis=vivamus&justo=vel&in=nulla&hac=eget&habitasse=eros&platea=elementum&dictumst=pellentesque&etiam=quisque&faucibus=porta&cursus=volutpat&urna=erat&ut=quisque&tellus=erat&nulla=eros&ut=viverra&erat=eget&id=congue&mauris=eget&vulputate=semper&elementum=rutrum&nullam=nulla&varius=nunc&nulla=purus&facilisi=phasellus&cras=in&non=felis&velit=donec&nec=semper&nisi=sapien&vulputate=a&nonummy=libero&maecenas=nam&tincidunt=dui&lacus=proin&at=leo&velit=odio&vivamus=porttitor&vel=id&nulla=consequat&eget=in&eros=consequat&elementum=ut&pellentesque=nulla&quisque=sed&porta=accumsan',
       },
       {
         uri: 'com.domainmarket.Konklab',
         name: 'Taite Babidge',
-        url: 'https://disqus.com/augue.png?justo=leo&morbi=odio&ut=condimentum&odio=id&cras=luctus&mi=nec&pede=molestie&malesuada=sed&in=justo&imperdiet=pellentesque&et=viverra',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '42fffdfe-3464-4910-b77e-3b5d7586e422',
@@ -1186,26 +1045,19 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'http://goodreads.com/vestibulum/quam/sapien/varius/ut/blandit.xml?lorem=duis&id=bibendum&ligula=felis&suspendisse=sed&ornare=interdum&consequat=venenatis&lectus=turpis&in=enim&est=blandit&risus=mi&auctor=in&sed=porttitor&tristique=pede&in=justo&tempus=eu&sit=massa&amet=donec&sem=dapibus&fusce=duis&consequat=at&nulla=velit&nisl=eu&nunc=est&nisl=congue&duis=elementum&bibendum=in&felis=hac&sed=habitasse&interdum=platea&venenatis=dictumst&turpis=morbi&enim=vestibulum&blandit=velit&mi=id&in=pretium',
       name: 'Change Management',
-      images: [
-        { url: 'http://dummyimage.com/147x100.png/5fa2dd/ffffff' },
-        { url: 'http://dummyimage.com/211x100.png/5fa2dd/ffffff' },
-        { url: 'http://dummyimage.com/212x100.png/5fa2dd/ffffff' },
-        { url: 'http://dummyimage.com/188x100.png/5fa2dd/ffffff' },
-        { url: 'http://dummyimage.com/149x100.png/5fa2dd/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'au.gov.nsw.Tampflex',
         name: 'Merrily Corbett',
-        url: 'http://hp.com/odio/cras/mi.xml?eros=congue&viverra=diam&eget=id&congue=ornare&eget=imperdiet&semper=sapien&rutrum=urna&nulla=pretium&nunc=nisl&purus=ut&phasellus=volutpat&in=sapien&felis=arcu&donec=sed&semper=augue&sapien=aliquam&a=erat&libero=volutpat&nam=in&dui=congue&proin=etiam&leo=justo&odio=etiam&porttitor=pretium&id=iaculis&consequat=justo&in=in&consequat=hac&ut=habitasse&nulla=platea&sed=dictumst&accumsan=etiam&felis=faucibus&ut=cursus&at=urna&dolor=ut&quis=tellus&odio=nulla&consequat=ut&varius=erat&integer=id&ac=mauris&leo=vulputate&pellentesque=elementum&ultrices=nullam&mattis=varius&odio=nulla&donec=facilisi&vitae=cras&nisi=non&nam=velit&ultrices=nec&libero=nisi&non=vulputate&mattis=nonummy&pulvinar=maecenas&nulla=tincidunt&pede=lacus&ullamcorper=at&augue=velit&a=vivamus&suscipit=vel&nulla=nulla&elit=eget&ac=eros&nulla=elementum&sed=pellentesque&vel=quisque&enim=porta&sit=volutpat&amet=erat&nunc=quisque&viverra=erat&dapibus=eros&nulla=viverra&suscipit=eget&ligula=congue&in=eget&lacus=semper&curabitur=rutrum&at=nulla&ipsum=nunc&ac=purus&tellus=phasellus&semper=in&interdum=felis&mauris=donec&ullamcorper=semper&purus=sapien&sit=a&amet=libero&nulla=nam',
       },
       {
         uri: 'com.seattletimes.Fix San',
         name: 'Micheal Stoter',
-        url: 'http://amazonaws.com/mauris/viverra/diam/vitae/quam/suspendisse.aspx?libero=tristique&nam=est&dui=et&proin=tempus&leo=semper&odio=est&porttitor=quam&id=pharetra&consequat=magna&in=ac&consequat=consequat&ut=metus&nulla=sapien&sed=ut&accumsan=nunc&felis=vestibulum&ut=ante&at=ipsum&dolor=primis&quis=in&odio=faucibus&consequat=orci&varius=luctus&integer=et&ac=ultrices&leo=posuere&pellentesque=cubilia&ultrices=curae&mattis=mauris&odio=viverra&donec=diam&vitae=vitae&nisi=quam&nam=suspendisse&ultrices=potenti&libero=nullam&non=porttitor&mattis=lacus&pulvinar=at&nulla=turpis&pede=donec&ullamcorper=posuere&augue=metus&a=vitae&suscipit=ipsum&nulla=aliquam&elit=non&ac=mauris&nulla=morbi&sed=non&vel=lectus&enim=aliquam&sit=sit&amet=amet&nunc=diam&viverra=in&dapibus=magna&nulla=bibendum&suscipit=imperdiet&ligula=nullam&in=orci&lacus=pede&curabitur=venenatis',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: 'a2c101af-4cad-4a41-9bba-b5aee0c6515b',
@@ -1224,20 +1076,19 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'http://ucoz.ru/adipiscing/lorem/vitae.jsp?donec=mus&semper=etiam&sapien=vel&a=augue&libero=vestibulum&nam=rutrum&dui=rutrum&proin=neque&leo=aenean&odio=auctor&porttitor=gravida&id=sem&consequat=praesent&in=id&consequat=massa&ut=id&nulla=nisl&sed=venenatis&accumsan=lacinia&felis=aenean&ut=sit&at=amet&dolor=justo&quis=morbi&odio=ut&consequat=odio&varius=cras&integer=mi&ac=pede&leo=malesuada&pellentesque=in&ultrices=imperdiet&mattis=et&odio=commodo&donec=vulputate&vitae=justo&nisi=in&nam=blandit&ultrices=ultrices&libero=enim&non=lorem&mattis=ipsum&pulvinar=dolor&nulla=sit&pede=amet&ullamcorper=consectetuer&augue=adipiscing&a=elit&suscipit=proin&nulla=interdum&elit=mauris&ac=non&nulla=ligula&sed=pellentesque&vel=ultrices&enim=phasellus&sit=id&amet=sapien&nunc=in&viverra=sapien&dapibus=iaculis&nulla=congue&suscipit=vivamus&ligula=metus&in=arcu&lacus=adipiscing&curabitur=molestie&at=hendrerit&ipsum=at&ac=vulputate&tellus=vitae&semper=nisl&interdum=aenean&mauris=lectus&ullamcorper=pellentesque&purus=eget&sit=nunc&amet=donec&nulla=quis&quisque=orci&arcu=eget&libero=orci&rutrum=vehicula&ac=condimentum&lobortis=curabitur&vel=in&dapibus=libero&at=ut&diam=massa&nam=volutpat',
       name: 'Sports Writing',
-      images: [{ url: 'http://dummyimage.com/169x100.png/cc0000/ffffff' }],
+      images: [],
     },
     artists: [
       {
         uri: 'com.phpbb.Toughjoyfax',
         name: 'Edd Clayborn',
-        url: 'https://desdev.cn/maecenas/rhoncus/aliquam/lacus.js?congue=eleifend&elementum=donec&in=ut&hac=dolor&habitasse=morbi&platea=vel&dictumst=lectus&morbi=in&vestibulum=quam&velit=fringilla&id=rhoncus&pretium=mauris&iaculis=enim&diam=leo&erat=rhoncus&fermentum=sed&justo=vestibulum&nec=sit&condimentum=amet&neque=cursus&sapien=id&placerat=turpis&ante=integer&nulla=aliquet&justo=massa&aliquam=id&quis=lobortis&turpis=convallis&eget=tortor&elit=risus&sodales=dapibus&scelerisque=augue&mauris=vel&sit=accumsan&amet=tellus&eros=nisi&suspendisse=eu&accumsan=orci&tortor=mauris&quis=lacinia&turpis=sapien&sed=quis&ante=libero&vivamus=nullam&tortor=sit&duis=amet&mattis=turpis&egestas=elementum&metus=ligula&aenean=vehicula&fermentum=consequat&donec=morbi&ut=a&mauris=ipsum&eget=integer&massa=a&tempor=nibh&convallis=in&nulla=quis&neque=justo&libero=maecenas&convallis=rhoncus&eget=aliquam&eleifend=lacus&luctus=morbi&ultricies=quis&eu=tortor&nibh=id&quisque=nulla&id=ultrices&justo=aliquet&sit=maecenas&amet=leo&sapien=odio&dignissim=condimentum&vestibulum=id&vestibulum=luctus&ante=nec&ipsum=molestie&primis=sed&in=justo&faucibus=pellentesque&orci=viverra&luctus=pede&et=ac',
       },
       {
         uri: 'gov.epa.Tresom',
         name: 'Eydie Leinthall',
-        url: 'http://patch.com/condimentum/neque/sapien/placerat/ante.png?sapien=donec&varius=dapibus&ut=duis&blandit=at&non=velit&interdum=eu&in=est&ante=congue&vestibulum=elementum&ante=in&ipsum=hac&primis=habitasse&in=platea&faucibus=dictumst&orci=morbi&luctus=vestibulum&et=velit&ultrices=id&posuere=pretium&cubilia=iaculis&curae=diam&duis=erat&faucibus=fermentum&accumsan=justo&odio=nec&curabitur=condimentum&convallis=neque&duis=sapien&consequat=placerat&dui=ante&nec=nulla&nisi=justo&volutpat=aliquam&eleifend=quis&donec=turpis&ut=eget&dolor=elit&morbi=sodales&vel=scelerisque&lectus=mauris&in=sit&quam=amet&fringilla=eros&rhoncus=suspendisse&mauris=accumsan&enim=tortor&leo=quis&rhoncus=turpis&sed=sed&vestibulum=ante&sit=vivamus&amet=tortor&cursus=duis&id=mattis&turpis=egestas&integer=metus&aliquet=aenean&massa=fermentum&id=donec&lobortis=ut&convallis=mauris&tortor=eget&risus=massa&dapibus=tempor&augue=convallis&vel=nulla&accumsan=neque&tellus=libero&nisi=convallis',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: 'ebdc37b6-e309-418a-8a03-770d91d68d89',
@@ -1256,36 +1107,27 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'https://hp.com/in/eleifend/quam/a/odio/in/hac.js?id=adipiscing&consequat=molestie&in=hendrerit&consequat=at&ut=vulputate&nulla=vitae&sed=nisl&accumsan=aenean&felis=lectus&ut=pellentesque&at=eget&dolor=nunc&quis=donec&odio=quis&consequat=orci&varius=eget&integer=orci&ac=vehicula&leo=condimentum&pellentesque=curabitur&ultrices=in&mattis=libero&odio=ut&donec=massa&vitae=volutpat&nisi=convallis&nam=morbi&ultrices=odio&libero=odio&non=elementum&mattis=eu&pulvinar=interdum&nulla=eu&pede=tincidunt&ullamcorper=in&augue=leo&a=maecenas&suscipit=pulvinar&nulla=lobortis&elit=est&ac=phasellus&nulla=sit&sed=amet&vel=erat&enim=nulla&sit=tempus&amet=vivamus&nunc=in&viverra=felis&dapibus=eu&nulla=sapien&suscipit=cursus&ligula=vestibulum&in=proin&lacus=eu&curabitur=mi&at=nulla&ipsum=ac&ac=enim&tellus=in&semper=tempor&interdum=turpis&mauris=nec&ullamcorper=euismod&purus=scelerisque&sit=quam&amet=turpis',
       name: 'Buyers',
-      images: [
-        { url: 'http://dummyimage.com/189x100.png/dddddd/000000' },
-        { url: 'http://dummyimage.com/211x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/120x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/171x100.png/dddddd/000000' },
-        { url: 'http://dummyimage.com/114x100.png/5fa2dd/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'com.qq.Opela',
         name: 'Brendin Riggs',
-        url: 'https://jigsy.com/massa.png?metus=ut&sapien=mauris&ut=eget&nunc=massa&vestibulum=tempor&ante=convallis&ipsum=nulla&primis=neque&in=libero&faucibus=convallis&orci=eget&luctus=eleifend&et=luctus&ultrices=ultricies&posuere=eu&cubilia=nibh&curae=quisque&mauris=id&viverra=justo&diam=sit&vitae=amet&quam=sapien&suspendisse=dignissim&potenti=vestibulum&nullam=vestibulum&porttitor=ante&lacus=ipsum&at=primis&turpis=in&donec=faucibus&posuere=orci&metus=luctus&vitae=et&ipsum=ultrices&aliquam=posuere&non=cubilia&mauris=curae&morbi=nulla&non=dapibus&lectus=dolor&aliquam=vel&sit=est&amet=donec',
       },
       {
         uri: 'cz.phoca.Matsoft',
         name: 'Celestina Huffey',
-        url: 'http://miibeian.gov.cn/justo/aliquam/quis/turpis.json?enim=primis&leo=in&rhoncus=faucibus&sed=orci&vestibulum=luctus&sit=et&amet=ultrices&cursus=posuere&id=cubilia&turpis=curae&integer=duis',
       },
       {
         uri: 'com.blog.Hatity',
         name: 'Dorthy Lowle',
-        url: 'http://123-reg.co.uk/condimentum.jsp?arcu=in&adipiscing=felis&molestie=eu&hendrerit=sapien&at=cursus&vulputate=vestibulum&vitae=proin&nisl=eu&aenean=mi&lectus=nulla&pellentesque=ac&eget=enim&nunc=in&donec=tempor&quis=turpis&orci=nec&eget=euismod&orci=scelerisque',
       },
       {
         uri: 'com.reference.Bitchip',
         name: 'Ardra Lau',
-        url: 'https://tuttocitta.it/enim/leo/rhoncus/sed/vestibulum/sit/amet.js?justo=proin&lacinia=eu&eget=mi&tincidunt=nulla&eget=ac&tempus=enim&vel=in&pede=tempor&morbi=turpis&porttitor=nec&lorem=euismod&id=scelerisque&ligula=quam&suspendisse=turpis&ornare=adipiscing&consequat=lorem&lectus=vitae&in=mattis&est=nibh&risus=ligula&auctor=nec&sed=sem&tristique=duis&in=aliquam&tempus=convallis&sit=nunc&amet=proin&sem=at&fusce=turpis&consequat=a&nulla=pede&nisl=posuere&nunc=nonummy&nisl=integer&duis=non&bibendum=velit&felis=donec&sed=diam&interdum=neque&venenatis=vestibulum&turpis=eget&enim=vulputate&blandit=ut&mi=ultrices&in=vel&porttitor=augue&pede=vestibulum&justo=ante&eu=ipsum&massa=primis&donec=in&dapibus=faucibus&duis=orci&at=luctus&velit=et&eu=ultrices&est=posuere&congue=cubilia',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '866cdfd6-64da-49d0-8bae-0dd686049128',
@@ -1304,18 +1146,15 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'https://scientificamerican.com/felis/fusce/posuere.png?dapibus=venenatis&duis=non&at=sodales&velit=sed&eu=tincidunt&est=eu&congue=felis&elementum=fusce&in=posuere&hac=felis&habitasse=sed&platea=lacus&dictumst=morbi&morbi=sem&vestibulum=mauris&velit=laoreet&id=ut&pretium=rhoncus&iaculis=aliquet&diam=pulvinar&erat=sed',
       name: 'VLSM',
-      images: [
-        { url: 'http://dummyimage.com/219x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/184x100.png/dddddd/000000' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'com.posterous.Bytecard',
         name: 'Nonnah Loadwick',
-        url: 'http://illinois.edu/quis/libero/nullam/sit.json?pretium=luctus&iaculis=et&diam=ultrices&erat=posuere&fermentum=cubilia&justo=curae&nec=donec&condimentum=pharetra&neque=magna&sapien=vestibulum&placerat=aliquet&ante=ultrices&nulla=erat&justo=tortor&aliquam=sollicitudin&quis=mi&turpis=sit&eget=amet&elit=lobortis&sodales=sapien&scelerisque=sapien&mauris=non&sit=mi&amet=integer&eros=ac&suspendisse=neque&accumsan=duis&tortor=bibendum&quis=morbi&turpis=non&sed=quam&ante=nec&vivamus=dui&tortor=luctus&duis=rutrum&mattis=nulla&egestas=tellus&metus=in&aenean=sagittis&fermentum=dui&donec=vel&ut=nisl&mauris=duis&eget=ac&massa=nibh&tempor=fusce&convallis=lacus&nulla=purus&neque=aliquet&libero=at&convallis=feugiat&eget=non&eleifend=pretium&luctus=quis&ultricies=lectus&eu=suspendisse&nibh=potenti&quisque=in&id=eleifend&justo=quam&sit=a&amet=odio&sapien=in&dignissim=hac&vestibulum=habitasse&vestibulum=platea&ante=dictumst&ipsum=maecenas&primis=ut&in=massa&faucibus=quis&orci=augue&luctus=luctus&et=tincidunt&ultrices=nulla&posuere=mollis&cubilia=molestie&curae=lorem&nulla=quisque&dapibus=ut&dolor=erat&vel=curabitur&est=gravida&donec=nisi&odio=at&justo=nibh&sollicitudin=in&ut=hac&suscipit=habitasse&a=platea&feugiat=dictumst&et=aliquam&eros=augue&vestibulum=quam',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '1998893b-0bd7-4c5d-abdf-c2590dfd405f',
@@ -1334,24 +1173,19 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'https://dedecms.com/diam/nam/tristique.jsp?vulputate=pulvinar&elementum=lobortis&nullam=est&varius=phasellus&nulla=sit&facilisi=amet&cras=erat&non=nulla&velit=tempus&nec=vivamus&nisi=in&vulputate=felis&nonummy=eu&maecenas=sapien&tincidunt=cursus&lacus=vestibulum&at=proin&velit=eu&vivamus=mi&vel=nulla&nulla=ac&eget=enim&eros=in&elementum=tempor&pellentesque=turpis&quisque=nec&porta=euismod&volutpat=scelerisque&erat=quam&quisque=turpis&erat=adipiscing&eros=lorem&viverra=vitae&eget=mattis&congue=nibh&eget=ligula&semper=nec&rutrum=sem&nulla=duis&nunc=aliquam&purus=convallis&phasellus=nunc&in=proin&felis=at&donec=turpis&semper=a&sapien=pede&a=posuere&libero=nonummy&nam=integer&dui=non&proin=velit&leo=donec&odio=diam',
       name: 'Alternative Dispute Resolution',
-      images: [
-        { url: 'http://dummyimage.com/201x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/196x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/187x100.png/cc0000/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'jp.ne.ocn.Veribet',
         name: 'Marshal Menico',
-        url: 'http://usnews.com/eu/felis/fusce/posuere/felis.jpg?in=fermentum&porttitor=justo&pede=nec&justo=condimentum&eu=neque&massa=sapien&donec=placerat&dapibus=ante&duis=nulla&at=justo&velit=aliquam&eu=quis&est=turpis&congue=eget&elementum=elit&in=sodales&hac=scelerisque&habitasse=mauris&platea=sit&dictumst=amet&morbi=eros&vestibulum=suspendisse&velit=accumsan&id=tortor&pretium=quis&iaculis=turpis&diam=sed&erat=ante&fermentum=vivamus&justo=tortor&nec=duis&condimentum=mattis&neque=egestas&sapien=metus&placerat=aenean&ante=fermentum&nulla=donec&justo=ut&aliquam=mauris&quis=eget&turpis=massa&eget=tempor',
       },
       {
         uri: 'net.a8.Biodex',
         name: 'Kristoforo Hek',
-        url: 'http://liveinternet.ru/est.html?primis=mauris&in=enim&faucibus=leo&orci=rhoncus&luctus=sed&et=vestibulum&ultrices=sit&posuere=amet&cubilia=cursus&curae=id&donec=turpis&pharetra=integer&magna=aliquet&vestibulum=massa&aliquet=id&ultrices=lobortis&erat=convallis&tortor=tortor&sollicitudin=risus&mi=dapibus&sit=augue&amet=vel&lobortis=accumsan&sapien=tellus&sapien=nisi&non=eu&mi=orci&integer=mauris&ac=lacinia&neque=sapien&duis=quis&bibendum=libero&morbi=nullam&non=sit&quam=amet&nec=turpis&dui=elementum&luctus=ligula&rutrum=vehicula&nulla=consequat&tellus=morbi&in=a&sagittis=ipsum&dui=integer&vel=a&nisl=nibh&duis=in&ac=quis&nibh=justo&fusce=maecenas&lacus=rhoncus&purus=aliquam&aliquet=lacus&at=morbi&feugiat=quis&non=tortor&pretium=id&quis=nulla',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '8fab8620-00fb-4c3c-99db-eec9e5bca147',
@@ -1368,30 +1202,25 @@ export const mockTracks: ITrack[] = [
     },
     is_playable: false,
     album: {
-      uri: 'http://furl.net/cursus/vestibulum.js?orci=risus&luctus=semper&et=porta&ultrices=volutpat&posuere=quam&cubilia=pede&curae=lobortis&nulla=ligula&dapibus=sit&dolor=amet&vel=eleifend&est=pede&donec=libero&odio=quis&justo=orci&sollicitudin=nullam&ut=molestie&suscipit=nibh&a=in&feugiat=lectus&et=pellentesque&eros=at&vestibulum=nulla&ac=suspendisse&est=potenti&lacinia=cras&nisi=in&venenatis=purus&tristique=eu&fusce=magna&congue=vulputate&diam=luctus&id=cum&ornare=sociis&imperdiet=natoque&sapien=penatibus&urna=et&pretium=magnis&nisl=dis&ut=parturient&volutpat=montes&sapien=nascetur&arcu=ridiculus&sed=mus&augue=vivamus&aliquam=vestibulum&erat=sagittis&volutpat=sapien&in=cum&congue=sociis&etiam=natoque&justo=penatibus&etiam=et&pretium=magnis&iaculis=dis&justo=parturient&in=montes&hac=nascetur&habitasse=ridiculus&platea=mus&dictumst=etiam&etiam=vel',
       name: 'CMMS',
-      images: [
-        { url: 'http://dummyimage.com/167x100.png/5fa2dd/ffffff' },
-        { url: 'http://dummyimage.com/131x100.png/cc0000/ffffff' },
-      ],
+      images: [],
+      uri: '',
     },
     artists: [
       {
         uri: 'com.vistaprint.Tresom',
         name: 'Chris Zamudio',
-        url: 'https://deviantart.com/gravida/nisi/at/nibh/in.jsp?sit=non&amet=interdum&diam=in&in=ante&magna=vestibulum&bibendum=ante&imperdiet=ipsum&nullam=primis&orci=in&pede=faucibus&venenatis=orci&non=luctus&sodales=et&sed=ultrices&tincidunt=posuere&eu=cubilia&felis=curae&fusce=duis&posuere=faucibus&felis=accumsan&sed=odio&lacus=curabitur&morbi=convallis&sem=duis&mauris=consequat&laoreet=dui&ut=nec&rhoncus=nisi&aliquet=volutpat&pulvinar=eleifend&sed=donec&nisl=ut&nunc=dolor&rhoncus=morbi&dui=vel&vel=lectus&sem=in&sed=quam&sagittis=fringilla&nam=rhoncus&congue=mauris&risus=enim&semper=leo&porta=rhoncus&volutpat=sed&quam=vestibulum&pede=sit&lobortis=amet&ligula=cursus&sit=id&amet=turpis&eleifend=integer&pede=aliquet&libero=massa&quis=id&orci=lobortis&nullam=convallis&molestie=tortor&nibh=risus&in=dapibus&lectus=augue&pellentesque=vel&at=accumsan&nulla=tellus&suspendisse=nisi&potenti=eu&cras=orci&in=mauris&purus=lacinia&eu=sapien&magna=quis&vulputate=libero&luctus=nullam&cum=sit&sociis=amet&natoque=turpis&penatibus=elementum&et=ligula&magnis=vehicula&dis=consequat&parturient=morbi&montes=a&nascetur=ipsum&ridiculus=integer&mus=a&vivamus=nibh&vestibulum=in',
       },
       {
         uri: 'gov.ed.Sonair',
         name: 'Gusella McCluskey',
-        url: 'https://theguardian.com/vel/pede/morbi/porttitor/lorem.jsp?in=morbi&est=non&risus=lectus&auctor=aliquam&sed=sit&tristique=amet&in=diam&tempus=in&sit=magna&amet=bibendum&sem=imperdiet&fusce=nullam&consequat=orci&nulla=pede&nisl=venenatis&nunc=non&nisl=sodales&duis=sed&bibendum=tincidunt&felis=eu&sed=felis&interdum=fusce&venenatis=posuere&turpis=felis&enim=sed&blandit=lacus&mi=morbi&in=sem',
       },
       {
         uri: 'ru.rambler.Zoolab',
         name: 'Mil Glawsop',
-        url: 'http://indiegogo.com/mauris/sit/amet/eros/suspendisse.jsp?est=semper&donec=porta&odio=volutpat&justo=quam&sollicitudin=pede&ut=lobortis&suscipit=ligula&a=sit&feugiat=amet&et=eleifend&eros=pede&vestibulum=libero&ac=quis&est=orci&lacinia=nullam&nisi=molestie&venenatis=nibh&tristique=in&fusce=lectus&congue=pellentesque&diam=at&id=nulla&ornare=suspendisse&imperdiet=potenti&sapien=cras&urna=in&pretium=purus&nisl=eu&ut=magna&volutpat=vulputate&sapien=luctus&arcu=cum&sed=sociis&augue=natoque&aliquam=penatibus&erat=et&volutpat=magnis&in=dis&congue=parturient&etiam=montes&justo=nascetur&etiam=ridiculus&pretium=mus&iaculis=vivamus&justo=vestibulum&in=sagittis&hac=sapien&habitasse=cum&platea=sociis&dictumst=natoque&etiam=penatibus&faucibus=et&cursus=magnis&urna=dis&ut=parturient&tellus=montes&nulla=nascetur&ut=ridiculus&erat=mus&id=etiam&mauris=vel&vulputate=augue&elementum=vestibulum&nullam=rutrum&varius=rutrum&nulla=neque&facilisi=aenean&cras=auctor&non=gravida&velit=sem&nec=praesent&nisi=id&vulputate=massa&nonummy=id&maecenas=nisl&tincidunt=venenatis&lacus=lacinia&at=aenean&velit=sit&vivamus=amet',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: 'b4b3975d-b475-487e-91fb-4a71070d8ad1',
@@ -1410,20 +1239,19 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'http://forbes.com/proin/interdum/mauris.xml?ut=neque&volutpat=sapien&sapien=placerat&arcu=ante&sed=nulla&augue=justo&aliquam=aliquam&erat=quis&volutpat=turpis&in=eget&congue=elit&etiam=sodales&justo=scelerisque&etiam=mauris&pretium=sit&iaculis=amet&justo=eros&in=suspendisse&hac=accumsan&habitasse=tortor&platea=quis&dictumst=turpis&etiam=sed&faucibus=ante&cursus=vivamus&urna=tortor&ut=duis&tellus=mattis&nulla=egestas&ut=metus&erat=aenean&id=fermentum&mauris=donec&vulputate=ut&elementum=mauris&nullam=eget&varius=massa&nulla=tempor&facilisi=convallis&cras=nulla&non=neque&velit=libero&nec=convallis&nisi=eget&vulputate=eleifend&nonummy=luctus&maecenas=ultricies&tincidunt=eu&lacus=nibh&at=quisque&velit=id&vivamus=justo&vel=sit&nulla=amet&eget=sapien&eros=dignissim&elementum=vestibulum&pellentesque=vestibulum&quisque=ante&porta=ipsum&volutpat=primis&erat=in&quisque=faucibus&erat=orci&eros=luctus&viverra=et&eget=ultrices&congue=posuere&eget=cubilia&semper=curae&rutrum=nulla',
       name: 'QPSK',
-      images: [{ url: 'http://dummyimage.com/135x100.png/5fa2dd/ffffff' }],
+      images: [],
     },
     artists: [
       {
-        uri: 'com.eepurl.Cardify',
         name: 'Glynn Smillie',
-        url: 'https://4shared.com/sit/amet/justo/morbi.js?libero=tellus&convallis=nulla&eget=ut&eleifend=erat&luctus=id&ultricies=mauris&eu=vulputate&nibh=elementum&quisque=nullam&id=varius&justo=nulla&sit=facilisi&amet=cras&sapien=non&dignissim=velit&vestibulum=nec&vestibulum=nisi&ante=vulputate&ipsum=nonummy&primis=maecenas&in=tincidunt&faucibus=lacus&orci=at&luctus=velit&et=vivamus&ultrices=vel&posuere=nulla&cubilia=eget&curae=eros&nulla=elementum&dapibus=pellentesque&dolor=quisque&vel=porta&est=volutpat&donec=erat&odio=quisque&justo=erat&sollicitudin=eros&ut=viverra&suscipit=eget',
+        uri: '',
       },
       {
         uri: 'gov.usa.Opela',
-        name: 'Burl Felix',
-        url: 'http://ftc.gov/consequat/varius/integer/ac/leo.aspx?neque=massa&libero=id&convallis=nisl&eget=venenatis&eleifend=lacinia&luctus=aenean&ultricies=sit&eu=amet&nibh=justo&quisque=morbi&id=ut&justo=odio',
+        name: '',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: 'defa670b-d00f-4181-bf41-5cf2d134e111',
@@ -1442,21 +1270,15 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'http://ycombinator.com/vel/lectus/in/quam/fringilla/rhoncus/mauris.json?quam=primis&suspendisse=in&potenti=faucibus&nullam=orci&porttitor=luctus&lacus=et&at=ultrices&turpis=posuere&donec=cubilia&posuere=curae&metus=mauris&vitae=viverra&ipsum=diam&aliquam=vitae&non=quam&mauris=suspendisse&morbi=potenti&non=nullam&lectus=porttitor&aliquam=lacus&sit=at&amet=turpis&diam=donec&in=posuere&magna=metus&bibendum=vitae&imperdiet=ipsum&nullam=aliquam&orci=non&pede=mauris&venenatis=morbi&non=non&sodales=lectus&sed=aliquam&tincidunt=sit&eu=amet&felis=diam&fusce=in&posuere=magna&felis=bibendum&sed=imperdiet&lacus=nullam&morbi=orci&sem=pede&mauris=venenatis&laoreet=non&ut=sodales&rhoncus=sed&aliquet=tincidunt&pulvinar=eu&sed=felis&nisl=fusce&nunc=posuere&rhoncus=felis&dui=sed&vel=lacus&sem=morbi&sed=sem&sagittis=mauris&nam=laoreet&congue=ut&risus=rhoncus&semper=aliquet&porta=pulvinar&volutpat=sed&quam=nisl&pede=nunc&lobortis=rhoncus&ligula=dui&sit=vel&amet=sem',
       name: 'Ajax4JSF',
-      images: [
-        { url: 'http://dummyimage.com/187x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/218x100.png/5fa2dd/ffffff' },
-        { url: 'http://dummyimage.com/191x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/145x100.png/5fa2dd/ffffff' },
-        { url: 'http://dummyimage.com/124x100.png/5fa2dd/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'com.soundcloud.Kanlam',
         name: 'Livvie Hanalan',
-        url: 'https://phpbb.com/justo/pellentesque/viverra.xml?nullam=cum&molestie=sociis&nibh=natoque&in=penatibus&lectus=et&pellentesque=magnis&at=dis&nulla=parturient&suspendisse=montes&potenti=nascetur&cras=ridiculus&in=mus&purus=vivamus&eu=vestibulum&magna=sagittis&vulputate=sapien&luctus=cum&cum=sociis&sociis=natoque&natoque=penatibus&penatibus=et&et=magnis&magnis=dis&dis=parturient&parturient=montes&montes=nascetur&nascetur=ridiculus&ridiculus=mus&mus=etiam&vivamus=vel&vestibulum=augue&sagittis=vestibulum&sapien=rutrum&cum=rutrum&sociis=neque&natoque=aenean&penatibus=auctor&et=gravida&magnis=sem&dis=praesent&parturient=id&montes=massa&nascetur=id&ridiculus=nisl&mus=venenatis&etiam=lacinia&vel=aenean&augue=sit&vestibulum=amet&rutrum=justo&rutrum=morbi&neque=ut&aenean=odio&auctor=cras&gravida=mi&sem=pede&praesent=malesuada&id=in&massa=imperdiet&id=et&nisl=commodo&venenatis=vulputate&lacinia=justo&aenean=in&sit=blandit&amet=ultrices&justo=enim&morbi=lorem&ut=ipsum&odio=dolor&cras=sit&mi=amet&pede=consectetuer&malesuada=adipiscing',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '8c1f95ed-614d-4e7e-a7f0-fe4b290e11d1',
@@ -1475,28 +1297,23 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'https://360.cn/tristique/tortor.html?purus=luctus&eu=et&magna=ultrices&vulputate=posuere&luctus=cubilia&cum=curae&sociis=mauris&natoque=viverra&penatibus=diam&et=vitae&magnis=quam&dis=suspendisse&parturient=potenti&montes=nullam&nascetur=porttitor&ridiculus=lacus&mus=at&vivamus=turpis&vestibulum=donec&sagittis=posuere&sapien=metus&cum=vitae&sociis=ipsum&natoque=aliquam&penatibus=non&et=mauris&magnis=morbi&dis=non&parturient=lectus&montes=aliquam&nascetur=sit&ridiculus=amet&mus=diam&etiam=in&vel=magna&augue=bibendum&vestibulum=imperdiet&rutrum=nullam&rutrum=orci&neque=pede&aenean=venenatis&auctor=non&gravida=sodales&sem=sed&praesent=tincidunt&id=eu&massa=felis',
       name: 'osCommerce',
-      images: [
-        { url: 'http://dummyimage.com/176x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/196x100.png/cc0000/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'com.phpbb.Latlux',
         name: 'Elora Spata',
-        url: 'http://usgs.gov/porta.xml?enim=ultrices&leo=posuere',
       },
       {
         uri: 'com.skype.Matsoft',
         name: 'Pete Taborre',
-        url: 'https://seesaa.net/congue/etiam/justo/etiam/pretium/iaculis/justo.png?sit=volutpat&amet=quam&nulla=pede&quisque=lobortis&arcu=ligula',
       },
       {
         uri: 'com.mashable.Fixflex',
         name: 'Orton Giannazzi',
-        url: 'https://google.com.au/felis/sed/interdum.aspx?orci=tincidunt&luctus=nulla&et=mollis&ultrices=molestie&posuere=lorem&cubilia=quisque&curae=ut&donec=erat&pharetra=curabitur&magna=gravida&vestibulum=nisi&aliquet=at&ultrices=nibh&erat=in&tortor=hac&sollicitudin=habitasse&mi=platea&sit=dictumst&amet=aliquam&lobortis=augue&sapien=quam&sapien=sollicitudin&non=vitae&mi=consectetuer&integer=eget&ac=rutrum&neque=at&duis=lorem&bibendum=integer&morbi=tincidunt&non=ante&quam=vel&nec=ipsum&dui=praesent&luctus=blandit&rutrum=lacinia&nulla=erat&tellus=vestibulum&in=sed&sagittis=magna&dui=at&vel=nunc&nisl=commodo&duis=placerat&ac=praesent&nibh=blandit&fusce=nam&lacus=nulla&purus=integer&aliquet=pede&at=justo&feugiat=lacinia&non=eget&pretium=tincidunt&quis=eget&lectus=tempus&suspendisse=vel&potenti=pede',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '28af1d3d-9a41-47eb-9365-1756f1eadc25',
@@ -1521,14 +1338,13 @@ export const mockTracks: ITrack[] = [
       {
         uri: 'jp.co.rakuten.Zontrax',
         name: 'Leonore Marshland',
-        url: 'https://last.fm/at/feugiat/non/pretium/quis/lectus.jsp?ultrices=venenatis&vel=tristique&augue=fusce&vestibulum=congue&ante=diam&ipsum=id&primis=ornare&in=imperdiet&faucibus=sapien&orci=urna&luctus=pretium&et=nisl&ultrices=ut&posuere=volutpat&cubilia=sapien&curae=arcu&donec=sed&pharetra=augue&magna=aliquam&vestibulum=erat&aliquet=volutpat&ultrices=in',
       },
       {
         uri: 'com.bloomberg.Tresom',
         name: 'Berkly Trytsman',
-        url: 'https://yandex.ru/non/ligula/pellentesque.json?ut=elementum&massa=eu&quis=interdum&augue=eu&luctus=tincidunt&tincidunt=in&nulla=leo&mollis=maecenas&molestie=pulvinar&lorem=lobortis&quisque=est&ut=phasellus&erat=sit&curabitur=amet&gravida=erat&nisi=nulla&at=tempus&nibh=vivamus&in=in&hac=felis&habitasse=eu&platea=sapien&dictumst=cursus&aliquam=vestibulum&augue=proin&quam=eu&sollicitudin=mi&vitae=nulla&consectetuer=ac&eget=enim&rutrum=in&at=tempor&lorem=turpis&integer=nec&tincidunt=euismod&ante=scelerisque&vel=quam&ipsum=turpis&praesent=adipiscing&blandit=lorem&lacinia=vitae&erat=mattis&vestibulum=nibh&sed=ligula&magna=nec&at=sem',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '35562838-f0ac-4176-8f64-5b3d86ff0a56',
@@ -1547,25 +1363,19 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'https://shareasale.com/etiam/vel/augue.json?vel=enim&nisl=sit&duis=amet&ac=nunc&nibh=viverra&fusce=dapibus&lacus=nulla',
       name: 'RP',
-      images: [
-        { url: 'http://dummyimage.com/106x100.png/5fa2dd/ffffff' },
-        { url: 'http://dummyimage.com/191x100.png/5fa2dd/ffffff' },
-        { url: 'http://dummyimage.com/130x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/177x100.png/cc0000/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'au.gov.nsw.Trippledex',
         name: 'Shadow Tellett',
-        url: 'https://angelfire.com/dui/vel/nisl/duis.xml?amet=turpis&justo=enim&morbi=blandit&ut=mi&odio=in&cras=porttitor&mi=pede&pede=justo&malesuada=eu&in=massa&imperdiet=donec&et=dapibus&commodo=duis&vulputate=at&justo=velit&in=eu&blandit=est&ultrices=congue&enim=elementum&lorem=in&ipsum=hac&dolor=habitasse&sit=platea&amet=dictumst&consectetuer=morbi&adipiscing=vestibulum&elit=velit&proin=id&interdum=pretium&mauris=iaculis&non=diam&ligula=erat&pellentesque=fermentum&ultrices=justo&phasellus=nec&id=condimentum&sapien=neque&in=sapien&sapien=placerat&iaculis=ante&congue=nulla&vivamus=justo',
       },
       {
         uri: 'com.tinypic.Y-Solowarm',
         name: 'Marcia Natwick',
-        url: 'https://pen.io/duis/bibendum/felis.png?at=orci&vulputate=luctus&vitae=et&nisl=ultrices&aenean=posuere&lectus=cubilia&pellentesque=curae&eget=duis&nunc=faucibus&donec=accumsan&quis=odio&orci=curabitur&eget=convallis&orci=duis&vehicula=consequat&condimentum=dui&curabitur=nec&in=nisi&libero=volutpat&ut=eleifend&massa=donec&volutpat=ut&convallis=dolor&morbi=morbi&odio=vel&odio=lectus&elementum=in&eu=quam&interdum=fringilla&eu=rhoncus&tincidunt=mauris&in=enim&leo=leo&maecenas=rhoncus&pulvinar=sed&lobortis=vestibulum&est=sit&phasellus=amet&sit=cursus&amet=id&erat=turpis&nulla=integer&tempus=aliquet&vivamus=massa&in=id&felis=lobortis&eu=convallis&sapien=tortor&cursus=risus&vestibulum=dapibus&proin=augue&eu=vel',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '84e58549-6628-4b6d-b64f-8d12baa1a998',
@@ -1584,34 +1394,27 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'https://rambler.ru/fusce/posuere/felis/sed.xml?sed=magna&tincidunt=vestibulum&eu=aliquet&felis=ultrices&fusce=erat&posuere=tortor&felis=sollicitudin&sed=mi&lacus=sit&morbi=amet&sem=lobortis&mauris=sapien&laoreet=sapien&ut=non&rhoncus=mi&aliquet=integer&pulvinar=ac&sed=neque&nisl=duis&nunc=bibendum&rhoncus=morbi&dui=non&vel=quam&sem=nec&sed=dui&sagittis=luctus&nam=rutrum&congue=nulla&risus=tellus&semper=in&porta=sagittis&volutpat=dui&quam=vel&pede=nisl&lobortis=duis&ligula=ac&sit=nibh&amet=fusce&eleifend=lacus&pede=purus&libero=aliquet&quis=at&orci=feugiat&nullam=non&molestie=pretium&nibh=quis&in=lectus&lectus=suspendisse&pellentesque=potenti&at=in&nulla=eleifend&suspendisse=quam&potenti=a&cras=odio&in=in&purus=hac&eu=habitasse&magna=platea&vulputate=dictumst&luctus=maecenas&cum=ut&sociis=massa&natoque=quis&penatibus=augue&et=luctus&magnis=tincidunt&dis=nulla&parturient=mollis&montes=molestie&nascetur=lorem&ridiculus=quisque&mus=ut&vivamus=erat&vestibulum=curabitur&sagittis=gravida&sapien=nisi&cum=at&sociis=nibh&natoque=in&penatibus=hac&et=habitasse&magnis=platea&dis=dictumst&parturient=aliquam&montes=augue&nascetur=quam&ridiculus=sollicitudin&mus=vitae&etiam=consectetuer&vel=eget&augue=rutrum&vestibulum=at&rutrum=lorem&rutrum=integer&neque=tincidunt&aenean=ante&auctor=vel',
       name: 'Gypsum',
-      images: [
-        { url: 'http://dummyimage.com/232x100.png/dddddd/000000' },
-        { url: 'http://dummyimage.com/184x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/189x100.png/cc0000/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'jp.ameblo.Zontrax',
         name: 'Teddie Novakovic',
-        url: 'http://ocn.ne.jp/in/lacus/curabitur/at/ipsum.jsp?erat=sed&fermentum=justo&justo=pellentesque&nec=viverra&condimentum=pede&neque=ac&sapien=diam&placerat=cras&ante=pellentesque&nulla=volutpat&justo=dui&aliquam=maecenas&quis=tristique&turpis=est&eget=et&elit=tempus&sodales=semper&scelerisque=est&mauris=quam&sit=pharetra&amet=magna&eros=ac&suspendisse=consequat&accumsan=metus&tortor=sapien&quis=ut&turpis=nunc&sed=vestibulum&ante=ante&vivamus=ipsum&tortor=primis&duis=in&mattis=faucibus&egestas=orci',
       },
       {
         uri: 'edu.illinois.Zoolab',
         name: 'Massimiliano Bruster',
-        url: 'https://state.gov/dapibus/duis/at/velit.js?vestibulum=porta&eget=volutpat&vulputate=erat&ut=quisque&ultrices=erat&vel=eros&augue=viverra&vestibulum=eget&ante=congue&ipsum=eget&primis=semper&in=rutrum&faucibus=nulla&orci=nunc&luctus=purus&et=phasellus&ultrices=in&posuere=felis&cubilia=donec&curae=semper&donec=sapien&pharetra=a&magna=libero&vestibulum=nam&aliquet=dui&ultrices=proin&erat=leo&tortor=odio&sollicitudin=porttitor&mi=id&sit=consequat&amet=in&lobortis=consequat&sapien=ut&sapien=nulla&non=sed&mi=accumsan&integer=felis&ac=ut&neque=at&duis=dolor&bibendum=quis&morbi=odio&non=consequat&quam=varius&nec=integer&dui=ac&luctus=leo&rutrum=pellentesque&nulla=ultrices&tellus=mattis&in=odio&sagittis=donec&dui=vitae&vel=nisi',
       },
       {
         uri: 'gov.house.Subin',
         name: 'Karleen Dickerson',
-        url: 'http://photobucket.com/mauris/lacinia/sapien.json?fermentum=eu&donec=orci&ut=mauris&mauris=lacinia&eget=sapien&massa=quis&tempor=libero&convallis=nullam&nulla=sit&neque=amet&libero=turpis&convallis=elementum&eget=ligula&eleifend=vehicula&luctus=consequat&ultricies=morbi&eu=a&nibh=ipsum&quisque=integer&id=a&justo=nibh&sit=in&amet=quis&sapien=justo&dignissim=maecenas&vestibulum=rhoncus&vestibulum=aliquam&ante=lacus&ipsum=morbi&primis=quis&in=tortor&faucibus=id&orci=nulla&luctus=ultrices&et=aliquet&ultrices=maecenas&posuere=leo&cubilia=odio&curae=condimentum&nulla=id&dapibus=luctus&dolor=nec&vel=molestie&est=sed&donec=justo&odio=pellentesque&justo=viverra&sollicitudin=pede&ut=ac&suscipit=diam&a=cras&feugiat=pellentesque&et=volutpat&eros=dui&vestibulum=maecenas&ac=tristique&est=est&lacinia=et&nisi=tempus&venenatis=semper&tristique=est&fusce=quam&congue=pharetra&diam=magna&id=ac&ornare=consequat&imperdiet=metus&sapien=sapien&urna=ut&pretium=nunc&nisl=vestibulum&ut=ante&volutpat=ipsum&sapien=primis&arcu=in&sed=faucibus&augue=orci&aliquam=luctus&erat=et&volutpat=ultrices&in=posuere&congue=cubilia&etiam=curae&justo=mauris&etiam=viverra&pretium=diam&iaculis=vitae&justo=quam&in=suspendisse&hac=potenti&habitasse=nullam&platea=porttitor&dictumst=lacus&etiam=at&faucibus=turpis&cursus=donec&urna=posuere',
       },
       {
         uri: 'com.merriam-webster.Fixflex',
         name: 'Maggee Orr',
-        url: 'https://hatena.ne.jp/ut/nunc.html?odio=viverra&elementum=eget&eu=congue&interdum=eget&eu=semper&tincidunt=rutrum&in=nulla&leo=nunc&maecenas=purus&pulvinar=phasellus&lobortis=in&est=felis&phasellus=donec&sit=semper&amet=sapien&erat=a&nulla=libero&tempus=nam&vivamus=dui&in=proin&felis=leo&eu=odio&sapien=porttitor&cursus=id&vestibulum=consequat&proin=in&eu=consequat&mi=ut',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: 'ba073cab-9ce8-4f96-939e-d836b9b6dcb3',
@@ -1630,33 +1433,27 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'http://google.fr/nunc/rhoncus/dui/vel/sem/sed.jpg?nullam=lacus&sit=at&amet=turpis&turpis=donec&elementum=posuere&ligula=metus&vehicula=vitae&consequat=ipsum&morbi=aliquam&a=non&ipsum=mauris&integer=morbi&a=non&nibh=lectus&in=aliquam&quis=sit&justo=amet&maecenas=diam&rhoncus=in&aliquam=magna&lacus=bibendum&morbi=imperdiet&quis=nullam&tortor=orci&id=pede&nulla=venenatis&ultrices=non&aliquet=sodales&maecenas=sed&leo=tincidunt&odio=eu&condimentum=felis&id=fusce&luctus=posuere&nec=felis&molestie=sed&sed=lacus&justo=morbi&pellentesque=sem&viverra=mauris&pede=laoreet&ac=ut&diam=rhoncus&cras=aliquet&pellentesque=pulvinar&volutpat=sed&dui=nisl&maecenas=nunc&tristique=rhoncus&est=dui&et=vel&tempus=sem&semper=sed&est=sagittis&quam=nam&pharetra=congue&magna=risus&ac=semper&consequat=porta&metus=volutpat&sapien=quam&ut=pede&nunc=lobortis&vestibulum=ligula&ante=sit&ipsum=amet&primis=eleifend&in=pede&faucibus=libero&orci=quis&luctus=orci&et=nullam&ultrices=molestie&posuere=nibh&cubilia=in&curae=lectus&mauris=pellentesque&viverra=at&diam=nulla&vitae=suspendisse&quam=potenti&suspendisse=cras&potenti=in&nullam=purus&porttitor=eu',
       name: 'CAD',
-      images: [
-        { url: 'http://dummyimage.com/138x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/181x100.png/cc0000/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'com.geocities.Temp',
         name: 'Nanny Scrane',
-        url: 'https://seattletimes.com/justo/in/hac/habitasse/platea/dictumst/etiam.js?luctus=orci&cum=pede&sociis=venenatis&natoque=non&penatibus=sodales&et=sed&magnis=tincidunt&dis=eu&parturient=felis&montes=fusce&nascetur=posuere&ridiculus=felis&mus=sed&vivamus=lacus&vestibulum=morbi&sagittis=sem&sapien=mauris&cum=laoreet&sociis=ut&natoque=rhoncus&penatibus=aliquet&et=pulvinar&magnis=sed&dis=nisl&parturient=nunc&montes=rhoncus&nascetur=dui&ridiculus=vel&mus=sem&etiam=sed&vel=sagittis&augue=nam&vestibulum=congue&rutrum=risus&rutrum=semper&neque=porta&aenean=volutpat&auctor=quam&gravida=pede&sem=lobortis&praesent=ligula&id=sit&massa=amet&id=eleifend&nisl=pede&venenatis=libero&lacinia=quis&aenean=orci&sit=nullam&amet=molestie&justo=nibh&morbi=in&ut=lectus&odio=pellentesque&cras=at&mi=nulla&pede=suspendisse&malesuada=potenti&in=cras&imperdiet=in&et=purus&commodo=eu&vulputate=magna&justo=vulputate&in=luctus&blandit=cum&ultrices=sociis&enim=natoque&lorem=penatibus&ipsum=et&dolor=magnis&sit=dis&amet=parturient&consectetuer=montes&adipiscing=nascetur&elit=ridiculus&proin=mus&interdum=vivamus&mauris=vestibulum&non=sagittis&ligula=sapien&pellentesque=cum&ultrices=sociis&phasellus=natoque&id=penatibus&sapien=et&in=magnis&sapien=dis&iaculis=parturient&congue=montes&vivamus=nascetur&metus=ridiculus&arcu=mus&adipiscing=etiam&molestie=vel&hendrerit=augue',
       },
       {
         uri: 'int.who.Flexidy',
         name: 'Abrahan Dawtre',
-        url: 'https://mapy.cz/egestas/metus/aenean/fermentum/donec/ut/mauris.png?imperdiet=suspendisse&et=potenti&commodo=in&vulputate=eleifend&justo=quam&in=a&blandit=odio&ultrices=in&enim=hac&lorem=habitasse&ipsum=platea&dolor=dictumst&sit=maecenas&amet=ut&consectetuer=massa&adipiscing=quis&elit=augue&proin=luctus&interdum=tincidunt&mauris=nulla&non=mollis&ligula=molestie&pellentesque=lorem',
       },
       {
         uri: 'uk.co.timesonline.Zathin',
         name: 'Aldis Bratt',
-        url: 'https://360.cn/ut.json?sed=at&sagittis=velit&nam=eu&congue=est&risus=congue&semper=elementum&porta=in&volutpat=hac&quam=habitasse&pede=platea&lobortis=dictumst&ligula=morbi&sit=vestibulum&amet=velit&eleifend=id&pede=pretium&libero=iaculis&quis=diam&orci=erat&nullam=fermentum&molestie=justo&nibh=nec&in=condimentum&lectus=neque&pellentesque=sapien&at=placerat&nulla=ante&suspendisse=nulla&potenti=justo&cras=aliquam&in=quis&purus=turpis&eu=eget&magna=elit&vulputate=sodales&luctus=scelerisque&cum=mauris&sociis=sit&natoque=amet&penatibus=eros&et=suspendisse&magnis=accumsan&dis=tortor&parturient=quis&montes=turpis&nascetur=sed&ridiculus=ante&mus=vivamus&vivamus=tortor&vestibulum=duis&sagittis=mattis&sapien=egestas&cum=metus',
       },
       {
         uri: 'com.hp.Treeflex',
         name: 'Dugald Paver',
-        url: 'http://wix.com/amet/eleifend/pede/libero/quis/orci/nullam.aspx?consectetuer=vulputate&eget=luctus&rutrum=cum&at=sociis&lorem=natoque&integer=penatibus&tincidunt=et&ante=magnis&vel=dis&ipsum=parturient&praesent=montes&blandit=nascetur&lacinia=ridiculus',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '06d23d7e-97d6-4fd5-9e70-b3b36cec43c9',
@@ -1675,29 +1472,23 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'https://apache.org/platea/dictumst/etiam/faucibus/cursus/urna/ut.js?ante=turpis&ipsum=nec&primis=euismod&in=scelerisque&faucibus=quam&orci=turpis&luctus=adipiscing&et=lorem&ultrices=vitae&posuere=mattis&cubilia=nibh&curae=ligula&mauris=nec&viverra=sem&diam=duis&vitae=aliquam&quam=convallis&suspendisse=nunc&potenti=proin&nullam=at&porttitor=turpis&lacus=a&at=pede&turpis=posuere&donec=nonummy&posuere=integer&metus=non&vitae=velit&ipsum=donec&aliquam=diam&non=neque&mauris=vestibulum&morbi=eget&non=vulputate&lectus=ut&aliquam=ultrices&sit=vel&amet=augue&diam=vestibulum&in=ante&magna=ipsum&bibendum=primis&imperdiet=in&nullam=faucibus&orci=orci&pede=luctus&venenatis=et&non=ultrices&sodales=posuere&sed=cubilia&tincidunt=curae&eu=donec&felis=pharetra&fusce=magna&posuere=vestibulum&felis=aliquet&sed=ultrices&lacus=erat&morbi=tortor&sem=sollicitudin&mauris=mi&laoreet=sit&ut=amet&rhoncus=lobortis&aliquet=sapien&pulvinar=sapien&sed=non&nisl=mi&nunc=integer&rhoncus=ac&dui=neque&vel=duis&sem=bibendum&sed=morbi&sagittis=non&nam=quam&congue=nec&risus=dui&semper=luctus&porta=rutrum&volutpat=nulla&quam=tellus&pede=in&lobortis=sagittis&ligula=dui&sit=vel&amet=nisl&eleifend=duis&pede=ac&libero=nibh&quis=fusce&orci=lacus&nullam=purus&molestie=aliquet&nibh=at&in=feugiat&lectus=non&pellentesque=pretium&at=quis&nulla=lectus',
       name: 'Executive Management',
-      images: [
-        { url: 'http://dummyimage.com/239x100.png/dddddd/000000' },
-        { url: 'http://dummyimage.com/167x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/105x100.png/5fa2dd/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'net.seesaa.Home Ing',
         name: 'Charmane Bentje',
-        url: 'https://360.cn/posuere/nonummy/integer/non.aspx?etiam=sed&pretium=sagittis&iaculis=nam&justo=congue&in=risus&hac=semper&habitasse=porta&platea=volutpat&dictumst=quam&etiam=pede&faucibus=lobortis&cursus=ligula&urna=sit&ut=amet&tellus=eleifend&nulla=pede&ut=libero&erat=quis&id=orci&mauris=nullam&vulputate=molestie&elementum=nibh&nullam=in&varius=lectus&nulla=pellentesque&facilisi=at&cras=nulla&non=suspendisse&velit=potenti&nec=cras&nisi=in&vulputate=purus&nonummy=eu&maecenas=magna&tincidunt=vulputate&lacus=luctus&at=cum&velit=sociis&vivamus=natoque&vel=penatibus&nulla=et&eget=magnis&eros=dis&elementum=parturient&pellentesque=montes&quisque=nascetur&porta=ridiculus&volutpat=mus&erat=vivamus&quisque=vestibulum&erat=sagittis&eros=sapien&viverra=cum&eget=sociis&congue=natoque&eget=penatibus&semper=et&rutrum=magnis&nulla=dis&nunc=parturient&purus=montes&phasellus=nascetur&in=ridiculus&felis=mus&donec=etiam&semper=vel&sapien=augue&a=vestibulum&libero=rutrum&nam=rutrum&dui=neque&proin=aenean&leo=auctor&odio=gravida&porttitor=sem&id=praesent&consequat=id&in=massa&consequat=id&ut=nisl&nulla=venenatis&sed=lacinia&accumsan=aenean&felis=sit&ut=amet&at=justo&dolor=morbi&quis=ut&odio=odio&consequat=cras',
       },
       {
         uri: 'gov.fda.Flexidy',
         name: 'Daile Mellody',
-        url: 'http://fda.gov/parturient.xml?nascetur=vestibulum&ridiculus=sagittis&mus=sapien&etiam=cum&vel=sociis&augue=natoque&vestibulum=penatibus&rutrum=et&rutrum=magnis&neque=dis&aenean=parturient&auctor=montes&gravida=nascetur&sem=ridiculus&praesent=mus&id=etiam&massa=vel&id=augue&nisl=vestibulum&venenatis=rutrum&lacinia=rutrum&aenean=neque&sit=aenean&amet=auctor&justo=gravida&morbi=sem&ut=praesent&odio=id&cras=massa&mi=id&pede=nisl&malesuada=venenatis&in=lacinia&imperdiet=aenean&et=sit&commodo=amet&vulputate=justo&justo=morbi&in=ut&blandit=odio&ultrices=cras&enim=mi&lorem=pede&ipsum=malesuada&dolor=in&sit=imperdiet&amet=et&consectetuer=commodo&adipiscing=vulputate&elit=justo&proin=in&interdum=blandit&mauris=ultrices&non=enim&ligula=lorem&pellentesque=ipsum&ultrices=dolor&phasellus=sit&id=amet&sapien=consectetuer&in=adipiscing&sapien=elit&iaculis=proin&congue=interdum&vivamus=mauris&metus=non&arcu=ligula&adipiscing=pellentesque&molestie=ultrices&hendrerit=phasellus&at=id&vulputate=sapien&vitae=in&nisl=sapien&aenean=iaculis&lectus=congue&pellentesque=vivamus&eget=metus',
       },
       {
         uri: 'com.latimes.Tin',
         name: 'Anya Trammel',
-        url: 'https://sohu.com/justo/in/blandit/ultrices.json?volutpat=in&quam=hac&pede=habitasse&lobortis=platea&ligula=dictumst&sit=aliquam&amet=augue&eleifend=quam&pede=sollicitudin&libero=vitae&quis=consectetuer&orci=eget&nullam=rutrum&molestie=at&nibh=lorem&in=integer&lectus=tincidunt&pellentesque=ante&at=vel&nulla=ipsum&suspendisse=praesent&potenti=blandit&cras=lacinia&in=erat&purus=vestibulum&eu=sed&magna=magna&vulputate=at&luctus=nunc&cum=commodo&sociis=placerat&natoque=praesent&penatibus=blandit&et=nam&magnis=nulla&dis=integer&parturient=pede&montes=justo&nascetur=lacinia&ridiculus=eget&mus=tincidunt&vivamus=eget&vestibulum=tempus&sagittis=vel&sapien=pede&cum=morbi&sociis=porttitor&natoque=lorem&penatibus=id&et=ligula&magnis=suspendisse&dis=ornare&parturient=consequat&montes=lectus&nascetur=in&ridiculus=est&mus=risus&etiam=auctor&vel=sed&augue=tristique&vestibulum=in&rutrum=tempus&rutrum=sit&neque=amet&aenean=sem&auctor=fusce&gravida=consequat&sem=nulla&praesent=nisl&id=nunc&massa=nisl&id=duis&nisl=bibendum&venenatis=felis&lacinia=sed&aenean=interdum&sit=venenatis&amet=turpis&justo=enim&morbi=blandit&ut=mi&odio=in&cras=porttitor&mi=pede',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '2581ed3b-add2-4e8c-ae3d-6a585165b496',
@@ -1716,18 +1507,15 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'http://google.co.jp/eros/vestibulum/ac.png?mi=pede&in=justo&porttitor=eu&pede=massa&justo=donec&eu=dapibus&massa=duis&donec=at&dapibus=velit&duis=eu&at=est&velit=congue&eu=elementum&est=in&congue=hac&elementum=habitasse&in=platea&hac=dictumst&habitasse=morbi&platea=vestibulum&dictumst=velit&morbi=id&vestibulum=pretium&velit=iaculis&id=diam&pretium=erat&iaculis=fermentum&diam=justo&erat=nec&fermentum=condimentum&justo=neque&nec=sapien&condimentum=placerat&neque=ante&sapien=nulla&placerat=justo&ante=aliquam&nulla=quis&justo=turpis&aliquam=eget&quis=elit&turpis=sodales&eget=scelerisque&elit=mauris&sodales=sit&scelerisque=amet&mauris=eros&sit=suspendisse&amet=accumsan&eros=tortor&suspendisse=quis&accumsan=turpis&tortor=sed&quis=ante&turpis=vivamus&sed=tortor&ante=duis&vivamus=mattis&tortor=egestas&duis=metus&mattis=aenean&egestas=fermentum&metus=donec&aenean=ut&fermentum=mauris&donec=eget&ut=massa&mauris=tempor&eget=convallis&massa=nulla&tempor=neque&convallis=libero&nulla=convallis&neque=eget&libero=eleifend&convallis=luctus&eget=ultricies&eleifend=eu&luctus=nibh&ultricies=quisque&eu=id&nibh=justo',
       name: 'Operational Risk Management',
-      images: [
-        { url: 'http://dummyimage.com/109x100.png/dddddd/000000' },
-        { url: 'http://dummyimage.com/239x100.png/dddddd/000000' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'com.wired.Biodex',
         name: 'Ad Eayres',
-        url: 'http://domainmarket.com/nisi/vulputate/nonummy/maecenas/tincidunt.html?id=eget&ornare=rutrum&imperdiet=at&sapien=lorem',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: 'e0c371f2-6c49-4fc0-928c-08964ef6261c',
@@ -1746,20 +1534,15 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'https://wsj.com/placerat/praesent/blandit/nam/nulla/integer/pede.aspx?purus=magna&aliquet=at&at=nunc&feugiat=commodo&non=placerat&pretium=praesent&quis=blandit&lectus=nam&suspendisse=nulla&potenti=integer&in=pede&eleifend=justo&quam=lacinia&a=eget&odio=tincidunt&in=eget&hac=tempus&habitasse=vel&platea=pede&dictumst=morbi&maecenas=porttitor&ut=lorem&massa=id&quis=ligula&augue=suspendisse&luctus=ornare&tincidunt=consequat&nulla=lectus&mollis=in&molestie=est&lorem=risus&quisque=auctor&ut=sed&erat=tristique&curabitur=in&gravida=tempus&nisi=sit&at=amet&nibh=sem&in=fusce&hac=consequat&habitasse=nulla&platea=nisl&dictumst=nunc&aliquam=nisl&augue=duis&quam=bibendum&sollicitudin=felis&vitae=sed&consectetuer=interdum&eget=venenatis&rutrum=turpis&at=enim&lorem=blandit&integer=mi&tincidunt=in&ante=porttitor&vel=pede&ipsum=justo&praesent=eu&blandit=massa&lacinia=donec&erat=dapibus&vestibulum=duis&sed=at&magna=velit&at=eu&nunc=est&commodo=congue&placerat=elementum&praesent=in&blandit=hac&nam=habitasse&nulla=platea&integer=dictumst&pede=morbi&justo=vestibulum&lacinia=velit&eget=id',
       name: 'BBP',
-      images: [
-        { url: 'http://dummyimage.com/201x100.png/dddddd/000000' },
-        { url: 'http://dummyimage.com/154x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/178x100.png/5fa2dd/ffffff' },
-        { url: 'http://dummyimage.com/242x100.png/5fa2dd/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'com.canalblog.Cardguard',
         name: 'Franklyn Bernhardi',
-        url: 'https://nytimes.com/leo/odio/porttitor/id/consequat.xml?lacinia=ultrices&erat=phasellus&vestibulum=id&sed=sapien&magna=in&at=sapien&nunc=iaculis&commodo=congue&placerat=vivamus&praesent=metus&blandit=arcu&nam=adipiscing&nulla=molestie&integer=hendrerit&pede=at&justo=vulputate&lacinia=vitae&eget=nisl&tincidunt=aenean&eget=lectus&tempus=pellentesque&vel=eget&pede=nunc&morbi=donec&porttitor=quis&lorem=orci&id=eget&ligula=orci&suspendisse=vehicula&ornare=condimentum&consequat=curabitur&lectus=in&in=libero&est=ut&risus=massa&auctor=volutpat&sed=convallis&tristique=morbi&in=odio&tempus=odio&sit=elementum&amet=eu&sem=interdum&fusce=eu&consequat=tincidunt&nulla=in&nisl=leo&nunc=maecenas&nisl=pulvinar&duis=lobortis&bibendum=est&felis=phasellus&sed=sit&interdum=amet&venenatis=erat&turpis=nulla&enim=tempus&blandit=vivamus&mi=in&in=felis&porttitor=eu&pede=sapien&justo=cursus&eu=vestibulum&massa=proin&donec=eu&dapibus=mi&duis=nulla&at=ac&velit=enim&eu=in&est=tempor&congue=turpis',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '9337cbf1-a029-4f08-b062-12e57c1caeb9',
@@ -1778,19 +1561,15 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'http://rambler.ru/est/phasellus/sit/amet/erat/nulla.xml?id=sapien&nulla=iaculis&ultrices=congue&aliquet=vivamus&maecenas=metus&leo=arcu&odio=adipiscing&condimentum=molestie&id=hendrerit&luctus=at&nec=vulputate&molestie=vitae&sed=nisl&justo=aenean&pellentesque=lectus&viverra=pellentesque&pede=eget&ac=nunc&diam=donec&cras=quis&pellentesque=orci&volutpat=eget&dui=orci&maecenas=vehicula&tristique=condimentum&est=curabitur&et=in&tempus=libero&semper=ut&est=massa&quam=volutpat&pharetra=convallis&magna=morbi&ac=odio&consequat=odio&metus=elementum&sapien=eu&ut=interdum&nunc=eu&vestibulum=tincidunt&ante=in&ipsum=leo&primis=maecenas&in=pulvinar&faucibus=lobortis&orci=est&luctus=phasellus&et=sit',
       name: 'Educational Leadership',
-      images: [
-        { url: 'http://dummyimage.com/236x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/165x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/113x100.png/dddddd/000000' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'com.xing.Sub-Ex',
         name: 'Guthrey Wilstead',
-        url: 'https://google.ru/lectus/pellentesque/eget/nunc/donec.png?justo=volutpat&nec=eleifend&condimentum=donec&neque=ut&sapien=dolor&placerat=morbi&ante=vel&nulla=lectus&justo=in&aliquam=quam&quis=fringilla&turpis=rhoncus&eget=mauris&elit=enim&sodales=leo&scelerisque=rhoncus&mauris=sed&sit=vestibulum&amet=sit&eros=amet&suspendisse=cursus&accumsan=id&tortor=turpis&quis=integer&turpis=aliquet&sed=massa&ante=id&vivamus=lobortis&tortor=convallis&duis=tortor&mattis=risus&egestas=dapibus',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: 'f9303508-c109-4c42-92f4-cef9f14aa1c1',
@@ -1809,19 +1588,15 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'http://technorati.com/luctus/tincidunt/nulla/mollis/molestie/lorem/quisque.jsp?nibh=a&ligula=odio&nec=in&sem=hac&duis=habitasse&aliquam=platea&convallis=dictumst&nunc=maecenas&proin=ut&at=massa&turpis=quis&a=augue&pede=luctus&posuere=tincidunt&nonummy=nulla&integer=mollis&non=molestie&velit=lorem&donec=quisque&diam=ut&neque=erat&vestibulum=curabitur&eget=gravida&vulputate=nisi&ut=at&ultrices=nibh&vel=in&augue=hac&vestibulum=habitasse&ante=platea&ipsum=dictumst&primis=aliquam&in=augue&faucibus=quam&orci=sollicitudin&luctus=vitae&et=consectetuer&ultrices=eget&posuere=rutrum&cubilia=at&curae=lorem&donec=integer&pharetra=tincidunt&magna=ante&vestibulum=vel&aliquet=ipsum&ultrices=praesent&erat=blandit&tortor=lacinia&sollicitudin=erat&mi=vestibulum&sit=sed&amet=magna&lobortis=at&sapien=nunc&sapien=commodo&non=placerat&mi=praesent&integer=blandit&ac=nam&neque=nulla&duis=integer&bibendum=pede&morbi=justo&non=lacinia&quam=eget&nec=tincidunt&dui=eget',
       name: 'BCMS',
-      images: [
-        { url: 'http://dummyimage.com/178x100.png/5fa2dd/ffffff' },
-        { url: 'http://dummyimage.com/210x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/119x100.png/ff4444/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'com.addthis.Tresom',
         name: 'Crystie Slingsby',
-        url: 'https://arstechnica.com/elementum/pellentesque/quisque/porta/volutpat/erat.js?libero=pellentesque&convallis=ultrices&eget=mattis&eleifend=odio&luctus=donec&ultricies=vitae&eu=nisi&nibh=nam&quisque=ultrices&id=libero&justo=non&sit=mattis&amet=pulvinar&sapien=nulla&dignissim=pede&vestibulum=ullamcorper&vestibulum=augue&ante=a&ipsum=suscipit&primis=nulla',
       },
     ],
+    content_type: 'music',
   },
   {
     uid: '862ba6ff-f96f-4b51-9cf1-68c50958e9f2',
@@ -1840,25 +1615,18 @@ export const mockTracks: ITrack[] = [
     album: {
       uri: 'https://google.ca/nonummy/maecenas.aspx?nisl=ut&duis=tellus&ac=nulla&nibh=ut&fusce=erat&lacus=id&purus=mauris&aliquet=vulputate&at=elementum&feugiat=nullam&non=varius&pretium=nulla&quis=facilisi&lectus=cras&suspendisse=non&potenti=velit&in=nec&eleifend=nisi',
       name: 'Titration',
-      images: [
-        { url: 'http://dummyimage.com/196x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/129x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/160x100.png/cc0000/ffffff' },
-        { url: 'http://dummyimage.com/206x100.png/ff4444/ffffff' },
-        { url: 'http://dummyimage.com/212x100.png/ff4444/ffffff' },
-      ],
+      images: [],
     },
     artists: [
       {
         uri: 'com.squarespace.Voyatouch',
         name: 'Arlinda Herrema',
-        url: 'https://amazonaws.com/eget/eros/elementum/pellentesque/quisque/porta/volutpat.xml?malesuada=porta&in=volutpat&imperdiet=erat&et=quisque&commodo=erat&vulputate=eros&justo=viverra&in=eget&blandit=congue&ultrices=eget&enim=semper&lorem=rutrum&ipsum=nulla&dolor=nunc&sit=purus&amet=phasellus&consectetuer=in&adipiscing=felis&elit=donec&proin=semper&interdum=sapien&mauris=a&non=libero&ligula=nam&pellentesque=dui&ultrices=proin&phasellus=leo&id=odio&sapien=porttitor&in=id&sapien=consequat&iaculis=in&congue=consequat&vivamus=ut&metus=nulla&arcu=sed&adipiscing=accumsan&molestie=felis&hendrerit=ut&at=at&vulputate=dolor&vitae=quis&nisl=odio&aenean=consequat&lectus=varius&pellentesque=integer&eget=ac&nunc=leo&donec=pellentesque&quis=ultrices&orci=mattis&eget=odio&orci=donec&vehicula=vitae&condimentum=nisi&curabitur=nam&in=ultrices&libero=libero&ut=non&massa=mattis&volutpat=pulvinar&convallis=nulla&morbi=pede&odio=ullamcorper&odio=augue&elementum=a&eu=suscipit&interdum=nulla&eu=elit&tincidunt=ac&in=nulla&leo=sed&maecenas=vel',
       },
       {
         uri: 'com.opera.Hatity',
         name: 'Chrisy Maxsted',
-        url: 'https://tinyurl.com/vestibulum/ante.png?justo=ultrices&etiam=vel&pretium=augue&iaculis=vestibulum&justo=ante&in=ipsum&hac=primis&habitasse=in&platea=faucibus&dictumst=orci&etiam=luctus&faucibus=et&cursus=ultrices&urna=posuere&ut=cubilia&tellus=curae&nulla=donec&ut=pharetra&erat=magna&id=vestibulum',
       },
     ],
+    content_type: 'music',
   },
 ]

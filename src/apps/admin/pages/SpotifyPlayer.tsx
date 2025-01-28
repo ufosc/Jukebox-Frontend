@@ -74,11 +74,12 @@ export const SpotifyPlayer = () => {
           )}
           <div className="spotify-player-desc">
             <div className="spotify-song-title">
-              {currentTrack?.name ?? 'No Track Playing'}
+              {currentTrack?.track.name ?? 'No Track Playing'}
             </div>
             <div className="spotify-song-author">
-              {currentTrack?.artists.map((artist) => artist.name).join(', ') ??
-                'Author Unavailable'}
+              {currentTrack?.track.artists
+                .map((artist) => artist.name)
+                .join(', ') ?? 'Author Unavailable'}
             </div>
           </div>
           <div className="audio-container">
@@ -89,7 +90,7 @@ export const SpotifyPlayer = () => {
             <SpotifyPlayerDetail firstDetail="Explicit" secondDetail="False" />
             <SpotifyPlayerDetail
               firstDetail={'Album'}
-              secondDetail={currentTrack?.album.name ?? 'Unavailable'}
+              secondDetail={currentTrack?.track.album.name ?? 'Unavailable'}
             />
             <SpotifyPlayerDetail
               firstDetail="Release Date"
@@ -120,30 +121,30 @@ export const SpotifyPlayer = () => {
                 {nextTracks.map(
                   (track) =>
                     track && (
-                      <li className="track-list-track" key={track.id}>
+                      <li className="track-list-track" key={track.track.id}>
                         {/* TODO: Make different set of styles for track list */}
                         {!track && <p>No track specified.</p>}
                         {track && (
                           <>
                             <span className="track-list-track__preview">
                               <img
-                                src={track?.album?.images[0].url}
-                                alt={track.name}
+                                src={track?.track.album?.images[0].url}
+                                alt={track.track.name}
                               />
                             </span>
                             <div className="track-list-track__name-group">
                               <h3 className="track-list-track__name">
-                                {track.name}
+                                {track.track.name}
                               </h3>
                               <span className="track-list-track__artists">
-                                {track.artists
+                                {track.track.artists
                                   .map((artist) => artist.name)
                                   .join(', ')}
                               </span>
                             </div>
 
                             <span className="track-list-track__info track-list-track__duration">
-                              {formatDuration(track.duration_ms)}
+                              {formatDuration(track.track.duration_ms)}
                             </span>
                           </>
                         )}

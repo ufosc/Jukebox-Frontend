@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { ModelSchemaBase } from './base'
 import { ClubInlineSchema } from './club'
 
-export const UserSchema: z.ZodSchema<IUser> = z.object({
+export const UserDetailsSchema: z.ZodSchema<IUserDetails> = z.object({
   ...ModelSchemaBase,
   email: z.string(),
   username: z.string(),

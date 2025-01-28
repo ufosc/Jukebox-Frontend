@@ -15,7 +15,6 @@ import {
 import { SpotifyPlayer } from 'src/lib'
 import { Network } from 'src/network'
 import { setHasAux } from 'src/store'
-import { uniqueId } from 'src/utils'
 import { KeyboardContext } from './KeyboardContext'
 
 export const SpotifyPlayerContext = createContext({
@@ -25,7 +24,7 @@ export const SpotifyPlayerContext = createContext({
   /** The player has authenticated with Spotify */
   spotifyIsConnected: false,
 
-  playerState: null as IPlayerMetaState | null,
+  playerState: null as IPlayerAuxState | null,
   // nextTracks: [] as Spotify.Track[],
   nextTrack: () => {},
   prevTrack: () => {},
@@ -49,7 +48,7 @@ export const SpotifyPlayerProvider = (props: {
   const networkRef = useRef<Network>()
 
   const [initialized, setInitialized] = useState(false)
-  const [playerState, setPlayerState] = useState<IPlayerMetaState | null>(null)
+  const [playerState, setPlayerState] = useState<IPlayerAuxState | null>(null)
   const [active, setActive] = useState(false)
   const [deviceId, setDeviceId] = useState('')
   const [connected, setConnected] = useState(false)
@@ -99,39 +98,19 @@ export const SpotifyPlayerProvider = (props: {
 
     setPlayerState((prev) => {
       const changedTracks =
-        spotifyTrack.id !== prev?.current_track?.id || state.position === 0
+        spotifyTrack?.id !== prev?.current_track?.id || state.position === 0
 
-      let currentMetaTrack: ITrackMeta | undefined
-
-      if (changedTracks) {
-        currentMetaTrack = {
-          ...spotifyTrack,
-          queue_id: uniqueId(),
-          spotify_queued: true,
-        }
-      } else if (prev.current_track) {
-        currentMetaTrack = { ...prev.current_track, ...spotifyTrack }
-      } else {
-        currentMetaTrack = undefined
-      }
-
-      onPlayerStateChange({
-        jukebox_id: jukebox?.id,
-        current_track: spotifyTrack,
-        progress: state.position,
-        is_playing: !state.paused,
-        default_next_tracks: state.track_window.next_tracks,
-        changed_tracks: changedTracks,
-      })
-
-      return {
+      const newState = {
         ...prev,
-        jukebox_id: jukebox!.id,
-        current_track: currentMetaTrack,
-        is_playing: !state.paused,
+        jukebox_id: jukebox?.id,
+        current_track: spotifyTrack?.id ? (spotifyTrack as IPlayerTrack) : null,
         progress: state.position,
-        default_next_tracks: state.track_window.next_tracks,
+        is_playing: !state.paused,
+        changed_tracks: changedTracks,
       }
+
+      onPlayerStateChange(newState)
+      return newState
     })
     setDeviceId(state.playback_id)
 

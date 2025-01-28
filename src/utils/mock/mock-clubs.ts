@@ -1,4 +1,4 @@
-export const mockClubs: IClub[] = [
+export const mockClubs: IClubDetails[] = [
   {
     id: 1,
     created_at: '8/20/2024',

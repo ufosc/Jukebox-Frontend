@@ -41,11 +41,11 @@ export const AudioPlayer = (props: { disableControls?: boolean }) => {
 
   // Update track values
   useEffect(() => {
-    setDuration(playerState?.current_track?.duration_ms ?? null)
+    setDuration(playerState?.current_track?.track.duration_ms ?? null)
 
     if (!progressBarRef.current || !playerState) return
     progressBarRef.current.max = String(
-      playerState.current_track?.duration_ms ?? 1000,
+      playerState.current_track?.track.duration_ms ?? 1000,
     )
   }, [playerState?.current_track])
 
@@ -104,7 +104,7 @@ export const AudioPlayer = (props: { disableControls?: boolean }) => {
           <ProgressBar
             setProgress={setProgress}
             ref={progressBarRef}
-            duration={playerState.current_track?.duration_ms}
+            duration={playerState.current_track?.track.duration_ms}
             progress={liveProgress ?? undefined}
           />
         </div>

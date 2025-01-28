@@ -5,7 +5,6 @@ import { store } from '../store'
 import {
   selectActiveLink,
   selectCurrentJukebox,
-  selectPlayerState,
   selectSpotifyAuth,
 } from './jbxSelectors'
 import {
@@ -21,40 +20,33 @@ const {
   setPlayerStateReducer,
   setNextTracksReducer,
   setHasAuxReducer,
-  performPlayerActionReducer: updatePlayerStateReducer,
-  setLiveProgressReducer,
+  performPlayerUpdateReducer: updatePlayerStateReducer,
   incrementLiveProgressReducer,
+  setProgressReducer,
+  setIsPlayingReducer,
 } = jukeboxActions
 
-export const setPlayerState = (currentlyPlaying: IPlayerMetaState) => {
+export const setPlayerState = (currentlyPlaying: IPlayerState) => {
   store.dispatch(setPlayerStateReducer(currentlyPlaying))
 }
 
-export const updatePlayerState = (currentlyPlaying: IPlayerMetaUpdate) => {
-  const prevState = selectPlayerState(store.getState())
-  const payload: IPlayerMetaState = {
-    ...prevState,
-    ...currentlyPlaying,
-    default_next_tracks: currentlyPlaying.default_next_tracks ?? [],
-    is_playing: currentlyPlaying.is_playing ?? false,
-  }
-  setLiveProgress(payload.progress)
-  store.dispatch(setPlayerStateReducer(payload))
-}
-
-export const doPlayerAction = (payload: IPlayerAction) => {
+export const updatePlayerState = (payload: IPlayerUpdate) => {
   store.dispatch(updatePlayerStateReducer(payload))
 }
 
-export const setLiveProgress = (ms?: number) => {
-  store.dispatch(setLiveProgressReducer({ ms }))
+export const setPlayerProgress = (ms: number) => {
+  store.dispatch(setProgressReducer(ms))
+}
+
+export const setPlayerIsPlaying = (isPlaying: boolean) => {
+  store.dispatch(setIsPlayingReducer(isPlaying))
 }
 
 export const incrementLiveProgress = () => {
   store.dispatch(incrementLiveProgressReducer())
 }
 
-export const setNextTracks = (nextTracks: ITrackMeta[]) => {
+export const setNextTracks = (nextTracks: IQueuedTrack[]) => {
   store.dispatch(setNextTracksReducer(nextTracks))
 }
 
@@ -118,7 +110,7 @@ export const checkLinkAuth = async () => {
     const auth = selectSpotifyAuth(store.getState())
     if (!auth) return
 
-    const expiresAt = auth?.expires_at
+    const expiresAt = new Date(auth?.expires_at).getTime()
     const expiresMax = Date.now() + SPOTIFY_AUTH_CHECK_MS * 2
 
     // Check if auth expires before next interval, plus another interval as buffer

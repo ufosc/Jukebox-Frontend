@@ -3,7 +3,7 @@ import { formatDuration } from 'src/utils'
 /**
  * TODO: MOVE THIS COMPONENT TO GLOBAL SCOPE
  */
-export const TrackItem = (props: { track: Nullable<ITrack> }) => {
+export const TrackItem = (props: { track: Nullable<IPlayerTrack> }) => {
   const { track } = props
   return (
     <li className="track-list__track">

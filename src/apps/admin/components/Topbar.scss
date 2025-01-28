@@ -59,6 +59,15 @@ $size: 4rem;
 
   &__group-dropdown {
     --control-width: 225px; // Used in base styles form component
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 2rem;
+    
+    &__jukebox {
+      display: flex;
+      gap: 1rem;
+    }
     
     select {
       padding: 6px;
