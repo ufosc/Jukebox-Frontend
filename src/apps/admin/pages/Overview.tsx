@@ -5,7 +5,7 @@ import Disk from 'src/assets/svg/Disk.svg?react'
 
 import { useSelector } from 'react-redux'
 import { AudioPlayer, TrackList } from 'src/components'
-import { TrackActivity } from 'src/components/track-list/TrackActivity'
+import { TrackInteractions } from 'src/components/track-list/TrackInteractions'
 import { selectCurrentTrack, selectNextTracks } from 'src/store/jukebox'
 
 export const Overview = () => {
@@ -17,14 +17,16 @@ export const Overview = () => {
       <div className="grid">
         <div className="col-5 card">
           <div className="song-desc">
-            <h2 className="song-title">{currentTrack?.name ?? 'No Track'}</h2>
+            <h2 className="song-title">
+              {currentTrack?.track.name ?? 'No Track'}
+            </h2>
             <div className="song-info">
               <span className="song-author">
-                {currentTrack?.artists
+                {currentTrack?.track.artists
                   .map((artist) => artist.name)
                   .join(', ') ?? 'No Artist'}
               </span>
-              <TrackActivity track={currentTrack} />
+              <TrackInteractions track={currentTrack} />
             </div>
             <span className="song-rec">
               Recommended by: {currentTrack?.recommended_by ?? 'Spotify'}
@@ -37,8 +39,8 @@ export const Overview = () => {
           <div className="disk">
             <img
               className="curr-song"
-              src={currentTrack?.album?.images[0].url ?? FallbackImg}
-              alt={currentTrack?.name}
+              src={currentTrack?.track.album?.images[0].url ?? FallbackImg}
+              alt={currentTrack?.track.name}
             />
             <Disk />
           </div>

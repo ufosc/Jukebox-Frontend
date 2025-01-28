@@ -20,9 +20,3 @@ declare interface SystemStatus {
 }
 
 declare type ThemeMode = 'light' | 'dark'
-
-declare interface IModel {
-  id: number
-  created_at: string
-  updated_at: string
-}

@@ -1,7 +1,13 @@
 import { NotificationsOutlined } from '@mui/icons-material'
 import type { ChangeEvent } from 'react'
 import { useSelector } from 'react-redux'
-import { selectAllClubs, selectCurrentClub, selectUser } from 'src/store'
+import {
+  selectAllClubs,
+  selectCurrentClub,
+  selectCurrentJukebox,
+  selectHasJukeboxAux,
+  selectUser,
+} from 'src/store'
 
 import './Topbar.scss'
 
@@ -9,7 +15,8 @@ export const Topbar = () => {
   const user = useSelector(selectUser)
   const clubs = useSelector(selectAllClubs)
   const currentClub = useSelector(selectCurrentClub)
-  // const jukeboxes = useSelector()
+  const currentJukebox = useSelector(selectCurrentJukebox)
+  const hasAux = useSelector(selectHasJukeboxAux)
 
   const handleClubChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedClubId = e.target.value
@@ -25,20 +32,28 @@ export const Topbar = () => {
           <span className="topbar__nav-toggle__button__icon">&nbsp;</span>
         </label>
       </div>
-      <div className="topbar__group-dropdown form-select-control">
-        <select
-          name="current-club"
-          id="current-club"
-          onChange={handleClubChange}
-          defaultValue={currentClub?.id}
-        >
-          {!currentClub && <option value="">No Club Selected</option>}
-          {clubs.map((club) => (
-            <option key={club.id} value={club.id}>
-              {club.name}
-            </option>
-          ))}
-        </select>
+      <div className="topbar__group-dropdown">
+        <div className="form-select-control">
+          <select
+            name="current-club"
+            id="current-club"
+            onChange={handleClubChange}
+            defaultValue={currentClub?.id}
+          >
+            {!currentClub && <option value="">No Club Selected</option>}
+            {clubs.map((club) => (
+              <option key={club.id} value={club.id}>
+                {club.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="topbar__group-dropdown__jukebox">
+          {(currentJukebox && <p>{currentJukebox.name}</p>) || (
+            <p className="color-text-role-error">No Jukebox Found</p>
+          )}
+          {hasAux && <p className="color-text-role-success">AUX Connected</p>}
+        </div>
       </div>
       <div className="topbar__user-details">
         <div className="topbar__notifications">

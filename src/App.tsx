@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 import { SPOTIFY_AUTH_CHECK_MS } from './config'
@@ -11,26 +11,31 @@ import {
 import {
   authenticateLink,
   checkLinkAuth,
-  doPlayerAction,
   fetchCurrentlyPlaying,
+  fetchJukeboxes,
   fetchNextTracks,
   incrementLiveProgress,
+  selectCurrentClub,
   selectCurrentJukebox,
+  selectHasJukeboxAux,
   selectPlayerState,
   selectSpotifyAuth,
   setNextTracks,
-  setPlayerState,
+  setPlayerIsPlaying,
+  setPlayerProgress,
   updatePlayerState,
 } from './store'
-import { uniqueId } from './utils'
 
 export const App = () => {
   const spotifyAuth = useSelector(selectSpotifyAuth)
   const currentJukebox = useSelector(selectCurrentJukebox)
   const storePlayerState = useSelector(selectPlayerState)
+  const currentClub = useSelector(selectCurrentClub)
+  const hasAux = useSelector(selectHasJukeboxAux)
+
   const [initialized, setInitialized] = useState(false)
 
-  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null)
+  const progressTimerRef = useRef<number | undefined>()
 
   const {
     emitMessage,
@@ -50,18 +55,15 @@ export const App = () => {
    * ======================== *
    */
   useEffect(() => {
-    if (timer) clearInterval(timer)
+    clearInterval(progressTimerRef.current)
+
     if (storePlayerState?.is_playing) {
-      const t = setInterval(() => {
+      progressTimerRef.current = setInterval(() => {
         incrementLiveProgress()
       }, 1000)
-
-      setTimer(t)
     }
 
-    return () => {
-      if (timer) clearInterval(timer)
-    }
+    return () => clearInterval(progressTimerRef.current)
   }, [
     storePlayerState?.current_track,
     storePlayerState?.is_playing,
@@ -79,9 +81,14 @@ export const App = () => {
     return () => clearInterval(timer)
   }, [spotifyAuth])
 
+  useEffect(() => {
+    fetchJukeboxes().then()
+  }, [currentClub])
+
   // Triggers when the current jukebox changes
   useEffect(() => {
     if (currentJukebox) {
+      authenticateLink().then()
       fetchCurrentlyPlaying().then()
       fetchNextTracks().then()
     }
@@ -89,16 +96,22 @@ export const App = () => {
 
   // Receives track updates from server, updates store
   useEffect(() => {
-    authenticateLink().then()
     onEvent<IPlayerUpdate>('player-update', (data) => {
-      setPlayerState(data)
+      if (hasAux) {
+        // If spotify player is connected, only set certain state vars through player
+        data.progress = undefined
+        data.is_playing = undefined
+      }
+      console.log('Player state updated:', data)
+
+      updatePlayerState(data)
     })
 
-    onEvent<IPlayerAction>('player-action', (data) => {
-      doPlayerAction(data)
+    onEvent<IPlayerUpdate>('player-interaction', (data) => {
+      updatePlayerState(data)
     })
 
-    onEvent<ITrackMeta[]>('track-queue-update', (data) => {
+    onEvent<IQueuedTrack[]>('track-queue-update', (data) => {
       setNextTracks(data)
     })
   }, [currentJukebox, socketIsConnected])
@@ -110,14 +123,10 @@ export const App = () => {
         emitMessage('player-aux-update', {})
         return
       }
-
-      updatePlayerState({
-        ...state,
-        current_track: state.current_track && {
-          ...state.current_track,
-          queue_id: uniqueId(),
-        },
-      })
+      // Update player state with select settings
+      setPlayerIsPlaying(state.is_playing)
+      setPlayerProgress(state.progress)
+      // Update server with new state
       emitMessage<IPlayerAuxUpdate>('player-aux-update', state)
     },
     [currentJukebox],
