@@ -34,6 +34,26 @@ export const jukeboxSlice = createSlice({
       state.playerState.progress = action.payload
       state.liveProgress = action.payload
     },
+    setInteractionReducer: (
+      state,
+      action: { payload: IJukeboxInteraction },
+    ) => {
+      if (
+        action.payload.jukebox_id !== state.currentJukebox?.id ||
+        !state.playerState?.current_track
+      ) {
+        return
+      }
+
+      switch (action.payload.action) {
+        case 'like':
+          state.playerState.current_track.interactions.likes += 1
+          break
+        case 'dislike':
+          state.playerState.current_track.interactions.dislikes += 1
+          break
+      }
+    },
     performPlayerUpdateReducer: (state, action: { payload: IPlayerUpdate }) => {
       if (!state.playerState?.current_track) return
 
@@ -47,15 +67,6 @@ export const jukeboxSlice = createSlice({
       if (action.payload.progress !== undefined) {
         state.liveProgress = action.payload.progress
       }
-
-      // state.playerState = {
-      //   ...state.playerState,
-      //   ...action.payload,
-      //   current_track: {
-      //     ...(state.playerState.current_track || {}),
-      //     ...(action.payload?.current_track || {}),
-      //   },
-      // }
     },
     setNextTracksReducer: (state, action: { payload: IQueuedTrack[] }) => {
       state.nextTracks = action.payload
@@ -63,9 +74,6 @@ export const jukeboxSlice = createSlice({
     setHasAuxReducer: (state, action: { payload: boolean }) => {
       state.hasAux = action.payload
     },
-    // setLiveProgressReducer: (state, action: { payload: { ms?: number } }) => {
-    //   state.liveProgress = action.payload.ms ?? null
-    // },
     incrementLiveProgressReducer: (state) => {
       state.liveProgress = (state.liveProgress ?? 0) + 1000
     },

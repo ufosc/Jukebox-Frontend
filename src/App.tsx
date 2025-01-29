@@ -20,6 +20,7 @@ import {
   selectHasJukeboxAux,
   selectPlayerState,
   selectSpotifyAuth,
+  setInteraction,
   setNextTracks,
   setPlayerIsPlaying,
   setPlayerProgress,
@@ -102,13 +103,12 @@ export const App = () => {
         data.progress = undefined
         data.is_playing = undefined
       }
-      console.log('Player state updated:', data)
 
       updatePlayerState(data)
     })
 
-    onEvent<IPlayerUpdate>('player-interaction', (data) => {
-      updatePlayerState(data)
+    onEvent<IJukeboxInteraction>('player-interaction', (data) => {
+      setInteraction(data)
     })
 
     onEvent<IQueuedTrack[]>('track-queue-update', (data) => {
