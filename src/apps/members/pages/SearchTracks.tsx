@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ThemeManager } from 'src/utils/ui/themeManager'; // Import the ThemeManager
+import { ThemeManager } from 'src/utils/ui/themeManager';
 import './searchtracks.scss';
 
 const dummySongs = [
@@ -13,13 +13,13 @@ const dummySongs = [
 
 const SearchTracks = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [theme, setTheme] = useState(ThemeManager.getInstance().getMode());
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const toggleDropdown = () => {
     setDropdownOpen((prev) => !prev);
   };
 
-  // Close the dropdown if clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -35,11 +35,10 @@ const SearchTracks = () => {
   }, []);
 
   const toggleTheme = () => {
-    // Use the ThemeManager instance to toggle the theme.
     const themeManager = ThemeManager.getInstance();
-    const currentMode = themeManager.getMode();
-    const newMode = currentMode === 'light' ? 'dark' : 'light';
+    const newMode = theme === 'light' ? 'dark' : 'light';
     themeManager.setMode(newMode);
+    setTheme(newMode);
   };
 
   return (
@@ -77,9 +76,10 @@ const SearchTracks = () => {
                 </li>
               </ul>
             </nav>
-            <button className="theme-toggle" onClick={toggleTheme}>
-              Toggle Theme
-            </button>
+            {/* Toggle Switch for Theme */}
+            <div className="theme-toggle-switch" onClick={toggleTheme}>
+              <div className={`switch-thumb ${theme === 'dark' ? 'dark' : ''}`}></div>
+            </div>
           </div>
         </header>
 
