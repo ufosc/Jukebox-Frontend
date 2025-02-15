@@ -241,12 +241,6 @@ export const Sidebar = (props: { className?: string }) => {
               </li>
               <li className="navbar__nav__list__item">
                 <span className="navbar__nav__item">
-                  <SpeakerIcon />
-                  <NavItem route="admin/player" text="Player" end />
-                </span>
-              </li>
-              <li className="navbar__nav__list__item">
-                <span className="navbar__nav__item">
                   <MusicIcon />
                   <NavItem route="music" text="Music" end />
                   <button
@@ -262,30 +256,6 @@ export const Sidebar = (props: { className?: string }) => {
                     <NavLink to="/admin/music/search">Search</NavLink>
                   </div>
                 )}
-              </li>
-              <li className="navbar__nav__list__item">
-                <span className="navbar__nav__item">
-                  <JamIcon />
-                  <NavItem route="jam-sessions" text="Juke Session" end />
-                  <button
-                    className="navbar__dropdown__button"
-                    onClick={toggleDropdown2}
-                  >
-                    <DropdownIcon />
-                  </button>
-                </span>
-                {isDropdown2Open && (
-                  <div className="navbar__dropdown__content">
-                    <a href="#">Leaderboard</a>
-                    <a href="#">Invite Guests</a>
-                  </div>
-                )}
-              </li>
-              <li className="navbar__nav__list__item">
-                <span className="navbar__nav__item">
-                  <SettingsIcon />
-                  <NavItem route="settings" text="Settings" end />
-                </span>
               </li>
             </ul>
           </nav>
