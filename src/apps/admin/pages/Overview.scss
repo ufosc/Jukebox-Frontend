@@ -58,7 +58,7 @@
 }
 .song-rec {
   @include font-body('sm');
-  color: var(--color-label);
+  color: #818181;
 }
 
 .curr-song {
@@ -90,4 +90,45 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #8f8f8f;
+}
+
+@media (max-width: 768px) {
+  .disk {
+    display: flex;
+    width: 8vh;
+    height: 8vh;
+    margin-right: 10rem;
+    margin-top: 5rem;
+  }
+
+  .card {
+    transform: translate(0, 0);
+    width: 90%;
+  }
+
+  .song-queue {
+    padding: 1.5rem;
+    margin-top: -3rem;
+  }
+
+  .curr-song {
+    width: 20vh;
+    height: 20vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    width: 90%;
+  }
+
+  .song-queue {
+    padding: 1rem;
+    margin-top: -3rem;
+  }
+
+  .curr-song {
+    width: 15vh;
+    height: 15vh;
+  }
 }
