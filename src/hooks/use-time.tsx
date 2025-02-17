@@ -15,6 +15,7 @@ export const useTime = (interval: number = 1000) => {
     date,
     hours: String(date.getHours()).padStart(2, '0'),
     minutes: String(date.getMinutes()).padStart(2, '0'),
+    seconds: String(date.getSeconds()).padStart(2, '0'),
     amOrPm: date
       .toLocaleTimeString([], {
         hour: 'numeric',
