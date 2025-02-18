@@ -49,9 +49,14 @@
     gap: 5px;
   }
   &__rec-by {
-    flex: $flex-g-s 30%;
+    flex: $flex-g-s 20%;
   }
   &__duration {
+    flex: $flex-g-s 8%;
+  }
+  &__activity {
+    display: flexbox;
     flex: $flex-g-s 15%;
+    justify-content: right;
   }
 }
