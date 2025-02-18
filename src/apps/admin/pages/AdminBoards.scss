@@ -40,3 +40,15 @@
         width: 100%;
     }
 }
+
+@media (max-width: 375px) {
+    .header {
+        font-size: 2vh;
+        margin-top: 3vh;
+        margin-bottom: 2vh;
+    }
+
+    .boardImage {
+        width: 90%;
+    }
+}

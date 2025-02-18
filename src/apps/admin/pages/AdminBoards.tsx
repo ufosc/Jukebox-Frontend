@@ -10,6 +10,22 @@ export const AdminBoards = () => {
     { image: boardImage, link: '#' },
     { image: boardImage, link: '#' },
     { image: boardImage, link: '#' },
+    { image: boardImage, link: '#' },
+    { image: boardImage, link: '#' },
+    { image: boardImage, link: '#' },
+    { image: boardImage, link: '#' },
+    { image: boardImage, link: '#' },
+    { image: boardImage, link: '#' },
+    { image: boardImage, link: '#' },
+    { image: boardImage, link: '#' },
+    { image: boardImage, link: '#' },
+    { image: boardImage, link: '#' },
+    { image: boardImage, link: '#' },
+    { image: boardImage, link: '#' },
+    { image: boardImage, link: '#' },
+    { image: boardImage, link: '#' },
+    { image: boardImage, link: '#' },
+    { image: boardImage, link: '#' },
   ]
 
   return (
