@@ -1,0 +1,340 @@
+@font-face {
+    font-family: 'Chango';
+    src: url('src/styles/theme/fonts/chango/fonts/Chango-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-display: swap;
+}
+
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* Header Section */
+header {
+    background-color: #261414;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+}
+
+header .logo {
+    font-size: 15px;
+    margin-left: 115px;
+    background-color: #fff;
+    padding: 5px 40px;
+    color: #000000;
+}
+
+header nav ul {
+    display: flex;
+    list-style-type: none;
+    margin-right: 120px;
+
+}
+
+header nav ul li {
+    margin-left: 30px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+header .signup {
+    background-color: #261414;
+    color: #fff;
+    padding: 10px 40px;
+    border-radius: 30px;
+    border: 2px solid #fff;
+    text-decoration: none;
+}
+
+
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 80px 115px;
+    background-color: #fff;
+}
+
+.hero-content {
+    max-width: 800px;
+    text-align: left;
+}
+
+.hero h1 {
+    font-size: 75px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.hero .highlight {
+    color: #cc644c;
+}
+
+.hero p {
+    font-size: 18px;
+    color: #777;
+    margin-top: 20px;
+}
+
+.hero .cta {
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 40px;
+    background-color: #fff;
+    color: #602828;
+    border: 4px solid #602828;
+
+    text-decoration: none;
+    border-radius: 20px;
+}
+
+/*TBD*/
+.hero-bg {
+    height: 100%;
+}
+
+/* Who Are We Section */
+.who-are-we {
+    padding: 20px 0;
+    background-color: #f1f1f1;
+    text-align: center;
+}
+
+.who-are-we h2 {
+    font-size: 36px;
+}
+
+.who-are-we p {
+    font-size: 18px;
+    color: #777;
+}
+
+/* Features Section */
+.features {
+    padding: 60px 0;
+    background-color: #fff;
+}
+
+.features h2 {
+    text-align: left;
+    font-size: 36px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 20px;
+    padding-top: 20px;
+}
+
+.feature-item {
+    padding: 20px;
+    border-radius: 30px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 350px;
+}
+
+.feature-item .circle {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+}
+
+.feature-item h3 {
+    font-size: 24px;
+    margin: 0;
+    color: #333;
+}
+
+.feature-item p {
+    font-size: 16px;
+    color: #777;
+    margin: 10px 0;
+    flex-grow: 1;
+}
+
+.feature-item .cta {
+    margin-top: 10px;
+    color: #602828;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Blue parts of the features grid*/
+.features-grid .feature-item:nth-child(1) {
+    background-color: #e4f2f5;
+}
+
+.features-grid .feature-item:nth-child(3) {
+    background-color: #e4f2f5;
+}
+
+.features-grid .feature-item:nth-child(5) {
+    background-color: #e4f2f5;
+}
+
+
+
+/* Repositories Section */
+.repositories {
+    padding: 60px 20px;
+    margin-top: -400px;
+    background-color: #602828;
+    color: white;
+}
+
+.repositories-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.repositories-header h2 {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.repositories-header .signup {
+    background-color: #602828;
+    color: #fff;
+    padding: 10px 40px;
+    border-radius: 20px;
+    border: 4px solid #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.repo-item {
+    background-color: #632d2d;
+    padding: 40px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    border-bottom: 2px solid white;
+}
+
+.repo-item:first-child {
+    border-top: 2px solid white;
+}
+
+.repo-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.repo-number {
+    font-weight: bold;
+    font-size: 24px;
+    margin-right: 15px;
+}
+
+.repo-header h3 {
+    font-size: 24px;
+    text-align: left;
+    flex-grow: 1;
+    margin: 0;
+}
+
+.toggle-sign {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.repo-description {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #fff;
+    margin-left: 42px;
+    width: 50%;
+}
+
+.repo-description-container {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* I need to fix this square */
+.repo-item .square {
+    width: 200px;
+    height: 200px;
+    background-color: #f9f9f9;
+    margin-left: 650px;
+    margin-bottom: 40px;
+}
+
+.repo-item.open .repo-description {
+    display: block;
+}
+
+.repo-item.closed .repo-description {
+    display: none;
+}
+
+
+/* Call to Action Section*/
+.call-to-action {
+    text-align: center;
+    margin: 60px;
+}
+
+.call-to-action h1 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.call-to-action p {
+    font-size: 16px;
+    color: #602828;
+    margin-top: 10px;
+}
+
+.cta-primary {
+    display: inline-block;
+    background-color: #fff;
+    color: #602828;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 2px solid #602828;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+/* Footer */
+footer {
+    padding: 20px 0;
+    background-color: #602828;
+    color: #fff;
+    text-align: center;
+}
