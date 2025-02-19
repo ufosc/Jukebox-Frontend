@@ -1,0 +1,191 @@
+/* Global theme variables should be defined at the root.
+   This file assumes variables like --color-surface,
+   --color-primary-container, --color-primary-contrast,
+   and --color-surface-container are available.
+*/
+
+.search-tracks {
+  background-color: var(--color-surface);
+  min-height: 100vh;
+  font-family: sans-serif;
+  color: var(--color-primary-contrast);
+
+  /* HEADER STYLES */
+  .search-header {
+    background-color: var(--color-primary-container); // brown banner style
+    color: var(--color-primary-contrast);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .header-left {
+      .dropdown {
+        position: relative;
+        .dropdown-button {
+          background: none;
+          border: none;
+          color: var(--color-primary-contrast);
+          font-size: 1.2rem;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.25rem 0.5rem;
+        }
+        .dropdown-menu {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          background-color: var(--color-surface);
+          border: 1px solid var(--color-surface-container);
+          border-radius: 4px;
+          margin-top: 0.5rem;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+          z-index: 1000;
+          min-width: 150px;
+          display: flex;
+          flex-direction: column;
+          .dropdown-item {
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: var(--color-primary-contrast);
+            font-size: 1rem;
+            &:hover {
+              background-color: brown;
+              color: var(--color-surface);
+            }
+          }
+        }
+      }
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      nav {
+        ul {
+          list-style: none;
+          display: flex;
+          margin: 0;
+          padding: 0;
+          li {
+            margin-left: 1rem;
+            a {
+              text-decoration: none;
+              color: var(--color-primary-contrast);
+              font-size: 1rem;
+            }
+          }
+        }
+      }
+      /* Theme Toggle Switch */
+      .theme-toggle-switch {
+        width: 50px;
+        height: 25px;
+        background-color: var(--color-surface-container);
+        border-radius: 25px;
+        position: relative;
+        cursor: pointer;
+        margin-left: 1rem;
+      }
+      .switch-thumb {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 21px;
+        height: 21px;
+        background-color: var(--color-primary-contrast);
+        border-radius: 50%;
+        transition: left 0.3s ease;
+      }
+      .switch-thumb.dark {
+        left: calc(100% - 2px - 21px);
+      }
+    }
+  }
+
+  /* MAIN CONTENT STYLES */
+  .search-main {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+
+    .title {
+      text-align: center;
+      font-size: 2.5rem; // similar to clock font style
+      color: var(--color-primary-contrast);
+      margin-bottom: 2rem;
+    }
+
+    .search-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+
+      input[type='text'] {
+        padding: 0.8rem;
+        font-size: 1rem;
+        border: 1px solid var(--color-surface);
+        border-radius: 4px;
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .search-button {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        background-color: var(--color-primary-container);
+        color: var(--color-primary-contrast);
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    }
+
+    .song-results {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      .song-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        background-color: var(--color-surface);
+        border: 1px solid var(--color-surface-container);
+        border-radius: 4px;
+
+        .song-info {
+          flex: 1;
+        }
+
+        .add-button {
+          background-color: var(--color-primary-container);
+          color: var(--color-primary-contrast);
+          border: none;
+          border-radius: 50%;
+          width: 2rem;
+          height: 2rem;
+          font-size: 1.5rem;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}
+
+/* Adjust song card border colors based on theme mode */
+html[data-theme-mode="light"] .song-card {
+  border-color: black;
+}
+
+html[data-theme-mode="dark"] .song-card {
+  border-color: white;
+}
