@@ -1,0 +1,191 @@
+.member-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+
+  .profile-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--color-primary-surface);
+  }
+
+  .username {
+    font-size: 15px;
+    font-weight: lighter;
+    margin-top: 5px;
+  }
+
+  .profile-pic {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-image: url("https://alliancebjjmn.com/wp-content/uploads/2019/07/placeholder-profile-sq-491x407.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+
+
+  .main-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+  }
+
+  .left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .profile-details,
+  .club-membership,
+  .queued-tracks {
+    background-color: #e0e0e0;
+    padding: 30px;
+    border-radius: 8px;
+    display: flex;
+  }
+
+  .profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+  }
+
+  .profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .profile-info div {
+    font-size: 17px;
+    color: #333;
+    margin-top: 5px;
+  }
+
+  .club-membership {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    height: 400px;
+
+
+    .club-logo {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin-bottom: 12px;
+    }
+
+    .club-info {
+      font-size: 16px;
+      color: var(--secondary-text-color);
+
+      h3 {
+        font-size: 18px;
+        color: var(--primary-text-color);
+        margin-bottom: 8px;
+      }
+
+      p {
+        margin: 4px 0;
+        margin-top: 5px;
+      }
+    }
+  }
+
+  .clubs-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+  }
+
+
+  .right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .queued-tracks {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+
+    h2 {
+      text-align: center;
+    }
+
+    .track-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .track-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px;
+      border-radius: 8px;
+      background-color: var(--secondary-bg-color);
+      box-shadow: var(--shadow);
+    }
+
+    .track-number {
+      font-size: 16px;
+      font-weight: bold;
+      color: var(--primary-text-color);
+    }
+
+    .track-thumbnail {
+      width: 40px;
+      height: 40px;
+      background-color: red;
+      border-radius: 4px;
+    }
+
+    .track-info {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .track-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: var(--primary-text-color);
+    }
+
+    .track-artist {
+      font-size: 12px;
+      color: var(--secondary-text-color);
+    }
+
+    .track-duration {
+      font-size: 14px;
+      font-weight: bold;
+      color: var(--primary-text-color);
+    }
+  }
+
+  h2 {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+}

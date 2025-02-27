@@ -302,6 +302,7 @@ export const Sidebar = (props: { className?: string }) => {
                   <div className="navbar__dropdown__content">
                     <NavItem route="members/list" text="All Members" />
                     <NavItem route="members/new" text="Add Member" />
+                    <NavItem route="members/detail" text="Member Detail" />
                   </div>
                 )}
               </li>
