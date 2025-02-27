@@ -1,1 +1,1 @@
-export * from './Overview'
+export * from 'src/apps/admin/pages/Overview'
