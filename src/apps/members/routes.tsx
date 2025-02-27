@@ -1,5 +1,5 @@
 import { Navigate, type RouteObject } from 'react-router-dom'
-import { Overview } from './pages'
+import { Overview } from 'src/apps/admin/pages'
 import { Music } from './pages/Music'
 import { MusicQueue } from './pages/MusicQueue'
 import { MusicSearch } from './pages/MusicSearch'
