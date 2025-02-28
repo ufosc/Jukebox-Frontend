@@ -90,9 +90,8 @@ This project leverages cutting-edge web technologies to provide an efficient and
 - **React:** The core framework used for building the user interface.
 - **JavaScript:** The primary programming language for frontend logic.
 - **Vite:** Fast build tool and development server.
-- **Tailwind CSS:** For streamlined and modern styling.
+- **Sass CSS:** For streamlined and modern styling.
 - **Docker:** Used for network mode deployment and service management.
-- **MongoDB:** Database for user and music queue management.
 - **Kafka:** Real-time message streaming for events.
 - **NGINX:** Reverse proxy for efficient resource handling.
 
