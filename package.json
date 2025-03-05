@@ -30,6 +30,8 @@
     "material-icons": "^1.13.12",
     "react": "^18.2.0",
     "react-cookie": "^7.2.2",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",
     "react-redux": "^9.0.4",
     "react-router-dom": "^6.26.2",
@@ -53,8 +55,8 @@
     "@typescript-eslint/eslint-plugin": "^8.4.0",
     "@typescript-eslint/parser": "^8.4.0",
     "@vitejs/plugin-react": "^4.2.0",
-    "@vitest/coverage-v8": "^2.0.5",
-    "@vitest/ui": "^2.0.5",
+    "@vitest/coverage-v8": "^2.1.9",
+    "@vitest/ui": "^2.1.9",
     "core-js": "^3.38.0",
     "eslint": "^9.9.1",
     "eslint-config-prettier": "^9.1.0",
@@ -71,6 +73,6 @@
     "typescript-eslint": "^8.4.0",
     "vite": "^5.4.14",
     "vite-plugin-svgr": "^4.2.0",
-    "vitest": "^2.0.5"
+    "vitest": "^2.1.9"
   }
 }

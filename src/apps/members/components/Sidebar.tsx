@@ -236,19 +236,7 @@ export const Sidebar = (props: { className?: string }) => {
               <li className="navbar__nav__list__item">
                 <span className="navbar__nav__item">
                   <HomeIcon />
-                  <NavItem route="/admin" text="Home" end />
-                </span>
-              </li>
-              <li className="navbar__nav__list__item">
-                <span className="navbar__nav__item">
-                  <SpeakerIcon />
-                  <NavItem route="player" text="Player" end />
-                </span>
-              </li>
-              <li className="navbar__nav__list__item">
-                <span className="navbar__nav__item">
-                  <BoardIcon />
-                  <NavItem route="boards" text="Boards" end />
+                  <NavItem route="/members" text="Home" end />
                 </span>
               </li>
               <li className="navbar__nav__list__item">
@@ -264,53 +252,10 @@ export const Sidebar = (props: { className?: string }) => {
                 </span>
                 {isDropdown1Open && (
                   <div className="navbar__dropdown__content">
-                    <NavLink to="/admin/music/queue">Track Queue</NavLink>
-                    <NavLink to="/admin/music/search">Search</NavLink>
+                    <NavLink to="/members/music/queue">Track Queue</NavLink>
+                    <NavLink to="/members/music/search">Search</NavLink>
                   </div>
                 )}
-              </li>
-              <li className="navbar__nav__list__item">
-                <span className="navbar__nav__item">
-                  <JamIcon />
-                  <NavItem route="jam-sessions" text="Juke Session" end />
-                  <button
-                    className="navbar__dropdown__button"
-                    onClick={toggleDropdown2}
-                  >
-                    <DropdownIcon />
-                  </button>
-                </span>
-                {isDropdown2Open && (
-                  <div className="navbar__dropdown__content">
-                    <a href="#">Leaderboard</a>
-                    <a href="#">Invite Guests</a>
-                  </div>
-                )}
-              </li>
-              <li className="navbar__nav__list__item">
-                <span className="navbar__nav__item">
-                  <JamIcon />
-                  <NavItem route="members" text="Members" end />
-                  <button
-                    className="navbar__dropdown__button"
-                    onClick={toggleDropdown3}
-                  >
-                    <DropdownIcon />
-                  </button>
-                </span>
-                {isDropdown3Open && (
-                  <div className="navbar__dropdown__content">
-                    <NavItem route="members/list" text="All Members" />
-                    <NavItem route="members/new" text="Add Member" />
-                    <NavItem route="members/detail" text="Member Detail" />
-                  </div>
-                )}
-              </li>
-              <li className="navbar__nav__list__item">
-                <span className="navbar__nav__item">
-                  <SettingsIcon />
-                  <NavItem route="settings" text="Settings" end />
-                </span>
               </li>
             </ul>
           </nav>

@@ -9,11 +9,6 @@ $size: 4rem;
   justify-content: space-between;
   align-items: center;
   z-index: 5;
-  padding-right: 1.1rem;
-
-  @media (max-width: 375px) {
-    padding: 0 0.1rem;
-  }
 
   &__nav-toggle {
     position: relative;
@@ -63,16 +58,7 @@ $size: 4rem;
   }
 
   &__group-dropdown {
-    --control-width: 200px; // Used in base styles form component
-    display: flex;
-    align-items: center;
-    height: 100%;
-    gap: 2rem;
-    
-    &__jukebox {
-      display: flex;
-      gap: 1rem;
-    }
+    --control-width: 225px; // Used in base styles form component
     
     select {
       padding: 6px;
@@ -86,7 +72,7 @@ $size: 4rem;
 
   &__user-details {
     display: flex;
-    gap: 3rem;
+    gap: 4rem;
   }
 
   &__notifications {

@@ -8,7 +8,7 @@ import { App } from 'src/App'
 import { adminRoutes, Dashboard } from 'src/apps/admin'
 import { authRoutes } from 'src/apps/auth'
 import { boardsRoutes } from 'src/apps/boards'
-import { membersRoutes } from 'src/apps/members'
+import { membersRoutes, MemberDashboard } from 'src/apps/members'
 import { publicRoutes } from 'src/apps/public'
 import { AuthGuard } from './components/AuthGuard'
 
@@ -71,6 +71,11 @@ const routes = createBrowserRouter([
       },
       {
         path: 'members',
+        element: (
+          <AuthGuard>
+            <MemberDashboard />
+          </AuthGuard>
+        ),
         children: membersRoutes,
       },
     ],

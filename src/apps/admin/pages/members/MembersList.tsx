@@ -48,7 +48,7 @@ export const MembersList = () => {
         <div className='grid'>
           <div className='col-4 members-form-container'>
           <form onSubmit={submitMemberSearch} className='members-form' >
-            <input className="member-search" placeholder="Name" />
+            <input className="member-search" placeholder="Name" onChange={handleMemberChange}  value={searchMember} />
           </form>
           </div>
         </div>

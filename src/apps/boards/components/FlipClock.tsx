@@ -4,54 +4,64 @@
  */
 import { useEffect, useState } from 'react'
 import { useTime } from 'src/hooks'
-import { sleep } from 'src/utils'
 import './FlipClock.scss'
 
 // ANIMATION IS WORK-IN-PROGRESS
 export const FlipClock = () => {
   const { date, hours: currentHours, minutes: currentMinutes } = useTime()
-  const [hours, setHours] = useState(currentHours)
-  const [minutes, setMinutes] = useState(currentMinutes)
-  const [flip, setFlip] = useState(false)
+  const [hour1, setHour1] = useState(currentHours[0])
+  const [minute1, setMinute1] = useState(currentMinutes[0])
+  const [hour2, setHour2] = useState(currentHours[1])
+  const [minute2, setMinute2] = useState(currentMinutes[1])
 
   useEffect(() => {
-    // setFlip(true)
-    setMinutes(currentMinutes)
-    setHours(currentHours)
+    console.log(hour1, hour2, minute1, minute2)
 
-    // sleep(1000).then(() => setFlip(false))
+    if (currentMinutes[0] !== minute1) setMinute1(currentMinutes[0])
+    if (currentMinutes[1] !== minute2) setMinute2(currentMinutes[1])
+    if (currentHours[0] !== hour1) setHour1(currentHours[0])
+    if (currentHours[1] !== hour2) setHour2(currentHours[1])
   }, [date])
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setFlip(true)
-  //     sleep(1000).then(() => setFlip(false))
-  //   }, 5000)
-
-  //   return () => clearInterval(interval)
-  // }, [])
-
   return (
-    <div className={`flip-clock${(flip && ' flip') || ''}`}>
-      <time dateTime={date.toLocaleDateString()}>
-        <span className="flip-clock__hour">
-          <span className="flip-clock__digit" data-value={hours[0]}>
-            {hours[0]}
-          </span>
-          <span className="flip-clock__digit" data-value={hours[1]}>
-            {hours[1]}
-          </span>
-        </span>
-        <span className="flip-clock__colon">:</span>
-        <span className="flip-clock__min">
-          <span className="flip-clock__digit" data-value={minutes[0]}>
-            {minutes[0]}
-          </span>
-          <span className="flip-clock__digit" data-value={minutes[1]}>
-            {minutes[1]}
-          </span>
-        </span>
-      </time>
+    <div className="flip-clock-container">
+      <div className={`flip-clock`}>
+        <time dateTime={date.toLocaleDateString()}>
+          <FlipPiece integer={+hour1} isFirst={false} />
+          <FlipPiece integer={+hour2} isFirst={true} />
+          <span className="flip-clock__colon">:</span>
+          <FlipPiece integer={+minute1} isFirst={false} />
+          <FlipPiece integer={+minute2} isFirst={true} />
+        </time>
+      </div>
     </div>
+  )
+}
+
+const FlipPiece = (props: { integer: number; isFirst: boolean }) => {
+  const { integer, isFirst } = props
+  const [num, setNum] = useState(integer)
+  const [isFlip, setIsFlip] = useState(false)
+
+  useEffect(() => {
+    console.log(num)
+    setIsFlip(true)
+    setTimeout(() => {
+      setNum(integer)
+      setIsFlip(false)
+    }, 300)
+  }, [integer])
+  return (
+    <>
+      <span className={`flip-clock__piece ${isFlip ? 'flip' : ''}`}>
+        <span className="flip-clock__card card">
+          <span className="card__top">{num}</span>
+          <span className="card__bottom" data-value={num}></span>
+          <span className="card__back" data-value={num}>
+            <span className="card__bottom" data-value={num}></span>
+          </span>
+        </span>
+      </span>
+    </>
   )
 }

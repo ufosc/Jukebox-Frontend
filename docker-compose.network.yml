@@ -1,26 +1,5 @@
 services:
   ####################################
-  # React Client
-  ####################################
-  # client:
-  #   build:
-  #     context: .
-  #   volumes:
-  #     - ./src:/app/src
-  #     # - ./.env.network:/app/.env.network
-  #     - ./vite.config.ts:/app/vite.config.ts
-
-  #     - client-dist-jbx:/app/dist
-
-  #     - type: bind
-  #       source: ./.env.network
-  #       target: /app/.env.network
-
-  #   ports:
-  #     - 3000:3000
-  #   command: npm run network
-
-  ####################################
   # Server & Network Config
   ####################################
   jukebox:
@@ -48,14 +27,13 @@ services:
       - DB_PASS=devpass
       - DB_NAME=devdatabase
 
-      - REDIS_HOST=jbx-network-redis-fe
+      # - REDIS_HOST=jbx-network-redis-fe
+      - REDIS_HOST=redis
       - REDIS_PORT=6379
     ports:
       - 9000:9000
     depends_on:
       - postgres-jukebox
-    networks:
-      - cluster
     command: npm run start:network
 
   proxy:
@@ -63,11 +41,9 @@ services:
     ports:
       - 8080:8080
       - 8081:8081
-    networks:
-      - cluster
     depends_on:
       - jukebox
-      - club-manager
+      - club-portal
     restart: always
     volumes:
       - client-dist-jbx:/vol/client
@@ -81,23 +57,18 @@ services:
 
   redis:
     image: redis:alpine
-    container_name: jbx-network-redis-fe
+    # container_name: jbx-network-redis-fe
     ports:
       - 6379:6379
-    networks:
-      - cluster
 
   ####################################
-  # Club Manager Config
+  # Club Portal Config
   ####################################
-  club-manager:
+  club-portal:
     image: ikehunter5/club-manager:latest
     container_name: club-app-network-fe
-    # ports:
-    #   - '8000:8000'
     volumes:
-      # - ./app:/app
-      - club-static:/vol/static
+      - club-static:/vol/web
     command: >
       sh -c "python manage.py wait_for_db &&
              python manage.py migrate &&
@@ -105,23 +76,47 @@ services:
              entrypoint.sh"
     env_file:
       - .env.network
-    environment:
-      - PORT=9000
-      - DJANGO_ENV=dev
-      - DB_HOST=club-app-network-db-fe
-      - DB_NAME=devdatabase
-      - DB_USER=devuser
-      - DB_PASS=devpass
-      - DEBUG=1
-      - DJANGO_ALLOWED_HOSTS=*
-      - S3_STORAGE_BACKEND=0
-      - CREATE_SUPERUSER=1
-      - DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL:-admin@example.com}
-      - DJANGO_SUPERUSER_PASS=${DJANGO_SUPERUSER_PASS:-changeme}
     depends_on:
       - postgres-clubs
-    networks:
-      - cluster
+      
+  celery:
+    image: ikehunter5/club-manager:latest
+    restart: unless-stopped
+    user: django-user
+    command: ['celery', '-A', 'app', 'worker', '--loglevel=info']
+    volumes:
+      - club-static:/vol/web
+    depends_on:
+      - redis
+      - postgres-clubs
+      - club-portal
+    env_file:
+      - .env.network
+    
+
+  celerybeat:
+    image: ikehunter5/club-manager:latest
+    user: django-user
+    restart: unless-stopped
+    command:
+      [
+        'celery',
+        '-A',
+        'app',
+        'beat',
+        '--loglevel=info',
+        '--scheduler',
+        'django_celery_beat.schedulers:DatabaseScheduler'
+      ]
+    volumes:
+      - club-static:/vol/web
+    depends_on:
+      - redis
+      - postgres-clubs
+      - celery
+      - club-portal
+    env_file:
+      - .env.network
 
   postgres-jukebox:
     image: postgres:13-alpine
@@ -132,20 +127,16 @@ services:
       - POSTGRES_DB=devdatabase
       - POSTGRES_USER=devuser
       - POSTGRES_PASSWORD=devpass
-    networks:
-      - cluster
 
   postgres-clubs:
     image: postgres:13-alpine
-    container_name: club-app-network-db-fe
+    # container_name: club-app-network-db-fe
     volumes:
       - postgres-clubs:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=devdatabase
       - POSTGRES_USER=devuser
       - POSTGRES_PASSWORD=devpass
-    networks:
-      - cluster
 
 volumes:
   client-dist-jbx:
@@ -158,7 +149,7 @@ volumes:
   postgres-jukebox:
     name: postgres-jukebox-network-fe
 
-networks:
-  cluster:
-    name: jukebox_cluster
-    driver: bridge
+# networks:
+#   cluster:
+#     name: jukebox_cluster
+#     driver: bridge
