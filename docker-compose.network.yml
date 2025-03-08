@@ -5,7 +5,6 @@ services:
   jukebox:
     restart: always
     image: ikehunter5/jukebox-server:latest
-    # image: jukebox-server-local:latest
     pull_policy: always
     container_name: jbx-server-fe
     env_file:
@@ -16,18 +15,13 @@ services:
       - HOST=localhost
       - LOG_LEVEL=debug
       - BASE_URL=http://localhost:8082
-
-      - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}
-      - SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}
-
       - PROXY_URL=http://proxy:8080
-      - DB_HOST=jbx-network-db-fe
+      - DB_HOST=postgres-jukebox
       - DB_PORT=5432
       - DB_USER=devuser
       - DB_PASS=devpass
       - DB_NAME=devdatabase
 
-      # - REDIS_HOST=jbx-network-redis-fe
       - REDIS_HOST=redis
       - REDIS_PORT=6379
     ports:
@@ -36,8 +30,27 @@ services:
       - postgres-jukebox
     command: npm run start:network
 
+  redis:
+    image: redis:alpine
+    container_name: jukebox-redis
+
+  ####################################
+  # Club Portal Config
+  ####################################
+  club-portal:
+    image: ikehunter5/club-manager:latest
+    pull_policy: always
+    container_name: club-app-network-fe
+    volumes:
+      - club-static:/vol/web
+    env_file:
+      - .env.network
+    depends_on:
+      - postgres-clubs
+
   proxy:
     image: ikehunter5/club-manager-proxy:latest
+    pull_policy: always
     ports:
       - 8080:8080
       - 8081:8081
@@ -45,77 +58,12 @@ services:
       - club-portal
     restart: always
     volumes:
-      - client-dist-jbx:/vol/client
       - club-static:/vol/web
     environment:
-      - CLUB_MANAGER_URI=club-app-network-fe:9000
-      - PUBLIC_STATIC_URI=jukebox-client-631bab280a434e28995fd3fcafd1fa5a.s3-website-us-east-1.amazonaws.com
-
-  redis:
-    image: redis:alpine
-    container_name: jukebox-redis
-    
-
-  ####################################
-  # Club Portal Config
-  ####################################
-  club-portal:
-    image: ikehunter5/club-manager:latest
-    container_name: club-app-network-fe
-    volumes:
-      - club-static:/vol/web
-    command: >
-      sh -c "python manage.py wait_for_db &&
-             python manage.py migrate &&
-             python manage.py init_superuser &&
-             entrypoint.sh"
-    env_file:
-      - .env.network
-    depends_on:
-      - postgres-clubs
-      
-  celery:
-    image: ikehunter5/club-manager:latest
-    restart: unless-stopped
-    user: django-user
-    command: ['celery', '-A', 'app', 'worker', '--loglevel=info']
-    volumes:
-      - club-static:/vol/web
-    depends_on:
-      - redis
-      - postgres-clubs
-      - club-portal
-    env_file:
-      - .env.network
-    
-
-  celerybeat:
-    image: ikehunter5/club-manager:latest
-    user: django-user
-    restart: unless-stopped
-    command:
-      [
-        'celery',
-        '-A',
-        'app',
-        'beat',
-        '--loglevel=info',
-        '--scheduler',
-        'django_celery_beat.schedulers:DatabaseScheduler'
-      ]
-    volumes:
-      - club-static:/vol/web
-    depends_on:
-      - redis
-      - postgres-clubs
-      - celery
-      - club-portal
-    env_file:
-      - .env.network
+      - SERVER_URI=club-app-network-fe:9000
 
   postgres-jukebox:
     image: postgres:13-alpine
-    container_name: jbx-network-db-fe
     volumes:
       - postgres-jukebox:/var/lib/postgresql/data
     environment:
@@ -125,7 +73,6 @@ services:
 
   postgres-clubs:
     image: postgres:13-alpine
-    # container_name: club-app-network-db-fe
     volumes:
       - postgres-clubs:/var/lib/postgresql/data
     environment:
@@ -143,8 +90,3 @@ volumes:
     name: postgres-clubs-network-fe
   postgres-jukebox:
     name: postgres-jukebox-network-fe
-
-# networks:
-#   cluster:
-#     name: jukebox_cluster
-#     driver: bridge
