@@ -20,5 +20,5 @@ export const ClubSchema: z.ZodSchema<IClub> = z.object({
 export const ClubInlineSchema = z.object({
   id: z.number(),
   name: z.string(),
-  role: z.string(),
+  // role: z.string(),
 })

@@ -15,7 +15,7 @@ services:
       - PORT=9000
       - HOST=localhost
       - LOG_LEVEL=debug
-      - BASE_URL=http://localhost:8080
+      - BASE_URL=http://localhost:8082
 
       - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}
       - SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}
@@ -31,35 +31,30 @@ services:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
     ports:
-      - 9000:9000
+      - 8082:9000
     depends_on:
       - postgres-jukebox
     command: npm run start:network
 
   proxy:
-    image: ikehunter5/jukebox-proxy:latest
+    image: ikehunter5/club-manager-proxy:latest
     ports:
       - 8080:8080
       - 8081:8081
     depends_on:
-      - jukebox
       - club-portal
     restart: always
     volumes:
       - client-dist-jbx:/vol/client
-      - club-static:/vol/static
+      - club-static:/vol/web
     environment:
-      - SERVER_URI=jbx-server-fe:9000
-      - WEBSOCKET_URI=jbx-server-fe:9000
       - CLUB_MANAGER_URI=club-app-network-fe:9000
       - PUBLIC_STATIC_URI=jukebox-client-631bab280a434e28995fd3fcafd1fa5a.s3-website-us-east-1.amazonaws.com
-    # attach: false
 
   redis:
     image: redis:alpine
-    # container_name: jbx-network-redis-fe
-    ports:
-      - 6379:6379
+    container_name: jukebox-redis
+    
 
   ####################################
   # Club Portal Config
