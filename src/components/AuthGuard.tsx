@@ -27,8 +27,9 @@ export const AuthGuard = (props: { children?: ReactNode }) => {
   // Triggers when login status changes
   useEffect(() => {
     if (userIsLoggedIn === false) {
+      logoutUser()
       navigate('/auth/login')
-    } else if (userIsLoggedIn) {
+    } else if (userIsLoggedIn && userToken) {
       // Store new user info
       fetchUserInfo().then(async (resUserInfo) => {
         if (!resUserInfo) return
@@ -39,7 +40,7 @@ export const AuthGuard = (props: { children?: ReactNode }) => {
         await fetchCurrentClubInfo()
         await fetchJukeboxes()
       })
-    } else if (userInfo || userIsLoggedIn === false) {
+    } else if (userInfo && !userIsLoggedIn) {
       logoutUser()
     }
   }, [userIsLoggedIn, userToken])

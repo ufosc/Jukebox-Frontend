@@ -20,6 +20,8 @@ import {
   selectHasJukeboxAux,
   selectPlayerState,
   selectSpotifyAuth,
+  selectUserLoggedIn,
+  selectUserToken,
   setInteraction,
   setNextTracks,
   setPlayerIsPlaying,
@@ -33,6 +35,8 @@ export const App = () => {
   const storePlayerState = useSelector(selectPlayerState)
   const currentClub = useSelector(selectCurrentClub)
   const hasAux = useSelector(selectHasJukeboxAux)
+  const userIsLoggedIn = useSelector(selectUserLoggedIn)
+  const userToken = useSelector(selectUserToken)
 
   const [initialized, setInitialized] = useState(false)
 
@@ -73,7 +77,7 @@ export const App = () => {
 
   // Triggers when receive spotify credentials from server
   useEffect(() => {
-    if (!spotifyAuth || !initialized) return
+    if (!spotifyAuth || !initialized || !userToken) return
 
     const timer = setInterval(async () => {
       await checkLinkAuth()
@@ -83,12 +87,13 @@ export const App = () => {
   }, [spotifyAuth])
 
   useEffect(() => {
+    if (!userToken) return
     fetchJukeboxes().then()
   }, [currentClub])
 
   // Triggers when the current jukebox changes
   useEffect(() => {
-    if (currentJukebox) {
+    if (currentJukebox && userToken) {
       authenticateLink().then()
       fetchCurrentlyPlaying().then()
       fetchNextTracks().then()

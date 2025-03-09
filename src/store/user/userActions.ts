@@ -1,7 +1,9 @@
 import { unwrapResult } from '@reduxjs/toolkit'
+import axios from 'axios'
 import { Network } from 'src/network'
 import { generateLocalData, isUser } from 'src/utils'
 import { store } from '../store'
+import { selectUserToken } from './userSelectors'
 import { userSlice } from './userSlice'
 import {
   thunkFetchUserInfo,
@@ -87,7 +89,19 @@ export const fetchUserInfo = async (): Promise<void | IUser> => {
   return user
 }
 
-export const logoutUser = () => {
+export const logoutUser = async () => {
+  const token = selectUserToken(store.getState())
+  // const res = await axios
+  //   .delete('http://localhost:8080/api/v1/oauth/browser/v1/auth/session', {
+  //     withCredentials: true,
+  //     headers: {
+  //       Authorization: token ? `Token ${token}` : '',
+  //     },
+  //   })
+  //   .catch()
+
+  // console.log('logout response:', res.data)
+
   store.dispatch(logout())
   clearLocalUserInfo()
   clearLocalUserToken()
