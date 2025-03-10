@@ -1,4 +1,4 @@
-export const mockTrackMetas: IQueuedTrack[] = [
+export const mockQueuedTracks: IQueuedTrack[] = [
   {
     track: {
       id: '3b93e58e-ed8e-4a73-9bde-a901e548e36a',

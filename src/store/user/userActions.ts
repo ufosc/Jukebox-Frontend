@@ -1,7 +1,6 @@
 import { unwrapResult } from '@reduxjs/toolkit'
-import axios from 'axios'
-import { Network } from 'src/network'
-import { generateLocalData, isUser } from 'src/utils'
+import { NetworkDep } from 'src/network'
+import { isUser, localDataFactory } from 'src/utils'
 import { store } from '../store'
 import { selectUserToken } from './userSelectors'
 import { userSlice } from './userSlice'
@@ -13,19 +12,19 @@ import {
 
 const { logout, set, update } = userSlice.actions
 
-const network = Network.getInstance()
+const network = NetworkDep.getInstance()
 
 const {
   set: setLocalUserInfo,
   clear: clearLocalUserInfo,
   get: getLocalUserInfo,
-} = generateLocalData<IUser>('user-info')
+} = localDataFactory<IUser>('user-info')
 
 const {
   set: setLocalUserToken,
   clear: clearLocalUserToken,
   get: getLocalUserToken,
-} = generateLocalData<string>('osc-token')
+} = localDataFactory<string>('osc-token')
 
 /**
  * Login user, return token

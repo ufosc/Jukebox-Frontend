@@ -61,7 +61,7 @@ export const AuthForm = (props: {
     const form = document.createElement('form')
     form.method = 'POST'
     form.action =
-      'http://localhost:8080/api/v1/oauth/browser/v1/auth/provider/redirect'
+      'http://localhost:8080/api/oauth/browser/v1/auth/provider/redirect'
 
     const data = {
       provider: 'google',

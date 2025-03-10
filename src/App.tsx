@@ -9,18 +9,12 @@ import {
   Theme,
 } from './context'
 import {
-  authenticateLink,
   checkLinkAuth,
-  fetchCurrentlyPlaying,
-  fetchJukeboxes,
-  fetchNextTracks,
   incrementLiveProgress,
-  selectCurrentClub,
   selectCurrentJukebox,
   selectHasJukeboxAux,
   selectPlayerState,
   selectSpotifyAuth,
-  selectUserLoggedIn,
   selectUserToken,
   setInteraction,
   setNextTracks,
@@ -33,9 +27,7 @@ export const App = () => {
   const spotifyAuth = useSelector(selectSpotifyAuth)
   const currentJukebox = useSelector(selectCurrentJukebox)
   const storePlayerState = useSelector(selectPlayerState)
-  const currentClub = useSelector(selectCurrentClub)
   const hasAux = useSelector(selectHasJukeboxAux)
-  const userIsLoggedIn = useSelector(selectUserLoggedIn)
   const userToken = useSelector(selectUserToken)
 
   const [initialized, setInitialized] = useState(false)
@@ -85,20 +77,6 @@ export const App = () => {
 
     return () => clearInterval(timer)
   }, [spotifyAuth])
-
-  useEffect(() => {
-    if (!userToken) return
-    fetchJukeboxes().then()
-  }, [currentClub])
-
-  // Triggers when the current jukebox changes
-  useEffect(() => {
-    if (currentJukebox && userToken) {
-      authenticateLink().then()
-      fetchCurrentlyPlaying().then()
-      fetchNextTracks().then()
-    }
-  }, [currentJukebox])
 
   // Receives track updates from server, updates store
   useEffect(() => {

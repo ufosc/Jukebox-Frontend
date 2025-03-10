@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { Network } from 'src/network'
+import { NetworkDep } from 'src/network'
 
-const network = Network.getInstance()
+const network = NetworkDep.getInstance()
 
 export const thunkFetchJukeboxes = createAsyncThunk(
   'jukebox/fetchJukeboxes',
