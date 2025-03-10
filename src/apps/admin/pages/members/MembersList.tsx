@@ -1,13 +1,13 @@
-import React from "react";
-import "./MembersList.scss";
+import React from 'react'
+import './MembersList.scss'
 
 export const MembersList: React.FC = () => {
   const members = Array(15).fill({
-    name: "John Doe",
-    role: "Member",
+    name: 'John Doe',
+    role: 'Member',
     points: 20,
-    joined: "January 1, 2024",
-  }); 
+    joined: 'January 1, 2024',
+  })
 
   return (
     <div className="members-all">
@@ -42,5 +42,5 @@ export const MembersList: React.FC = () => {
         </table>
       </div>
     </div>
-  );
-};
+  )
+}
