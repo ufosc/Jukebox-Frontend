@@ -4,6 +4,7 @@ import {
   thunkInitializeUser,
   // thunkFetchUserToken,
   thunkLoginUser,
+  thunkLogoutUser,
 } from './userThunks'
 
 export const userSlice = createSlice({
@@ -14,12 +15,7 @@ export const userSlice = createSlice({
     status: 'idle' as StoreStatus,
     error: null as string | null,
   },
-  reducers: {
-    logout: (state) => {
-      state.loggedIn = false
-      state.user = null
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(thunkInitializeUser.fulfilled, (state, action) => {
       if (!action.payload.success) {
@@ -33,6 +29,7 @@ export const userSlice = createSlice({
       state.user = action.payload.data
       state.loggedIn = true
     })
+
     builder.addCase(thunkLoginUser.fulfilled, (state, action) => {
       if (!action.payload.success) {
         state.loggedIn = false
@@ -44,11 +41,16 @@ export const userSlice = createSlice({
 
       state.loggedIn = true
     })
-
     builder.addCase(thunkLoginUser.rejected, (state, action) => {
       state.loggedIn = false
       state.error = action.error.message || null
     })
+
+    builder.addCase(thunkLogoutUser.fulfilled, (state, action) => {
+      state.loggedIn = false
+      state.user = null
+    })
+
     builderDefaults(builder)
   },
 })

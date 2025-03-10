@@ -17,3 +17,7 @@ export const thunkInitializeUser = createAsyncThunk(
     return await network.getCurrentUser()
   },
 )
+
+export const thunkLogoutUser = createAsyncThunk('user/logout', async () => {
+  return await network.logout()
+})

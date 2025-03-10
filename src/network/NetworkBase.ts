@@ -110,6 +110,16 @@ export class NetworkBase {
     return res
   }
 
+  /**
+   * Clear user auth tokens, end any sessions, remove
+   * any auth cookies.
+   */
+  public async logout() {
+    if (!this.isAuthenticated) return
+
+    this.clearToken()
+  }
+
   /*=== Utilities =========================================*/
   /**
    * Send an API request to the network,

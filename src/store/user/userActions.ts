@@ -1,9 +1,10 @@
 import { unwrapResult } from '@reduxjs/toolkit'
 import { store } from '../store'
-import { userSlice } from './userSlice'
-import { thunkInitializeUser, thunkLoginUser } from './userThunks'
-
-const { logout } = userSlice.actions
+import {
+  thunkInitializeUser,
+  thunkLoginUser,
+  thunkLogoutUser,
+} from './userThunks'
 
 export const initializeUser = async () => {
   await store.dispatch(thunkInitializeUser())
@@ -48,6 +49,10 @@ export const registerUser = async (
   }
 }
 
+/**
+ * Clear user auth data from browser,
+ * perform any server actions if necessary.
+ */
 export const logoutUser = async () => {
-  store.dispatch(logout())
+  await store.dispatch(thunkLogoutUser())
 }
