@@ -15,18 +15,9 @@ export const userSlice = createSlice({
     error: null as string | null,
   },
   reducers: {
-    set: (state, action: { payload: { user: IUser } }) => {
-      // TODO: Make thunk for verifying user login, or catching system error
-      const { user } = action.payload
-      state.user = user
-      state.loggedIn = true
-    },
     logout: (state) => {
       state.loggedIn = false
       state.user = null
-    },
-    update: (state, action: { payload: { user: IUser } }) => {
-      state.user = { ...(state.user || {}), ...action.payload.user }
     },
   },
   extraReducers: (builder) => {

@@ -3,7 +3,7 @@ import { store } from '../store'
 import { userSlice } from './userSlice'
 import { thunkInitializeUser, thunkLoginUser } from './userThunks'
 
-const { logout, set, update } = userSlice.actions
+const { logout } = userSlice.actions
 
 export const initializeUser = async () => {
   await store.dispatch(thunkInitializeUser())

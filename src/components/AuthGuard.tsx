@@ -15,6 +15,12 @@ export const AuthGuard = (props: { children?: ReactNode }) => {
 
   const navigate = useNavigate()
 
+  /**
+   * Called when user is logged in,
+   * this is the initialization point for
+   * all of the redux stores - except the
+   * user store.
+   */
   const initializeStores = async () => {
     await fetchAllClubs()
     await fetchCurrentClubInfo()

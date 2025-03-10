@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Form, FormInputGroup, FormSection, FormSubmit } from 'src/components'
 import { selectUserStatus } from 'src/store'
@@ -52,10 +52,6 @@ export const AuthForm = (props: {
       }
     })
   }
-
-  // useEffect(() => {
-  //   console.log('new auth errors:', errors)
-  // }, [errors])
 
   const handleGoogleAuth = async () => {
     const form = document.createElement('form')

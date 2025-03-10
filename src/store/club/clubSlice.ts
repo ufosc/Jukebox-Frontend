@@ -14,9 +14,6 @@ export const clubSlice = createSlice({
     setCurrentClubReducer: (state, action: { payload: IClub }) => {
       state.currentClub = action.payload
     },
-    setAllClubsReducer: (state, action: { payload: IClub[] }) => {
-      state.allClubs = action.payload
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(thunkFetchClubs.fulfilled, (state, action) => {
