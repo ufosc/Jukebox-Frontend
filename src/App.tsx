@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useRef, useState } from 'react'
+import { useCallback, useContext, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 import { SPOTIFY_AUTH_CHECK_MS } from './config'
@@ -15,7 +15,7 @@ import {
   selectHasJukeboxAux,
   selectPlayerState,
   selectSpotifyAuth,
-  selectUserToken,
+  selectUserLoggedIn,
   setInteraction,
   setNextTracks,
   setPlayerIsPlaying,
@@ -28,9 +28,7 @@ export const App = () => {
   const currentJukebox = useSelector(selectCurrentJukebox)
   const storePlayerState = useSelector(selectPlayerState)
   const hasAux = useSelector(selectHasJukeboxAux)
-  const userToken = useSelector(selectUserToken)
-
-  const [initialized, setInitialized] = useState(false)
+  const isLoggedIn = useSelector(selectUserLoggedIn)
 
   const progressTimerRef = useRef<number | undefined>()
 
@@ -40,11 +38,11 @@ export const App = () => {
     isConnected: socketIsConnected,
   } = useContext(SocketContext)
 
-  useEffect(() => {
-    setTimeout(() => {
-      setInitialized(true)
-    }, 60 * 1000)
-  }, [])
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setInitialized(true)
+  //   }, 60 * 1000)
+  // }, [])
 
   /**
    * ======================== *
@@ -69,7 +67,7 @@ export const App = () => {
 
   // Triggers when receive spotify credentials from server
   useEffect(() => {
-    if (!spotifyAuth || !initialized || !userToken) return
+    if (!spotifyAuth || !isLoggedIn) return
 
     const timer = setInterval(async () => {
       await checkLinkAuth()

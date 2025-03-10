@@ -1,59 +1,19 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { NetworkDep } from 'src/network'
+import { Network } from 'src/network'
 
-const network = NetworkDep.getInstance()
+const network = Network.getInstance()
 
 export const thunkLoginUser = createAsyncThunk(
   'user/loginUser',
-  async (data: {
-    email: string
-    password: string
-  }): Promise<
-    | { success: true; token: string }
-    | {
-        success: false
-        emailError?: string
-        passwordError?: string
-        error?: string
-      }
-  > => {
-    const { email, password } = data
-    const res = await network.sendLoginUser(email, password)
-
-    if (!res.success) {
-      return {
-        success: false,
-        emailError: res.error.emailError,
-        passwordError: res.error.passwordError,
-        error: res.error.message,
-      }
-    } else {
-      return { success: true, token: res.value }
-    }
+  async (data: { username: string; password: string }) => {
+    const { username, password } = data
+    return await network.loginWithUsername(username, password)
   },
 )
 
-export const thunkFetchUserInfo = createAsyncThunk(
+export const thunkInitializeUser = createAsyncThunk(
   'user/fetchInfo',
   async () => {
-    const user = await network.sendGetUserInfo()
-
-    return { user }
+    return await network.getCurrentUser()
   },
 )
-
-export const thunkFetchUserToken = createAsyncThunk(
-  'user/fetchToken',
-  async () => {
-    const res = await network.sendGetUserToken()
-    console.log('token res:', res)
-    return res
-  },
-)
-
-// export const thunkGetUserSpotifyToken = createAsyncThunk(
-//   'user/getSpotifyToken',
-//   async () => {
-//     return await network.sendGetSpotifyToken()
-//   },
-// )

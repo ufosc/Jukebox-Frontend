@@ -53,9 +53,9 @@ export const AuthForm = (props: {
     })
   }
 
-  useEffect(() => {
-    console.log('new auth errors:', errors)
-  }, [errors])
+  // useEffect(() => {
+  //   console.log('new auth errors:', errors)
+  // }, [errors])
 
   const handleGoogleAuth = async () => {
     const form = document.createElement('form')

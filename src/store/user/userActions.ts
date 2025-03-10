@@ -1,50 +1,27 @@
 import { unwrapResult } from '@reduxjs/toolkit'
-import { NetworkDep } from 'src/network'
-import { isUser, localDataFactory } from 'src/utils'
 import { store } from '../store'
-import { selectUserToken } from './userSelectors'
 import { userSlice } from './userSlice'
-import {
-  thunkFetchUserInfo,
-  thunkFetchUserToken,
-  thunkLoginUser,
-} from './userThunks'
+import { thunkInitializeUser, thunkLoginUser } from './userThunks'
 
 const { logout, set, update } = userSlice.actions
 
-const network = NetworkDep.getInstance()
-
-const {
-  set: setLocalUserInfo,
-  clear: clearLocalUserInfo,
-  get: getLocalUserInfo,
-} = localDataFactory<IUser>('user-info')
-
-const {
-  set: setLocalUserToken,
-  clear: clearLocalUserToken,
-  get: getLocalUserToken,
-} = localDataFactory<string>('osc-token')
+export const initializeUser = async () => {
+  await store.dispatch(thunkInitializeUser())
+}
 
 /**
  * Login user, return token
  */
-export const loginUser = async (email: string, password: string) => {
-  const res = await store
-    .dispatch(thunkLoginUser({ email, password }))
+export const loginUser = async (usernameOrEmail: string, password: string) => {
+  return await store
+    .dispatch(thunkLoginUser({ username: usernameOrEmail, password }))
     .then(unwrapResult)
-    .catch((error) => {
-      console.log('actions error:', error.emailError)
-      throw error
+    .then(async (res) => {
+      if (res.success) {
+        await initializeUser()
+      }
+      return res
     })
-
-  if (res.success) {
-    setLocalUserToken(res.token)
-  } else {
-    clearLocalUserToken()
-  }
-
-  return res
 }
 
 /**
@@ -71,92 +48,6 @@ export const registerUser = async (
   }
 }
 
-/**
- * Fetch user's info, return user
- */
-export const fetchUserInfo = async (): Promise<void | IUser> => {
-  const user = await store
-    .dispatch(thunkFetchUserInfo())
-    .then(unwrapResult)
-    .then((result) => result.user)
-    .catch((error) => {
-      console.log('Error fetching user details:', error)
-      store.dispatch(logout())
-    })
-
-  setLocalUserInfo(user ?? null)
-  return user
-}
-
 export const logoutUser = async () => {
-  const token = selectUserToken(store.getState())
-  // const res = await axios
-  //   .delete('http://localhost:8080/api/v1/oauth/browser/v1/auth/session', {
-  //     withCredentials: true,
-  //     headers: {
-  //       Authorization: token ? `Token ${token}` : '',
-  //     },
-  //   })
-  //   .catch()
-
-  // console.log('logout response:', res.data)
-
   store.dispatch(logout())
-  clearLocalUserInfo()
-  clearLocalUserToken()
-}
-
-export const setUser = (user: IUser, token: string) => {
-  store.dispatch(set({ user, token }))
-  network.setToken(token)
-}
-
-// export const initializeUser = async () => {
-//   try {
-//     const user = getLocalUserInfo()
-//     const token = getLocalUserToken()
-
-//     if (!user || !token) return logoutUser()
-
-//     if (isUser(user)) {
-//       setUser(user, token)
-//     } else {
-//       logoutUser()
-//     }
-//   } catch (e) {
-//     logoutUser()
-//   }
-// }
-
-export const updateStoreUser = async (user: IUser) => {
-  store.dispatch(update({ user }))
-  setLocalUserInfo(user)
-}
-
-export const initializeUser = async () => {
-  const token = getLocalUserToken()
-  const user = getLocalUserInfo()
-
-  if (token && user && isUser(user)) {
-    setUser(user, token)
-
-    return
-  }
-
-  const updatedToken = await store
-    .dispatch(thunkFetchUserToken())
-    .then(unwrapResult)
-    .then((res) => res.token)
-    .catch((error) => {
-      console.log('Error fetching user details:', error)
-      store.dispatch(logout())
-    })
-
-  console.log('updated token:', updatedToken)
-
-  if (updatedToken) {
-    setLocalUserToken(updatedToken)
-  } else {
-    logoutUser()
-  }
 }

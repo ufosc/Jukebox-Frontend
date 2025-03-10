@@ -13,7 +13,7 @@ import {
   type ReactNode,
 } from 'react'
 import { SpotifyPlayer } from 'src/lib'
-import { NetworkDep } from 'src/network'
+import { Network } from 'src/network'
 import { setHasAux } from 'src/store'
 import { KeyboardContext } from './KeyboardContext'
 
@@ -45,7 +45,7 @@ export const SpotifyPlayerProvider = (props: {
 }) => {
   const { children, token, jukebox, onPlayerStateChange } = props
   const playerRef = useRef<Spotify.Player | null>(null)
-  const networkRef = useRef<NetworkDep>()
+  const networkRef = useRef<Network>()
 
   const [initialized, setInitialized] = useState(false)
   const [playerState, setPlayerState] = useState<IPlayerAuxState | null>(null)
@@ -56,7 +56,7 @@ export const SpotifyPlayerProvider = (props: {
   const { onSpace, onArrow } = useContext(KeyboardContext)
 
   useEffect(() => {
-    networkRef.current = NetworkDep.getInstance()
+    networkRef.current = Network.getInstance()
   }, [])
 
   useEffect(() => {

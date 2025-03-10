@@ -1,1 +1,1 @@
-export * from './network-dep'
+export * from './Network'

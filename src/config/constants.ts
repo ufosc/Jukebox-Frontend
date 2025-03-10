@@ -1,4 +1,5 @@
 export const REACT_ENV: nodenv = (import.meta.env?.MODE ?? 'test') as nodenv
+export const LOG_LEVEL: loglevel = import.meta.env.LOG_LEVEL ?? 'debug'
 export const JUKEBOX_URL =
   import.meta.env?.VITE_JUKEBOX_URL ?? 'http://localhost:8082'
 export const CLUBS_URL =

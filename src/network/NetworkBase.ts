@@ -1,21 +1,25 @@
 import type { AxiosRequestConfig } from 'axios'
 import { REACT_ENV } from 'src/config'
-import { httpRequest } from 'src/lib'
-import { sleep } from 'src/utils'
+import { httpRequest, logger } from 'src/lib'
+import { UserTokenSchema } from 'src/schemas'
+import { localDataFactory, sleep } from 'src/utils'
 import { ZodError } from 'zod'
 import { NetworkEndpoints } from './endpoints'
-import { NetworkAuth } from './NetworkAuth'
 
 const MOCK_DELAY_MS = 1000
 
-export type NetworkSuccess<T> = T | null
+export type NetworkSuccess<T> = T
 export type NetworkError<T> =
-  | { nested?: false; status?: number; error: string }
-  | { nested: true; status?: number; errors: Record<keyof T, string> }
+  | { nested?: false; error: string; errors?: never }
+  | {
+      nested: true
+      error?: never
+      errors: Record<keyof T, string>
+    }
 
 export type NetworkResponse<T> =
-  | { success: true; data: NetworkSuccess<T> }
-  | { success: false; data: NetworkError<T> }
+  | { success: true; data: NetworkSuccess<T>; status?: number }
+  | { success: false; data: NetworkError<T>; status?: number }
 
 /**
  * Base functionality for the network interface,
@@ -28,26 +32,85 @@ export type NetworkResponse<T> =
  * - update: PUT<id>
  * - delete: DELETE<id>
  */
-export class NetworkBase extends NetworkAuth {
+export class NetworkBase {
   protected endpoints = NetworkEndpoints
-  protected static instance: NetworkBase
+  private _token: string | null = null
+  private tokenFactory = localDataFactory<string>('clubportal-token')
 
-  protected constructor() {
-    super()
+  constructor() {
+    this._token = this.tokenFactory.get()
+  }
+
+  protected setToken(token: string) {
+    this.tokenFactory.set(token)
+    this._token = token
+  }
+
+  protected clearToken() {
+    this._token = null
+    return this.tokenFactory.clear()
+  }
+
+  /*=== Authentication ====================================*/
+  /**
+   * Readonly accessor for auth token.
+   */
+  protected get token() {
+    return this._token
   }
 
   /**
-   * Ensures there only exists one instance
-   * of this class.
+   * Checks if a user token exists
    */
-  public static getInstance() {
-    if (!this.instance) {
-      this.instance = new this()
-    }
-
-    return this.instance
+  public get isAuthenticated() {
+    return this._token != null && this._token.trim().length > 1
   }
 
+  /**
+   * Initiate the oauth flow.
+   *
+   * Creates a new dynamic form, creates hidden fields
+   * for each of the required fields to submit to the
+   * server, and submits the form to the server. This
+   * allows the post request to redirect to the server,
+   * and redirect to the consent screen.
+   */
+
+  public async loginWithOauth(provider: 'google') {}
+
+  /**
+   * Handle return request from oauth.
+   *
+   * The server returns with a new session stored
+   * as a cookie. This allows us to authenticate with
+   * the server and obtain a user token.
+   */
+  public async handleOauthCallback() {}
+
+  /**
+   * Initiate standard auth flow.
+   *
+   * Sends a request to the server which returns a user
+   * token. This token will be sent with each api request.
+   */
+  public async loginWithUsername(usernameOrEmail: string, password: string) {
+    const url = this.endpoints.user.login
+
+    const res = await this.request(url, UserTokenSchema, {
+      method: 'POST',
+      data: { username: usernameOrEmail, password },
+      isPublic: true,
+      mock: { data: { token: 'test-token' } },
+    })
+
+    if (!res.success) return res
+
+    this.setToken(res.data.token)
+
+    return res
+  }
+
+  /*=== Utilities =========================================*/
   /**
    * Send an API request to the network,
    * and validate the response using a provided
@@ -59,22 +122,22 @@ export class NetworkBase extends NetworkAuth {
     schema: Zod.Schema<T> | null,
     config?: AxiosRequestConfig & {
       mock?: {
-        data?: T
+        data: T
         errorIfEmpty?: boolean
       }
       // mockData?: T
       isPublic?: boolean
     },
-  ) {
+  ): Promise<NetworkResponse<T>> {
     const {
-      mock = {},
+      mock = undefined,
       headers = {},
       method = 'GET',
       isPublic = false,
       ...axiosConfig
     } = config ?? {}
 
-    if (REACT_ENV === 'dev') {
+    if (REACT_ENV === 'dev' && mock) {
       await sleep(MOCK_DELAY_MS) // Simulate server delay
 
       if (mock.data == null && mock.errorIfEmpty) {
@@ -90,18 +153,22 @@ export class NetworkBase extends NetworkAuth {
       return {
         success: true,
         status: 200,
-        data: mock.data ?? undefined,
+        data: mock.data,
       }
     } else if (REACT_ENV === 'network') {
       await sleep(MOCK_DELAY_MS) // Simulate network delay
     }
 
-    if (!isPublic && this.token) {
+    if (!isPublic && this.isAuthenticated) {
       // Private route, is authenticated
       headers['Authorization'] = `Token ${this.token}`
     } else if (!isPublic) {
-      // Private route, not authenticated
-      return { success: false, data: { error: 'User is not authenticated' } }
+      // Private route, not authenticated, don't even try request
+      return {
+        success: false,
+        status: 401,
+        data: { error: 'User is not authenticated' },
+      }
     }
 
     headers['Content-Type'] = headers['Content-Type'] || 'application/json'
@@ -113,15 +180,21 @@ export class NetworkBase extends NetworkAuth {
       headers,
       ...axiosConfig,
     })
-      .then((res): T | null => {
+      // Validate data using schema
+      .then((res): T => {
+        logger.debug('Network request:', res)
         if (schema != null) {
           return schema.parse(res.data)
         } else {
-          return null
+          return res.data
         }
       })
+      // Provide success response
       .then((data) => ({ success: true, data: data }) as const)
+      // Handle error responses
       .catch((error: any | ZodError<T>) => {
+        logger.warn('Error from network:', error)
+
         const errorDefaults = {
           success: false,
           status: 500,

@@ -21,6 +21,24 @@ import { NetworkBase } from './NetworkBase'
  * Handle API requests to connected servers.
  */
 export class Network extends NetworkBase {
+  private static instance: Network
+
+  private constructor() {
+    super()
+  }
+
+  /**
+   * Ensures there only exists one instance
+   * of this class.
+   */
+  public static getInstance() {
+    if (!this.instance) {
+      this.instance = new this()
+    }
+
+    return this.instance
+  }
+
   /*=== Club & User Routes ================================*/
   /**
    * Fetch details for logged in user.
