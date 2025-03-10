@@ -13,3 +13,5 @@ export const SPOTIFY_AUTH_CHECK_MS = 1000 * 60 * 5
 
 export const CSRF_COOKIE_NAME = 'csrftoken'
 export const SESSION_COOKIE_NAME = 'sessionid'
+
+export const CURRENT_URL = `${window.location.protocol}//${window.location.host}`

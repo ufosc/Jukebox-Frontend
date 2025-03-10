@@ -1,8 +1,8 @@
 import type { AxiosRequestConfig } from 'axios'
-import { REACT_ENV } from 'src/config'
+import { CURRENT_URL, REACT_ENV } from 'src/config'
 import { httpRequest, logger } from 'src/lib'
 import { UserTokenSchema } from 'src/schemas'
-import { localDataFactory, sleep } from 'src/utils'
+import { localDataFactory, NotImplementedError, sleep } from 'src/utils'
 import { ZodError } from 'zod'
 import { NetworkEndpoints } from './endpoints'
 
@@ -69,23 +69,66 @@ export class NetworkBase {
   /**
    * Initiate the oauth flow.
    *
-   * Creates a new dynamic form, creates hidden fields
-   * for each of the required fields to submit to the
-   * server, and submits the form to the server. This
-   * allows the post request to redirect to the server,
-   * and redirect to the consent screen.
+   * Creates a new dynamic form, creates hidden fields for each of the
+   * required fields to submit to the server, and submits the form to
+   * the server. This allows the post request to redirect the user
+   * to the server, which will redirect to the consent screen.
    */
+  public async loginWithOauth(provider: 'google', returnPath: string) {
+    const form = document.createElement('form')
+    form.method = 'POST'
 
-  public async loginWithOauth(provider: 'google') {}
+    switch (provider) {
+      case 'google':
+        form.action = this.endpoints.user.oauth.google
+        break
+      default:
+        throw new NotImplementedError(`Provider ${provider} is not setup.`)
+    }
+
+    const data = {
+      provider,
+      callback_url: CURRENT_URL + returnPath,
+      process: 'login',
+    }
+
+    for (const [key, value] of Object.entries(data)) {
+      const input = document.createElement('input')
+      input.type = 'hidden'
+      input.name = key
+      input.value = value
+      form.appendChild(input)
+    }
+    document.body.appendChild(form)
+
+    // If in dev mode, just redirect to callback url
+    if (REACT_ENV === 'dev') {
+      window.location.href = data.callback_url
+    } else {
+      form.submit()
+    }
+  }
 
   /**
    * Handle return request from oauth.
    *
-   * The server returns with a new session stored
-   * as a cookie. This allows us to authenticate with
-   * the server and obtain a user token.
+   * The server returns with a new session id stored as a cookie.
+   * This session id allows us to authenticate with the server
+   * and obtain a user token to use with the REST API.
    */
-  public async handleOauthCallback() {}
+  public async handleOauthReturn() {
+    const url = this.endpoints.user.token
+
+    const res = await this.request(url, UserTokenSchema, {
+      isPublic: true,
+      mock: { data: { token: 'test-token' } },
+    })
+
+    if (!res.success) return res
+    this.setToken(res.data.token)
+
+    return res
+  }
 
   /**
    * Initiate standard auth flow.
@@ -104,7 +147,6 @@ export class NetworkBase {
     })
 
     if (!res.success) return res
-
     this.setToken(res.data.token)
 
     return res

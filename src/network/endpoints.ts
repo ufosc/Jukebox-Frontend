@@ -8,6 +8,9 @@ export const NetworkEndpoints = Object.freeze({
     token: `${clubsApi}/user/token/`,
     login: `${clubsApi}/user/login/`,
     info: `${clubsApi}/user/me/`,
+    oauth: {
+      google: `${CLUBS_URL}/api/oauth/browser/v1/auth/provider/redirect`,
+    },
   },
   club: {
     list: `${clubsApi}/club/clubs/`,

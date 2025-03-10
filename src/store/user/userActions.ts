@@ -1,4 +1,5 @@
 import { unwrapResult } from '@reduxjs/toolkit'
+import { Network } from 'src/network'
 import { store } from '../store'
 import {
   thunkInitializeUser,
@@ -6,12 +7,18 @@ import {
   thunkLogoutUser,
 } from './userThunks'
 
+const network = Network.getInstance()
+
+/**
+ * If the user token exists, will set logged in to true,
+ * and will fetch user information.
+ */
 export const initializeUser = async () => {
   await store.dispatch(thunkInitializeUser())
 }
 
 /**
- * Login user, return token
+ * Login user, return token.
  */
 export const loginUser = async (usernameOrEmail: string, password: string) => {
   return await store
@@ -23,6 +30,21 @@ export const loginUser = async (usernameOrEmail: string, password: string) => {
       }
       return res
     })
+}
+
+/**
+ * Send user to the google consent screen.
+ */
+export const loginUserWithGoogle = (returnPath: string) => {
+  return network.loginWithOauth('google', returnPath)
+}
+
+export const handleUserOauthReturn = async () => {
+  const res = await network.handleOauthReturn()
+  if (!res.success) return res
+
+  await initializeUser()
+  return res
 }
 
 /**

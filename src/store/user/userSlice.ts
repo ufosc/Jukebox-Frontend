@@ -26,8 +26,8 @@ export const userSlice = createSlice({
         return
       }
 
-      state.user = action.payload.data
       state.loggedIn = true
+      state.user = action.payload.data
     })
 
     builder.addCase(thunkLoginUser.fulfilled, (state, action) => {

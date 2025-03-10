@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Form, FormInputGroup, FormSection, FormSubmit } from 'src/components'
-import { selectUserStatus } from 'src/store'
+import { loginUserWithGoogle, selectUserStatus } from 'src/store'
 
 export const AuthForm = (props: {
   onSubmit: (
@@ -54,26 +54,7 @@ export const AuthForm = (props: {
   }
 
   const handleGoogleAuth = async () => {
-    const form = document.createElement('form')
-    form.method = 'POST'
-    form.action =
-      'http://localhost:8080/api/oauth/browser/v1/auth/provider/redirect'
-
-    const data = {
-      provider: 'google',
-      callback_url: 'http://localhost:3000/admin',
-      process: 'login',
-    }
-
-    for (const [key, value] of Object.entries(data)) {
-      const input = document.createElement('input')
-      input.type = 'hidden'
-      input.name = key
-      input.value = value
-      form.appendChild(input)
-    }
-    document.body.appendChild(form)
-    form.submit()
+    await loginUserWithGoogle('/auth/oauth-return')
   }
 
   return (
