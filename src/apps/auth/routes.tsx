@@ -1,6 +1,6 @@
 import type { RouteObject } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-import { Login, Register } from './pages'
+import { Login, OauthReturn, Register } from './pages'
 
 export const authRoutes: RouteObject[] = [
   {
@@ -26,5 +26,9 @@ export const authRoutes: RouteObject[] = [
   {
     path: 'register',
     element: <Register />,
+  },
+  {
+    path: 'oauth-return',
+    element: <OauthReturn />,
   },
 ]

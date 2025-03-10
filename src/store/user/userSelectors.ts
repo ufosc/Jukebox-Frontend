@@ -26,8 +26,3 @@ export const selectUserStatus = createSelector(
   userStateSelector,
   (state) => state.status,
 )
-
-export const selectUserToken = createSelector(
-  userStateSelector,
-  (state) => state.token,
-)

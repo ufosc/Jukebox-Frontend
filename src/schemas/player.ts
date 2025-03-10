@@ -55,6 +55,8 @@ const QueuedTrackSchema: z.ZodSchema<IQueuedTrack> = z.object({
   }),
 })
 
+export const QueuedTrackListSchema = z.array(QueuedTrackSchema)
+
 export const PlayerStateSchema: z.ZodSchema<IPlayerState> = z.object({
   jukebox_id: z.number(),
   current_track: QueuedTrackSchema.optional(),

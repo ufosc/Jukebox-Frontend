@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useRef, useState } from 'react'
+import { useCallback, useContext, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 import { SPOTIFY_AUTH_CHECK_MS } from './config'
@@ -9,17 +9,13 @@ import {
   Theme,
 } from './context'
 import {
-  authenticateLink,
   checkLinkAuth,
-  fetchCurrentlyPlaying,
-  fetchJukeboxes,
-  fetchNextTracks,
   incrementLiveProgress,
-  selectCurrentClub,
   selectCurrentJukebox,
   selectHasJukeboxAux,
   selectPlayerState,
   selectSpotifyAuth,
+  selectUserLoggedIn,
   setInteraction,
   setNextTracks,
   setPlayerIsPlaying,
@@ -31,10 +27,8 @@ export const App = () => {
   const spotifyAuth = useSelector(selectSpotifyAuth)
   const currentJukebox = useSelector(selectCurrentJukebox)
   const storePlayerState = useSelector(selectPlayerState)
-  const currentClub = useSelector(selectCurrentClub)
   const hasAux = useSelector(selectHasJukeboxAux)
-
-  const [initialized, setInitialized] = useState(false)
+  const isLoggedIn = useSelector(selectUserLoggedIn)
 
   const progressTimerRef = useRef<number | undefined>()
 
@@ -44,11 +38,11 @@ export const App = () => {
     isConnected: socketIsConnected,
   } = useContext(SocketContext)
 
-  useEffect(() => {
-    setTimeout(() => {
-      setInitialized(true)
-    }, 60 * 1000)
-  }, [])
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setInitialized(true)
+  //   }, 60 * 1000)
+  // }, [])
 
   /**
    * ======================== *
@@ -73,7 +67,7 @@ export const App = () => {
 
   // Triggers when receive spotify credentials from server
   useEffect(() => {
-    if (!spotifyAuth || !initialized) return
+    if (!spotifyAuth || !isLoggedIn) return
 
     const timer = setInterval(async () => {
       await checkLinkAuth()
@@ -81,19 +75,6 @@ export const App = () => {
 
     return () => clearInterval(timer)
   }, [spotifyAuth])
-
-  useEffect(() => {
-    fetchJukeboxes().then()
-  }, [currentClub])
-
-  // Triggers when the current jukebox changes
-  useEffect(() => {
-    if (currentJukebox) {
-      authenticateLink().then()
-      fetchCurrentlyPlaying().then()
-      fetchNextTracks().then()
-    }
-  }, [currentJukebox])
 
   // Receives track updates from server, updates store
   useEffect(() => {

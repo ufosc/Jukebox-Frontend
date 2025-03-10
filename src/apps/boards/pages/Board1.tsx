@@ -22,8 +22,17 @@ interface DraggablePanelProps {
 }
 
 //This is a wrapper used to make the DisplayPanel and TracksPanel draggable
-const DraggablePanel: React.FC<DraggablePanelProps> = ({ id, index, swapPanels, children }) => {
-  const [{ isDragging }, drag] = useDrag<DragItem, void, { isDragging: boolean }>({
+const DraggablePanel: React.FC<DraggablePanelProps> = ({
+  id,
+  index,
+  swapPanels,
+  children,
+}) => {
+  const [{ isDragging }, drag] = useDrag<
+    DragItem,
+    void,
+    { isDragging: boolean }
+  >({
     type: ItemType,
     item: { id, index },
     collect: (monitor) => ({
@@ -58,36 +67,57 @@ const DraggablePanel: React.FC<DraggablePanelProps> = ({ id, index, swapPanels, 
 }
 
 export const Board1: React.FC = () => {
-  const [panels, setPanels] = useState<string[]>(['display', 'tracks']);
-  const [isDraggable, setIsDraggable] = useState<boolean>(false);
+  const [panels, setPanels] = useState<string[]>(['display', 'tracks'])
+  const [isDraggable, setIsDraggable] = useState<boolean>(false)
 
   const swapPanels = (fromIndex: number, toIndex: number) => {
     setPanels((prev) => {
-      const updated = [...prev];
-      if(isDraggable){ //block swap from happening if drag isn't toggled
-        [updated[fromIndex], updated[toIndex]] = [updated[toIndex], updated[fromIndex]];
+      const updated = [...prev]
+      if (isDraggable) {
+        //block swap from happening if drag isn't toggled
+        ;[updated[fromIndex], updated[toIndex]] = [
+          updated[toIndex],
+          updated[fromIndex],
+        ]
       }
       return updated
     })
   }
 
   const toggleDrag = (set: boolean) => {
-    setIsDraggable(set);
+    setIsDraggable(set)
   }
 
   return (
-    <DndProvider backend={HTML5Backend}> {/* Drag and Drop wrap  required for react-dnd*/}
-      <button className={`dragToggle ${isDraggable ? 'active' : 'inactive'}`} onClick={() => toggleDrag(!isDraggable)}>
-        <p>{/* test code {isDraggable ? "It is!" : "It is not"}*/}
+    <DndProvider backend={HTML5Backend}>
+      {' '}
+      {/* Drag and Drop wrap  required for react-dnd*/}
+      <button
+        className={`dragToggle ${isDraggable ? 'active' : 'inactive'}`}
+        onClick={() => toggleDrag(!isDraggable)}
+      >
+        <p>
+          {/* test code {isDraggable ? "It is!" : "It is not"}*/}
           Customize the Layout!
         </p>
       </button>
       <div className="board board-1">
         {/* panels.map iterates over the two panels stored in useState<string[]>(['display', 'tracks']) and create a DraggablePanel FC using the panel and index properties*/}
         {panels.map((panel, index) => (
-          <DraggablePanel key={panel} id={panel} index={index} swapPanels={swapPanels}>
+          <DraggablePanel
+            key={panel}
+            id={panel}
+            index={index}
+            swapPanels={swapPanels}
+          >
             {/* if the panels name is "display" we render the <DisplayPanel>; If it's name is "tracks" we render <TracksPanel />*/}
-            {panel === 'display' ? <DisplayPanel><Clock /></DisplayPanel> : <TracksPanel />}
+            {panel === 'display' ? (
+              <DisplayPanel>
+                <Clock />
+              </DisplayPanel>
+            ) : (
+              <TracksPanel />
+            )}
           </DraggablePanel>
         ))}
       </div>

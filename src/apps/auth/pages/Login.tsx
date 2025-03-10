@@ -10,8 +10,6 @@ export const Login = () => {
   const userIsLoggedIn = useSelector(selectUserLoggedIn)
 
   const navigate = useNavigate()
-  const handleLoginUser = (email: string, password: string) =>
-    loginUser(email, password)
 
   useEffect(() => {
     if (userStatus === 'succeeded' && userIsLoggedIn) {
@@ -25,7 +23,7 @@ export const Login = () => {
         <h2>Login</h2>
         <p>You have been logged out.</p>
         <div>
-          <AuthForm onSubmit={handleLoginUser} />
+          <AuthForm onSubmit={loginUser} />
         </div>
       </div>
     </div>
