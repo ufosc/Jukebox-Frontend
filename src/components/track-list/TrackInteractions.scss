@@ -1,6 +1,8 @@
 .track-interactivity {
   display: flex;
   gap: 1rem;
+  @include font-body('md');
+  
 
   &__item {
     display: flex;

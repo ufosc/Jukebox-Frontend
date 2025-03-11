@@ -9,8 +9,10 @@ export const MemberDetail = () => {
           <div className='username'>@john_doe</div>
         </div>
       </div>
-      <div className="main-content">
-        <div className="left-panel">
+
+      <div className='main-member-container'>
+        <div className='grid grid-spacing'>
+        <div className="left-panel col-4">
           <div className="profile-details">
             <h2>Profile Details</h2>
             <div className="profile-info">
@@ -24,9 +26,9 @@ export const MemberDetail = () => {
             </div>
           </div>
         </div>
-        <div className="right-panel">
-          <div className="club-membership">
-            <h2>Club Memberships</h2>
+
+        <div className="club-membership col-8">
+            <h2 className=''>Club Memberships</h2>
 
             <div className="clubs-list">
               <div className="club-info">
@@ -64,7 +66,12 @@ export const MemberDetail = () => {
               </div>
             </div>
           </div>
-          <div className="queued-tracks">
+
+        </div>
+        <div className='grid'>
+          <div className='col-4'>
+          </div>
+          <div className="queued-tracks col-8">
 
             <h2>Queued Tracks</h2>
             <div className="track-list">
@@ -89,6 +96,7 @@ export const MemberDetail = () => {
           </div>
         </div>
       </div>
+
     </div>
   )
 };

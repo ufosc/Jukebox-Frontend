@@ -23,11 +23,10 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background-image: url("https://alliancebjjmn.com/wp-content/uploads/2019/07/placeholder-profile-sq-491x407.jpg");
+    background-image: url('https://alliancebjjmn.com/wp-content/uploads/2019/07/placeholder-profile-sq-491x407.jpg');
     background-size: cover;
     background-position: center;
   }
-
 
   .main-content {
     display: grid;
@@ -44,7 +43,7 @@
   .profile-details,
   .club-membership,
   .queued-tracks {
-    background-color: #e0e0e0;
+    background-color: var(--color-surface);
     padding: 30px;
     border-radius: 8px;
     display: flex;
@@ -54,8 +53,12 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    background-color: #e0e0e0;
+    background-color: var(--color-surface);
     border-radius: 8px;
+  }
+
+  .grid-spacing {
+    margin: 1rem 0 1rem 0;
   }
 
   .profile-info {
@@ -66,18 +69,17 @@
 
   .profile-info div {
     font-size: 17px;
-    color: #333;
+    color: var(--color-surface-on);
     margin-top: 5px;
   }
 
   .club-membership {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    align-items: left;
+    text-align: left;
     gap: 20px;
     height: 400px;
-
 
     .club-logo {
       width: 150px;
@@ -106,11 +108,10 @@
   .clubs-list {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     gap: 30px;
   }
-
 
   .right-panel {
     display: flex;
@@ -127,7 +128,7 @@
     box-shadow: var(--shadow);
 
     h2 {
-      text-align: center;
+      text-align: left;
     }
 
     .track-list {

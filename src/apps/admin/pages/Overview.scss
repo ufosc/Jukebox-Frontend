@@ -6,7 +6,7 @@
   position: relative;
 
   z-index: 2;
-  
+
   @include breakpoint('md') {
     display: none;
   }
@@ -21,8 +21,13 @@
   transform: translate(0, -25%);
 }
 
+.song-author {
+  color: var(--color-surface-on);
+  @include font-body('md');
+}
+
 .song-desc {
-  margin: 2vh 0 3vh 0;
+  margin: 2vh 0 1vh 0;
 }
 
 .song-title {

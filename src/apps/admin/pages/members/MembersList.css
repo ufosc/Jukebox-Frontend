@@ -37,7 +37,8 @@
   display: flex;
   flex-direction: column;
   background-color: var(--color-surface);
-  height: 68vh;
+  border-radius: 5px;
+  min-height: 68.4vh;
 }
 
 .member-list-container .lists{
