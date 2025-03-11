@@ -1,9 +1,7 @@
 import { mockClubs } from './mock-clubs'
 
-export const mockUser: IUserDetails & { token: string } = {
+export const mockUser: IUserDetails = {
   id: 0,
-
-  token: 'test-token',
   email: 'john@example.com',
   username: 'john@example.com',
   first_name: 'John',

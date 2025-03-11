@@ -80,20 +80,39 @@ export const jukeboxSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(thunkFetchJukeboxes.fulfilled, (state, action) => {
-      state.jukeboxes = action.payload
+      if (!action.payload.success) {
+        state.jukeboxes = []
+        return
+      }
+      state.jukeboxes = action.payload.data ?? []
 
-      if (action.payload.length > 0) {
-        state.currentJukebox = action.payload[0]
+      if (state.jukeboxes.length > 0) {
+        state.currentJukebox = state.jukeboxes[0]
       }
     })
     builder.addCase(thunkFetchCurrentlyPlaying.fulfilled, (state, action) => {
-      state.playerState = action.payload
+      if (!action.payload.success) {
+        state.playerState = null
+        return
+      }
+
+      state.playerState = action.payload.data
     })
     builder.addCase(thunkFetchNextTracks.fulfilled, (state, action) => {
-      state.nextTracks = action.payload
+      if (!action.payload.success) {
+        state.nextTracks = []
+        return
+      }
+
+      state.nextTracks = action.payload.data ?? []
     })
     builder.addCase(thunkSyncSpotifyTokens.fulfilled, (state, action) => {
-      state.spotifyAuth = action.payload
+      if (!action.payload.success) {
+        state.spotifyAuth = null
+        return
+      }
+
+      state.spotifyAuth = action.payload.data
     })
 
     builderDefaults(builder)

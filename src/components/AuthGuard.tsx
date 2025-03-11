@@ -5,20 +5,27 @@ import {
   fetchAllClubs,
   fetchCurrentClubInfo,
   fetchJukeboxes,
-  fetchUserInfo,
   initializeUser,
   logoutUser,
-  selectUser,
   selectUserLoggedIn,
-  selectUserToken,
 } from 'src/store'
 
 export const AuthGuard = (props: { children?: ReactNode }) => {
   const userIsLoggedIn = useSelector(selectUserLoggedIn)
-  const userInfo = useSelector(selectUser)
-  const userToken = useSelector(selectUserToken)
 
   const navigate = useNavigate()
+
+  /**
+   * Called when user is logged in,
+   * this is the initialization point for
+   * all of the redux stores - except the
+   * user store.
+   */
+  const initializeStores = async () => {
+    await fetchAllClubs()
+    await fetchCurrentClubInfo()
+    await fetchJukeboxes()
+  }
 
   useEffect(() => {
     initializeUser()
@@ -27,21 +34,15 @@ export const AuthGuard = (props: { children?: ReactNode }) => {
   // Triggers when login status changes
   useEffect(() => {
     if (userIsLoggedIn === false) {
-      navigate('/auth/login')
-    } else if (userIsLoggedIn) {
-      // Store new user info
-      fetchUserInfo().then(async (resUserInfo) => {
-        if (!resUserInfo) return
-
-        // setCurrentClub(resUserInfo.clubs[0].id)
-        // setAllClubs(resUserInfo.clubs)
-        await fetchAllClubs()
-        await fetchCurrentClubInfo()
-        await fetchJukeboxes()
-      })
-    } else if (userInfo || userIsLoggedIn === false) {
+      // User is explicitly logged out
       logoutUser()
+      navigate('/auth/login')
+    } else if (userIsLoggedIn === true) {
+      // User is explicitly logged in
+      initializeStores().then()
+    } else {
+      // Unknown, skip
     }
-  }, [userIsLoggedIn, userToken])
+  }, [userIsLoggedIn])
   return <div>{props.children}</div>
 }

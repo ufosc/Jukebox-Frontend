@@ -46,8 +46,8 @@ export const SpotifyPlayer = () => {
       <div className="spotify-player-title">Spotify Player</div>
       <div className="spotify-player-container grid">
         <div className="col-6 left-container">
-          <p>{(isActive && 'Player is active') || 'Player is not active'}</p>
-          <p>
+          <p className='playerActive'>{(isActive && 'Player is active') || 'Player is not active'}</p>
+          <p className='playerConnected'>
             {(isConnected && 'Player is connected') ||
               'Player is not connected'}
           </p>
@@ -55,7 +55,7 @@ export const SpotifyPlayer = () => {
           {!isActive && (
             <div>
               My Accounts
-              <Form onSubmit={handleConnectPlayback}> 
+              <Form onSubmit={handleConnectPlayback}>
                 <FormSelectGroup
                   id="link"
                   ref={connectLinkIdRef}

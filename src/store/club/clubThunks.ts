@@ -4,19 +4,12 @@ import { Network } from 'src/network'
 const network = Network.getInstance()
 
 export const thunkFetchClubs = createAsyncThunk('club/fetchClubs', async () => {
-  return await network.sendGetClubs()
+  return await network.listClubs()
 })
 
 export const thunkFetchClubInfo = createAsyncThunk(
   'club/fetchClubInfo',
   async (clubId: number) => {
-    return await network.sendGetClubInfo(clubId)
-  },
-)
-
-export const thunkFetchClubSpotifyAuth = createAsyncThunk(
-  'club/fetchClubSpotifyAuth',
-  async (clubId: number) => {
-    return await network.sendGetSpotifyToken(clubId)
+    return await network.getClub(clubId)
   },
 )

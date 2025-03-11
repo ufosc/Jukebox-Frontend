@@ -1,9 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import {
-  thunkFetchClubInfo,
-  thunkFetchClubs,
-  thunkFetchClubSpotifyAuth,
-} from './clubThunks'
+import { thunkFetchClubInfo, thunkFetchClubs } from './clubThunks'
 
 export const clubSlice = createSlice({
   name: 'club',
@@ -18,23 +14,24 @@ export const clubSlice = createSlice({
     setCurrentClubReducer: (state, action: { payload: IClub }) => {
       state.currentClub = action.payload
     },
-    setAllClubsReducer: (state, action: { payload: IClub[] }) => {
-      state.allClubs = action.payload
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(thunkFetchClubs.fulfilled, (state, action) => {
-      state.allClubs = action.payload
+      if (!action.payload.success) {
+        state.status = 'failed'
+        state.error = action.payload.data.error ?? 'Invalid Request'
+        return
+      }
+      state.allClubs = action.payload.data ?? []
 
-      if (action.payload.length > 0) {
-        state.currentClub = action.payload[0]
+      if (state.allClubs.length > 0) {
+        state.currentClub = state.allClubs[0]
       }
     })
-    builder.addCase(thunkFetchClubSpotifyAuth.fulfilled, (state, action) => {
-      state.spotifyAuth = action.payload
-    })
     builder.addCase(thunkFetchClubInfo.fulfilled, (state, action) => {
-      state.currentClub = action.payload
+      if (!action.payload.success) return
+
+      state.currentClub = action.payload.data ?? null
     })
 
     builder.addMatcher(

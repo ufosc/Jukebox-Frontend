@@ -1,7 +1,7 @@
 /**
  * Use LocalStorage data.
  */
-export const generateLocalData = <T>(key: string) => ({
+export const localDataFactory = <T>(key: string) => ({
   set: (data?: T | null) => {
     localStorage.setItem(key, JSON.stringify(data))
   },

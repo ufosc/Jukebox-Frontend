@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Form, FormInputGroup, FormSection, FormSubmit } from 'src/components'
-import { selectUserStatus } from 'src/store'
+import { loginUserWithGoogle, selectUserStatus } from 'src/store'
 
 export const AuthForm = (props: {
   onSubmit: (
@@ -53,41 +53,46 @@ export const AuthForm = (props: {
     })
   }
 
-  useEffect(() => {
-    console.log('new auth errors:', errors)
-  }, [errors])
+  const handleGoogleAuth = async () => {
+    await loginUserWithGoogle('/auth/oauth-return')
+  }
 
   return (
-    <Form onSubmit={handleLoginSubmit} className="auth-form">
-      <FormSection>
-        <FormInputGroup
-          label="Email"
-          id="email"
-          type="text"
-          ref={emailRef}
-          disabled={userStatus === 'loading'}
-          required
-          error={errors.email}
-          className="auth-form__group"
-        />
-        <FormInputGroup
-          label="Password"
-          id="password"
-          type="password"
-          ref={passwordRef}
-          disabled={userStatus === 'loading'}
-          required
-          error={errors.password}
-          className="auth-form__group"
-        />
-        <div className="auth-form__group">
-          {errors.error && (
-            <p className="form-feedback error">{errors.error}</p>
-          )}
-          {userStatus === 'loading' && <p>Loading...</p>}
-        </div>
-      </FormSection>
-      <FormSubmit disabled={userStatus === 'loading'} />
-    </Form>
+    <>
+      <Form onSubmit={handleLoginSubmit} className="auth-form">
+        <FormSection>
+          <FormInputGroup
+            label="Email"
+            id="email"
+            type="text"
+            ref={emailRef}
+            disabled={userStatus === 'loading'}
+            required
+            error={errors.email}
+            className="auth-form__group"
+          />
+          <FormInputGroup
+            label="Password"
+            id="password"
+            type="password"
+            ref={passwordRef}
+            disabled={userStatus === 'loading'}
+            required
+            error={errors.password}
+            className="auth-form__group"
+          />
+          <div className="auth-form__group">
+            {errors.error && (
+              <p className="form-feedback error">{errors.error}</p>
+            )}
+            {userStatus === 'loading' && <p>Loading...</p>}
+          </div>
+        </FormSection>
+        <FormSubmit disabled={userStatus === 'loading'} />
+      </Form>
+      <button className="button" role="button" onClick={handleGoogleAuth}>
+        Sign in with Google
+      </button>
+    </>
   )
 }

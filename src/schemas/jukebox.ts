@@ -14,3 +14,5 @@ export const JukeboxSchema: z.ZodSchema<IJukebox> = z.object({
   club_id: z.number(),
   links: z.array(JukeboxLinkSchema),
 })
+
+export const JukeboxListSchema = z.array(JukeboxSchema)
