@@ -6,7 +6,7 @@ const clubsApi = CLUBS_URL + '/api/v1'
 export const NetworkEndpoints = Object.freeze({
   user: {
     token: `${clubsApi}/user/token/`,
-    login: `${clubsApi}/user/login/`,
+    login: `${clubsApi}/user/token/`,
     info: `${clubsApi}/user/me/`,
     oauth: {
       google: `${CLUBS_URL}/api/oauth/browser/v1/auth/provider/redirect`,
