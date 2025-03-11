@@ -10,6 +10,7 @@ import { MemberDetail } from './pages/members/MemberDetail'
 import { MemberNew } from './pages/members/MemberNew'
 import { MembersList } from './pages/members/MembersList'
 import { MembersOverview } from './pages/members/MembersOverview'
+import { CreateJukebox } from './pages/CreateJukebox'
 
 export const adminRoutes: RouteObject[] = [
   {
@@ -81,4 +82,8 @@ export const adminRoutes: RouteObject[] = [
     path: 'settings',
     element: <Settings />,
   },
+  {
+    path: 'zjukebox',
+    element: <CreateJukebox />,
+  }
 ]

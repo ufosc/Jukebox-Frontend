@@ -7,10 +7,15 @@ import { useSelector } from 'react-redux'
 import { AudioPlayer, TrackList } from 'src/components'
 import { TrackInteractions } from 'src/components/track-list/TrackInteractions'
 import { selectCurrentTrack, selectNextTracks } from 'src/store/jukebox'
+import { useEffect } from 'react'
 
 export const Overview = () => {
   const queuedTracks = useSelector(selectNextTracks)
   const currentTrack = useSelector(selectCurrentTrack)
+
+  useEffect(()=>{
+    console.log(currentTrack)
+  })
 
   return (
     <>

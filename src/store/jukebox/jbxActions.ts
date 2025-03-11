@@ -58,7 +58,6 @@ export const setNextTracks = (nextTracks: IQueuedTrack[]) => {
 export const fetchJukeboxes = async () => {
   await store.dispatch(thunkFetchJukeboxes())
 }
-
 export const fetchCurrentlyPlaying = async () => {
   const jukeboxId = selectCurrentJukebox(store.getState())?.id
   if (!jukeboxId) return
