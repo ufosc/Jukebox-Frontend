@@ -11,6 +11,7 @@ import { MemberNew } from './pages/members/MemberNew'
 import { MembersList } from './pages/members/MembersList'
 import { MembersOverview } from './pages/members/MembersOverview'
 import { CreateJukebox } from './pages/CreateJukebox'
+import { SpotifyPlayerViewer } from './pages/SpotifyPlayerViewer'
 
 export const adminRoutes: RouteObject[] = [
   {
@@ -18,9 +19,14 @@ export const adminRoutes: RouteObject[] = [
     element: <Overview />,
   },
   {
-    path: 'player',
+    path: 'debug',
     element: <SpotifyPlayer />,
   },
+  {
+    path: 'player',
+    element: <SpotifyPlayerViewer />
+  },
+
   {
     path: 'boards',
     element: <AdminBoards />,
