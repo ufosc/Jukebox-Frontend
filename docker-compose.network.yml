@@ -15,7 +15,7 @@ services:
       - HOST=localhost
       - LOG_LEVEL=debug
       - BASE_URL=http://localhost:8082
-      - PROXY_URL=http://proxy:8080
+      - CLUBS_URL=http://proxy-network-fe:8080
       - DB_HOST=postgres-jukebox
       - DB_PORT=5432
       - DB_USER=devuser
@@ -51,6 +51,7 @@ services:
   proxy:
     image: ikehunter5/club-manager-proxy:latest
     pull_policy: always
+    container_name: proxy-network-fe
     ports:
       - 8080:8080
       - 8081:8081

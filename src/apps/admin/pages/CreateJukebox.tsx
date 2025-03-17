@@ -1,70 +1,49 @@
-
-import { Form, FormInputGroup, FormSection, FormSubmit } from 'src/components'
+import { Form, FormInputGroup, FormSection } from 'src/components'
 
 import { useRef } from 'react'
 
+import './CreateJukebox.scss'
 
-
-export const CreateJukebox = () =>{
-
-  
-
-  const jukeboxRef = useRef<HTMLInputElement>(null);
-  const clubRef = useRef<HTMLInputElement>(null);
+export const CreateJukebox = () => {
+  const jukeboxRef = useRef<HTMLInputElement>(null)
+  const clubRef = useRef<HTMLInputElement>(null)
 
   const handleLoginSubmit = () => {
-    const jukebox = jukeboxRef.current?.value || '';
+    const jukebox = jukeboxRef.current?.value || ''
     const club = clubRef.current?.value || ''
   }
 
-  return(
+  return (
     <>
-    <div>
-      Create Jukebox
-    </div>
+      <div className="jukebox-form">
+        <h1 className="title">Create Jukebox</h1>
 
-    <Form onSubmit={handleLoginSubmit} className=''>
-      <div>
-        Jukebox Name
+        <Form onSubmit={handleLoginSubmit} className="form">
+          <FormSection>
+            <FormInputGroup
+              label="Jukebox"
+              id="jukebox"
+              type="text"
+              ref={jukeboxRef}
+              required
+              className="auth-form__group"
+            ></FormInputGroup>
+          </FormSection>
+          
+          <FormSection>
+          <div>Select Club</div>
+            <FormInputGroup label="Club" id="club">
+
+
+            </FormInputGroup>
+          </FormSection>
+
+          <FormSection>
+            <div>Select Accounts</div>
+          </FormSection>
+
+        </Form>
       </div>
-      <FormSection>
-        <FormInputGroup
-        label="Jukebox"
-        id="jukebox"
-        type="text"
-        ref={jukeboxRef}
-        required
-        
-        className="auth-form__group"
-        >
-
-        </FormInputGroup>
-      </FormSection>
-      
-      <div>
-        Select Club
-      </div>
-      <FormSection>
-        <FormInputGroup
-        label="Club"
-        id="club"
-
-        >
-      </FormInputGroup>
-      <div>
-        Select Accounts
-      </div>
-      <FormSection>
-
-      </FormSection>
-      </FormSection>
-
-
-    </Form>
-    
-
-
-    
     </>
   )
 }

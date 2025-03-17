@@ -11,6 +11,7 @@ export const NetworkEndpoints = Object.freeze({
     oauth: {
       google: `${CLUBS_URL}/api/oauth/browser/v1/auth/provider/redirect`,
     },
+    
   },
   club: {
     list: `${clubsApi}/club/clubs/`,
