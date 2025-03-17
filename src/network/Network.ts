@@ -167,4 +167,12 @@ export class Network extends NetworkBase {
 
     return await this.request(url, null, { method: 'DELETE' })
   }
+
+  
+  public async connectAccount(){
+    const url = 'http://localhost:8082/api/v1/spotify/login/'
+
+    return await this.request(url, null);
+  }
+  
 }

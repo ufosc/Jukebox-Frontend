@@ -19,6 +19,10 @@ export const adminRoutes: RouteObject[] = [
     element: <Overview />,
   },
   {
+    path: 'createJbx',
+    element: <CreateJukebox />,
+  },
+  {
     path: 'debug',
     element: <SpotifyPlayer />,
   },

@@ -1,0 +1,15 @@
+.jukebox-form{
+  .title {
+    
+    @include font-headline('md')
+  }
+
+  .form{
+
+    display: flex;
+    flex-direction: column;
+
+
+  }
+
+}
