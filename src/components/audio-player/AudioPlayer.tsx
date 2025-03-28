@@ -3,8 +3,8 @@
  */
 import { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { usePlayerControls } from 'src/hooks'
-import { selectLiveProgress, selectPlayerState } from 'src/store'
+import { usePlayer } from 'src/hooks'
+import { selectLiveProgress } from 'src/store'
 import './AudioPlayer.scss'
 import { Controls } from './Controls'
 import { ProgressBar } from './ProgressBar'
@@ -17,7 +17,6 @@ import './ProgressBar.scss'
  */
 export const AudioPlayer = (props: { disableControls?: boolean }) => {
   const { disableControls } = props
-  const playerState = useSelector(selectPlayerState)
   const liveProgress = useSelector(selectLiveProgress)
 
   const {
@@ -29,7 +28,8 @@ export const AudioPlayer = (props: { disableControls?: boolean }) => {
     togglePlay,
     like,
     repeat,
-  } = usePlayerControls()
+    playerState,
+  } = usePlayer()
 
   // Refs
   const containerRef = useRef<HTMLDivElement>(null)
@@ -41,6 +41,8 @@ export const AudioPlayer = (props: { disableControls?: boolean }) => {
 
   // Update track values
   useEffect(() => {
+    if (!playerState?.current_track || !('track' in playerState.current_track))
+      return
     setDuration(playerState?.current_track?.track.duration_ms ?? null)
 
     if (!progressBarRef.current || !playerState) return

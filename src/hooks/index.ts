@@ -1,2 +1,2 @@
-export * from './use-player-controls'
+export * from './use-player'
 export * from './use-time'
