@@ -169,10 +169,15 @@ export class Network extends NetworkBase {
   }
 
   
-  public async connectAccount(){
-    const url = 'http://localhost:8082/api/v1/spotify/login/'
+  public async connectAccount(returnPath: string){
 
-    return await this.request(url, null);
+    const url = "http://localhost:8082/api/v1/spotify/login";
+    const res = await this.request(url, null);
+    //Will need to make ZOD schema since types dont
+    console.log("redirect:",res);
+    
+
+    //location.href = <any>res.data;
   }
   
 }

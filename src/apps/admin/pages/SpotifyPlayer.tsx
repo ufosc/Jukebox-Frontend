@@ -50,7 +50,7 @@ export const SpotifyPlayer = () => {
       <div className="spotify-player-container grid">
         <div className="col-6 left-container">
           <div>
-            <button onClick={network.connectAccount}>
+            <button onClick={()=>{network.connectAccount("")}}>
               Add Account
             </button>
           </div>
