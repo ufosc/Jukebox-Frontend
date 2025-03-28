@@ -74,6 +74,7 @@ export class NetworkBase {
    * the server. This allows the post request to redirect the user
    * to the server, which will redirect to the consent screen.
    */
+  
   public async loginWithOauth(provider: 'google', returnPath: string) {
     const form = document.createElement('form')
     form.method = 'POST'
