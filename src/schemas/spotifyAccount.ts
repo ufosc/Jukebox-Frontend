@@ -11,3 +11,8 @@ export const SpotifyAccountSchema: z.ZodSchema<ISpotifyAccount> = z.object({
   expires_at: z.string(),
   token_type: z.string(),
 })
+
+export const SpotifyAuthRedirectUrlSchema: z.ZodSchema<{ url: string }> =
+  z.object({
+    url: z.string().startsWith('https://accounts.spotify.com/authorize'),
+  })

@@ -74,7 +74,7 @@ export class NetworkBase {
    * the server. This allows the post request to redirect the user
    * to the server, which will redirect to the consent screen.
    */
-  
+
   public async loginWithOauth(provider: 'google', returnPath: string) {
     const form = document.createElement('form')
     form.method = 'POST'
@@ -170,9 +170,9 @@ export class NetworkBase {
    * schema. If in dev mode, will return any
    * mock data provided.
    */
-  protected async request<T>(
+  protected async request<T = unknown>(
     url: string,
-    schema: Zod.Schema<T> | null,
+    schema?: Zod.Schema<T> | null,
     config?: AxiosRequestConfig & {
       mock?: {
         data: T
@@ -231,6 +231,7 @@ export class NetworkBase {
       withCredentials: true,
       method,
       headers,
+      timeout: 100000,
       ...axiosConfig,
     })
       // Validate data using schema

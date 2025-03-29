@@ -1,10 +1,12 @@
-import { useContext, useRef } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { AudioPlayer, Form, FormSelectGroup, FormSubmit } from 'src/components'
 import { REACT_ENV } from 'src/config'
 import { SpotifyPlayerContext } from 'src/context'
+import { Network } from 'src/network'
 import { authenticateLink } from 'src/store'
 import {
+  selectCurrentJukebox,
   selectCurrentTrack,
   selectJukeboxLinks,
   selectNextTracks,
@@ -16,9 +18,13 @@ import { SpotifyPlayerInfo } from '../components/SpotifyPlayer/SpotifyPlayerInfo
 import './SpotifyPlayerViewer.scss'
 
 export const SpotifyPlayerViewer = () => {
+  const jukebox = useSelector(selectCurrentJukebox)
   const jukeboxLinks = useSelector(selectJukeboxLinks)
   const currentTrack = useSelector(selectCurrentTrack)
   const nextTracks = useSelector(selectNextTracks)
+
+  const networkRef = useRef(Network.getInstance())
+  const connectLinkIdRef = useRef<HTMLSelectElement>(null)
 
   const {
     deviceIsActive: isActive,
@@ -26,7 +32,9 @@ export const SpotifyPlayerViewer = () => {
     connectDevice,
   } = useContext(SpotifyPlayerContext)
 
-  const connectLinkIdRef = useRef<HTMLSelectElement>(null)
+  useEffect(() => {
+    networkRef.current = Network.getInstance()
+  }, [])
 
   const handleConnectPlayback = async () => {
     if (!connectLinkIdRef.current) return
@@ -41,15 +49,23 @@ export const SpotifyPlayerViewer = () => {
     await authenticateLink(link)
   }
 
+  const handleAddNewAccount = async () => {
+    const res = await networkRef.current.getSpotifyAuthRedirectUrl(jukebox?.id)
+
+    if (res.success) {
+      location.href = res.data.url
+    } else {
+      console.error('Error getting spotify url')
+    }
+  }
+
   return (
     <>
       <div className="spotify-player-title">Spotify Player</div>
       <div className="spotify-player-container grid">
         <div className="col-6 left-container">
           <div className="debugInfo">
-            <p>
-              Current Player
-            </p>
+            <p>Current Player</p>
           </div>
 
           <div className="spotify-player-desc">
@@ -135,7 +151,7 @@ export const SpotifyPlayerViewer = () => {
             </>
           )}
         </div>
-        
+
         <div className="col-5 right-container">
           <div className="session-container">
             <SpotifyPlayerInfo title="Session Info" />
@@ -164,33 +180,41 @@ export const SpotifyPlayerViewer = () => {
                 />
                 <FormSubmit text="Connect Account" />
               </Form>
-              <button className="button-solid" onClick={connectDevice}>
-                Switch Playback
-              </button>
+              <div>
+                <button className="button-solid" onClick={connectDevice}>
+                  Switch Playback
+                </button>
+              </div>
+              <br />
+              <div>
+                <button className="button-solid" onClick={handleAddNewAccount}>
+                  Add Spotify Account
+                </button>
+              </div>
             </div>
           )}
 
-          <div className='spotify-accounts'>
+          <div className="spotify-accounts">
             <SpotifyPlayerInfo title="Connected Spotify Accounts" />
             <div className="account-container">
               {jukeboxLinks?.map((link) => (
                 <SpotifyPlayerAccount key={link.id} link={link} />
               ))}
             </div>
-          <div className="connect-button-container">
-            {isConnected && !isActive && (
-              <>
-                {REACT_ENV !== 'dev' && (
-                  <button
-                    className="button-outlined connect-button"
-                    onClick={connectDevice}
-                  >
-                    Connect New Account
-                  </button>
-                )}
-              </>
-            )}
-          </div>
+            <div className="connect-button-container">
+              {isConnected && !isActive && (
+                <>
+                  {REACT_ENV !== 'dev' && (
+                    <button
+                      className="button-outlined connect-button"
+                      onClick={connectDevice}
+                    >
+                      Connect New Account
+                    </button>
+                  )}
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>
