@@ -3,6 +3,7 @@ import {
   ClubSchema,
   JukeboxListSchema,
   SpotifyAccountSchema,
+  SpotifyAuthRedirectUrlSchema,
   UserDetailsSchema,
 } from 'src/schemas'
 import { PlayerStateSchema, QueuedTrackListSchema } from 'src/schemas/player'
@@ -168,16 +169,11 @@ export class Network extends NetworkBase {
     return await this.request(url, null, { method: 'DELETE' })
   }
 
-  
-  public async connectAccount(returnPath: string){
-
-    const url = "http://localhost:8082/api/v1/spotify/login";
-    const res = await this.request(url, null);
-    //Will need to make ZOD schema since types dont
-    console.log("redirect:",res);
-    
-
-    //location.href = <any>res.data;
+  /**
+   *
+   */
+  public async getSpotifyAuthRedirectUrl(jukeboxId?: number) {
+    const url = this.endpoints.spotify.login(location.href, jukeboxId)
+    return await this.request(url, SpotifyAuthRedirectUrlSchema)
   }
-  
 }

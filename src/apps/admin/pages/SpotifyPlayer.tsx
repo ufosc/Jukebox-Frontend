@@ -15,8 +15,8 @@ import { SpotifyPlayerDetail } from '../components/SpotifyPlayer/SpotifyPlayerDe
 import { SpotifyPlayerInfo } from '../components/SpotifyPlayer/SpotifyPlayerInfo'
 import './SpotifyPlayer.scss'
 
-import { Network } from 'src/network';
-const network = Network.getInstance();
+import { Network } from 'src/network'
+const network = Network.getInstance()
 
 export const SpotifyPlayer = () => {
   const jukeboxLinks = useSelector(selectJukeboxLinks)
@@ -50,15 +50,19 @@ export const SpotifyPlayer = () => {
       <div className="spotify-player-container grid">
         <div className="col-6 left-container">
           <div>
-            <button onClick={()=>{network.connectAccount("")}}>
+            <button
+            // onClick={() => {
+            //   network.getSpotifyAuthRedirectUrl('')
+            // }}
+            >
               Add Account
             </button>
           </div>
 
-
-
-          <p className='playerActive'>{(isActive && 'Player is active') || 'Player is not active'}</p>
-          <p className='playerConnected'>
+          <p className="playerActive">
+            {(isActive && 'Player is active') || 'Player is not active'}
+          </p>
+          <p className="playerConnected">
             {(isConnected && 'Player is connected') ||
               'Player is not connected'}
           </p>
@@ -70,7 +74,6 @@ export const SpotifyPlayer = () => {
                 <FormSelectGroup
                   id="link"
                   ref={connectLinkIdRef}
-                  
                   options={jukeboxLinks?.map((link) => ({
                     label: link.email,
                     value: link.id,

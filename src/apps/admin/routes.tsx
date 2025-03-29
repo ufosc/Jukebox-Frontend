@@ -1,17 +1,17 @@
 import { Navigate, type RouteObject } from 'react-router-dom'
 import { Overview } from './pages'
 import { AdminBoards } from './pages/AdminBoards'
+import { CreateJukebox } from './pages/CreateJukebox'
 import { Music } from './pages/Music'
 import { MusicQueue } from './pages/MusicQueue'
 import { MusicSearch } from './pages/MusicSearch'
 import { Settings } from './pages/Settings'
 import { SpotifyPlayer } from './pages/SpotifyPlayer'
+import { SpotifyPlayerViewer } from './pages/SpotifyPlayerViewer'
 import { MemberDetail } from './pages/members/MemberDetail'
 import { MemberNew } from './pages/members/MemberNew'
 import { MembersList } from './pages/members/MembersList'
 import { MembersOverview } from './pages/members/MembersOverview'
-import { CreateJukebox } from './pages/CreateJukebox'
-import { SpotifyPlayerViewer } from './pages/SpotifyPlayerViewer'
 
 export const adminRoutes: RouteObject[] = [
   {
@@ -28,7 +28,7 @@ export const adminRoutes: RouteObject[] = [
   },
   {
     path: 'player',
-    element: <SpotifyPlayerViewer />
+    element: <SpotifyPlayerViewer />,
   },
 
   {
@@ -95,5 +95,5 @@ export const adminRoutes: RouteObject[] = [
   {
     path: 'zjukebox',
     element: <CreateJukebox />,
-  }
+  },
 ]
