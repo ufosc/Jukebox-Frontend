@@ -74,9 +74,6 @@ export const jukeboxSlice = createSlice({
     setHasAuxReducer: (state, action: { payload: boolean }) => {
       state.hasAux = action.payload
     },
-    incrementLiveProgressReducer: (state) => {
-      state.liveProgress = (state.liveProgress ?? 0) + 1000
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(thunkFetchJukeboxes.fulfilled, (state, action) => {

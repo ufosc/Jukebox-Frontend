@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { SpotifyPlayerContext } from 'src/context'
+import { SpotifyContext } from 'src/context'
 import { logoutUser, selectAllClubs, selectUser } from 'src/store'
 import { selectAllJukeboxes, selectCurrentJukebox } from 'src/store/jukebox'
 
@@ -12,7 +12,7 @@ export const Settings = () => {
   const currentJukebox = useSelector(selectCurrentJukebox)
   const navigate = useNavigate()
 
-  const { connectDevice } = useContext(SpotifyPlayerContext)
+  const { connectDevice } = useContext(SpotifyContext)
 
   const handleLogout = async () => {
     await logoutUser()

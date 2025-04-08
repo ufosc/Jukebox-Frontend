@@ -21,7 +21,7 @@ export const NetworkEndpoints = Object.freeze({
     activeLink: (jukeboxId: number) =>
       `${jukeboxApi}/jukebox/${jukeboxId}/active-link/`,
     getSpotifyAccount: (jukeboxId: number) =>
-      `${jukeboxApi}/jukebox/${jukeboxId}/active-link/account/?type=spotify`,
+      `${jukeboxApi}/jukebox/${jukeboxId}/active-link/?force-refresh=true`,
     connectDevice: (jukeboxId: number) =>
       `${jukeboxApi}/jukebox/${jukeboxId}/connect/`,
     playerState: (jukeboxId: number) =>

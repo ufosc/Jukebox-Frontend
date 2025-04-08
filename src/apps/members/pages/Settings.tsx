@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { useSelector } from 'react-redux'
-import { SpotifyPlayerContext } from 'src/context'
+import { SpotifyContext } from 'src/context'
 import { selectAllClubs, selectUser } from 'src/store'
 import { selectAllJukeboxes, selectCurrentJukebox } from 'src/store/jukebox'
 
@@ -9,7 +9,7 @@ export const Settings = () => {
   const user = useSelector(selectUser)
   const jukeboxes = useSelector(selectAllJukeboxes)
   const currentJukebox = useSelector(selectCurrentJukebox)
-  const { connectDevice } = useContext(SpotifyPlayerContext)
+  const { connectDevice } = useContext(SpotifyContext)
 
   return (
     <div>
