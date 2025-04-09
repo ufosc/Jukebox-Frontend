@@ -24,3 +24,18 @@ export const UserDetailsSchema: z.ZodSchema<IUserDetails> = z.object({
     .transform((val) => val ?? undefined) as any,
   clubs: z.array(ClubInlineSchema),
 })
+
+
+export const SpotifyLinkSchema: z.ZodSchema<ISpotifyLink> = z.object({
+  ...ModelSchemaBase,
+  deleted_on: z.string().nullable(),
+  access_token: z.string(),
+  refresh_token: z.string(),
+  user_id: z.number(),
+  spotify_email: z.string(),
+  expires_in: z.number(),
+  expires_at: z.string(),
+  token_type: z.string(),
+})
+
+export const SpotifyLinksSchema = z.array(SpotifyLinkSchema);

@@ -21,3 +21,9 @@ export const thunkInitializeUser = createAsyncThunk(
 export const thunkLogoutUser = createAsyncThunk('user/logout', async () => {
   return await network.logout()
 })
+
+
+export const thunkUpdateLinks = createAsyncThunk('users/links', async () => {
+  console.log("here")
+  return await network.getLinks();
+})

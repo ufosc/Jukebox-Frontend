@@ -26,3 +26,8 @@ export const selectUserStatus = createSelector(
   userStateSelector,
   (state) => state.status,
 )
+
+export const selectAllLinks = createSelector(
+  userStateSelector,
+  (state) => state.links,
+)

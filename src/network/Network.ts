@@ -4,6 +4,8 @@ import {
   JukeboxListSchema,
   SpotifyAccountSchema,
   SpotifyAuthRedirectUrlSchema,
+  SpotifyLinkSchema,
+  SpotifyLinksSchema,
   UserDetailsSchema,
 } from 'src/schemas'
 import { PlayerStateSchema, QueuedTrackListSchema } from 'src/schemas/player'
@@ -174,6 +176,44 @@ export class Network extends NetworkBase {
    */
   public async getSpotifyAuthRedirectUrl(jukeboxId?: number) {
     const url = this.endpoints.spotify.login(location.href, jukeboxId)
-    return await this.request(url, SpotifyAuthRedirectUrlSchema)
+    console.log(url)
+    const response = await this.request(url, SpotifyAuthRedirectUrlSchema)
+    console.log(response);
+    return response;
   }
+
+  /**
+   *  Creates a new Jukebox
+   *  fix spotifyLink type from any
+   */
+  public async createJukebox(jukeboxId:number, jukeboxName:string, spotifyLink?:any){
+    const url = this.endpoints.jukebox.list;
+
+
+    //const response = await this.request(url, createJbxSchema, {
+    // mock: {data: jbxId: jukeboxId, jbxName:jukeboxName}
+    //});
+
+    
+    //return response;
+  }
+
+  public async getLinks(){
+
+    /**
+     * const url = this.endpoints.jukebox.getSpotifyAccount(jukeboxId)
+
+    return await this.request(url, SpotifyAccountSchema, {
+      mock: { data: mockSpotifyAccount, errorIfEmpty: true },
+    })
+     */
+    const url = this.endpoints.spotify.links;
+
+    //const response = await this.request(url)
+
+    const response = await this.request(url, SpotifyLinksSchema);
+    console.log(response);
+    return response;
+  }
+
 }

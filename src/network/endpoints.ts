@@ -32,5 +32,6 @@ export const NetworkEndpoints = Object.freeze({
   spotify: {
     login: (redirectUri: string, jukeboxId?: number) =>
       `${jukeboxApi}/spotify/login/?redirectUri=${redirectUri}${jukeboxId != null ? '&jukeboxId=' + jukeboxId : ''}`,
+    links: `${jukeboxApi}/spotify/links`
   },
 })
