@@ -1,10 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { builderDefaults } from 'src/utils'
+
 import {
   thunkInitializeUser,
   // thunkFetchUserToken,
   thunkLoginUser,
   thunkLogoutUser,
+  thunkUpdateLinks,
 } from './userThunks'
 
 export const userSlice = createSlice({
@@ -14,6 +16,7 @@ export const userSlice = createSlice({
     loggedIn: null as boolean | null,
     status: 'idle' as StoreStatus,
     error: null as string | null,
+    links: null as ISpotifyLink[] | null,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -49,6 +52,24 @@ export const userSlice = createSlice({
     builder.addCase(thunkLogoutUser.fulfilled, (state, action) => {
       state.loggedIn = false
       state.user = null
+    })
+
+    builder.addCase(thunkUpdateLinks.fulfilled, (state, action) => {
+      //console.log(action.payload)
+      if(!action.payload.success)
+      {
+        state.links = null;
+        state.error = "Failed to get Spotify Links";
+        return;
+      }
+
+      state.links = action.payload.data;
+    })
+
+    builder.addCase(thunkUpdateLinks.rejected, (state, action) => {
+      //console.log(action.payload);
+
+      return
     })
 
     builderDefaults(builder)
