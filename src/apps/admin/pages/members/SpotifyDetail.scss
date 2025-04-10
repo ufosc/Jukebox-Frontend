@@ -1,0 +1,55 @@
+.spotify-player-account {
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr;
+  grid-template-rows: 1fr;
+  background-color: var(--color-surface);
+  height: 80px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2%;
+}
+
+.attribute-container {
+  display: flex;
+  flex-direction: row;
+  gap: 5%;
+  @include font-label('xs', 300);
+}
+
+.account-active-container {
+  color: lightgreen;
+}
+
+.account-remove-button {
+  color: red;
+}
+
+.profile-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  background-color: var(--color-label-variant);
+}
+
+.profile-border-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 8px;
+  border: 1px solid whitesmoke;
+  width: 46px;
+  height: 46px;
+}
+
+
+.spotify-container-selected{
+  border: solid green 4px;
+  border-radius: 5px;
+}

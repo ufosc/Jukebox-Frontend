@@ -62,7 +62,7 @@ export const userSlice = createSlice({
         state.error = "Failed to get Spotify Links";
         return;
       }
-
+      
       state.links = action.payload.data;
     })
 

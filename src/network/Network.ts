@@ -184,10 +184,21 @@ export class Network extends NetworkBase {
 
   /**
    *  Creates a new Jukebox
-   *  fix spotifyLink type from any
+   *  fix schema type
    */
-  public async createJukebox(jukeboxId:number, jukeboxName:string, spotifyLink?:any){
-    const url = this.endpoints.jukebox.list;
+  public async createJukebox(jukeboxId:number, jukeboxName:string, spotifyLink?:ISpotifyLink[]){
+    const res = await this.createJbx(jukeboxId, jukeboxName);
+
+    const url = this.endpoints.jukebox.links(jukeboxId);
+    if(spotifyLink !== undefined && spotifyLink.length !== 0)
+    {
+      spotifyLink.forEach(async(link)=>{
+        const res = await this.request(url, null, {
+          method: 'POST',
+          data: { type: link.token_type, email: link.spotify_email}
+        })
+      })
+    }
 
 
     //const response = await this.request(url, createJbxSchema, {
@@ -195,7 +206,7 @@ export class Network extends NetworkBase {
     //});
 
     
-    //return response;
+    return res;
   }
 
   public async getLinks(){
@@ -212,7 +223,7 @@ export class Network extends NetworkBase {
     //const response = await this.request(url)
 
     const response = await this.request(url, SpotifyLinksSchema);
-    console.log(response);
+    //console.log(response);
     return response;
   }
 

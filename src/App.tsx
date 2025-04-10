@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect, useRef } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 import { SPOTIFY_AUTH_CHECK_MS } from './config'
 import {
@@ -20,6 +20,7 @@ import {
   setNextTracks,
   setPlayerIsPlaying,
   setPlayerProgress,
+  updateLinks,
   updatePlayerState,
 } from './store'
 
@@ -112,6 +113,14 @@ export const App = () => {
     },
     [currentJukebox],
   )
+
+  /**
+     * Updates the links for usage
+     * Figure out the placement later
+     */
+  useEffect(()=>{
+    updateLinks()
+  },[])
 
   return (
     <Theme>
