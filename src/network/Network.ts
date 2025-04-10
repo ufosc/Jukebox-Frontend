@@ -184,7 +184,7 @@ export class Network extends NetworkBase {
 
   /**
    *  Creates a new Jukebox
-   *  fix schema type
+   *  TODO: fix schema type
    */
   public async createJukebox(jukeboxId:number, jukeboxName:string, spotifyLink?:ISpotifyLink[]){
     const res = await this.createJbx(jukeboxId, jukeboxName);
@@ -200,10 +200,6 @@ export class Network extends NetworkBase {
       })
     }
 
-
-    //const response = await this.request(url, createJbxSchema, {
-    // mock: {data: jbxId: jukeboxId, jbxName:jukeboxName}
-    //});
 
     
     return res;

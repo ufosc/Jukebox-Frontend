@@ -57,6 +57,11 @@ export const SpotifyPlayer = () => {
     console.log(response.data)
   }
 
+  const getCurrentTrack = ()=>{
+    const response = currentTrack;
+    console.log(response)
+  }
+
   return (
     <>
       <div className="spotify-player-title">Spotify Player</div>
@@ -83,6 +88,13 @@ export const SpotifyPlayer = () => {
               }}
             >
               Add Account
+            </button>
+            <button
+              onClick={() => {
+                getCurrentTrack()
+              }}
+            >
+              Get Current Track
             </button>
           </div>
 
