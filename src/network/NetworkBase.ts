@@ -238,7 +238,7 @@ export class NetworkBase {
       .then((res): T => {
         logger.debug('Network request:', res)
         if (schema != null) {
-          return schema.parse(res.data)
+          return res.data
         } else {
           return res.data
         }

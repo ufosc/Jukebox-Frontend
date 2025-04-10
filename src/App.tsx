@@ -12,27 +12,18 @@ import {
 import {
   checkLinkAuth,
   selectCurrentJukebox,
-  selectHasJukeboxAux,
   selectSpotifyAuth,
   selectUserLoggedIn,
-  setInteraction,
-  setNextTracks,
   setPlayerIsPlaying,
   setPlayerProgress,
-  updatePlayerState,
 } from './store'
 
 export const App = () => {
   const spotifyAuth = useSelector(selectSpotifyAuth)
   const currentJukebox = useSelector(selectCurrentJukebox)
-  const hasAux = useSelector(selectHasJukeboxAux)
   const isLoggedIn = useSelector(selectUserLoggedIn)
 
-  const {
-    emitMessage,
-    onEvent,
-    isConnected: socketIsConnected,
-  } = useContext(SocketContext)
+  const { emitMessage } = useContext(SocketContext)
 
   // Triggers when receive spotify credentials from server
   useEffect(() => {
@@ -44,27 +35,6 @@ export const App = () => {
 
     return () => clearInterval(timer)
   }, [spotifyAuth])
-
-  // Receives track updates from server, updates store
-  useEffect(() => {
-    onEvent<IPlayerUpdate>('player-update', (data) => {
-      if (hasAux) {
-        // If spotify player is connected, only set certain state vars through player
-        data.progress = undefined
-        data.is_playing = undefined
-      }
-
-      updatePlayerState(data)
-    })
-
-    onEvent<IJukeboxInteraction>('player-interaction', (data) => {
-      setInteraction(data)
-    })
-
-    onEvent<IQueuedTrack[]>('track-queue-update', (data) => {
-      setNextTracks(data)
-    })
-  }, [currentJukebox, socketIsConnected])
 
   // Primary function that runs when Spotify Player changes
   const handlePlayerTrackChange = useCallback(
