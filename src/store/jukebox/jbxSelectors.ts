@@ -50,3 +50,8 @@ export const selectCurrentTrack = createSelector(
   jbxStateSelector,
   (state) => state.playerState?.current_track,
 )
+
+// export const selectCurrentlyPlaying = createSelector(
+//   jbxStateSelector,
+//   (state) => state.playerState,
+// )

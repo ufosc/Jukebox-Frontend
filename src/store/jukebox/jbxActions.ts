@@ -1,3 +1,4 @@
+import { unwrapResult } from '@reduxjs/toolkit'
 import { SPOTIFY_AUTH_CHECK_MS } from 'src/config'
 import { NotImplementedError } from 'src/utils'
 import { jukeboxActions } from '.'
@@ -5,6 +6,7 @@ import { store } from '../store'
 import {
   selectActiveLink,
   selectCurrentJukebox,
+  selectCurrentTrack,
   selectSpotifyAuth,
 } from './jbxSelectors'
 import {
@@ -30,7 +32,14 @@ export const setPlayerState = (currentlyPlaying: IPlayerState) => {
   store.dispatch(setPlayerStateReducer(currentlyPlaying))
 }
 
-export const updatePlayerState = (payload: IPlayerUpdate) => {
+export const updatePlayerState = async (payload: IPlayerUpdate) => {
+  // Check if there's currently a track in state, if not request it from api
+  const currentTrack = selectCurrentTrack(store.getState())
+  if (!currentTrack) {
+    await fetchCurrentlyPlaying()
+  }
+
+  // ...Then process the update
   store.dispatch(updatePlayerStateReducer(payload))
 }
 
@@ -59,9 +68,15 @@ export const fetchJukeboxes = async () => {
 }
 export const fetchCurrentlyPlaying = async () => {
   const jukeboxId = selectCurrentJukebox(store.getState())?.id
+  console.log('jukebox id:', jukeboxId)
   if (!jukeboxId) return
 
-  await store.dispatch(thunkFetchCurrentlyPlaying(jukeboxId))
+  await store
+    .dispatch(thunkFetchCurrentlyPlaying(jukeboxId))
+    .then(unwrapResult)
+    .then((res) => {
+      console.log('currently playing from http:', res)
+    })
 }
 
 export const fetchNextTracks = async () => {

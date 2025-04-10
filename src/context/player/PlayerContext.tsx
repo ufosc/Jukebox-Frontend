@@ -2,11 +2,16 @@ import type { ReactNode } from 'react'
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import {
+  fetchCurrentlyPlaying,
   selectCurrentJukebox,
   selectHasJukeboxAux,
   selectPlayerState,
+  setInteraction,
+  setNextTracks,
+  updatePlayerState,
 } from 'src/store'
 import { uniqueId } from 'src/utils'
+import { SocketContext } from '../SocketContext'
 import { SpotifyContext } from './SpotifyContext'
 
 interface Player {
@@ -57,21 +62,92 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
   const prevTrack = auxPrevTrack
   // let playerState: IPlayerState | null = null
 
-  useEffect(() => {
-    console.log('store player state:', storePlayerState)
-    console.log('aux player state:', auxPlayerState)
-    if (
-      // storePlayerState?.jukebox_id == null ||
-      jukebox == null ||
-      auxPlayerState?.current_track == null
-    )
-      return
+  /**
+   * ======================== *
+   * API Track State Sync     *
+   * ======================== *
+   */
+  const { onEvent, isConnected: socketIsConnected } = useContext(SocketContext)
 
-    setPlayerState({
-      is_playing: auxPlayerState?.is_playing ?? false,
-      jukebox_id: jukebox.id,
-      progress: auxPlayerState?.progress ?? 0,
+  useEffect(() => {
+    if (!hasAux) {
+      fetchCurrentlyPlaying().then()
+    }
+  }, [jukebox])
+
+  // Receives track updates from server, updates store
+  useEffect(() => {
+    onEvent<IPlayerUpdate>('player-update', (data) => {
+      if (hasAux) {
+        // If spotify player is connected, only set certain state vars through player
+        data.progress = undefined
+        data.is_playing = undefined
+      }
+
+      console.log('data:', data)
+
+      updatePlayerState(data)
+    })
+
+    onEvent<IJukeboxInteraction>('player-interaction', (data) => {
+      setInteraction(data)
+    })
+
+    onEvent<IQueuedTrack[]>('track-queue-update', (data) => {
+      setNextTracks(data)
+    })
+  }, [jukebox, socketIsConnected])
+
+  useEffect(() => {
+    if (jukebox == null) {
+      return
+    }
+
+    const stagedPlayerState: IPlayerState = {
+      jukebox_id: 0,
+      progress: 0,
+      is_playing: false,
       current_track: {
+        track: {
+          artists: [],
+          album: {
+            id: '',
+            album_type: 'album',
+            artists: [],
+            available_markets: [],
+            href: '',
+            release_date: '',
+            release_date_precision: 'day',
+            total_tracks: 0,
+            uri: '',
+            name: '',
+            images: [],
+          },
+          disc_number: 0,
+          explicit: false,
+          popularity: 0,
+          preview_url: null,
+          track_number: 0,
+          id: '',
+          uri: '',
+          name: '',
+          type: 'track',
+          duration_ms: 0,
+        },
+        queue_id: '',
+        interactions: {
+          likes: 0,
+          dislikes: 0,
+        },
+      },
+    }
+
+    stagedPlayerState.jukebox_id = jukebox.id
+
+    if (hasAux && auxPlayerState?.current_track) {
+      stagedPlayerState.is_playing = auxPlayerState.is_playing
+      stagedPlayerState.progress = auxPlayerState.progress
+      stagedPlayerState.current_track = {
         interactions: storePlayerState?.current_track?.interactions ?? {
           dislikes: 0,
           likes: 0,
@@ -120,8 +196,14 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
           type: 'track',
           duration_ms: auxPlayerState.current_track.duration_ms,
         },
-      },
-    })
+      }
+    } else {
+      stagedPlayerState.current_track = storePlayerState?.current_track
+      stagedPlayerState.is_playing = storePlayerState?.is_playing ?? false
+      stagedPlayerState.progress = storePlayerState?.progress ?? 0
+    }
+
+    setPlayerState(stagedPlayerState)
   }, [storePlayerState?.current_track, auxPlayerState?.current_track])
 
   /**
@@ -165,6 +247,10 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
     auxPlayerState?.is_playing,
     auxPlayerState?.progress,
   ])
+
+  useEffect(() => {
+    console.log('Player state in context:', playerState)
+  }, [playerState])
 
   return (
     <PlayerContext.Provider
