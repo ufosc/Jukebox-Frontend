@@ -25,7 +25,6 @@ export const UserDetailsSchema: z.ZodSchema<IUserDetails> = z.object({
   clubs: z.array(ClubInlineSchema),
 })
 
-
 export const SpotifyLinkSchema: z.ZodSchema<ISpotifyLink> = z.object({
   ...ModelSchemaBase,
   deleted_on: z.string().nullable(),
@@ -38,4 +37,4 @@ export const SpotifyLinkSchema: z.ZodSchema<ISpotifyLink> = z.object({
   token_type: z.string(),
 })
 
-export const SpotifyLinksSchema = z.array(SpotifyLinkSchema);
+export const SpotifyLinksSchema = z.array(SpotifyLinkSchema)

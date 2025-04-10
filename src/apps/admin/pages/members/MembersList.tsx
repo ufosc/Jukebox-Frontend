@@ -1,4 +1,5 @@
-import React, { ChangeEvent, useState } from 'react'
+import type { ChangeEvent } from 'react'
+import React, { useState } from 'react'
 import './MembersList.css'
 
 import { MemberObj } from '../../components/memberObj'

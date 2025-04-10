@@ -45,4 +45,3 @@ export const thunkSyncSpotifyTokens = createAsyncThunk(
     return await network.getSpotifyAuth(clubId)
   },
 )
-

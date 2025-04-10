@@ -22,14 +22,13 @@ declare interface SystemStatus {
 
 declare type ThemeMode = 'light' | 'dark'
 
-
 declare interface ISpotifyLink extends IModel {
-  deleted_on: string | null,
-  access_token: string,
-  refresh_token?: string,
-  user_id: number,
-  spotify_email: string,
-  expires_in: number,
-  expires_at: string,
-  token_type: string,
+  deleted_on: string | null
+  access_token: string
+  refresh_token?: string
+  user_id: number
+  spotify_email: string
+  expires_in: number
+  expires_at: string
+  token_type: string
 }

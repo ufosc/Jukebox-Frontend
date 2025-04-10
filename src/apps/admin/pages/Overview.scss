@@ -21,20 +21,6 @@
   transform: translate(0, -25%);
 }
 
-.song-author {
-  color: var(--color-surface-on);
-  @include font-body('md');
-}
-
-.song-desc {
-  margin: 2vh 0 1vh 0;
-}
-
-.song-title {
-  @include font-display('xs');
-  padding-bottom: 1.5rem;
-}
-
 .song-queue {
   background-color: var(--color-surface);
   display: flex;
@@ -54,16 +40,6 @@
     @include font-headline('xs');
     padding-bottom: 2rem;
   }
-}
-
-.song-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-.song-rec {
-  @include font-body('sm');
-  color: #818181;
 }
 
 .curr-song {

@@ -2,18 +2,15 @@ import { useContext, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AudioPlayer, Form, FormSelectGroup, FormSubmit } from 'src/components'
 import { REACT_ENV } from 'src/config'
-import { SpotifyPlayerContext } from 'src/context'
+import { SpotifyContext } from 'src/context'
 import { authenticateLink } from 'src/store'
 import {
   selectCurrentTrack,
   selectJukeboxLinks,
   selectNextTracks,
-  
 } from 'src/store/jukebox'
 
-import {
-  selectAllLinks,
-} from 'src/store/user'
+import { selectAllLinks } from 'src/store/user'
 import { formatDuration } from 'src/utils'
 import { SpotifyPlayerAccount } from '../components/SpotifyPlayer/SpotifyPlayerAccount'
 import { SpotifyPlayerDetail } from '../components/SpotifyPlayer/SpotifyPlayerDetail'
@@ -28,13 +25,13 @@ export const SpotifyPlayer = () => {
   const currentTrack = useSelector(selectCurrentTrack)
   const nextTracks = useSelector(selectNextTracks)
   const spotifyLinks = useSelector(selectAllLinks)
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const {
     deviceIsActive: isActive,
     spotifyIsConnected: isConnected,
     connectDevice,
-  } = useContext(SpotifyPlayerContext)
+  } = useContext(SpotifyContext)
 
   const connectLinkIdRef = useRef<HTMLSelectElement>(null)
 
@@ -52,22 +49,21 @@ export const SpotifyPlayer = () => {
   }
 
   const getTheLinks = async () => {
-    console.log(spotifyLinks);
+    console.log(spotifyLinks)
   }
 
-  const getSpotLinks = async () =>{
-    const response = await network.getLinks();
+  const getSpotLinks = async () => {
+    const response = await network.getLinks()
     console.log(response.data)
   }
-
 
   /**
    * Updates the links for usage
    * Figure out the placement later
    */
-  useEffect(()=>{
-    dispatch({type: 'users/links'})
-  },[])
+  useEffect(() => {
+    dispatch({ type: 'users/links' })
+  }, [])
 
   return (
     <>
@@ -75,20 +71,24 @@ export const SpotifyPlayer = () => {
       <div className="spotify-player-container grid">
         <div className="col-6 left-container">
           <div>
-            <button onClick={()=>{
-              getTheLinks()
-            }}>
+            <button
+              onClick={() => {
+                getTheLinks()
+              }}
+            >
               Get Links
             </button>
-            <button onClick={()=>{
-              getSpotLinks()
-            }}>
+            <button
+              onClick={() => {
+                getSpotLinks()
+              }}
+            >
               Get Links2
             </button>
             <button
-            onClick={() => {
-              network.getSpotifyAuthRedirectUrl()
-            }}
+              onClick={() => {
+                network.getSpotifyAuthRedirectUrl()
+              }}
             >
               Add Account
             </button>

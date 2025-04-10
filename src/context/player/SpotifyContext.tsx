@@ -15,9 +15,9 @@ import {
 import { SpotifyPlayer } from 'src/lib'
 import { Network } from 'src/network'
 import { setHasAux } from 'src/store'
-import { KeyboardContext } from './KeyboardContext'
+import { KeyboardContext } from '../KeyboardContext'
 
-export const SpotifyPlayerContext = createContext({
+export const SpotifyContext = createContext({
   player: null as Spotify.Player | null,
   /** This device is connected for playback */
   deviceIsActive: false,
@@ -37,7 +37,7 @@ export const SpotifyPlayerContext = createContext({
   setProgress: (timeMs: number) => {},
 })
 
-export const SpotifyPlayerProvider = (props: {
+export const SpotifyProvider = (props: {
   children: ReactNode
   token: Nullable<string>
   jukebox: IJukebox | null
@@ -223,7 +223,7 @@ export const SpotifyPlayerProvider = (props: {
   })
 
   return (
-    <SpotifyPlayerContext.Provider
+    <SpotifyContext.Provider
       value={{
         player: playerRef.current,
         deviceIsActive: active,
@@ -241,6 +241,6 @@ export const SpotifyPlayerProvider = (props: {
       }}
     >
       {children}
-    </SpotifyPlayerContext.Provider>
+    </SpotifyContext.Provider>
   )
 }
