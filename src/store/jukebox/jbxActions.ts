@@ -21,7 +21,6 @@ const {
   setNextTracksReducer,
   setHasAuxReducer,
   performPlayerUpdateReducer: updatePlayerStateReducer,
-  incrementLiveProgressReducer,
   setProgressReducer,
   setIsPlayingReducer,
   setInteractionReducer,
@@ -47,9 +46,9 @@ export const setInteraction = (interaction: IJukeboxInteraction) => {
   store.dispatch(setInteractionReducer(interaction))
 }
 
-export const incrementLiveProgress = () => {
-  store.dispatch(incrementLiveProgressReducer())
-}
+// export const incrementLiveProgress = () => {
+//   store.dispatch(incrementLiveProgressReducer())
+// }
 
 export const setNextTracks = (nextTracks: IQueuedTrack[]) => {
   store.dispatch(setNextTracksReducer(nextTracks))

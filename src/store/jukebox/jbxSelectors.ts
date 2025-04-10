@@ -37,11 +37,6 @@ export const selectPlayerState = createSelector(
   (state) => state.playerState,
 )
 
-export const selectLiveProgress = createSelector(
-  jbxStateSelector,
-  (state) => state.liveProgress,
-)
-
 export const selectNextTracks = createSelector(
   jbxStateSelector,
   (state) => state.nextTracks,

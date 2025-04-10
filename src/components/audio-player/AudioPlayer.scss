@@ -33,6 +33,28 @@
     gap: 1rem;
   }
 
+  &__track {
+    color: var(--color-surface-on);
+    width: 100%;
+
+    &__name {
+      @include font-display('xs');
+      padding-bottom: 1.5rem;
+    }
+    &__info {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    &__artists {
+      @include font-body('md');
+    }
+    &__rec {
+      @include font-body('sm');
+      color: var(--color-label);
+    }
+  }
+
   &__progress {
     display: flex;
     align-items: center;
@@ -49,4 +71,7 @@
   .audio-player__volume {
     display: none !important;
   }
+}
+
+@keyframes text-slide {
 }

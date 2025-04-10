@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AudioPlayer, Form, FormSelectGroup, FormSubmit } from 'src/components'
 import { REACT_ENV } from 'src/config'
-import { SpotifyPlayerContext } from 'src/context'
+import { SpotifyContext } from 'src/context'
 import { authenticateLink } from 'src/store'
 import {
   selectCurrentTrack,
@@ -34,7 +34,7 @@ export const SpotifyPlayer = () => {
     deviceIsActive: isActive,
     spotifyIsConnected: isConnected,
     connectDevice,
-  } = useContext(SpotifyPlayerContext)
+  } = useContext(SpotifyContext)
 
   const connectLinkIdRef = useRef<HTMLSelectElement>(null)
 
