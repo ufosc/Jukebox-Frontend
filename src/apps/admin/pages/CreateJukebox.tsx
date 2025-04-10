@@ -29,19 +29,15 @@ export const CreateJukebox = () => {
               className="auth-form__group"
             ></FormInputGroup>
           </FormSection>
-          
+
           <FormSection>
-          <div>Select Club</div>
-            <FormInputGroup label="Club" id="club">
-
-
-            </FormInputGroup>
+            <div>Select Club</div>
+            <FormInputGroup label="Club" id="club"></FormInputGroup>
           </FormSection>
 
           <FormSection>
             <div>Select Accounts</div>
           </FormSection>
-
         </Form>
       </div>
     </>
