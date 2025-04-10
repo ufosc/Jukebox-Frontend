@@ -5,7 +5,7 @@ import {
   thunkInitializeUser,
   thunkLoginUser,
   thunkLogoutUser,
-  thunkUpdateLinks
+  thunkUpdateLinks,
 } from './userThunks'
 
 const network = Network.getInstance()
@@ -80,10 +80,9 @@ export const logoutUser = async () => {
   await store.dispatch(thunkLogoutUser())
 }
 
-
 /**
  * Updates the connected Spotify account for a given user
  */
 export const updateLinks = async () => {
-  await store.dispatch(thunkUpdateLinks());
+  await store.dispatch(thunkUpdateLinks())
 }

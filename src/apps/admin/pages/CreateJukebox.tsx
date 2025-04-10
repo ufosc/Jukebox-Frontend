@@ -19,7 +19,7 @@ import { NetworkResponse } from 'src/network/NetworkBase'
 export const CreateJukebox = () => {
   const network = Network.getInstance()
   const [selectedClub, setSelectedClub] = useState('')
-  const [jbxName, setJbxName] = useState('');
+  const [jbxName, setJbxName] = useState('')
   const jukeboxRef = useRef<HTMLInputElement>(null)
   const clubRef = useRef<HTMLInputElement>(null)
   const currentClub = useSelector(selectCurrentClub)
@@ -27,7 +27,7 @@ export const CreateJukebox = () => {
   const jukeboxLinks = useSelector(selectJukeboxLinks)
   const spotifyLinks = useSelector(selectAllLinks)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const handleLoginSubmit = async () => {
     //const selectedSClub: NetworkResponse<IClub> = await network.getClub(parseInt(selectedClub))!;
@@ -45,18 +45,17 @@ export const CreateJukebox = () => {
 
   const handleJbxChange = (e: any) => {
     const newName = e.target.value
-    setJbxName(newName);
+    setJbxName(newName)
   }
-
 
   /**
    * Updates the links for usage
    * Figure out the placement later
    */
-  useEffect(()=>{
-    dispatch({type: 'users/links'})
+  useEffect(() => {
+    dispatch({ type: 'users/links' })
     console.log(spotifyLinks)
-  },[])
+  }, [])
 
   return (
     <>
@@ -98,10 +97,7 @@ export const CreateJukebox = () => {
           <FormSection>
             <div>Select Accounts</div>
             <div className="account-container">
-              {spotifyLinks?.map((link) => (
-                  
-                <div>{link.spotify_email}</div>
-              ))}
+              {spotifyLinks?.map((link) => <div>{link.spotify_email}</div>)}
             </div>
           </FormSection>
 
