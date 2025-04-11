@@ -182,6 +182,18 @@ export class Network extends NetworkBase {
     return response
   }
 
+  
+  public async createJbx(jbxId:number, jbxName:string)
+  {
+    const url = this.endpoints.jukebox.list;
+    const res = await this.request(url, null, {
+      method: 'POST',
+      data: { name: jbxName, club_id:jbxId }
+    })
+
+    return res;
+  }
+
   /**
    *  Creates a new Jukebox
    *  TODO: fix schema type

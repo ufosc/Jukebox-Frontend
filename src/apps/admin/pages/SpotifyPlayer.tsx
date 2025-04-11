@@ -11,7 +11,6 @@ import {
 } from 'src/store/jukebox'
 
 import { selectAllLinks } from 'src/store/user'
-import { selectAllLinks } from 'src/store/user'
 import { formatDuration } from 'src/utils'
 import { SpotifyPlayerAccount } from '../components/SpotifyPlayer/SpotifyPlayerAccount'
 import { SpotifyPlayerDetail } from '../components/SpotifyPlayer/SpotifyPlayerDetail'
@@ -56,13 +55,11 @@ export const SpotifyPlayer = () => {
 
   const getSpotLinks = async () => {
     const response = await network.getLinks()
-  const getSpotLinks = async () => {
-    const response = await network.getLinks()
     console.log(response.data)
   }
 
-  const getCurrentTrack = ()=>{
-    const response = currentTrack;
+  const getCurrentTrack = () => {
+    const response = currentTrack
     console.log(response)
   }
 
@@ -77,18 +74,8 @@ export const SpotifyPlayer = () => {
                 getTheLinks()
               }}
             >
-            <button
-              onClick={() => {
-                getTheLinks()
-              }}
-            >
               Get Links
             </button>
-            <button
-              onClick={() => {
-                getSpotLinks()
-              }}
-            >
             <button
               onClick={() => {
                 getSpotLinks()
@@ -97,9 +84,6 @@ export const SpotifyPlayer = () => {
               Get Links2
             </button>
             <button
-              onClick={() => {
-                network.getSpotifyAuthRedirectUrl()
-              }}
               onClick={() => {
                 network.getSpotifyAuthRedirectUrl()
               }}

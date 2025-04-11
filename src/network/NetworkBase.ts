@@ -163,17 +163,6 @@ export class NetworkBase {
     this.clearToken()
   }
 
-  public async createJbx(jbxId:number, jbxName:string)
-  {
-    const url = this.endpoints.jukebox.list;
-    const res = await this.request(url, null, {
-      method: 'POST',
-      data: { name: jbxName, club_id:jbxId }
-    })
-
-    return res;
-  }
-
   /*=== Utilities =========================================*/
   /**
    * Send an API request to the network,
