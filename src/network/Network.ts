@@ -178,8 +178,8 @@ export class Network extends NetworkBase {
     const url = this.endpoints.spotify.login(location.href, jukeboxId)
     console.log(url)
     const response = await this.request(url, SpotifyAuthRedirectUrlSchema)
-    console.log(response);
-    return response;
+    console.log(response)
+    return response
   }
 
   /**
@@ -205,8 +205,7 @@ export class Network extends NetworkBase {
     return res;
   }
 
-  public async getLinks(){
-
+  public async getLinks() {
     /**
      * const url = this.endpoints.jukebox.getSpotifyAccount(jukeboxId)
 
@@ -214,7 +213,7 @@ export class Network extends NetworkBase {
       mock: { data: mockSpotifyAccount, errorIfEmpty: true },
     })
      */
-    const url = this.endpoints.spotify.links;
+    const url = this.endpoints.spotify.links
 
     //const response = await this.request(url)
 
@@ -222,5 +221,4 @@ export class Network extends NetworkBase {
     //console.log(response);
     return response;
   }
-
 }

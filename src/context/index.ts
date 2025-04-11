@@ -1,4 +1,5 @@
 export * from './KeyboardContext'
+export * from './player/PlayerContext'
+export * from './player/SpotifyContext'
 export * from './SocketContext'
 export * from './Theme'
-export * from './SpotifyPlayerContext'

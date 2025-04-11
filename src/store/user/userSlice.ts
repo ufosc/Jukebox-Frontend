@@ -56,11 +56,10 @@ export const userSlice = createSlice({
 
     builder.addCase(thunkUpdateLinks.fulfilled, (state, action) => {
       //console.log(action.payload)
-      if(!action.payload.success)
-      {
-        state.links = null;
-        state.error = "Failed to get Spotify Links";
-        return;
+      if (!action.payload.success) {
+        state.links = null
+        state.error = 'Failed to get Spotify Links'
+        return
       }
       
       state.links = action.payload.data;

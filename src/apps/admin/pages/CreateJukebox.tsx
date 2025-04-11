@@ -59,6 +59,7 @@ export const CreateJukebox = () => {
   const handleJbxChange = (e: any) => {
     const newName = e.target.value
     setJbxName(newName)
+    setJbxName(newName)
   }
 
   const changeAccounts = (link: ISpotifyLink) => {

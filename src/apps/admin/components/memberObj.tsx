@@ -10,7 +10,7 @@ export const MemberObj = (props: {
     joined: string
   }
 }) => {
-  const {member} = props
+  const { member } = props
   useEffect(() => {
     console.log(`hi there ${props}`)
   }, [])
@@ -18,13 +18,13 @@ export const MemberObj = (props: {
   return (
     <>
       <div className="member-outline">
-        <div className='widthAdjustName'>{member.name}</div>
+        <div className="widthAdjustName">{member.name}</div>
 
-        <div className='widthAdjustRole'>{member.role}</div>
+        <div className="widthAdjustRole">{member.role}</div>
 
-        <div className='widthAdjustPoints'>{member.points}</div>
+        <div className="widthAdjustPoints">{member.points}</div>
 
-        <div className='widthAdjustJoined'>{member.joined}</div>
+        <div className="widthAdjustJoined">{member.joined}</div>
 
         <div>View</div>
       </div>

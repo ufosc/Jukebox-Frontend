@@ -10,39 +10,39 @@ export const MemberDetail = () => {
         </div>
       </div>
 
-      <div className='main-member-container'>
-        <div className='grid grid-spacing'>
-        <div className="left-panel col-4">
-          <div className="profile-details">
-            <h2>Profile Details</h2>
-            <div className="profile-info">
-              <div>
-                <strong>Full name:</strong> John Doe
-              </div>
-              <div>
-                <strong>Email:</strong> john.doe@gmail.com
-              </div>
-              <div>
-                <strong>Date Joined:</strong> January 15, 2019
-              </div>
-              <div>
-                <strong>Birthday:</strong> July 8, 1995
-              </div>
-              <div>
-                <strong>Country:</strong> Canada
-              </div>
-              <div>
-                <strong>Favorite Genre:</strong> Jazz
-              </div>
-              <div>
-                <strong>Total tracks played:</strong> 1500
+      <div className="main-member-container">
+        <div className="grid grid-spacing">
+          <div className="left-panel col-4">
+            <div className="profile-details">
+              <h2>Profile Details</h2>
+              <div className="profile-info">
+                <div>
+                  <strong>Full name:</strong> John Doe
+                </div>
+                <div>
+                  <strong>Email:</strong> john.doe@gmail.com
+                </div>
+                <div>
+                  <strong>Date Joined:</strong> January 15, 2019
+                </div>
+                <div>
+                  <strong>Birthday:</strong> July 8, 1995
+                </div>
+                <div>
+                  <strong>Country:</strong> Canada
+                </div>
+                <div>
+                  <strong>Favorite Genre:</strong> Jazz
+                </div>
+                <div>
+                  <strong>Total tracks played:</strong> 1500
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="club-membership col-8">
-            <h2 className=''>Club Memberships</h2>
+          <div className="club-membership col-8">
+            <h2 className="">Club Memberships</h2>
 
             <div className="clubs-list">
               <div className="club-info">
@@ -98,13 +98,10 @@ export const MemberDetail = () => {
               </div>
             </div>
           </div>
-
         </div>
-        <div className='grid'>
-          <div className='col-4'>
-          </div>
+        <div className="grid">
+          <div className="col-4"></div>
           <div className="queued-tracks col-8">
-
             <h2>Queued Tracks</h2>
             <div className="track-list">
               {[
@@ -155,7 +152,6 @@ export const MemberDetail = () => {
           </div>
         </div>
       </div>
-
     </div>
   )
 }

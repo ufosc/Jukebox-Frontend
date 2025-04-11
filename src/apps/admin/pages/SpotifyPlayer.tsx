@@ -2,7 +2,7 @@ import { useContext, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { AudioPlayer, Form, FormSelectGroup, FormSubmit } from 'src/components'
 import { REACT_ENV } from 'src/config'
-import { SpotifyPlayerContext } from 'src/context'
+import { SpotifyContext } from 'src/context'
 import { authenticateLink } from 'src/store'
 import {
   selectCurrentTrack,
@@ -10,6 +10,7 @@ import {
   selectNextTracks,
 } from 'src/store/jukebox'
 
+import { selectAllLinks } from 'src/store/user'
 import { selectAllLinks } from 'src/store/user'
 import { formatDuration } from 'src/utils'
 import { SpotifyPlayerAccount } from '../components/SpotifyPlayer/SpotifyPlayerAccount'
@@ -31,7 +32,7 @@ export const SpotifyPlayer = () => {
     deviceIsActive: isActive,
     spotifyIsConnected: isConnected,
     connectDevice,
-  } = useContext(SpotifyPlayerContext)
+  } = useContext(SpotifyContext)
 
   const connectLinkIdRef = useRef<HTMLSelectElement>(null)
 
@@ -50,8 +51,11 @@ export const SpotifyPlayer = () => {
 
   const getTheLinks = async () => {
     console.log(spotifyLinks)
+    console.log(spotifyLinks)
   }
 
+  const getSpotLinks = async () => {
+    const response = await network.getLinks()
   const getSpotLinks = async () => {
     const response = await network.getLinks()
     console.log(response.data)
@@ -73,8 +77,18 @@ export const SpotifyPlayer = () => {
                 getTheLinks()
               }}
             >
+            <button
+              onClick={() => {
+                getTheLinks()
+              }}
+            >
               Get Links
             </button>
+            <button
+              onClick={() => {
+                getSpotLinks()
+              }}
+            >
             <button
               onClick={() => {
                 getSpotLinks()
@@ -83,6 +97,9 @@ export const SpotifyPlayer = () => {
               Get Links2
             </button>
             <button
+              onClick={() => {
+                network.getSpotifyAuthRedirectUrl()
+              }}
               onClick={() => {
                 network.getSpotifyAuthRedirectUrl()
               }}

@@ -37,11 +37,6 @@ export const selectPlayerState = createSelector(
   (state) => state.playerState,
 )
 
-export const selectLiveProgress = createSelector(
-  jbxStateSelector,
-  (state) => state.liveProgress,
-)
-
 export const selectNextTracks = createSelector(
   jbxStateSelector,
   (state) => state.nextTracks,
@@ -55,3 +50,8 @@ export const selectCurrentTrack = createSelector(
   jbxStateSelector,
   (state) => state.playerState?.current_track,
 )
+
+// export const selectCurrentlyPlaying = createSelector(
+//   jbxStateSelector,
+//   (state) => state.playerState,
+// )

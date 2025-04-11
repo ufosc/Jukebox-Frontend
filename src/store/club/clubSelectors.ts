@@ -16,4 +16,3 @@ export const selectAllClubs = createSelector(
   clubStateSelector,
   (state) => state.allClubs,
 )
-

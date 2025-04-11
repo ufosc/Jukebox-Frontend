@@ -21,6 +21,8 @@ services:
       - DB_USER=devuser
       - DB_PASS=devpass
       - DB_NAME=devdatabase
+      - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}
+      - SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}
 
       - REDIS_HOST=redis
       - REDIS_PORT=6379

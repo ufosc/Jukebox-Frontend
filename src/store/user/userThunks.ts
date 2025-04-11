@@ -22,7 +22,6 @@ export const thunkLogoutUser = createAsyncThunk('user/logout', async () => {
   return await network.logout()
 })
 
-
 export const thunkUpdateLinks = createAsyncThunk('users/links', async () => {
   return await network.getLinks();
 })

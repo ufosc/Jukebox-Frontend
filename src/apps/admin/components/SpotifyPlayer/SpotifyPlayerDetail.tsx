@@ -14,7 +14,6 @@ export const SpotifyPlayerDetail: React.FC<DetailProps> = ({
       <div className="spotify-player-detail-container">
         <div className="spotify-player-detail-first">{firstDetail}</div>
         <div className="spotify-player-detail-second">{secondDetail}</div>
-        
       </div>
     </>
   )
