@@ -237,11 +237,13 @@ export class NetworkBase {
       // Validate data using schema
       .then((res): T => {
         logger.debug('Network request:', res)
-        if (schema != null) {
-          return schema.parse(res.data)
-        } else {
-          return res.data
+        const zodRes = schema?.safeParse(res.data)
+        if (zodRes?.data) {
+          return zodRes.data
+        } else if (zodRes?.error) {
+          logger.warn(zodRes.error)
         }
+        return res.data as T
       })
       // Provide success response
       .then((data) => ({ success: true, data: data }) as const)
