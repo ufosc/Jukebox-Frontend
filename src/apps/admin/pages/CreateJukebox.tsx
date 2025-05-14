@@ -31,7 +31,7 @@ export const CreateJukebox = () => {
   const handleLoginSubmit = async () => {
     //const selectedSClub: NetworkResponse<IClub> = await network.getClub(parseInt(selectedClub))!;
     //console.log(currentClub!.id)
-    let clubID = -1;
+    let clubID = -1
     if (selectedClub === -1) {
       console.log(currentClub!.id)
       clubID = currentClub!.id
@@ -43,10 +43,10 @@ export const CreateJukebox = () => {
     console.log(selectedAccounts)
 
     //Add API Call to create new Jukebox
-    const res = network.createJukebox(clubID, jbxName, selectedAccounts);
+    const res = network.createJukebox(clubID, jbxName, selectedAccounts)
 
     //remove Later
-    console.log(res);
+    console.log(res)
   }
 
   const handleClubChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -92,54 +92,68 @@ export const CreateJukebox = () => {
 
   return (
     <>
-      <div className="jukebox-form">
-        <h1 className="title">Create Jukebox</h1>
+      <div className="grid create-jukeboxes">
+        <div className="col-6">
+          <div className="jukebox-form">
+            <h1 className="title">Create Jukebox</h1>
 
-        <Form onSubmit={handleLoginSubmit} className="form">
-          <FormSection>
-            <FormInputGroup
-              label="Jukebox"
-              id="jukebox"
-              type="text"
-              ref={jukeboxRef}
-              required
-              className="auth-form__group"
-              onChange={handleJbxChange}
-            ></FormInputGroup>
-          </FormSection>
+            <Form onSubmit={handleLoginSubmit} className="form">
+              <FormSection>
+                <FormInputGroup
+                  label="Jukebox"
+                  id="jukebox"
+                  type="text"
+                  ref={jukeboxRef}
+                  required
+                  className="auth-form__group"
+                  onChange={handleJbxChange}
+                ></FormInputGroup>
+              </FormSection>
 
-          <FormSection>
-            <div>Select Club</div>
-            <div className="form-select-control">
-              <select
-                name="current-club"
-                id="current-club"
-                onChange={handleClubChange}
-                defaultValue={currentClub?.id}
-              >
-                {!currentClub && <option value="">No Club Selected</option>}
-                {clubs.map((club) => (
-                  <option key={club.id} value={club.id}>
-                    {club.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </FormSection>
-
-          <FormSection>
-            <div>Select Accounts</div>
-            <div className="account-container">
-              {spotifyLinks?.map((link) => (
-                <div key={link.id} onClick={() => changeAccounts(link)}>
-                  <SpotifyLinkAccount link={link} />
+              <FormSection>
+                <div>Select Club</div>
+                <div className="form-select-control">
+                  <select
+                    name="current-club"
+                    id="current-club"
+                    onChange={handleClubChange}
+                    defaultValue={currentClub?.id}
+                  >
+                    {!currentClub && <option value="">No Club Selected</option>}
+                    {clubs.map((club) => (
+                      <option key={club.id} value={club.id}>
+                        {club.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
-              ))}
-            </div>
-          </FormSection>
+              </FormSection>
 
-          <button>Create Jukebox</button>
-        </Form>
+              <FormSection>
+                <div>Select Accounts</div>
+                <div className="account-container">
+                  {spotifyLinks?.map((link) => (
+                    <div
+                      className="single-account"
+                      key={link.id}
+                      onClick={() => changeAccounts(link)}
+                    >
+                      <SpotifyLinkAccount link={link} />
+                    </div>
+                  ))}
+                </div>
+              </FormSection>
+
+              <div className="grid">
+                <div className='col-4'>
+                <button className="button-fancy height-jbx">
+                  Create Jukebox
+                </button>
+                </div>
+              </div>
+            </Form>
+          </div>
+        </div>
       </div>
     </>
   )

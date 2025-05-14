@@ -16,7 +16,7 @@ export const SpotifyLinkAccount = (props: { link: ISpotifyLink }) => {
         {isSelected ? (
           <>
             <div className="spotify-container-selected">
-              <div className="spotify-player-account">
+              <div className="spotify-link-account">
                 <div className="profile-border-container">
                   <div className="profile-image-container">
                     <img src={'#'} />
@@ -35,8 +35,8 @@ export const SpotifyLinkAccount = (props: { link: ISpotifyLink }) => {
           </>
         ) : (
           <>
-            <div>
-              <div className="spotify-player-account">
+            <div className="spotify-container-unselected">
+              <div className="spotify-link-account">
                 <div className="profile-border-container">
                   <div className="profile-image-container">
                     <img src={'#'} />

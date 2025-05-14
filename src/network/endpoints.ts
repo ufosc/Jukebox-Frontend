@@ -29,7 +29,11 @@ export const NetworkEndpoints = Object.freeze({
     nextTracks: (jukeboxId: number) =>
       `${jukeboxApi}/jukebox/${jukeboxId}/tracks-queue/`,
     links: (jukeboxId: number) =>
-      `${jukeboxApi}/jukebox/${jukeboxId}/links`
+      `${jukeboxApi}/jukebox/${jukeboxId}/links/`,
+    search: (jukeboxId: number) =>
+      `${jukeboxApi}/jukebox/${jukeboxId}/search`,
+    queue: (jukeboxId: number)=>
+      `${jukeboxApi}/jukebox/${jukeboxId}/tracks-queue`,
   },
   spotify: {
     login: (redirectUri: string, jukeboxId?: number) =>

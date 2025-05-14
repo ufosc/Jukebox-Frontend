@@ -36,6 +36,12 @@ export const SpotifyPlayerViewer = () => {
     networkRef.current = Network.getInstance()
   }, [])
 
+  const linkToJukebox = async () =>{
+    await handleConnectPlayback();
+    console.log("Here")
+    connectDevice()
+  }
+
   const handleConnectPlayback = async () => {
     if (!connectLinkIdRef.current) return
 
@@ -182,7 +188,7 @@ export const SpotifyPlayerViewer = () => {
               </Form>
               <div>
                 <button className="button-solid" onClick={connectDevice}>
-                  Switch Playback
+                  Connect to Jukebox
                 </button>
               </div>
               <br />

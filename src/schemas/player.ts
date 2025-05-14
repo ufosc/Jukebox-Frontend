@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { number, z } from 'zod'
 
 const ArtistInlineDetailsSchema: z.ZodSchema<IArtistInlineDetails> = z.object({
   uri: z.string(),
@@ -8,7 +8,7 @@ const ArtistInlineDetailsSchema: z.ZodSchema<IArtistInlineDetails> = z.object({
   href: z.string(),
 })
 
-const TrackDetailsSchema: z.ZodSchema<ITrackDetails> = z.object({
+export const TrackDetailsSchema: z.ZodSchema<ITrackDetails> = z.object({
   id: z.string(),
   name: z.string(),
   artists: z.array(ArtistInlineDetailsSchema),
@@ -18,11 +18,11 @@ const TrackDetailsSchema: z.ZodSchema<ITrackDetails> = z.object({
     id: z.string(),
     type: z.enum(['album']),
     href: z.string(),
-    album_type: z.enum(['album']),
+    album_type: z.enum(['album', 'compilation', 'single']),
     artists: z.array(ArtistInlineDetailsSchema),
     available_markets: z.array(z.string()),
     release_date: z.string(),
-    release_date_precision: z.enum(['day']),
+    release_date_precision: z.enum(['day', 'year']),
     total_tracks: z.number(),
     images: z.array(
       z.object({
@@ -42,6 +42,8 @@ const TrackDetailsSchema: z.ZodSchema<ITrackDetails> = z.object({
   duration_ms: z.number(),
 })
 
+export const TrackDetailsListSchema = z.array(TrackDetailsSchema)
+
 const QueuedTrackSchema: z.ZodSchema<IQueuedTrack> = z.object({
   track: TrackDetailsSchema,
   queue_id: z.string(),
@@ -60,4 +62,19 @@ export const PlayerStateSchema: z.ZodSchema<IPlayerState> = z.object({
   current_track: QueuedTrackSchema.optional(),
   progress: z.number(),
   is_playing: z.boolean(),
+})
+
+export const TrackSearchResult: z.ZodSchema<ITrackSearch> = z.object({
+  href: z.string(),
+  items: z.array(TrackDetailsSchema),
+  limit: z.number(),
+  next: z.string().nullable(),
+  offset: z.number(),
+  previous: z.string().nullable(),
+  total: z.number()
+
+})
+
+export const TrackListResult: z.ZodSchema<ITrackSeachList> = z.object({
+  tracks: TrackSearchResult
 })
