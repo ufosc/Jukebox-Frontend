@@ -71,7 +71,7 @@ export const SpotifyPlayerViewer = () => {
       <div className="spotify-player-container grid">
         <div className="col-6 left-container">
           <div className="debugInfo">
-            <p>Current Player</p>
+            <p>{jukebox?.name}</p>
           </div>
 
           <div className="spotify-player-desc">

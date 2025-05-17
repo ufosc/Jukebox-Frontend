@@ -1,12 +1,13 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
-import { TrackList } from 'src/components'
-import './MusicSearch.scss'
+import { useSelector } from 'react-redux'
+import { TrackSearchList } from 'src/apps/members/pages/TrackSearchList'
 import { Network } from 'src/network'
 import { selectCurrentJukebox } from 'src/store'
-import { useSelector } from 'react-redux'
+import './MusicSearch.scss'
 
 export const MusicSearch = () => {
   const [inputs, setInputs] = useState({ track: '', album: '', artist: '' })
+  const [tracks, setTracks] = useState<ITrackDetails[]>([])
   const jukebox = useSelector(selectCurrentJukebox)
   const network = Network.getInstance()
 
@@ -20,14 +21,22 @@ export const MusicSearch = () => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     console.log(inputs)
     event.preventDefault()
-    if(jukebox !== null)
-      {
-        console.log(inputs)
-        const tracksResult = await network.getTracks(jukebox.id, inputs.track, inputs.album, inputs.artist)
-        console.log(tracksResult)
-      }else{
-        console.log("Jukebox is not connected")
+    if (jukebox !== null) {
+      console.log(inputs)
+      const tracksResult = await network.getTracks(
+        jukebox.id,
+        inputs.track,
+        inputs.album,
+        inputs.artist,
+      )
+      console.log(tracksResult)
+      if (tracksResult.success) {
+        console.log(tracksResult.data.tracks.items)
+        setTracks(tracksResult.data.tracks.items)
       }
+    } else {
+      console.log('Jukebox is not connected')
+    }
   }
 
   return (
@@ -35,7 +44,6 @@ export const MusicSearch = () => {
       <div className="music-search-title">Spotify Search</div>
       <form className="music-search-form" onSubmit={handleSubmit}>
         <div className="music-search-row grid col-12">
-
           <div className="col-3">
             <input
               className="music-search-input"
@@ -72,15 +80,13 @@ export const MusicSearch = () => {
           <div className="music-search-button-container col-2">
             <button className="music-search-button">Search Tracks</button>
           </div>
-
         </div>
       </form>
-
 
       <div className="result-container">
         <div className="music-search-title">Results</div>
         <div className="track-container">
-          <TrackList tracks={[]} />
+          <TrackSearchList tracks={tracks} />
         </div>
       </div>
     </div>

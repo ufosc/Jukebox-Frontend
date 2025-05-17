@@ -12,3 +12,7 @@ export const fetchCurrentClubInfo = async () => {
 
   await store.dispatch(thunkFetchClubInfo(club.id))
 }
+
+export const updateClub = async (clubID:number) => {
+  await store.dispatch(thunkFetchClubInfo(clubID))
+}

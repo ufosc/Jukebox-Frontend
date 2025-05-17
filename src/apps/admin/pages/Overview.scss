@@ -48,9 +48,10 @@
   border-color: #ca6b4f;
   border-width: 3px;
   border-style: solid;
-  width: 28vh;
-  height: 28vh;
+  width: 28.75vh;
+  height: 28.75vh;
   object-fit: cover;
+  animation: diskPlaying 2s linear infinite paused;
 }
 
 ::-webkit-scrollbar {
@@ -111,5 +112,19 @@
   .curr-song {
     width: 15vh;
     height: 15vh;
+  }
+}
+
+.diskSpin {
+  animation-play-state: running;
+}
+
+
+@keyframes diskPlaying {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
   }
 }

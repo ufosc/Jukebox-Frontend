@@ -24,3 +24,21 @@ export const ClubInlineSchema = z.object({
   name: z.string(),
   // role: z.string(),
 })
+
+export const UserSchema: z.ZodSchema<IClubUser> = z.object({
+  id: z.number(),
+  email: z.string(),
+  first_name: z.string().nullable(),
+  last_name: z.string().nullable(),
+  username: z.string(),
+})
+
+export const ClubMembershipSchema: z.ZodSchema<IClubMembership> = z.object({
+  ...ModelSchemaBase,
+  club_id: z.number(),
+  is_owner: z.boolean(),
+  points: z.number(),
+  user: UserSchema,
+})
+
+export const ClubMembershipsSchema = z.array(ClubMembershipSchema);

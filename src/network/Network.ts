@@ -1,7 +1,9 @@
 import {
   ClubListSchema,
+  ClubMembershipsSchema,
   ClubSchema,
   JukeboxListSchema,
+  JukeboxSchema,
   SpotifyAccountSchema,
   SpotifyAuthRedirectUrlSchema,
   SpotifyLinksSchema,
@@ -255,6 +257,27 @@ export class Network extends NetworkBase {
       method: 'POST',
       data: {track_id: songID, position: 100}
     })
+  }
+
+  /**
+   * 
+   * @param clubID 
+   * @returns List of members for a given club
+   */
+  public async getMembers(clubID: number) {
+    const url = this.endpoints.club.members(clubID)
+
+    const response = await this.request(url, ClubMembershipsSchema)
+
+    return response
+  }
+
+  public async listJukebox(jukeboxId: number) {
+    const url = this.endpoints.jukebox.getJbk(jukeboxId)
+
+    const response = await this.request(url, JukeboxSchema)
+
+    return response
   }
 
 }

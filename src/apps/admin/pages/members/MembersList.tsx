@@ -1,17 +1,19 @@
 import type { ChangeEvent } from 'react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './MembersList.css'
 
 import { MemberObj } from '../../components/memberObj'
+import { useSelector } from 'react-redux'
+import { selectCurrentClub } from 'src/store'
+import { Network } from 'src/network'
 
 export const MembersList: React.FC = () => {
   const [searchMember, setSearchMember] = useState('')
-  const memberLists = Array(15).fill({
-    name: 'John Doe',
-    role: 'Member',
-    points: 20,
-    joined: 'January 1, 2024',
-  })
+  const [members, setMembers] = useState<IClubMembership[]>([])
+  const currentClub = useSelector(selectCurrentClub)
+  const network = Network.getInstance()
+
+  const [loading, setLoading] = useState(false)
 
   const submitMemberSearch = () => {
     console.log(searchMember)
@@ -22,13 +24,37 @@ export const MembersList: React.FC = () => {
     setSearchMember(e.target.value)
   }
 
+  const updateMembers = async () => {
+    console.log(currentClub?.id)
+    const clubId = currentClub?.id;
+    if(clubId !== undefined)
+    {
+      const res = await network.getMembers(clubId)
+      console.log(res)
+      if(res.success)
+      {
+        setMembers(res.data)
+      }
+      //setMembers(res.data)
+    }else{
+      console.log('Fetching Users')
+    }
+  }
+
+  useEffect(() => {
+    updateMembers()
+    return () =>{
+      console.log("Done Getting Users")
+    }
+  },[currentClub])
+
   return (
     <>
       <div className="members-container-outline">
         <section className="member-header">
           <h1 className="header-font">Members</h1>
 
-          <button className="button-tonal">+ Add member</button>
+          <button className="button-tonal" onClick={updateMembers}>+ Add member</button>
         </section>
 
         <div className="grid">
@@ -55,8 +81,8 @@ export const MembersList: React.FC = () => {
 
           <section className="lists">
             <div>
-              {memberLists.map((member, key) => (
-                <MemberObj member={member} />
+              {members.map((member, key) => (
+                <MemberObj member={member} key={key}/>
               ))}
             </div>
           </section>

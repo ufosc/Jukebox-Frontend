@@ -4,10 +4,10 @@ import './memberObj.css'
 
 export const MemberObj = (props: {
   member: {
-    name: string
-    role: string
+    user: IClubUser
+    is_owner: boolean
     points: number
-    joined: string
+    created_at: string
   }
 }) => {
   const { member } = props
@@ -18,13 +18,13 @@ export const MemberObj = (props: {
   return (
     <>
       <div className="member-outline">
-        <div className="widthAdjustName">{member.name}</div>
+        <div className="widthAdjustName">{member.user.username}</div>
 
-        <div className="widthAdjustRole">{member.role}</div>
+        <div className="widthAdjustRole">{member.is_owner}</div>
 
         <div className="widthAdjustPoints">{member.points}</div>
 
-        <div className="widthAdjustJoined">{member.joined}</div>
+        <div className="widthAdjustJoined">{member.created_at}</div>
 
         <div>View</div>
       </div>
