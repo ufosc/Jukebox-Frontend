@@ -12,6 +12,7 @@ import {
 import {
   thunkClearNextTracks,
   thunkFetchCurrentlyPlaying,
+  thunkFetchJBX,
   thunkFetchJukeboxes,
   thunkFetchNextTracks,
   thunkSyncSpotifyTokens,
@@ -142,4 +143,8 @@ export const checkLinkAuth = async () => {
       'Handling non-spotify auth credentials is not implemented yet.',
     )
   }
+}
+
+export const fetchJukebox = async (jukeboxId: number) =>{
+  await store.dispatch(thunkFetchJBX(jukeboxId))
 }

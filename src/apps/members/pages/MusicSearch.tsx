@@ -1,18 +1,46 @@
-import { useState, type ChangeEvent, type FormEvent } from 'react'
+import { useRef, useState, type ChangeEvent, type FormEvent } from 'react'
 import { TrackList } from 'src/components'
 import './MusicSearch.scss'
+import { useSelector } from 'react-redux'
+import { selectCurrentJukebox } from 'src/store'
+import { Network } from 'src/network'
+import { unknown } from 'zod'
+import { NetworkError } from 'src/utils'
+import { TrackSearchList } from './TrackSearchList'
 
 export const MusicSearch = () => {
+  const jukebox = useSelector(selectCurrentJukebox)
   const [inputs, setInputs] = useState({ track: '', album: '', artist: '' })
-
+  const [tracks, setTracks] = useState<ITrackDetails[]>([])
+  const network = Network.getInstance()
+  
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const name = event.target.name
     const value = event.target.value
     setInputs((values) => ({ ...values, [name]: value }))
   }
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    console.log(inputs)
+    if(jukebox !== null)
+    {
+      console.log(inputs)
+      const tracksResult = await network.getTracks(jukebox.id, inputs.track, inputs.album, inputs.artist)
+      console.log(tracksResult.data)
+      if(tracksResult.success)
+      {
+        console.log(tracksResult.data.tracks.items)
+        setTracks(tracksResult.data.tracks.items)
+      }
+      //if(tracksResult !== NetworkError<ITrackSeachList>)
+      //{
+        //setTracks(tracksResult.data.tracks.items)
+
+      //}
+    }else{
+      console.log("Jukebox is not connected")
+    }
   }
 
   return (
@@ -58,7 +86,7 @@ export const MusicSearch = () => {
       <div className="result-container">
         <div className="music-search-title">Results</div>
         <div className="track-container">
-          <TrackList tracks={[]} />
+          <TrackSearchList tracks={tracks} />
         </div>
       </div>
     </div>

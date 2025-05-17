@@ -1,14 +1,15 @@
 import {
   ClubListSchema,
+  ClubMembershipsSchema,
   ClubSchema,
   JukeboxListSchema,
+  JukeboxSchema,
   SpotifyAccountSchema,
   SpotifyAuthRedirectUrlSchema,
-  SpotifyLinkSchema,
   SpotifyLinksSchema,
   UserDetailsSchema,
 } from 'src/schemas'
-import { PlayerStateSchema, QueuedTrackListSchema } from 'src/schemas/player'
+import { QueuedTrackListSchema, TrackListResult } from 'src/schemas/player'
 import {
   getRandomSample,
   mockClubs,
@@ -145,7 +146,7 @@ export class Network extends NetworkBase {
   public async getCurrentlyPlaying(jukeboxId: number) {
     const url = this.endpoints.jukebox.playerState(jukeboxId)
 
-    return await this.request(url, PlayerStateSchema, {
+    return await this.request(url, null, {
       mock: { data: mockPlayerQueueState },
     })
   }
@@ -182,22 +183,38 @@ export class Network extends NetworkBase {
     return response
   }
 
+  public async createJbx(jbxId: number, jbxName: string) {
+    const url = this.endpoints.jukebox.list
+    const res = await this.request(url, null, {
+      method: 'POST',
+      data: { name: jbxName, club_id: jbxId },
+    })
+
+    return res
+  }
+
   /**
    *  Creates a new Jukebox
-   *  fix spotifyLink type from any
+   *  TODO: fix schema type
    */
   public async createJukebox(
     jukeboxId: number,
     jukeboxName: string,
-    spotifyLink?: any,
+    spotifyLink?: ISpotifyLink[],
   ) {
-    const url = this.endpoints.jukebox.list
+    const res = await this.createJbx(jukeboxId, jukeboxName)
 
-    //const response = await this.request(url, createJbxSchema, {
-    // mock: {data: jbxId: jukeboxId, jbxName:jukeboxName}
-    //});
+    const url = this.endpoints.jukebox.links(jukeboxId)
+    if (spotifyLink !== undefined && spotifyLink.length !== 0) {
+      spotifyLink.forEach(async (link) => {
+        const res = await this.request(url, null, {
+          method: 'POST',
+          data: { type: link.token_type, email: link.spotify_email },
+        })
+      })
+    }
 
-    //return response;
+    return res
   }
 
   public async getLinks() {
@@ -213,7 +230,54 @@ export class Network extends NetworkBase {
     //const response = await this.request(url)
 
     const response = await this.request(url, SpotifyLinksSchema)
-    console.log(response)
+    //console.log(response);
     return response
   }
+
+  public async getTracks(
+    jukeboxId: number,
+    trackName: string,
+    albumName: string,
+    artistName: string,
+  ) {
+    const url = this.endpoints.jukebox.search(jukeboxId)
+
+    const response = await this.request(url, TrackListResult, {
+      method: 'POST',
+      data: { trackQuery: trackName, albumQuery: albumName, artistQuery: artistName },
+    })
+
+    return response
+  }
+
+  public async queueTrack(jukeboxId:number, songID:string){
+    const url = this.endpoints.jukebox.queue(jukeboxId)
+
+    const response = await this.request(url, null, {
+      method: 'POST',
+      data: {track_id: songID, position: 100}
+    })
+  }
+
+  /**
+   * 
+   * @param clubID 
+   * @returns List of members for a given club
+   */
+  public async getMembers(clubID: number) {
+    const url = this.endpoints.club.members(clubID)
+
+    const response = await this.request(url, ClubMembershipsSchema)
+
+    return response
+  }
+
+  public async listJukebox(jukeboxId: number) {
+    const url = this.endpoints.jukebox.getJbk(jukeboxId)
+
+    const response = await this.request(url, JukeboxSchema)
+
+    return response
+  }
+
 }

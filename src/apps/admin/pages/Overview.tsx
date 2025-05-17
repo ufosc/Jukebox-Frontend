@@ -21,14 +21,29 @@ export const Overview = () => {
         </div>
 
         <div className="col-7">
-          <div className="disk">
-            <img
-              className="curr-song"
-              src={playerState?.current_track?.track.preview_url ?? FallbackImg}
-              alt={playerState?.current_track?.track.name}
-            />
-            <Disk />
-          </div>
+          {playerState?.is_playing ? (
+            <div className="disk">
+              <img
+                className="curr-song diskSpin"
+                src={
+                  playerState?.current_track?.track.preview_url ?? FallbackImg
+                }
+                alt={playerState?.current_track?.track.name}
+              />
+              <Disk />
+            </div>
+          ) : (
+            <div className="disk">
+              <img
+                className="curr-song"
+                src={
+                  playerState?.current_track?.track.preview_url ?? FallbackImg
+                }
+                alt={playerState?.current_track?.track.name}
+              />
+              <Disk />
+            </div>
+          )}
         </div>
       </div>
 

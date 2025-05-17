@@ -1,17 +1,20 @@
 import { NotificationsOutlined } from '@mui/icons-material'
 import type { ChangeEvent } from 'react'
-import { useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
 import {
+  fetchJukebox,
   selectAllClubs,
   selectAllJukeboxes,
   selectCurrentClub,
   selectCurrentJukebox,
   selectHasJukeboxAux,
   selectUser,
+  updateClub,
 } from 'src/store'
 
 import './Topbar.scss'
+import { thunkFetchClubInfo } from 'src/store/club/clubThunks'
 
 export const Topbar = () => {
   const user = useSelector(selectUser)
@@ -22,15 +25,22 @@ export const Topbar = () => {
   const hasAux = useSelector(selectHasJukeboxAux)
 
   const handleClubChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const selectedClubId = e.target.value
+    const selectedClubId: number = Number(e.target.value)
 
     console.log('Set current club to:', selectedClubId)
+    updateClub(selectedClubId)
+    if (currentClub !== null) {
+      console.log('Current club is ', currentClub.id)
+    }
   }
 
   const handleJukeboxChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const selectedJukeboxId = e.target.value
+    const selectedJukeboxId: number = Number(e.target.value)
+    fetchJukebox(selectedJukeboxId)
 
-    console.log('Selected Club is: ', selectCurrentJukebox)
+    if (currentJukebox !== null) {
+      console.log('Selected JBX is: ', currentJukebox.id)
+    }
   }
 
   return (

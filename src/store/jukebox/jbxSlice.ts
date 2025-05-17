@@ -5,6 +5,7 @@ import {
   thunkFetchJukeboxes,
   thunkFetchNextTracks,
   thunkSyncSpotifyTokens,
+  thunkFetchJBX,
 } from './jbxThunks'
 
 export const jukeboxSlice = createSlice({
@@ -110,6 +111,12 @@ export const jukeboxSlice = createSlice({
       }
 
       state.spotifyAuth = action.payload.data
+    })
+    builder.addCase(thunkFetchJBX.fulfilled, (state, action) =>{ 
+      if (action.payload.success) {
+        state.currentJukebox = action.payload.data
+        return
+      }
     })
 
     builderDefaults(builder)

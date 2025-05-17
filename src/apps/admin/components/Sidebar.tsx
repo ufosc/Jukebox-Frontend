@@ -200,6 +200,12 @@ export const Sidebar = (props: { className?: string }) => {
   const [isDropdown1Open, setIsDropdown1Open] = useState(false)
   const [isDropdown2Open, setIsDropdown2Open] = useState(false)
   const [isDropdown3Open, setIsDropdown3Open] = useState(false)
+  const [isDropdownJukeboxOpen, setIsDropdownJukeboxOpen] = useState(false)
+
+  // Function to toggle dropdown jukebox
+  const toggleDropdownJukebox = () => {
+    setIsDropdownJukeboxOpen(!isDropdownJukeboxOpen)
+  }
 
   // Function to toggle dropdown 1
   const toggleDropdown1 = () => {
@@ -239,12 +245,26 @@ export const Sidebar = (props: { className?: string }) => {
                   <NavItem route="/admin" text="Home" end />
                 </span>
               </li>
+
               <li className="navbar__nav__list__item">
                 <span className="navbar__nav__item">
                   <SpeakerIcon />
                   <NavItem route="player" text="Jukebox" end />
+                  <button
+                    className="navbar__dropdown__button"
+                    onClick={toggleDropdownJukebox}
+                  >
+                    <DropdownIcon />
+                  </button>
                 </span>
+                {isDropdownJukeboxOpen && (
+                  <div className="navbar__dropdown__content">
+                    <NavLink to="/admin/player">Current Jukebox</NavLink>
+                    <NavLink to="/admin/createJbx">Create New Jukebox</NavLink>
+                  </div>
+                )}
               </li>
+
               <li className="navbar__nav__list__item">
                 <span className="navbar__nav__item">
                   <BoardIcon />

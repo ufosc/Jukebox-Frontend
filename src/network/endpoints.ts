@@ -15,9 +15,12 @@ export const NetworkEndpoints = Object.freeze({
   club: {
     list: `${clubsApi}/club/clubs/`,
     get: (id: number) => `${clubsApi}/club/clubs/${id}/`,
+    members: (id: number) => `${clubsApi}/club/clubs/${id}/members`
   },
   jukebox: {
     list: `${jukeboxApi}/jukebox/jukeboxes/`,
+    getJbk: (jukeboxId : number) => 
+      `${jukeboxApi}/jukebox/jukeboxes/${jukeboxId}`,
     activeLink: (jukeboxId: number) =>
       `${jukeboxApi}/jukebox/${jukeboxId}/active-link/`,
     getSpotifyAccount: (jukeboxId: number) =>
@@ -28,6 +31,12 @@ export const NetworkEndpoints = Object.freeze({
       `${jukeboxApi}/jukebox/${jukeboxId}/player-state/`,
     nextTracks: (jukeboxId: number) =>
       `${jukeboxApi}/jukebox/${jukeboxId}/tracks-queue/`,
+    links: (jukeboxId: number) =>
+      `${jukeboxApi}/jukebox/${jukeboxId}/links/`,
+    search: (jukeboxId: number) =>
+      `${jukeboxApi}/jukebox/${jukeboxId}/search`,
+    queue: (jukeboxId: number)=>
+      `${jukeboxApi}/jukebox/${jukeboxId}/tracks-queue`,
   },
   spotify: {
     login: (redirectUri: string, jukeboxId?: number) =>

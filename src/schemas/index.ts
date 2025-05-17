@@ -1,4 +1,5 @@
 export * from './club'
 export * from './jukebox'
+export * from './player'
 export * from './spotifyAccount'
 export * from './user'

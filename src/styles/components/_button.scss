@@ -37,6 +37,11 @@
     background-color: var(--color-#{$color-role}-container);
     color: var(--color-#{$color-role}-container-on);
     border-color: var(--color-#{$color-role}-container);
+  } @else if $type == 'fancy' {
+    background-color: #9D482F;
+    color:white;
+    border-color: #9D482F;
+    border-radius: 20px;
   }
 
   &:disabled {
@@ -80,6 +85,18 @@
   @each $name, $props in $component-colors {
     &--#{$name} {
       @include button('tonal', $name);
+    }
+  }
+
+  
+}
+
+.button-fancy{
+  @include button('fancy');
+  
+  @each $name, $props in $component-colors {
+    &--#{$name} {
+      @include button('fancy', $name);
     }
   }
 }

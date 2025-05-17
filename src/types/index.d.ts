@@ -32,3 +32,19 @@ declare interface ISpotifyLink extends IModel {
   expires_at: string
   token_type: string
 }
+
+//Maybe combine?
+declare interface ITrackSearch{
+  href: string
+  items: ITrackDetails[]
+  limit: number
+  next: string | null
+  offset: number
+  previous: string | null
+  total: number
+}
+
+declare interface ITrackSeachList{
+  tracks: ITrackSearch
+}
+

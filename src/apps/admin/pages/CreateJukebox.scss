@@ -1,15 +1,20 @@
-.jukebox-form{
+.jukebox-form {
   .title {
-    
-    @include font-headline('md')
+    @include font-headline('md');
   }
 
-  .form{
-
+  .form {
     display: flex;
     flex-direction: column;
-
-
   }
+}
 
+.height-jbx {
+  margin-top: 5rem;
+  height: 4.5rem;
+  width: 20rem;
+}
+
+.create-jukeboxes{
+  margin-top: 11rem;
 }

@@ -1,5 +1,5 @@
-import { useContext, useEffect, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useContext, useRef } from 'react'
+import { useSelector } from 'react-redux'
 import { AudioPlayer, Form, FormSelectGroup, FormSubmit } from 'src/components'
 import { REACT_ENV } from 'src/config'
 import { SpotifyContext } from 'src/context'
@@ -25,7 +25,7 @@ export const SpotifyPlayer = () => {
   const currentTrack = useSelector(selectCurrentTrack)
   const nextTracks = useSelector(selectNextTracks)
   const spotifyLinks = useSelector(selectAllLinks)
-  const dispatch = useDispatch()
+  //const dispatch = useDispatch();
 
   const {
     deviceIsActive: isActive,
@@ -50,6 +50,7 @@ export const SpotifyPlayer = () => {
 
   const getTheLinks = async () => {
     console.log(spotifyLinks)
+    console.log(spotifyLinks)
   }
 
   const getSpotLinks = async () => {
@@ -57,13 +58,10 @@ export const SpotifyPlayer = () => {
     console.log(response.data)
   }
 
-  /**
-   * Updates the links for usage
-   * Figure out the placement later
-   */
-  useEffect(() => {
-    dispatch({ type: 'users/links' })
-  }, [])
+  const getCurrentTrack = () => {
+    const response = currentTrack
+    console.log(response)
+  }
 
   return (
     <>
@@ -91,6 +89,13 @@ export const SpotifyPlayer = () => {
               }}
             >
               Add Account
+            </button>
+            <button
+              onClick={() => {
+                getCurrentTrack()
+              }}
+            >
+              Get Current Track
             </button>
           </div>
 

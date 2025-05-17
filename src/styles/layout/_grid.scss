@@ -2,11 +2,11 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 1rem;
-  
-  [class*="col-"] {
-    min-height: 14rem;
+
+  [class*='col-'] {
+    min-height: 4rem;
   }
-  
+
   & .col-1 {
     grid-column: span 1;
   }
@@ -26,7 +26,7 @@
     grid-column: span 6;
   }
   & .col-7 {
-    grid-column: span 7
+    grid-column: span 7;
   }
   & .col-8 {
     grid-column: span 8;
@@ -43,7 +43,7 @@
   & .col-12 {
     grid-column: span 12;
   }
-  
+
   & .row-3 {
     grid-row: span 3;
   }
