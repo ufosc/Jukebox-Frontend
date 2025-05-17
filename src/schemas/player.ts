@@ -18,11 +18,11 @@ export const TrackDetailsSchema: z.ZodSchema<ITrackDetails> = z.object({
     id: z.string(),
     type: z.enum(['album']),
     href: z.string(),
-    album_type: z.enum(['album', 'compilation', 'single']),
+    album_type: z.enum(['album', 'single']),
     artists: z.array(ArtistInlineDetailsSchema),
     available_markets: z.array(z.string()),
     release_date: z.string(),
-    release_date_precision: z.enum(['day', 'year']),
+    release_date_precision: z.enum(['day']),
     total_tracks: z.number(),
     images: z.array(
       z.object({
