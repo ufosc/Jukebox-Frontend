@@ -280,4 +280,12 @@ export class Network extends NetworkBase {
     return response
   }
 
+  public async listClubJukeboxes(clubId: number) {
+    const url = this.endpoints.jukebox.getClubList(clubId)
+
+    return await this.request(url, JukeboxListSchema, {
+      mock: { data: mockJukeboxes },
+    })
+  }
+
 }

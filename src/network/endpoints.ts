@@ -21,6 +21,8 @@ export const NetworkEndpoints = Object.freeze({
     list: `${jukeboxApi}/jukebox/jukeboxes/`,
     getJbk: (jukeboxId : number) => 
       `${jukeboxApi}/jukebox/jukeboxes/${jukeboxId}`,
+    getClubList: (clubId: number) =>
+      `${jukeboxApi}/jukebox/jukeboxes/club/${clubId}`,
     activeLink: (jukeboxId: number) =>
       `${jukeboxApi}/jukebox/${jukeboxId}/active-link/`,
     getSpotifyAccount: (jukeboxId: number) =>

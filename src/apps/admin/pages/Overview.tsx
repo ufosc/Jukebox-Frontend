@@ -3,15 +3,26 @@ import './Overview.scss'
 import FallbackImg from 'src/assets/img/jukeboxImage.png'
 import Disk from 'src/assets/svg/Disk.svg?react'
 
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { AudioPlayer, TrackList } from 'src/components'
 import { PlayerContext } from 'src/context'
-import { selectNextTracks } from 'src/store/jukebox'
+import { fetchNextTracks } from 'src/store'
+import { selectCurrentJukebox, selectNextTracks } from 'src/store/jukebox'
 
 export const Overview = () => {
   const queuedTracks = useSelector(selectNextTracks)
   const { playerState } = useContext(PlayerContext)
+  const currentJukebox = useSelector(selectCurrentJukebox)
+
+  useEffect(() => {
+    console.log('queued tracks ', queuedTracks)
+    fetchNextTracks()
+  }, [currentJukebox])
+
+  const getQueue = async () => {
+    fetchNextTracks()
+  }
 
   return (
     <>
@@ -46,6 +57,8 @@ export const Overview = () => {
           )}
         </div>
       </div>
+
+      
 
       <div className="grid">
         <div className="col-12">
