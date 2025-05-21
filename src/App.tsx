@@ -11,6 +11,7 @@ import {
 } from './context'
 import {
   checkLinkAuth,
+  fetchNextTracks,
   selectCurrentJukebox,
   selectSpotifyAuth,
   selectUserLoggedIn,
@@ -53,6 +54,10 @@ export const App = () => {
     },
     [currentJukebox],
   )
+
+  useEffect(() => {
+    fetchNextTracks()
+  }, [currentJukebox])
 
   /**
      * Updates the links for usage

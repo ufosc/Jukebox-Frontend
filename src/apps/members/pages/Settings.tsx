@@ -14,7 +14,7 @@ export const Settings = () => {
   return (
     <div>
       <section>
-        <h2>Current User</h2>
+        <h2>Settings</h2>
         <ul>
           <li>
             Name: {user?.first_name} {user?.last_name}

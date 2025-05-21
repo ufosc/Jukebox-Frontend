@@ -1,0 +1,65 @@
+.settings-title{
+  @include font-display('md');
+  color: var(--color-primary-contrast);
+  margin-bottom: 2%;
+  margin-top: 2%;
+  justify-items: center;
+}
+
+.settings-category{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  height: 5rem;
+  justify-content: space-between;
+  color: var(--color-surface-on);
+}
+
+.settings-category .outline{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.outline .name{
+  @include font-title('lg')
+}
+
+.settings-category .details{
+
+}
+
+.authentication-title{
+  @include font-title('lg');
+  font-size: 3rem;
+  margin-bottom: 1.5vh;
+}
+
+.logout-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 4vh;
+
+}
+
+.password-container{
+
+}
+
+.password-container .description{
+  margin-top: 1rem;
+
+}
+
+.logout-container .logout-btn{
+  background: #DA2E25;
+}
+
+.logout-container .delete-btn{
+  border: 2px solid (#DA2E25);
+  color: #DA2E25;
+
+}

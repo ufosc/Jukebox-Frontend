@@ -96,7 +96,7 @@ export const SpotifyPlayerViewer = () => {
             />
             <SpotifyPlayerDetail
               firstDetail="Release Date"
-              secondDetail="1987"
+              secondDetail={currentTrack ? currentTrack?.track.album.release_date : '1987'}
             />
           </div>
           <div className="detail-container">
