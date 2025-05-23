@@ -3,8 +3,8 @@
   padding-bottom: 2vh;
 }
 
-.music-search-form * {
-  color: var(--color-primary-surface);
+.music-search-form {
+  color: var(--color-outline);
   @include font-label('sm', 300);
   width: 100%;
 }
@@ -39,6 +39,8 @@
   border-radius: 50px;
   background-color: var(--color-primary-contrast);
   color: var(--color-primary-on);
+  cursor:pointer;
+
 }
 
 .result-container {

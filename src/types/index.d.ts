@@ -48,3 +48,7 @@ declare interface ITrackSeachList{
   tracks: ITrackSearch
 }
 
+declare interface IRemovedTrack{
+  item: IQueuedTrack
+}
+

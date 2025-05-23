@@ -9,7 +9,7 @@ import {
   SpotifyLinksSchema,
   UserDetailsSchema,
 } from 'src/schemas'
-import { QueuedTrackListSchema, TrackListResult } from 'src/schemas/player'
+import { deleteTrackListResult, deleteTrackResult, QueuedTrackListSchema, TrackListResult } from 'src/schemas/player'
 import {
   getRandomSample,
   mockClubs,
@@ -286,6 +286,16 @@ export class Network extends NetworkBase {
     return await this.request(url, JukeboxListSchema, {
       mock: { data: mockJukeboxes },
     })
+  }
+
+  public async removeQueuedTrack(jukeboxId: number, queueId: string) {
+    const url = this.endpoints.jukebox.removeQTrack(jukeboxId, queueId)
+
+    const response = await this.request(url, deleteTrackListResult, {
+      method: 'DELETE',
+    })
+
+    return response
   }
 
 }

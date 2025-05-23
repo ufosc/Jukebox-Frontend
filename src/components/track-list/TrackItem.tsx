@@ -2,9 +2,13 @@ import { formatDuration } from 'src/utils'
 
 import { TrackInteractions } from './TrackInteractions'
 import './TrackItem.scss'
+import { useSelector } from 'react-redux'
+import {  selectUser } from 'src/store'
 
 export const TrackItem = (props: { track: Nullable<IQueuedTrack> }) => {
   const { track } = props
+
+  
 
   return (
     <li className="track-list-track">

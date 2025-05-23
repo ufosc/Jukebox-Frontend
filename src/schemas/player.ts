@@ -71,10 +71,16 @@ export const TrackSearchResult: z.ZodSchema<ITrackSearch> = z.object({
   next: z.string().nullable(),
   offset: z.number(),
   previous: z.string().nullable(),
-  total: z.number()
+  total: z.number(),
 
 })
 
 export const TrackListResult: z.ZodSchema<ITrackSeachList> = z.object({
-  tracks: TrackSearchResult
+  tracks: TrackSearchResult,
 })
+
+export const deleteTrackResult: z.ZodSchema<IRemovedTrack> = z.object({
+  item: QueuedTrackSchema,
+})
+
+export const deleteTrackListResult = z.array(deleteTrackResult)
