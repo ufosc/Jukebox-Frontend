@@ -89,7 +89,7 @@ export const Board1: React.FC = () => {
   }
 
   return (
-    <DndProvider backend={HTML5Backend}>
+    <>
       {' '}
       {/* Drag and Drop wrap  required for react-dnd*/}
       <button
@@ -121,6 +121,6 @@ export const Board1: React.FC = () => {
           </DraggablePanel>
         ))}
       </div>
-    </DndProvider>
+    </>
   )
 }

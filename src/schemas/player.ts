@@ -79,8 +79,12 @@ export const TrackListResult: z.ZodSchema<ITrackSeachList> = z.object({
   tracks: TrackSearchResult,
 })
 
-export const deleteTrackResult: z.ZodSchema<IRemovedTrack> = z.object({
+export const deleteTrackResultSchema: z.ZodSchema<IRemovedTrack> = z.object({
   item: QueuedTrackSchema,
 })
 
-export const deleteTrackListResult = z.array(deleteTrackResult)
+export const deleteTrackListResult = z.array(deleteTrackResultSchema)
+
+export const swapTrackSchema: z.ZodSchema<ISwapTrack> = z.object({
+  success: z.number(),
+})

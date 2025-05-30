@@ -9,6 +9,8 @@ import { SocketProvider } from './context'
 import './styles/theme/fonts/chango/css/chango.css'
 import './styles/theme/fonts/poppins/css/poppins.css'
 import './styles/theme/fonts/termina/css/termina.css'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 // Manage theme and light/dark mode as "singleton"
 ThemeManager.getInstance()
@@ -20,8 +22,11 @@ createRoot(document.getElementById('root')!).render(
     <StoreProvider store={store}>
       {/* SocketIO Provider */}
       <SocketProvider>
-        {/* URL Routes Render Here */}
-        <Router />
+        {/* React-dnd Provider */}
+        <DndProvider backend={HTML5Backend}>
+          {/* URL Routes Render Here */}
+          <Router />
+        </DndProvider>
       </SocketProvider>
     </StoreProvider>
   </React.StrictMode>,
