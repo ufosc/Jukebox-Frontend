@@ -85,6 +85,4 @@ export const deleteTrackResultSchema: z.ZodSchema<IRemovedTrack> = z.object({
 
 export const deleteTrackListResult = z.array(deleteTrackResultSchema)
 
-export const swapTrackSchema: z.ZodSchema<ISwapTrack> = z.object({
-  success: z.number(),
-})
+export const swapTrackSchema = z.number()

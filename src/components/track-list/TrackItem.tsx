@@ -9,8 +9,8 @@ import { Network } from 'src/network'
 import { useSelector } from 'react-redux'
 import { selectCurrentJukebox } from 'src/store'
 
-export const TrackItem = (props: { track: Nullable<IQueuedTrack>, moveListItem:(dragIndex: number, hoverIndex: number) => void , index:number, dropEvent:any }) => {
-  const { track, moveListItem, dropEvent, index } = props
+export const TrackItem = (props: { track: Nullable<IQueuedTrack>, moveListItem:(dragIndex: number, hoverIndex: number) => void , index:number }) => {
+  const { track, moveListItem, index } = props
 
   const adminStatus = useContext(AdminContext)
   const ref = useRef<HTMLLIElement >(null)
@@ -20,10 +20,10 @@ export const TrackItem = (props: { track: Nullable<IQueuedTrack>, moveListItem:(
 
   const [targetPos, setTargetPos] = useState(-1)
   const [hoverIndexNum, setHoverIndexNum] = useState(-1)
-  const [originalIndex] = useState(index)
+  const [originalIndex, setOriginalIndex] = useState(index)
 
   const [spec, dropRef] = useDrop({
-    accept: 'item',
+    accept: 'track',
     hover: (item:any, monitor:any) => {
       const dragIndex = item.index
       const hoverIndex = index
@@ -45,53 +45,48 @@ export const TrackItem = (props: { track: Nullable<IQueuedTrack>, moveListItem:(
       if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) return
   
       props.moveListItem(dragIndex, hoverIndex)
+      moveListItem(dragIndex, hoverIndex)
       setTargetPos(dragIndex)
 
       item.index = hoverIndex
+    },
+    drop: (item:any, monitor:any) => {
+      console.log(`Moving the ${originalIndex} to ${targetPos}`)
+      if(currentJukebox)
+      {
+        const res = network.swapTracks(currentJukebox.id, originalIndex, targetPos)
+        console.log(res)
+      }
+
+      //update track position
+      setOriginalIndex(targetPos)
     }
   })
 
   const [{ isDragging }, dragRef] = useDrag({
-    type: 'item',
+    type: 'track',
     item: { index },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
   })
 
-  dragRef(ref)
-
-  useEffect(() => {
-    if(isDragging)
-    {
-      console.log(`Element ${originalIndex} is being dragged`)
-    }else{
-      console.log(`Element ${originalIndex} is no longer being dragged`)
-    }
-  }, [isDragging])
-
-  const onDropEvent = async () =>{ 
-    console.log(`Moving the ${originalIndex} to ${targetPos}`)
-    console.log(originalIndex)
-    if(currentJukebox)
-    {
-      const res = await network.swapTracks(currentJukebox?.id, originalIndex, targetPos)
-      console.log(res)
-    }
-  }
-
-  useEffect(()=>{
-    console.log("index changed!")
-  }, [originalIndex])
+  const draggingStyle: React.CSSProperties = isDragging ? {
+    border: '2px solid red'} : {}
 
   const dropperRef = dropRef(ref)
   dropRef(ref)
   dragRef(ref)
 
+  //I think it works unintentionally, assuming the queue id changes
+  useEffect(()=>{
+    setOriginalIndex(index)
+  },[track])
+
   return (
     <>
       {adminStatus.role === 'admin' ? (
-        <li className="track-list-track" ref={ref} onDrop={onDropEvent}>
+        <li className="track-list-track" ref={ref} style={{...draggingStyle}}>
           {!track && <p>No track specified.</p>}
           {track && (
             <>

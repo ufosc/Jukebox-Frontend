@@ -303,7 +303,7 @@ export class Network extends NetworkBase {
     console.log("Active")
     const response = await this.request(url, swapTrackSchema, {
       method: 'POST',
-      data: {currentPos: currentPosition, targetPos:  currentPosition}
+      data: {currentPos: currentPosition, targetPos:  tragetPosition}
     })
 
     return response

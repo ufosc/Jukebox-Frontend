@@ -1,7 +1,7 @@
 import { mergeClassNames } from 'src/utils'
 import { TrackItem } from './TrackItem'
 import './TrackList.scss'
-import { useCallback } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 export const TrackList = (props: {
   tracks: IQueuedTrack[]
@@ -10,22 +10,37 @@ export const TrackList = (props: {
 }) => {
   const { tracks, offsetCount, maxCount } = props
 
+  function deepCopy<T>(value: T): T {
+    return structuredClone(value)
+  }
+
+  const initialCopy = useMemo(()=>
+    deepCopy(tracks), [tracks]
+  )
+
+  const [queuedTracks, swapTracks] = useState<IQueuedTrack[]>(initialCopy)
 
   const moveListItem = useCallback(
     (dragIndex:number, hoverIndex:number) => {
-      const dragItem = tracks[dragIndex]
-      const hoverItem = tracks[hoverIndex]
+      const dragItem = queuedTracks[dragIndex]
+      const hoverItem = queuedTracks[hoverIndex]
   
       //Swap places of Items
+      swapTracks((queuedTracks: any) => {
+        const updatedTracks = [...queuedTracks]
+        updatedTracks[dragIndex] = hoverItem
+        updatedTracks[hoverIndex] = dragItem
+        return updatedTracks
+      })
   
-      console.log(`From ${dragIndex} to ${hoverIndex}`)
+      //console.log(`From ${dragIndex} to ${hoverIndex}`)
     },
-    [tracks],
+    [queuedTracks],
   )
 
-  const onDropEvents = () =>{ 
-    console.log("Dropped")
-  }
+  useEffect(()=>{
+    swapTracks(deepCopy(tracks))
+  },[tracks])
 
   return (
     <ol
@@ -34,12 +49,12 @@ export const TrackList = (props: {
         offsetCount && 'track-list-offset',
       )}
     >
-      {tracks &&
-        tracks.length > 0 &&
-        tracks
+      {queuedTracks &&
+        queuedTracks.length > 0 &&
+        queuedTracks
           .map(
             (track, index) =>
-              track && <TrackItem track={track} key={track.queue_id} moveListItem={moveListItem} index={index} dropEvent={onDropEvents}/>,
+              track && <TrackItem track={track} key={track.queue_id} moveListItem={moveListItem} index={index}/>,
           )
           .splice(0, maxCount ?? tracks.length)}
       {tracks.length < 1 && <p>No tracks available.</p>}

@@ -34,7 +34,6 @@ export const CardList = (props: { track: IQueuedTrack, moveListItem:(dragIndex: 
         console.log("Error!")
         return
       }
-      
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
       //Fix this to use the actual box y instead of the actual cursor y
       const hoverActualY = monitor.getClientOffset().y - hoverBoundingRect.top
@@ -49,8 +48,7 @@ export const CardList = (props: { track: IQueuedTrack, moveListItem:(dragIndex: 
     }
   })
 
-  dragRef(ref)
-  dropRef(ref)
+  dragRef(dropRef(ref))
 
   useEffect(()=>{
     if(isDragging)
