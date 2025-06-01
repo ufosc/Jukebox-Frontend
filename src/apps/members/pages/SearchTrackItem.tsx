@@ -1,14 +1,18 @@
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Network } from 'src/network'
 import { selectCurrentJukebox } from 'src/store'
 import { formatDuration } from 'src/utils'
 
+import "./SearchTrackItem.scss"
 
 export const SearchTrackItem = (props: { track: Nullable<ITrackDetails> }) => {
   const { track } = props
 
   const network = Network.getInstance()
   const jukebox = useSelector(selectCurrentJukebox)
+
+  const [addedToQueue, setAddedToQueue] = useState(false);
 
   const addSongToQueue = async() =>{
     if(track && jukebox)
@@ -20,6 +24,7 @@ export const SearchTrackItem = (props: { track: Nullable<ITrackDetails> }) => {
       console.log("Not Possible")
     }
 
+    setAddedToQueue(true)
   }
 
   return (
@@ -42,11 +47,15 @@ export const SearchTrackItem = (props: { track: Nullable<ITrackDetails> }) => {
           <div className="track-list-track__info track-list-track__duration">
             {formatDuration(track.duration_ms)}
           </div>
-          <div>
+          {addedToQueue ? (
+              <div className='added-to-queue'>
+                Added to Queue
+              </div>
+            ) : (<div>
             <button className="button-solid" onClick={addSongToQueue}>
              + Add to Queue  
             </button>
-          </div>
+          </div>)}
         </>
       )}
     </li>

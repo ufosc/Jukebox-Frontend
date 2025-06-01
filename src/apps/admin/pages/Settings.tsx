@@ -5,6 +5,8 @@ import { SpotifyContext } from 'src/context'
 import { logoutUser, selectAllClubs, selectUser } from 'src/store'
 import { selectAllJukeboxes, selectCurrentJukebox } from 'src/store/jukebox'
 
+import './Settings.scss'
+
 export const Settings = () => {
   const clubs = useSelector(selectAllClubs)
   const user = useSelector(selectUser)
@@ -19,21 +21,94 @@ export const Settings = () => {
     // navigate('/auth/login')
   }
 
+  const handleDelete = async () => {
+    console.log('deleted account')
+
+  }
+
   return (
     <div>
-      <section>
-        <h2>Current User</h2>
-        <ul>
-          <li>
-            Name: {user?.first_name} {user?.last_name}
-          </li>
-          <li>Email: {user?.email}</li>
-          <li>Username: {user?.username}</li>
-        </ul>
+      <div className=''>
+        <h2 className='settings-title'>Settings</h2>
+        
+        <div className='grid'>
+          <div className='col-7'>
+              <div className='settings-category'>
 
-        <button onClick={handleLogout}>Logout</button>
-      </section>
+                <div className='outline'>
+                  <div className='name'>
+                    Name
+                  </div>
+                  <button>
+                    Edit
+                  </button>
+                </div>
+
+                <div className='details'>
+                  {user?.first_name} {user?.last_name}
+                </div>
+              </div>
+
+
+              <div className='settings-category'>
+                <div className='outline'>
+                  <div className='name'>
+                    Email
+                  </div>
+                  <button>
+                    Edit
+                  </button>
+
+                  </div>
+
+                <div className='details'>
+                  {user?.email}
+                </div>
+              </div>
+              
+              <div className='settings-category'>
+                <div className='outline'>
+                  <div className='name'>
+                    Username
+                  </div>
+                  <button>
+                    Edit
+                  </button>
+                </div>
+
+                <div className='details'>
+                  {user?.username}
+                </div>
+              </div>
+
+          </div>
+
+          <section className='col-1 spacer'>
+          </section>
+
+          <section className='col-4'>
+            <div className='authentication-title'>
+              Password
+            </div>
+            <div className='password-container'>
+              <button className="button-fancy" onClick={handleLogout}>Change Password</button>
+              <div className='description'>
+                Password last changed on May 23, 2025
+              </div>
+            </div>
+           <div className='logout-container'>
+             <button className="button-fancy logout-btn" onClick={handleLogout}>Logout</button>  
+             <button className="button-outlined delete-btn" onClick={handleDelete}>Delete Account</button>
+           </div>
+          </section>
+
+        </div>
+      </div>
+
+      
       <br />
+
+      
       <section>
         <h2>Clubs</h2>
         <ul>
@@ -42,6 +117,7 @@ export const Settings = () => {
           ))}
         </ul>
       </section>
+
       <section>
         <h2>Jukeboxes</h2>
         <ul>

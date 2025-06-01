@@ -9,7 +9,7 @@ import {
   SpotifyLinksSchema,
   UserDetailsSchema,
 } from 'src/schemas'
-import { QueuedTrackListSchema, TrackListResult } from 'src/schemas/player'
+import { deleteTrackListResult, deleteTrackResultSchema, QueuedTrackListSchema, swapTrackSchema, TrackListResult } from 'src/schemas/player'
 import {
   getRandomSample,
   mockClubs,
@@ -276,6 +276,35 @@ export class Network extends NetworkBase {
     const url = this.endpoints.jukebox.getJbk(jukeboxId)
 
     const response = await this.request(url, JukeboxSchema)
+
+    return response
+  }
+
+  public async listClubJukeboxes(clubId: number) {
+    const url = this.endpoints.jukebox.getClubList(clubId)
+
+    return await this.request(url, JukeboxListSchema, {
+      mock: { data: mockJukeboxes },
+    })
+  }
+
+  public async removeQueuedTrack(jukeboxId: number, queueId: string) {
+    const url = this.endpoints.jukebox.removeQTrack(jukeboxId, queueId)
+
+    const response = await this.request(url, deleteTrackListResult, {
+      method: 'DELETE',
+    })
+
+    return response
+  }
+
+  public async swapTracks(jukeboxId: number, currentPosition: number, tragetPosition: number) {
+    const url = this.endpoints.jukebox.swapTracks(jukeboxId)
+    console.log("Active")
+    const response = await this.request(url, swapTrackSchema, {
+      method: 'POST',
+      data: {currentPos: currentPosition, targetPos:  tragetPosition}
+    })
 
     return response
   }

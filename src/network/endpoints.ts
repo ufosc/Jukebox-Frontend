@@ -21,6 +21,8 @@ export const NetworkEndpoints = Object.freeze({
     list: `${jukeboxApi}/jukebox/jukeboxes/`,
     getJbk: (jukeboxId : number) => 
       `${jukeboxApi}/jukebox/jukeboxes/${jukeboxId}`,
+    getClubList: (clubId: number) =>
+      `${jukeboxApi}/jukebox/jukeboxes/club/${clubId}`,
     activeLink: (jukeboxId: number) =>
       `${jukeboxApi}/jukebox/${jukeboxId}/active-link/`,
     getSpotifyAccount: (jukeboxId: number) =>
@@ -37,6 +39,10 @@ export const NetworkEndpoints = Object.freeze({
       `${jukeboxApi}/jukebox/${jukeboxId}/search`,
     queue: (jukeboxId: number)=>
       `${jukeboxApi}/jukebox/${jukeboxId}/tracks-queue`,
+    removeQTrack: (jukeboxId: number, queue_id: string) =>
+      `${jukeboxApi}/jukebox/${jukeboxId}/tracks-queue/${queue_id}/`,
+    swapTracks: (jukeboxId: number) => 
+      `${jukeboxApi}/jukebox/${jukeboxId}/tracks-queue/swap-tracks`,
   },
   spotify: {
     login: (redirectUri: string, jukeboxId?: number) =>
