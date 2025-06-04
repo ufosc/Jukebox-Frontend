@@ -11,6 +11,7 @@ import {
   selectHasJukeboxAux,
   selectUser,
   updateClub,
+  updateMembership,
 } from 'src/store'
 
 import './Topbar.scss'
@@ -31,6 +32,9 @@ export const Topbar = () => {
     updateClub(selectedClubId)
     if (currentClub !== null) {
       console.log('Current club is ', currentClub.id)
+    }
+    if(user !== null) {
+      updateMembership(selectedClubId, user.id)
     }
   }
 

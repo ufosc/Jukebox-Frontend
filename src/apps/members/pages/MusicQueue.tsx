@@ -11,9 +11,6 @@ export const MusicQueue = () => {
         <h1>Next Up</h1>
         <TrackList tracks={nextTracks} />
       </div>
-      <button className="button-outlined queue-button" onClick={clearNextTracks}>
-        Clear Queue
-      </button>
     </div>
   )
 }

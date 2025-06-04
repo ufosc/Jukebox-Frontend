@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux'
 import { TrackList } from 'src/components'
-import { clearNextTracks, selectCurrentJukebox, selectNextTracks } from 'src/store'
+import { clearNextTracks, selectCurrentJukebox, selectCurrentMembership, selectNextTracks, selectUser } from 'src/store'
 import './MusicQueue.scss'
-import { createContext, useContext } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import { ThemeContext } from 'src/context'
 import { TempList } from '../components/TempList'
 import { DndProvider } from 'react-dnd'
@@ -21,11 +21,31 @@ export const AdminContext = createContext<AdminContextType>({
 export const MusicQueue = () => {
   const nextTracks = useSelector(selectNextTracks)
   const currentJukebox = useSelector(selectCurrentJukebox)
+  const currentUser = useSelector(selectUser)
+  const currentMembership = useSelector(selectCurrentMembership)
   
-  const currentContext = {
+  const [currentContext, setCurrentContext] = useState({
     role: "admin",
-    jukebox: currentJukebox
-  }
+    jukebox: currentJukebox,
+  })
+
+  useEffect(()=>{
+    if(currentMembership && currentMembership.is_admin) {
+      setCurrentContext(prev => ({
+        ...prev,
+        role: "admin"
+      }))
+    }else{
+      setCurrentContext(prev => ({
+        ...prev,
+        role: "member"
+      }))
+    }
+  }, [currentMembership])
+
+  useEffect(()=>{
+    console.log(currentUser)
+  }, [])
 
   return (
     <>
@@ -36,9 +56,6 @@ export const MusicQueue = () => {
             <TrackList tracks={nextTracks} />
         </AdminContext.Provider>
       </div>
-      <button className="button-outlined" onClick={clearNextTracks}>
-        Clear Queue
-      </button>
     </div>
     {/* 
     <AdminContext.Provider value={currentContext}>

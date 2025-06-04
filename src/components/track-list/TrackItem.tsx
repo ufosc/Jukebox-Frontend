@@ -63,6 +63,7 @@ export const TrackItem = (props: { track: Nullable<IQueuedTrack>, moveListItem:(
     }
   })
 
+    /*
   const [{ isDragging }, dragRef] = useDrag({
     type: 'track',
     item: { index },
@@ -73,10 +74,11 @@ export const TrackItem = (props: { track: Nullable<IQueuedTrack>, moveListItem:(
 
   const draggingStyle: React.CSSProperties = isDragging ? {
     border: '2px solid red'} : {}
-
+        */
   const dropperRef = dropRef(ref)
   dropRef(ref)
-  dragRef(ref)
+  //dragRef(ref)
+ 
 
   //I think it works unintentionally, assuming the queue id changes
   useEffect(()=>{
@@ -86,7 +88,7 @@ export const TrackItem = (props: { track: Nullable<IQueuedTrack>, moveListItem:(
   return (
     <>
       {adminStatus.role === 'admin' ? (
-        <li className="track-list-track" ref={ref} style={{...draggingStyle}}>
+        <li className="track-list-track" ref={ref} >
           {!track && <p>No track specified.</p>}
           {track && (
             <>
@@ -109,7 +111,7 @@ export const TrackItem = (props: { track: Nullable<IQueuedTrack>, moveListItem:(
                 {formatDuration(track.track.duration_ms)}
               </div>
               <div className="track-list-track__info track-list-track__activity">
-                <TrackInteractions track={track} ref={dropperRef} index={index}/>
+                <TrackInteractions track={track} index={index}/>
               </div>
             </>
           )}

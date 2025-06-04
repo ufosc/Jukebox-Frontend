@@ -12,7 +12,7 @@ import {
 export const userSlice = createSlice({
   name: 'user',
   initialState: {
-    user: null as IUser | null,
+    user: null as IUserDetails | null,
     loggedIn: null as boolean | null,
     status: 'idle' as StoreStatus,
     error: null as string | null,

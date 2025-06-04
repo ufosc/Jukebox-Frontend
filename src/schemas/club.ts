@@ -39,6 +39,10 @@ export const ClubMembershipSchema: z.ZodSchema<IClubMembership> = z.object({
   is_owner: z.boolean(),
   points: z.number(),
   user: UserSchema,
+  is_admin: z.boolean(),
+  roles: z.array(z.string()),
 })
 
 export const ClubMembershipsSchema = z.array(ClubMembershipSchema);
+
+
