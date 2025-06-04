@@ -2,7 +2,6 @@
   align-items: center;
   float: right;
   display: flex;
-  height: 100%;
   position: relative;
 
   z-index: 2;
@@ -10,6 +9,10 @@
   @include breakpoint('md') {
     display: none;
   }
+}
+
+.disk-container{
+  margin-top: 5vh;
 }
 
 .card {
@@ -30,7 +33,7 @@
 
   padding: 2.5rem;
   border-radius: 1rem;
-  margin-top: -11.2rem;
+  margin-top: -12.2rem;
 
   position: relative;
   z-index: 3;
@@ -127,8 +130,4 @@
   to {
     transform: translate(-50%, -50%) rotate(360deg);
   }
-}
-
-.tester{
-  color: red
 }

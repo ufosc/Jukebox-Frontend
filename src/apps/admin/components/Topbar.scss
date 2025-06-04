@@ -4,6 +4,7 @@ $size: 4rem;
   background-color: var(--color-surface-container);
   position: relative;
   width: 100%;
+  height: 7vh;
 
   display: flex;
   justify-content: space-between;
@@ -87,6 +88,15 @@ $size: 4rem;
   &__user-details {
     display: flex;
     gap: 3rem;
+    height: 100%;
+  }
+
+  &__success {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
   }
 
   &__notifications {
@@ -127,4 +137,36 @@ $size: 4rem;
       border: $border-thin;
     }
   }
+
+  &__search-tracks{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 40%
+  }
 }
+
+.search-tracks-field{
+  height: 4vh;
+  width: 100%;
+  color: var(--color-disabled);
+  background: var(--color-surface-container);
+  border: 1px solid var(--color-outline);
+  border-radius: 5px;
+  padding: 7px 10px;
+
+  font-family: Poppins;
+  @include font-label("sm");
+}
+
+.club-selection:focus {
+  outline: none;
+}
+
+.activeAux{
+  width: 100%;
+  height: 0.25rem;
+  background: var(--color-success);
+}
+
