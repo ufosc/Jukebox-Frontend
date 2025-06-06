@@ -1,6 +1,8 @@
 $size: 4rem;
 
 .topbar {
+  --dashboard-gutter: 1rem;
+
   background-color: var(--color-surface-container);
   position: relative;
   width: 100%;
@@ -11,6 +13,8 @@ $size: 4rem;
   align-items: center;
   z-index: 5;
   padding-right: 1.1rem;
+
+  padding: var(--dashboard-gutter);
 
   @media (max-width: 375px) {
     padding: 0 0.1rem;

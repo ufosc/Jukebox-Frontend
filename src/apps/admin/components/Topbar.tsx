@@ -21,8 +21,6 @@ export const Topbar = () => {
   const user = useSelector(selectUser)
   const clubs = useSelector(selectAllClubs)
   const currentClub = useSelector(selectCurrentClub)
-  const currentJukebox = useSelector(selectCurrentJukebox)
-  const allJukeboxes = useSelector(selectAllJukeboxes)
   const hasAux = useSelector(selectHasJukeboxAux)
 
   const [searchInput, setSearchInput] = useState('')

@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux'
 import { TrackList } from 'src/components'
 import { clearNextTracks, selectNextTracks } from 'src/store'
-import './MusicQueue.scss'
 
 export const MusicQueue = () => {
   const nextTracks = useSelector(selectNextTracks)

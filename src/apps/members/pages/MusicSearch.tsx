@@ -1,19 +1,15 @@
-import { useRef, useState, type ChangeEvent, type FormEvent } from 'react'
-import { TrackList } from 'src/components'
-import './MusicSearch.scss'
+import { useState, type ChangeEvent, type FormEvent } from 'react'
 import { useSelector } from 'react-redux'
-import { selectCurrentJukebox } from 'src/store'
 import { Network } from 'src/network'
-import { unknown } from 'zod'
-import { NetworkError } from 'src/utils'
-import { TrackSearchList } from './TrackSearchList'
+import { selectCurrentJukebox } from 'src/store'
+import { TrackSearchList } from '../../../components/track-list/TrackSearchList'
 
 export const MusicSearch = () => {
   const jukebox = useSelector(selectCurrentJukebox)
   const [inputs, setInputs] = useState({ track: '', album: '', artist: '' })
   const [tracks, setTracks] = useState<ITrackDetails[]>([])
   const network = Network.getInstance()
-  
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const name = event.target.name
     const value = event.target.value
@@ -23,23 +19,26 @@ export const MusicSearch = () => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     console.log(inputs)
-    if(jukebox !== null)
-    {
+    if (jukebox !== null) {
       console.log(inputs)
-      const tracksResult = await network.getTracks(jukebox.id, inputs.track, inputs.album, inputs.artist)
+      const tracksResult = await network.getTracks(
+        jukebox.id,
+        inputs.track,
+        inputs.album,
+        inputs.artist,
+      )
       console.log(tracksResult.data)
-      if(tracksResult.success)
-      {
+      if (tracksResult.success) {
         console.log(tracksResult.data.tracks.items)
         setTracks(tracksResult.data.tracks.items)
       }
       //if(tracksResult !== NetworkError<ITrackSeachList>)
       //{
-        //setTracks(tracksResult.data.tracks.items)
+      //setTracks(tracksResult.data.tracks.items)
 
       //}
-    }else{
-      console.log("Jukebox is not connected")
+    } else {
+      console.log('Jukebox is not connected')
     }
   }
 

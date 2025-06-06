@@ -1,13 +1,14 @@
 import { formatDuration } from 'src/utils'
 
 import { useContext, useEffect, useRef, useState } from 'react'
-import { AdminContext } from 'src/apps/admin/pages/MusicQueue'
+
 import { TrackInteractions } from './TrackInteractions'
 import './TrackItem.scss'
 import { useDrag, useDrop } from 'react-dnd'
 import { Network } from 'src/network'
 import { useSelector } from 'react-redux'
 import { selectCurrentJukebox } from 'src/store'
+import { AdminContext } from 'src/apps/admin'
 
 export const TrackItem = (props: { track: Nullable<IQueuedTrack>, moveListItem:(dragIndex: number, hoverIndex: number) => void , index:number }) => {
   const { track, moveListItem, index } = props

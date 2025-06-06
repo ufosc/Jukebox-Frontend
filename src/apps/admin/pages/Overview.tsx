@@ -20,10 +20,6 @@ export const Overview = () => {
     fetchNextTracks()
   }, [currentJukebox])
 
-  const getQueue = async () => {
-    fetchNextTracks()
-  }
-
   return (
     <>
       <div className="grid">

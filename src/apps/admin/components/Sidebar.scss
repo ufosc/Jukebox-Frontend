@@ -20,6 +20,7 @@
     margin: var(--dashboard-gutter);
     height: 100%;
     border-radius: 20px;
+    justify-content: space-between;
   }
 
   &__row:has(.switch) {
