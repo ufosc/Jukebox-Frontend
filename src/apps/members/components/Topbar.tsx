@@ -3,7 +3,6 @@ import type { ChangeEvent } from 'react'
 import { useSelector } from 'react-redux'
 import { selectAllClubs, selectCurrentClub, selectUser } from 'src/store'
 
-import './Topbar.scss'
 
 export const Topbar = () => {
   const user = useSelector(selectUser)

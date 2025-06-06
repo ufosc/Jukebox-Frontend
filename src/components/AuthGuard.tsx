@@ -7,11 +7,21 @@ import {
   fetchJukeboxes,
   initializeUser,
   logoutUser,
+  selectCurrentClub,
+  selectUser,
   selectUserLoggedIn,
+  store,
+  updateMembership,
 } from 'src/store'
 
 export const AuthGuard = (props: { children?: ReactNode }) => {
   const userIsLoggedIn = useSelector(selectUserLoggedIn)
+
+  /**
+   * Slices for getting current club membership
+   */
+  const user = useSelector(selectUser)
+  const currentClub = useSelector(selectCurrentClub)
 
   const navigate = useNavigate()
 
@@ -25,6 +35,12 @@ export const AuthGuard = (props: { children?: ReactNode }) => {
     await fetchAllClubs()
     await fetchCurrentClubInfo()
     await fetchJukeboxes()
+
+    const initialClub = selectCurrentClub(store.getState())
+
+    if (initialClub !== null && user !== null) {
+      updateMembership(initialClub.id, user.id)
+    }
   }
 
   useEffect(() => {

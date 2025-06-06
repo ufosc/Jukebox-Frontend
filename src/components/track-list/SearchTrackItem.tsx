@@ -15,6 +15,7 @@ export const SearchTrackItem = (props: { track: Nullable<ITrackDetails> }) => {
   const [addedToQueue, setAddedToQueue] = useState(false);
 
   const addSongToQueue = async() =>{
+    setAddedToQueue(true)
     if(track && jukebox)
     {
       const songhref:string = track.id
@@ -23,8 +24,6 @@ export const SearchTrackItem = (props: { track: Nullable<ITrackDetails> }) => {
     }else{
       console.log("Not Possible")
     }
-
-    setAddedToQueue(true)
   }
 
   return (

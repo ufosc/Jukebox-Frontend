@@ -21,8 +21,7 @@ export const thunkFetchCurrentlyPlaying = createAsyncThunk(
   'jukebox/fetchCurrentlyPlaying',
   async (jukeboxId: number) => {
     const res = network.getCurrentlyPlaying(jukeboxId);
-    console.log('we got this:', res)
-    return res;
+    return res
     //return await network.getCurrentlyPlaying(jukeboxId)
   },
 )

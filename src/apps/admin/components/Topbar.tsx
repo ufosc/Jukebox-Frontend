@@ -11,6 +11,7 @@ import {
   selectHasJukeboxAux,
   selectUser,
   updateClub,
+  updateMembership,
 } from 'src/store'
 
 import './Topbar.scss'
@@ -20,9 +21,9 @@ export const Topbar = () => {
   const user = useSelector(selectUser)
   const clubs = useSelector(selectAllClubs)
   const currentClub = useSelector(selectCurrentClub)
-  const currentJukebox = useSelector(selectCurrentJukebox)
-  const allJukeboxes = useSelector(selectAllJukeboxes)
   const hasAux = useSelector(selectHasJukeboxAux)
+
+  const [searchInput, setSearchInput] = useState('')
 
   const handleClubChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedClubId: number = Number(e.target.value)
@@ -32,18 +33,22 @@ export const Topbar = () => {
     if (currentClub !== null) {
       console.log('Current club is ', currentClub.id)
     }
-  }
-
-  const handleJukeboxChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const selectedJukeboxId: number = Number(e.target.value)
-    fetchJukebox(selectedJukeboxId)
-
-    if (currentJukebox !== null) {
-      console.log('Selected JBX is: ', currentJukebox.id)
+    if(user !== null) {
+      updateMembership(selectedClubId, user.id)
     }
   }
 
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(e.target.value)
+  }
+
+  const handleSearchSubmit = () => {
+
+    console.log(searchInput)
+  }
+
   return (
+    <>
     <div className="topbar">
       <div className="topbar__nav-toggle">
         <input type="checkbox" name="nav" id="nav-toggle" />
@@ -51,25 +56,24 @@ export const Topbar = () => {
           <span className="topbar__nav-toggle__button__icon">&nbsp;</span>
         </label>
       </div>
-      <div className="topbar__group-dropdown">
-        <div className="topbar__group-dropdown__jukebox">
+      <div className="topbar__search-tracks" >
+        <form onSubmit={handleSearchSubmit}>
+          <input
+              className="search-tracks-field"
+              type="text"
+              name="track"
+              value={searchInput}
+              onChange={handleSearchChange}
+              placeholder="Search Tracks"
+            ></input>
+        </form>
+      </div>
+      <div className="topbar__user-details">
+        {hasAux && <p className="color-text-role-success topbar__success">AUX Connected</p>}
+
+        <div className="form-select-club">
           <select
-            name="current-jukebox"
-            id="current-jukebox"
-            onChange={handleJukeboxChange}
-            defaultValue={currentClub?.id}
-          >
-            {!currentJukebox && <option value="">No Jukebox Selected</option>}
-            {allJukeboxes.map((jukebox) => (
-              <option key={jukebox.id} value={jukebox.id}>
-                {jukebox.name}
-              </option>
-            ))}
-          </select>
-          {hasAux && <p className="color-text-role-success">AUX Connected</p>}
-        </div>
-        <div className="form-select-control">
-          <select
+            className='club-selection'
             name="current-club"
             id="current-club"
             onChange={handleClubChange}
@@ -83,16 +87,7 @@ export const Topbar = () => {
             ))}
           </select>
         </div>
-        {/*
-        <div className="topbar__group-dropdown__jukebox">
-          {(currentJukebox && <p>{currentJukebox.name}</p>) || (
-            <p className="color-text-role-error">No Jukebox Found</p>
-          )}
-          {hasAux && <p className="color-text-role-success">AUX Connected</p>}
-        </div>
-        */}
-      </div>
-      <div className="topbar__user-details">
+
         <div className="topbar__notifications">
           <button>
             <NotificationsOutlined fontSize="large" />
@@ -104,5 +99,7 @@ export const Topbar = () => {
         </button>
       </div>
     </div>
+    {hasAux && <div className='activeAux'/>}
+    </>
   )
 }

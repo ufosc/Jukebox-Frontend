@@ -16,3 +16,8 @@ export const selectAllClubs = createSelector(
   clubStateSelector,
   (state) => state.allClubs,
 )
+
+export const selectCurrentMembership = createSelector(
+  clubStateSelector,
+  (state) => state.currentMembership,
+)

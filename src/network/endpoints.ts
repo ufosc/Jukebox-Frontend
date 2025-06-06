@@ -15,7 +15,9 @@ export const NetworkEndpoints = Object.freeze({
   club: {
     list: `${clubsApi}/club/clubs/`,
     get: (id: number) => `${clubsApi}/club/clubs/${id}/`,
-    members: (id: number) => `${clubsApi}/club/clubs/${id}/members`
+    members: (id: number) => `${clubsApi}/club/clubs/${id}/members`,
+    membership: (clubId: number, memberId: number) =>
+      `${clubsApi}/club/clubs/${clubId}/members/person/${memberId}`,
   },
   jukebox: {
     list: `${jukeboxApi}/jukebox/jukeboxes/`,
