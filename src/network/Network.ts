@@ -1,5 +1,6 @@
 import {
   ClubListSchema,
+  ClubMembershipSchema,
   ClubMembershipsSchema,
   ClubSchema,
   JukeboxListSchema,
@@ -300,12 +301,19 @@ export class Network extends NetworkBase {
 
   public async swapTracks(jukeboxId: number, currentPosition: number, tragetPosition: number) {
     const url = this.endpoints.jukebox.swapTracks(jukeboxId)
-    console.log("Active")
     const response = await this.request(url, swapTrackSchema, {
       method: 'POST',
       data: {currentPos: currentPosition, targetPos:  tragetPosition}
     })
 
+    return response
+  }
+
+  public async getCurrentMembership(clubId: number, memberId:number){
+    const url = this.endpoints.club.membership(clubId, memberId)
+
+    const response = await this.request(url, ClubMembershipSchema)
+    console.log(response)
     return response
   }
 

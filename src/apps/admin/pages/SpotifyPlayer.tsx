@@ -1,16 +1,16 @@
-import { useContext, useRef } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { AudioPlayer, Form, FormSelectGroup, FormSubmit } from 'src/components'
 import { REACT_ENV } from 'src/config'
 import { SpotifyContext } from 'src/context'
-import { authenticateLink } from 'src/store'
+import { authenticateLink, selectCurrentClub, selectCurrentMembership, updateMembership } from 'src/store'
 import {
   selectCurrentTrack,
   selectJukeboxLinks,
   selectNextTracks,
 } from 'src/store/jukebox'
 
-import { selectAllLinks } from 'src/store/user'
+import { selectAllLinks, selectUser } from 'src/store/user'
 import { formatDuration } from 'src/utils'
 import { SpotifyPlayerAccount } from '../components/SpotifyPlayer/SpotifyPlayerAccount'
 import { SpotifyPlayerDetail } from '../components/SpotifyPlayer/SpotifyPlayerDetail'
@@ -26,6 +26,10 @@ export const SpotifyPlayer = () => {
   const nextTracks = useSelector(selectNextTracks)
   const spotifyLinks = useSelector(selectAllLinks)
   //const dispatch = useDispatch();
+
+  const currentClub = useSelector(selectCurrentClub)
+  const currentUser = useSelector(selectUser)
+  const currentMembership = useSelector(selectCurrentMembership)
 
   const {
     deviceIsActive: isActive,
@@ -63,6 +67,26 @@ export const SpotifyPlayer = () => {
     console.log(response)
   }
 
+  const getCurrentMemberships = async () => {
+    if(currentClub !== undefined && currentUser !== undefined && currentClub && currentUser){
+      const foundClub = currentUser.clubs.find(
+        (club) => club.name === currentClub.name,
+      )
+      if (!foundClub) {
+        throw new Error('Club not found in user clubs.')
+      }
+      const clubId = foundClub.id
+      const response = await network.getCurrentMembership(currentClub?.id, clubId)
+      console.log(response)
+      updateMembership(currentClub?.id, clubId)
+      console.log(currentMembership)
+    }
+  }
+
+  useEffect(() => {
+    console.log(currentMembership)
+  }, [currentMembership])
+
   return (
     <>
       <div className="spotify-player-title">Spotify Player</div>
@@ -97,6 +121,16 @@ export const SpotifyPlayer = () => {
             >
               Get Current Track
             </button>
+            <button
+              onClick={() => {
+                getCurrentMemberships()
+              }}
+            >
+              getCurrentMembership
+            </button>
+            <div>
+              {currentMembership ? <div> {currentMembership.roles} </div> : <div> Empty</div>}
+            </div>
           </div>
 
           <p className="playerActive">

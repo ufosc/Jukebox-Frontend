@@ -20,45 +20,41 @@ export const Overview = () => {
     fetchNextTracks()
   }, [currentJukebox])
 
-  const getQueue = async () => {
-    fetchNextTracks()
-  }
-
   return (
     <>
       <div className="grid">
-        <div className="col-5 card">
+        <div className="col-6 card">
           <AudioPlayer />
         </div>
 
-        <div className="col-7">
-          {playerState?.is_playing ? (
-            <div className="disk">
-              <img
-                className="curr-song diskSpin"
-                src={
-                  playerState?.current_track?.track.preview_url ?? FallbackImg
-                }
-                alt={playerState?.current_track?.track.name}
-              />
-              <Disk />
-            </div>
-          ) : (
-            <div className="disk">
-              <img
-                className="curr-song"
-                src={
-                  playerState?.current_track?.track.preview_url ?? FallbackImg
-                }
-                alt={playerState?.current_track?.track.name}
-              />
-              <Disk />
-            </div>
-          )}
+        <div className="col-6">
+          <div className='disk-container'>
+            {playerState?.is_playing ? (
+              <div className="disk">
+                <img
+                  className="curr-song diskSpin"
+                  src={
+                    playerState?.current_track?.track.preview_url ?? FallbackImg
+                  }
+                  alt={playerState?.current_track?.track.name}
+                />
+                <Disk />
+              </div>
+            ) : (
+              <div className="disk">
+                <img
+                  className="curr-song"
+                  src={
+                    playerState?.current_track?.track.preview_url ?? FallbackImg
+                  }
+                  alt={playerState?.current_track?.track.name}
+                />
+                <Disk />
+              </div>
+            )}
+          </div>
         </div>
       </div>
-
-      
 
       <div className="grid">
         <div className="col-12">
