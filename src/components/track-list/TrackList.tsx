@@ -1,7 +1,7 @@
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { mergeClassNames } from 'src/utils'
 import { TrackItem } from './TrackItem'
 import './TrackList.scss'
-import { useCallback, useEffect, useMemo, useState } from 'react'
 
 export const TrackList = (props: {
   tracks: IQueuedTrack[]
@@ -14,17 +14,14 @@ export const TrackList = (props: {
     return structuredClone(value)
   }
 
-  const initialCopy = useMemo(()=>
-    deepCopy(tracks), [tracks]
-  )
+  const initialCopy = useMemo(() => deepCopy(tracks), [tracks])
 
   const [queuedTracks, swapTracks] = useState<IQueuedTrack[]>(initialCopy)
 
   const moveListItem = useCallback(
-    (dragIndex:number, hoverIndex:number) => {
+    (dragIndex: number, hoverIndex: number) => {
       const dragItem = queuedTracks[dragIndex]
       const hoverItem = queuedTracks[hoverIndex]
-  
       //Swap places of Items
       swapTracks((queuedTracks: any) => {
         const updatedTracks = [...queuedTracks]
@@ -32,15 +29,13 @@ export const TrackList = (props: {
         updatedTracks[hoverIndex] = dragItem
         return updatedTracks
       })
-  
-      //console.log(`From ${dragIndex} to ${hoverIndex}`)
     },
     [queuedTracks],
   )
 
-  useEffect(()=>{
+  useEffect(() => {
     swapTracks(deepCopy(tracks))
-  },[tracks])
+  }, [tracks])
 
   return (
     <ol
@@ -54,7 +49,14 @@ export const TrackList = (props: {
         queuedTracks
           .map(
             (track, index) =>
-              track && <TrackItem track={track} key={track.queue_id} moveListItem={moveListItem} index={index}/>,
+              track && (
+                <TrackItem
+                  track={track}
+                  key={track.queue_id}
+                  moveListItem={moveListItem}
+                  index={index}
+                />
+              ),
           )
           .splice(0, maxCount ?? tracks.length)}
       {tracks.length < 1 && <p>No tracks available.</p>}

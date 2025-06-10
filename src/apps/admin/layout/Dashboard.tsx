@@ -46,7 +46,7 @@ export const Dashboard = () => {
         </div>
         <div className="dashboard__main">
           <Topbar />
-          <div className='dashboard__main__outlet'>
+          <div className="dashboard__main__outlet">
             <Outlet />
           </div>
         </div>

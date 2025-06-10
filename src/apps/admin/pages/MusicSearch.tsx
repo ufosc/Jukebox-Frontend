@@ -1,6 +1,6 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react'
 import { useSelector } from 'react-redux'
-import { TrackSearchList } from 'src/components/track-list/TrackSearchList'
+import { TrackSearchList } from 'src/components/track-list/SearchTrackList'
 import { Network } from 'src/network'
 import { selectCurrentJukebox } from 'src/store'
 import './MusicSearch.scss'

@@ -1,4 +1,6 @@
 .disk {
+  margin-top: 1vh;
+
   align-items: center;
   float: right;
   display: flex;
@@ -9,52 +11,89 @@
   @include breakpoint('md') {
     display: none;
   }
+
+  &__curr-song {
+    position: absolute;
+    top: 45%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+    border-color: #ca6b4f;
+    border-width: 3px;
+    border-style: solid;
+    width: 50%;
+    height: 50%;
+    object-fit: cover;
+    animation: diskPlaying 2s linear infinite paused;
+  }
+
+  &__spin{
+    animation-play-state: running;
+  }
 }
 
-.disk-container{
-  margin-top: 5vh;
-}
+.overview{
+  &__header{
+    min-height: 47%;
 
-.card {
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  width: 100%;
-  position: relative;
-  transform: translate(0, -25%);
-}
+    &__audio-card{
+      display: flex;
+      flex-direction: column;
+      margin: auto;
+      width: 100%;
+      position: relative;
+      transform: translate(0, -25%);
+    }
+  }
 
-.song-queue {
+  &__track__shifter{
+    min-height: 53%;
+  }
+
+  &__fill-height{
+  min-height: 100%;
+  }
+
+  &__song-queue {
   background-color: var(--color-surface);
   display: flex;
-  min-height: 49.5vh;
+  min-height: 100%;
 
   flex-direction: column;
 
   padding: 2.5rem;
   border-radius: 1rem;
-  margin-top: -12.2rem;
 
   position: relative;
   z-index: 3;
   overflow: overlay;
 
-  &__title {
-    @include font-headline('xs');
-    padding-bottom: 2rem;
+    &__title {
+      @include font-headline('xs');
+      padding-bottom: 2rem;
+    }
   }
+
+  &__disk{
+    height: 100%;
+    position: relative;
+  }
+
 }
 
-.curr-song {
-  @include absCenter;
-  border-radius: 50%;
-  border-color: #ca6b4f;
-  border-width: 3px;
-  border-style: solid;
-  width: 28.75vh;
-  height: 28.75vh;
-  object-fit: cover;
-  animation: diskPlaying 2s linear infinite paused;
+.disk-container{
+  position: absolute;
+  right: 0;
+  width: 100%;
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: right;
+
+  svg{
+    height: 90%;
+    width: 90%;
+  }
 }
 
 ::-webkit-scrollbar {

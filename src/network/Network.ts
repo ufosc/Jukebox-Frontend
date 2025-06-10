@@ -21,6 +21,7 @@ import {
 } from 'src/utils'
 import { mockPlayerQueueState } from './../utils/mock/mock-spotify'
 import { NetworkBase } from './NetworkBase'
+import { mockMemberships } from 'src/utils/mock/mock-memberships'
 
 /**
  * Handle API requests to connected servers.
@@ -299,11 +300,11 @@ export class Network extends NetworkBase {
     return response
   }
 
-  public async swapTracks(jukeboxId: number, currentPosition: number, tragetPosition: number) {
+  public async swapTracks(jukeboxId: number, currentPosition: number, targetPosition: number) {
     const url = this.endpoints.jukebox.swapTracks(jukeboxId)
     const response = await this.request(url, swapTrackSchema, {
       method: 'POST',
-      data: {currentPos: currentPosition, targetPos:  tragetPosition}
+      data: {currentPos: currentPosition, targetPos:  targetPosition}
     })
 
     return response
@@ -312,7 +313,9 @@ export class Network extends NetworkBase {
   public async getCurrentMembership(clubId: number, memberId:number){
     const url = this.endpoints.club.membership(clubId, memberId)
 
-    const response = await this.request(url, ClubMembershipSchema)
+    const response = await this.request(url, ClubMembershipsSchema, {
+      mock: { data: mockMemberships },
+  })
     console.log(response)
     return response
   }

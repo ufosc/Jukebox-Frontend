@@ -161,6 +161,6 @@ export const AudioPlayer = (props: { disableControls?: boolean }) => {
           />
         </div>
       </div>
-    )) || <p>No Audio Playing</p>
+    )) || <p>No Tracks Playing</p>
   )
 }
