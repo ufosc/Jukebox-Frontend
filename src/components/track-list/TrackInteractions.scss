@@ -17,16 +17,10 @@
       color: var(--color-error);
     }
   }
-}
 
-.removeButton{
-  background-color: var(--color-surface-container);
-  border: none;
-  cursor: pointer;
-}
-
-.moveButton{
-  background-color: var(--color-surface-container);
-  border: none;
-  cursor: pointer;
+  &__button{
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+  }
 }

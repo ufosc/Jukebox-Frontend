@@ -7,7 +7,7 @@ import { MusicQueue } from './pages/MusicQueue'
 import { MusicSearch } from './pages/MusicSearch'
 import { Settings } from './pages/Settings'
 import { SpotifyPlayer } from './pages/SpotifyPlayer'
-import { SpotifyPlayerViewer } from './pages/SpotifyPlayerViewer'
+import { Player } from './pages/Player'
 import { MemberDetail } from './pages/members/MemberDetail'
 import { MemberNew } from './pages/members/MemberNew'
 import { MembersList } from './pages/members/MembersList'
@@ -28,7 +28,7 @@ export const adminRoutes: RouteObject[] = [
   },
   {
     path: 'player',
-    element: <SpotifyPlayerViewer />,
+    element: <Player />,
   },
 
   {

@@ -36,7 +36,7 @@ export const MemberSidebar = () => {
               <li className="navbar__nav__list__item">
                 <span className="navbar__nav__item">
                   <HomeIcon />
-                  <NavItem route="/members" text="Home" end />
+                  <NavItem route="/dashboard" text="Home" end />
                 </span>
               </li>
               <li className="navbar__nav__list__item">

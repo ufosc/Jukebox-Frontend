@@ -5,6 +5,7 @@ import './TrackInteractions.scss'
 import { useDrag } from 'react-dnd'
 import { useSelector } from 'react-redux'
 import { AdminContext } from 'src/apps/admin'
+import { TrackModifyContext } from 'src/apps/admin/pages/trackContext'
 import { MoveIcon, RemoveIcon } from 'src/assets/Icons'
 import { Network } from 'src/network'
 import { selectCurrentMembership } from 'src/store'
@@ -16,6 +17,7 @@ export const TrackInteractions = (props: {
   const { track, index } = props
 
   const adminStatus = useContext(AdminContext)
+  const trackStatus = useContext(TrackModifyContext)
   const network = Network.getInstance()
 
   const currrentMembership = useSelector(selectCurrentMembership)
@@ -41,10 +43,10 @@ export const TrackInteractions = (props: {
 
   return (
     <>
-      {adminStatus.role === 'admin' ? (
+      {adminStatus.role === 'admin' && trackStatus ? (
         <div className="track-interactivity">
           <button
-            className="removeButton"
+            className="track-interactivity__button"
             onClick={(e) => {
               e.stopPropagation()
               removeTrack()
@@ -52,7 +54,7 @@ export const TrackInteractions = (props: {
           >
             <RemoveIcon />
           </button>
-          <button className="moveButton" ref={dragRef}>
+          <button className="track-interactivity__button" ref={dragRef}>
             <MoveIcon />
           </button>
         </div>

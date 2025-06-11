@@ -47,3 +47,38 @@
   width: 46px;
   height: 46px;
 }
+
+
+.player-account{
+
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr;
+  grid-template-rows: 1fr;
+  background-color: var(--color-surface);
+  height: 80px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2%;
+
+
+  &__active{
+    border: 2px solid lightgreen;
+  }
+
+  &__remove{
+    color: red;
+  }
+
+  &__controls{
+    display: flex;
+    flex-direction: row;
+
+    &__active{
+      color: grey;
+      cursor: default;
+    }
+
+  }
+
+}

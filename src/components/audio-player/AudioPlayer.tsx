@@ -14,8 +14,11 @@ import './ProgressBar.scss'
  *
  * Provides controls for the global player.
  */
-export const AudioPlayer = (props: { disableControls?: boolean }) => {
-  const { disableControls } = props
+export const AudioPlayer = (props: {
+  disableControls?: boolean
+  showInfo?: boolean
+}) => {
+  const { disableControls, showInfo } = props
 
   const {
     play,
@@ -42,6 +45,7 @@ export const AudioPlayer = (props: { disableControls?: boolean }) => {
   // State
   const [editMode, setEditMode] = useState(false)
   const [duration, setDuration] = useState<number | null>(null)
+  const [displayInfo, setDisplayInfo] = useState(true)
 
   // const isOverflown = ({ clientHeight, scrollHeight }) =>
   //   scrollHeight > clientHeight
@@ -121,28 +125,39 @@ export const AudioPlayer = (props: { disableControls?: boolean }) => {
     }
   }, [])
 
+  //Update display information
+  useEffect(() => {
+    if (showInfo === false) {
+      setDisplayInfo(false)
+    }
+  }, [])
+
   return (
     (playerState != null && (
       <div className="audio-player" ref={containerRef}>
         <div className="audio-player__inner">
-          <div className="audio-player__track">
-            <h3 className="audio-player__track__name" ref={trackNameRef}>
-              {playerState.current_track?.track.name}
-            </h3>
+          {displayInfo ? (
+            <div className="audio-player__track">
+              <h3 className="audio-player__track__name" ref={trackNameRef}>
+                {playerState.current_track?.track.name}
+              </h3>
 
-            <div className="audio-player__track__info">
-              <p className="audio-player__track__artists">
-                {playerState.current_track?.track.artists
-                  .map((artist) => artist.name)
-                  .join(', ') || 'Artist Unavailable'}
+              <div className="audio-player__track__info">
+                <p className="audio-player__track__artists">
+                  {playerState.current_track?.track.artists
+                    .map((artist) => artist.name)
+                    .join(', ') || 'Artist Unavailable'}
+                </p>
+                <TrackInteractions track={playerState.current_track} />
+              </div>
+              <p className="audio-player__track__rec">
+                Recommended by:{' '}
+                {playerState.current_track?.recommended_by ?? 'Spotify'}
               </p>
-              <TrackInteractions track={playerState.current_track} />
             </div>
-            <p className="audio-player__track__rec">
-              Recommended by:{' '}
-              {playerState.current_track?.recommended_by ?? 'Spotify'}
-            </p>
-          </div>
+          ) : (
+            <> </>
+          )}
           {!disableControls && (
             <Controls
               playing={playerState.is_playing}
@@ -161,6 +176,6 @@ export const AudioPlayer = (props: { disableControls?: boolean }) => {
           />
         </div>
       </div>
-    )) || <p>No Audio Playing</p>
+    )) || <p>No Tracks Playing</p>
   )
 }

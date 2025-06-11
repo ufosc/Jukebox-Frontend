@@ -5,7 +5,6 @@
   @include color-role('surface-container');
   display: flex;
   min-height: 100vh;
-  min-width: 100vw;
 
   &__sidebar {
     width: var(--sidebar-width);
@@ -14,10 +13,11 @@
     display: flex;
     flex: 1;
     flex-direction: column;
-    height: 100%;
+    min-height: 100%;
 
     &__outlet {
       padding: var(--dashboard-gutter);
+      height: 100%;
     } 
   }
 }

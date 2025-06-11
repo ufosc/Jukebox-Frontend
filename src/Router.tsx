@@ -30,7 +30,7 @@ const routes = createBrowserRouter([
                 <Link to="auth">Auth</Link>
               </li>
               <li>
-                <Link to="admin">Admin</Link>
+                <Link to="dashboard">Dashboard</Link>
               </li>
               <li>
                 <Link to="boards">Boards</Link>
@@ -48,7 +48,7 @@ const routes = createBrowserRouter([
         children: authRoutes,
       },
       {
-        path: 'admin',
+        path: 'dashboard',
         element: (
           <AuthGuard>
             <Dashboard />

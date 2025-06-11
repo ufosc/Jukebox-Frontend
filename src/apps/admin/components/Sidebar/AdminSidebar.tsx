@@ -51,7 +51,7 @@ export const AdminSidebar = () => {
                   <li className="navbar__nav__list__item">
                     <span className="navbar__nav__item">
                       <HomeIcon />
-                      <NavItem route="/admin" text="Home" end />
+                      <NavItem route="/dashboard" text="Home" end />
                     </span>
                   </li>
     
