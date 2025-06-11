@@ -21,7 +21,7 @@ import {
 } from 'src/utils'
 import { mockPlayerQueueState } from './../utils/mock/mock-spotify'
 import { NetworkBase } from './NetworkBase'
-import { mockMemberships } from 'src/utils/mock/mock-memberships'
+import { mockMembership, mockMemberships } from 'src/utils/mock/mock-memberships'
 
 /**
  * Handle API requests to connected servers.
@@ -310,11 +310,11 @@ export class Network extends NetworkBase {
     return response
   }
 
-  public async getCurrentMembership(clubId: number, memberId:number){
+  public async getCurrentMembership(clubId: number, memberId: number){
     const url = this.endpoints.club.membership(clubId, memberId)
 
-    const response = await this.request(url, ClubMembershipsSchema, {
-      mock: { data: mockMemberships },
+    const response = await this.request(url, ClubMembershipSchema, {
+      mock: { data: mockMembership },
   })
     console.log(response)
     return response

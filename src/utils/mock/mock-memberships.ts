@@ -1,5 +1,22 @@
 import { mockUser } from './mock-user'
 
+export const mockMembership = {
+  id: 1,
+  created_at: '8/20/2024',
+  updated_at: '5/15/2024',
+  is_owner: true,
+  points: 1000,
+  user: {
+    id: mockUser.id,
+    email: mockUser.email,
+    first_name: mockUser.first_name ?? null,
+    last_name: mockUser.last_name ?? null,
+    username: mockUser.username,
+  },
+  is_admin: true,
+  roles: ['Officer'],
+}
+
 export const mockMemberships: IClubMembership[] = [
   {
     id: 1,

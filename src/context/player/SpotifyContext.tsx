@@ -24,6 +24,8 @@ export const SpotifyContext = createContext({
   /** The player has authenticated with Spotify */
   spotifyIsConnected: false,
 
+  deviceId: '',
+
   playerState: null as IPlayerAuxState | null,
   // nextTracks: [] as Spotify.Track[],
   nextTrack: () => {},
@@ -227,6 +229,7 @@ export const SpotifyProvider = (props: {
       value={{
         player: playerRef.current,
         deviceIsActive: active,
+        deviceId,
         spotifyIsConnected: connected,
         playerState,
         nextTrack,

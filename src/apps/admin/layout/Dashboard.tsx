@@ -1,7 +1,12 @@
 import { createContext, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
-import { selectCurrentJukebox, selectCurrentMembership } from 'src/store'
+import {
+  authenticateLink,
+  selectCurrentJukebox,
+  selectCurrentMembership,
+  selectJukeboxLinks,
+} from 'src/store'
 import { Sidebar, Topbar } from '../components'
 import './Dashboard.scss'
 
@@ -11,13 +16,14 @@ export interface AdminContextType {
 }
 
 export const AdminContext = createContext<AdminContextType>({
-  role: 'user',
+  role: 'admin',
   jukebox: null,
 })
 
 export const Dashboard = () => {
   const currentJukebox = useSelector(selectCurrentJukebox)
   const currentMembership = useSelector(selectCurrentMembership)
+  const jukeboxLinks = useSelector(selectJukeboxLinks)
 
   const [currentContext, setCurrentContext] = useState({
     role: 'admin',
@@ -33,7 +39,7 @@ export const Dashboard = () => {
     } else {
       setCurrentContext((prev) => ({
         ...prev,
-        role: 'member',
+        role: 'admin',
       }))
     }
   }, [currentMembership])

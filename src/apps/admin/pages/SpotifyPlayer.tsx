@@ -15,7 +15,6 @@ import { formatDuration } from 'src/utils'
 import { SpotifyPlayerAccount } from '../components/SpotifyPlayer/SpotifyPlayerAccount'
 import { SpotifyPlayerDetail } from '../components/SpotifyPlayer/SpotifyPlayerDetail'
 import { SpotifyPlayerInfo } from '../components/SpotifyPlayer/SpotifyPlayerInfo'
-import './SpotifyPlayer.scss'
 
 import { Network } from 'src/network'
 const network = Network.getInstance()
