@@ -1,6 +1,7 @@
-import { useCallback, useContext, useEffect, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useCallback, useContext, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
+import { NoticesProvider } from './components/notices/NoticesContext'
 import { SPOTIFY_AUTH_CHECK_MS } from './config'
 import {
   KeyboardProvider,
@@ -18,7 +19,6 @@ import {
   setPlayerIsPlaying,
   setPlayerProgress,
   updateLinks,
-  updatePlayerState,
 } from './store'
 
 export const App = () => {
@@ -60,25 +60,27 @@ export const App = () => {
   }, [currentJukebox])
 
   /**
-     * Updates the links for usage
-     * Figure out the placement later
-     */
-  useEffect(()=>{
+   * Updates the links for usage
+   * Figure out the placement later
+   */
+  useEffect(() => {
     updateLinks()
-  },[])
+  }, [])
 
   return (
     <Theme>
       <KeyboardProvider>
-        <SpotifyProvider
-          token={spotifyAuth?.access_token}
-          jukebox={currentJukebox}
-          onPlayerStateChange={handlePlayerTrackChange}
-        >
-          <PlayerProvider>
-            <Outlet />
-          </PlayerProvider>
-        </SpotifyProvider>
+        <NoticesProvider>
+          <SpotifyProvider
+            token={spotifyAuth?.access_token}
+            jukebox={currentJukebox}
+            onPlayerStateChange={handlePlayerTrackChange}
+          >
+            <PlayerProvider>
+              <Outlet />
+            </PlayerProvider>
+          </SpotifyProvider>
+        </NoticesProvider>
       </KeyboardProvider>
     </Theme>
   )
