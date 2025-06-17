@@ -1,21 +1,22 @@
 import './Modal.scss'
 import { ModalNavItem } from './ModalNavItem'
 
+import { logoutUser } from 'src/store'
+
 interface UserModalProps {
-  user: IUserDetails | null;
-  closeModal: () => void;
+  user: IUserDetails | null
+  closeModal: () => void
 }
 
-export const UserModal = (props:UserModalProps
-) => {
+export const UserModal = (props: UserModalProps) => {
   if (!props.user) {
     return <></>
   }
   const { user, closeModal } = props
 
-  const handleSignOut = () => {
+  const handleSignOut = async () => {
+    await logoutUser()
     closeModal()
-    console.log('User Signed Out!')
   }
 
   return (
