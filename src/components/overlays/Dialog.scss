@@ -1,0 +1,33 @@
+.overlay-dialog-backdrop{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;  
+  height: 100vh; 
+  background-color: rgba(0, 0, 0, 0);
+  cursor: default;
+  user-select: none;
+}
+
+//Generic position to modify later
+.overlay-dialog {
+  padding: 2.2rem 1.5rem;
+  position: fixed; 
+  z-index: 999;
+  background: var(--color-surface);
+  color: var(--color-surface-container-on);
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
+
+  &__user{
+    position: fixed;
+    left: 84.5vw;
+    top: 7%;
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+}

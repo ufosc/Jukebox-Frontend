@@ -3,7 +3,6 @@
   border-radius: 5px;
   box-shadow: 3px 3px 14px 0px rgba(0, 0, 0, 0.06);
   padding: 2.2rem 1.5rem;
-  @include color-role('surface');
 }
 
 .overlay-popover {
@@ -30,29 +29,30 @@
 .overlay-dialog {
   @include overlay-defaults();
 
-  $width: 50vw;
-  $height: 50vh;
   $z-index: 100;
 
-  top: calc(45% - (#{$height} / 2));
-  left: calc(50% - (#{$width} / 2));
+  position: fixed; 
   z-index: $z-index;
-
-  min-width: 50rem;
-  min-height: 50rem;
-  width: 50vw;
-  height: 50vh;
+  
 
   &-backdrop {
-    backdrop-filter: blur(10px);
-    // background-color: var(--color-surface-on-shadow);
-    background-color: var(--color-surface-container);
+    background-color: rgba(0, 0, 0, 0);
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: $z-index - 1;
+    cursor: default;
+    user-select: none;
+  }
+
+  &__user{
+    position: fixed;
+    left: 84.5vw;
+    top: 7%;
+    max-width: 90vw;
+    max-height: 90vh;
   }
 }
 
