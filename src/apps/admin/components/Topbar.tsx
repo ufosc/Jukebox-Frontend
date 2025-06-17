@@ -16,12 +16,16 @@ import {
 
 import './Topbar.scss'
 import { thunkFetchClubInfo } from 'src/store/club/clubThunks'
+import { Dialog } from 'src/components'
+import { UserModal } from './modals/UserModal'
 
 export const Topbar = () => {
   const user = useSelector(selectUser)
   const clubs = useSelector(selectAllClubs)
   const currentClub = useSelector(selectCurrentClub)
   const hasAux = useSelector(selectHasJukeboxAux)
+
+  const [showUser, setShowUser] = useState(false)
 
   const [searchInput, setSearchInput] = useState('')
 
@@ -45,6 +49,15 @@ export const Topbar = () => {
   const handleSearchSubmit = () => {
 
     console.log(searchInput)
+  }
+  
+  const handleUser = () =>{ 
+    console.log("Clicked User!")
+    setShowUser(!showUser)
+  }
+
+  const closeUserModal = () => {
+    setShowUser(false)
   }
 
   return (
@@ -93,10 +106,25 @@ export const Topbar = () => {
             <NotificationsOutlined fontSize="large" />
           </button>
         </div>
-        <button className="topbar__profile">
+        <button className="topbar__profile" onClick={handleUser}>
           {user && <img src={user.image} alt={user.last_name} />}
           {!user && <p>Login required.</p>}
         </button>
+        {showUser ? (<>
+        
+          <Dialog
+          
+          backdrop={true}
+          defaultOpen={true}
+          dismissible={true}
+          changeState={setShowUser}
+          className={'overlay-dialog__user'}
+          >
+                <UserModal user={user} closeModal={closeUserModal} />
+
+          </Dialog>
+          
+          </>) : (<></>)}
       </div>
     </div>
     {hasAux && <div className='activeAux'/>}

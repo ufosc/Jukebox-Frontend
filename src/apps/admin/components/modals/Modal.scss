@@ -1,0 +1,70 @@
+.modal{
+
+  &__user{
+    display: flex;
+    flex-direction: column;
+    width: 13vw;
+    height: 18vh;
+
+
+    &__information{
+      display: flex;
+      flex-direction: column;
+      height: 4vh;
+      justify-content: space-between;
+
+      &__name{
+        @include font-title('sm', 600);
+        font-size: 1.5rem;
+      }
+
+      &__username{
+        @include font-label('xs', 300);
+        color: var(--color-label);
+        font-size: 1.3rem;
+      }
+
+    }
+
+    &__options{
+      width: 100%;
+      height: 75%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+    }
+  }
+
+  &__divider{
+    height: 1px;
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    background-color: var(--color-secondary);
+  }
+
+  &__nav{
+
+    &__item{
+      text-decoration: none;
+      color: var(--color-surface-container-on);
+
+      a{
+        $transition: 0.1s ease-in-out;
+        transition:
+          background-color $transition,
+          color $transition;
+
+        &,
+        &:link,
+        &:visited {
+          color: inherit;
+        }
+
+
+      }
+
+    }
+  }
+}
