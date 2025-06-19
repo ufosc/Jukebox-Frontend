@@ -1,23 +1,21 @@
 import { NotificationsOutlined } from '@mui/icons-material'
 import type { ChangeEvent } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import {
-  fetchJukebox,
   selectAllClubs,
-  selectAllJukeboxes,
   selectCurrentClub,
-  selectCurrentJukebox,
   selectHasJukeboxAux,
   selectUser,
   updateClub,
   updateMembership,
 } from 'src/store'
 
-import './Topbar.scss'
-import { thunkFetchClubInfo } from 'src/store/club/clubThunks'
 import { Dialog } from 'src/components'
+import { ClubModal } from './modals/ClubModal'
 import { UserModal } from './modals/UserModal'
+import './Topbar.scss'
+import { NotificationModal } from './modals/NotificationModal'
 
 export const Topbar = () => {
   const user = useSelector(selectUser)
@@ -26,6 +24,8 @@ export const Topbar = () => {
   const hasAux = useSelector(selectHasJukeboxAux)
 
   const [showUser, setShowUser] = useState(false)
+  const [showClubs, setShowClubs] = useState(false)
+  const [showNotification, setShowNotification] = useState(false)
 
   const [searchInput, setSearchInput] = useState('')
 
@@ -37,7 +37,7 @@ export const Topbar = () => {
     if (currentClub !== null) {
       console.log('Current club is ', currentClub.id)
     }
-    if(user !== null) {
+    if (user !== null) {
       updateMembership(selectedClubId, user.id)
     }
   }
@@ -47,12 +47,18 @@ export const Topbar = () => {
   }
 
   const handleSearchSubmit = () => {
-
     console.log(searchInput)
   }
-  
-  const handleUser = () =>{ 
-    console.log("Clicked User!")
+
+  const handleClubs = () => {
+    setShowClubs(!showClubs)
+  }
+
+  const handleNotification = () => {
+    setShowNotification(!showNotification)
+  }
+
+  const handleUser = () => {
     setShowUser(!showUser)
   }
 
@@ -60,18 +66,22 @@ export const Topbar = () => {
     setShowUser(false)
   }
 
+  const closeNotificationModal = () => {
+    setShowNotification(false)
+  }
+
   return (
     <>
-    <div className="topbar">
-      <div className="topbar__nav-toggle">
-        <input type="checkbox" name="nav" id="nav-toggle" />
-        <label htmlFor="nav-toggle" className="topbar__nav-toggle__button">
-          <span className="topbar__nav-toggle__button__icon">&nbsp;</span>
-        </label>
-      </div>
-      <div className="topbar__search-tracks" >
-        <form onSubmit={handleSearchSubmit}>
-          <input
+      <div className="topbar">
+        <div className="topbar__nav-toggle">
+          <input type="checkbox" name="nav" id="nav-toggle" />
+          <label htmlFor="nav-toggle" className="topbar__nav-toggle__button">
+            <span className="topbar__nav-toggle__button__icon">&nbsp;</span>
+          </label>
+        </div>
+        <div className="topbar__search-tracks">
+          <form onSubmit={handleSearchSubmit}>
+            <input
               className="search-tracks-field"
               type="text"
               name="track"
@@ -79,55 +89,95 @@ export const Topbar = () => {
               onChange={handleSearchChange}
               placeholder="Search Tracks"
             ></input>
-        </form>
-      </div>
-      <div className="topbar__user-details">
-        {hasAux && <p className="color-text-role-success topbar__success">AUX Connected</p>}
-
-        <div className="form-select-club">
-          <select
-            className='club-selection'
-            name="current-club"
-            id="current-club"
-            onChange={handleClubChange}
-            defaultValue={currentClub?.id}
-          >
-            {!currentClub && <option value="">No Club Selected</option>}
-            {clubs.map((club) => (
-              <option key={club.id} value={club.id}>
-                {club.name}
-              </option>
-            ))}
-          </select>
+          </form>
         </div>
+        <div className="topbar__user-details">
+          {hasAux && (
+            <p className="color-text-role-success topbar__success">
+              AUX Connected
+            </p>
+          )}
 
-        <div className="topbar__notifications">
-          <button>
-            <NotificationsOutlined fontSize="large" />
-          </button>
-        </div>
-        <button className="topbar__profile" onClick={handleUser}>
-          {user && <img src={user.image} alt={user.last_name} />}
-          {!user && <p>Login required.</p>}
-        </button>
-        {showUser ? (<>
-        
-          <Dialog
-          
-          backdrop={true}
-          defaultOpen={true}
-          dismissible={true}
-          changeState={setShowUser}
-          className={'overlay-dialog__user'}
-          >
+          <div className="form-select-club">
+            <select
+              className="club-selection"
+              name="current-club"
+              id="current-club"
+              onChange={handleClubChange}
+              defaultValue={currentClub?.id}
+            >
+              {!currentClub && <option value="">No Club Selected</option>}
+              {clubs.map((club) => (
+                <option key={club.id} value={club.id}>
+                  {club.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="topbar__club" onClick={handleClubs}>
+            <div className="topbar__club__selection">{currentClub?.name}</div>
+          </div>
+          {showClubs ? (
+            <>
+              <Dialog
+                backdrop={true}
+                defaultOpen={true}
+                dismissible={true}
+                changeState={setShowClubs}
+                className={'overlay-dialog__club'}
+              >
+                <ClubModal />
+              </Dialog>
+            </>
+          ) : (
+            <></>
+          )}
+
+          <div className="topbar__notifications">
+            <button onClick={handleNotification}>
+              <NotificationsOutlined fontSize="large" />
+            </button>
+            {showNotification ? (
+              <>
+                <Dialog
+                  backdrop={true}
+                  defaultOpen={true}
+                  dismissible={true}
+                  changeState={setShowNotification}
+                  className={'overlay-dialog__notifications'}
+                >
+                  <NotificationModal closeModal={closeNotificationModal} />
+                </Dialog>
+              </>
+            ) : (
+              <></>
+            )}
+          </div>
+          <div className="topbar__profile__container">
+            <button className="topbar__profile" onClick={handleUser}>
+              {user && <img src={user.image} alt={user.last_name} />}
+              {!user && <p>Login required.</p>}
+            </button>
+          </div>
+          {showUser ? (
+            <>
+              <Dialog
+                backdrop={true}
+                defaultOpen={true}
+                dismissible={true}
+                changeState={setShowUser}
+                className={'overlay-dialog__user'}
+              >
                 <UserModal user={user} closeModal={closeUserModal} />
-
-          </Dialog>
-          
-          </>) : (<></>)}
+              </Dialog>
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
-    </div>
-    {hasAux && <div className='activeAux'/>}
+      {hasAux && <div className="activeAux" />}
     </>
   )
 }

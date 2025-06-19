@@ -36,6 +36,75 @@
     }
   }
 
+  &__club{
+    width: 10vw;
+
+
+    &__item{
+      height: 4vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+
+      &__active{
+        border-radius: 5px;
+        background: var(--color-primary-container);
+      }
+
+    }
+  }
+
+  &__notifications{
+    width: 13.8vw;
+    height: 19vh;
+
+    &__title{
+      @include font-title('sm', 600);
+      font-size: 1.4rem;
+    }
+
+
+    &__list{
+      width: 100%;
+      height: 85%;
+      display: flex;
+      flex-direction: column;
+
+
+      &__item{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 5px;
+      }
+    }
+
+
+    &__footer-enabled{
+
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      width: 30%;
+      justify-content: space-between;
+      color: var(--color-secondary)
+    }
+
+    &__footer-disabled{
+
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      width: 40%;
+      justify-content: space-between;
+      color: var(--color-disabled)
+    }
+
+  }
+
   &__divider{
     height: 1px;
     width: 100%;
