@@ -130,10 +130,31 @@
         &:visited {
           color: inherit;
         }
-
-
       }
+    }
+  }
 
+  &__search{
+    width:35vw;
+    min-height: 17vh;
+
+    &__track-list{
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      &__item{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 8px;
+        margin-bottom: 8px;
+      }
+    }
+
+    &__title{
+      @include font-title('sm')
     }
   }
 }

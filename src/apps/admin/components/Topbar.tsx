@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import {
   selectAllClubs,
   selectCurrentClub,
+  selectCurrentJukebox,
   selectHasJukeboxAux,
   selectUser,
   updateClub,
@@ -12,22 +13,32 @@ import {
 } from 'src/store'
 
 import { Dialog } from 'src/components'
+import { Network } from 'src/network'
+import { debounce } from 'src/utils'
 import { ClubModal } from './modals/ClubModal'
+import { NotificationModal } from './modals/NotificationModal'
+import { SearchModal } from './modals/SearchModal'
 import { UserModal } from './modals/UserModal'
 import './Topbar.scss'
-import { NotificationModal } from './modals/NotificationModal'
 
 export const Topbar = () => {
   const user = useSelector(selectUser)
   const clubs = useSelector(selectAllClubs)
   const currentClub = useSelector(selectCurrentClub)
+  const jukebox = useSelector(selectCurrentJukebox)
   const hasAux = useSelector(selectHasJukeboxAux)
+  const network = Network.getInstance()
 
   const [showUser, setShowUser] = useState(false)
   const [showClubs, setShowClubs] = useState(false)
   const [showNotification, setShowNotification] = useState(false)
-
   const [searchInput, setSearchInput] = useState('')
+  const [searchList, setSearchList] = useState<ITrackDetails[]>([])
+
+  const [searchActive, setSearchActive] = useState(false)
+  const [showSearch, setShowSearch] = useState(false)
+  const onFocus = () => setSearchActive(true)
+  const onBlur = () => setSearchActive(false)
 
   const handleClubChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedClubId: number = Number(e.target.value)
@@ -43,7 +54,34 @@ export const Topbar = () => {
   }
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchInput(e.target.value)
+    const searchEntry = e.target.value
+    setSearchInput(searchEntry)
+
+    //Only searches if search isn't empty
+    if (searchInput.trim() !== '') {
+      debounce(async () => {
+        console.log('Searching for ', searchInput)
+        e.preventDefault()
+
+        if (jukebox !== null) {
+          // Only Searches using track name currently
+          const tracksResult = await network.getTracks(
+            jukebox.id,
+            searchInput,
+            '',
+            '',
+          )
+          console.log(tracksResult)
+          if (tracksResult.success) {
+            console.log(tracksResult.data.tracks.items)
+            //Modify logic for Modal
+            setSearchList(tracksResult.data.tracks.items)
+          }
+        } else {
+          console.log('Jukebox is not connected')
+        }
+      })
+    }
   }
 
   const handleSearchSubmit = () => {
@@ -88,8 +126,26 @@ export const Topbar = () => {
               value={searchInput}
               onChange={handleSearchChange}
               placeholder="Search Tracks"
+              autoComplete="off"
+              onFocus={onFocus}
+              onBlur={onBlur}
             ></input>
           </form>
+          {searchActive ? (
+            <>
+              <Dialog
+                backdrop={true}
+                defaultOpen={true}
+                dismissible={true}
+                changeState={setShowSearch}
+                className={'overlay-dialog__search'}
+              >
+                <SearchModal tracks={searchList} />
+              </Dialog>
+            </>
+          ) : (
+            <></>
+          )}
         </div>
         <div className="topbar__user-details">
           {hasAux && (
