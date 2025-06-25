@@ -6,11 +6,11 @@ export const Music = () => {
     <div className="container">
       <div className="musicTitle">Music</div>
       <span className="music-page-switch">
-        <Link className="music-page-link" to="/admin/music/queue">
+        <Link className="music-page-link" to="/dashboard/music/queue">
           Track Queue
         </Link>{' '}
         |{' '}
-        <Link className="music-page-link" to="/admin/music/search">
+        <Link className="music-page-link" to="/dashboard/music/search">
           Search Tracks
         </Link>
       </span>

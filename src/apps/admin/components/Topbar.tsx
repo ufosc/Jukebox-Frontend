@@ -12,6 +12,7 @@ import {
   updateMembership,
 } from 'src/store'
 
+import { useNavigate } from 'react-router-dom'
 import { Dialog } from 'src/components'
 import { Network } from 'src/network'
 import { debounce } from 'src/utils'
@@ -37,7 +38,12 @@ export const Topbar = () => {
 
   const [searchActive, setSearchActive] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
-  const onFocus = () => setSearchActive(true)
+  const onFocus = () => {
+    if (searchInput.trim() !== '') {
+      setSearchActive(true)
+      setShowSearch(true)
+    }
+  }
   const onBlur = () => setSearchActive(false)
 
   const handleClubChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -56,9 +62,8 @@ export const Topbar = () => {
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     const searchEntry = e.target.value
     setSearchInput(searchEntry)
-
     //Only searches if search isn't empty
-    if (searchInput.trim() !== '') {
+    if (searchEntry.trim() !== '') {
       debounce(async () => {
         console.log('Searching for ', searchInput)
         e.preventDefault()
@@ -81,11 +86,9 @@ export const Topbar = () => {
           console.log('Jukebox is not connected')
         }
       })
+      setSearchActive(true)
+      setShowSearch(true)
     }
-  }
-
-  const handleSearchSubmit = () => {
-    console.log(searchInput)
   }
 
   const handleClubs = () => {
@@ -106,6 +109,27 @@ export const Topbar = () => {
 
   const closeNotificationModal = () => {
     setShowNotification(false)
+  }
+
+  const navigate = useNavigate()
+  const handleSearchSubmit = async (e: any) => {
+    e.preventDefault()
+    const searchPath = '/dashboard/music/search'
+    if (jukebox) {
+      const response = await network.getTracks(jukebox.id, searchInput, '', '')
+
+      const query = {
+        trackName: searchInput,
+        albumName: '',
+        artistName: '',
+      }
+
+      navigate(searchPath, {
+        state: { searchedTracks: response, query: query, needSearch: true },
+      })
+    }
+    setSearchActive(false)
+
   }
 
   return (
@@ -131,7 +155,7 @@ export const Topbar = () => {
               onBlur={onBlur}
             ></input>
           </form>
-          {searchActive ? (
+          {searchActive || showSearch ? (
             <>
               <Dialog
                 backdrop={true}
@@ -140,7 +164,15 @@ export const Topbar = () => {
                 changeState={setShowSearch}
                 className={'overlay-dialog__search'}
               >
-                <SearchModal tracks={searchList} />
+                <SearchModal
+                  tracks={searchList}
+                  searchQuery={{
+                    trackName: searchInput,
+                    albumName: '',
+                    artistName: ' ',
+                  }}
+                  changeState={setShowSearch}
+                />
               </Dialog>
             </>
           ) : (

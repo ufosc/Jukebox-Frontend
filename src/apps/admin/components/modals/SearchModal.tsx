@@ -1,11 +1,44 @@
+import { useNavigate } from 'react-router-dom'
+
 interface SearchModalProps {
   tracks: ITrackDetails[]
+  searchQuery: {
+    trackName: string
+    albumName: string
+    artistName: string
+  }
+  changeState:any
 }
 
+import { useSelector } from 'react-redux'
 import { ViewArrow } from 'src/assets/Icons'
+import { Network } from 'src/network'
+import { selectCurrentJukebox } from 'src/store'
 import './Modal.scss'
 
-export const SearchModal = ({ tracks }: SearchModalProps) => {
+export const SearchModal = ({ tracks, searchQuery, changeState }: SearchModalProps) => {
+  const network = Network.getInstance()
+  const currentJbx = useSelector(selectCurrentJukebox)
+
+  const navigate = useNavigate()
+  const searchRedirect = async () => {
+    console.log("Clicked")
+    const searchPath = '/dashboard/music/search'
+    if (currentJbx) {
+      const response = await network.getTracks(
+        currentJbx.id,
+        searchQuery.trackName,
+        searchQuery.albumName,
+        searchQuery.artistName,
+      )
+
+      navigate(searchPath, {
+        state: { searchedTracks: response, query: searchQuery, needSearch: false },
+      })
+    }
+    changeState(false)
+  }
+
   return (
     <>
       <div className="modal modal__search">
@@ -35,10 +68,14 @@ export const SearchModal = ({ tracks }: SearchModalProps) => {
             </div>
           ))}
         </div>
-        {tracks.length > 0 ?(<div className="modal__search__more">
+        {tracks.length > 0 ? (
+          <div className="modal__search__more" onClick={searchRedirect}>
             View All
             <ViewArrow color={'color-primary'} />
-          </div>): (<></>)}
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </>
   )
