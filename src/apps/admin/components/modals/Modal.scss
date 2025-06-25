@@ -135,26 +135,84 @@
   }
 
   &__search{
-    width:35vw;
-    min-height: 17vh;
+    width:600px;
+    height: 210px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     &__track-list{
       display: flex;
       flex-direction: column;
-      width: 100%;
+      width: 600px;
+      height: 70%;
 
       &__item{
         display: flex;
         flex-direction: row;
-        width: 100%;
+        width: 600px;
         justify-content: space-between;
         margin-top: 8px;
         margin-bottom: 8px;
+
+        text-overflow: ellipsis;
+        height: 40px;
+
+        border-bottom: 1px solid var(--color-outline);
       }
     }
 
     &__title{
-      @include font-title('sm')
+      @include font-title('sm');
+      width: 140px;
+      text-overflow: ellipsis;
+      height:1.5rem;
+      overflow:hidden;
+      white-space:nowrap;
+    }
+
+    &__information{
+      width: 400px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      overflow:hidden;
+      white-space:nowrap;
+      
+      
+      &__item{
+        width:80px;
+        text-overflow: ellipsis;
+        height:1.5rem;
+        overflow:hidden;
+        white-space:nowrap;
+      }
+
+      &__album{
+        width: 110px;
+        text-overflow: ellipsis;
+        height:1.5rem;
+        overflow:hidden;
+        white-space:nowrap;
+      }
+
+      &__detail{
+        width: 40px;
+        text-overflow: ellipsis;
+        height:1.5rem;
+        overflow:hidden;
+        white-space:nowrap;
+      }
+    }
+
+    &__more{
+      @include font-body('md');
+      color: var(--color-primary);
+      width: 15%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
     }
   }
 }
