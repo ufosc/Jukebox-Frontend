@@ -1,5 +1,6 @@
-import { useState, type ChangeEvent, type FormEvent } from 'react'
+import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react'
 import { useSelector } from 'react-redux'
+import { useLocation } from 'react-router-dom'
 import { TrackSearchList } from 'src/components/track-list/SearchTrackList'
 import { Network } from 'src/network'
 import { selectCurrentJukebox } from 'src/store'
@@ -10,6 +11,8 @@ export const MusicSearch = () => {
   const [tracks, setTracks] = useState<ITrackDetails[]>([])
   const jukebox = useSelector(selectCurrentJukebox)
   const network = Network.getInstance()
+
+  const location = useLocation()
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const name = event.target.name
@@ -38,6 +41,30 @@ export const MusicSearch = () => {
       console.log('Jukebox is not connected')
     }
   }
+
+  useEffect(() => {
+    if (location.state && location.state.query && location.state.needSearch) {
+      console.log("HEEEI")
+      setTracks(location.state.searchedTracks.data.tracks.items)
+      setInputs({
+        track: location.state.query.trackName,
+        album: location.state.query.albumName,
+        artist: location.state.query.artistName,
+      })
+      return
+    } 
+    //If no additional API calls are needed
+    else if (location.state && location.state.query) {
+      console.log("HII")
+      setTracks(location.state.searchedTracks.data.tracks.items)
+      setInputs({
+        track: location.state.query.trackName,
+        album: location.state.query.albumName,
+        artist: location.state.query.artistName,
+      })
+      return
+    }
+  }, [location.state])
 
   return (
     <div>
