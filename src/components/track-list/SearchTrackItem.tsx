@@ -43,11 +43,11 @@ export const SearchTrackItem = (props: { track: Nullable<ITrackDetails> }) => {
             {formatDuration(track.duration_ms)}
           </div>
           {addedToQueue ? (
-            <div className="added-to-queue">Added to Queue</div>
+            <div className="added-to-queue">Added</div>
           ) : (
             <div>
-              <button className="button-solid" onClick={addSongToQueue}>
-                + Add to Queue
+              <button className="button-solid-queue" onClick={addSongToQueue}>
+                + Queue
               </button>
             </div>
           )}

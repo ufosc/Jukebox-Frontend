@@ -20,7 +20,7 @@ import {
   mockUser,
 } from 'src/utils'
 import { mockPlayerQueueState } from './../utils/mock/mock-spotify'
-import { NetworkBase } from './NetworkBase'
+import { NetworkBase, NetworkResponse } from './NetworkBase'
 import { mockMembership, mockMemberships } from 'src/utils/mock/mock-memberships'
 
 /**
@@ -49,7 +49,7 @@ export class Network extends NetworkBase {
   /**
    * Fetch details for logged in user.
    */
-  public async getCurrentUser() {
+  public async getCurrentUser(): Promise<NetworkResponse<IUserDetailsAdd>>{
     const url = this.endpoints.user.info
 
     return await this.request(url, UserDetailsSchema, {

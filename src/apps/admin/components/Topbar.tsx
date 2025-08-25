@@ -186,6 +186,7 @@ export const Topbar = () => {
             </p>
           )}
 
+          {/* 
           <div className="form-select-club">
             <select
               className="club-selection"
@@ -202,6 +203,7 @@ export const Topbar = () => {
               ))}
             </select>
           </div>
+          */}
 
           <div className="topbar__club" onClick={handleClubs}>
             <div className="topbar__club__selection">{currentClub?.name}</div>
@@ -244,7 +246,7 @@ export const Topbar = () => {
           </div>
           <div className="topbar__profile__container">
             <button className="topbar__profile" onClick={handleUser}>
-              {user && <img src={user.image} alt={user.last_name} />}
+              {user && <img src={user?.profile?.image ?? undefined} alt={user.last_name} />}
               {!user && <p>Login required.</p>}
             </button>
           </div>
