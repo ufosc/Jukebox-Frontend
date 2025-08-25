@@ -13,7 +13,7 @@ export const Login = () => {
 
   useEffect(() => {
     if (userStatus === 'succeeded' && userIsLoggedIn) {
-      navigate('/admin')
+      navigate('/dashboard')
     }
   }, [userStatus, userIsLoggedIn])
 

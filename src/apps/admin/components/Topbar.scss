@@ -150,7 +150,7 @@ $size: 4rem;
     justify-content: center;
     border: none;
     cursor: pointer;
-    border-radius: 500px;
+    background-color: var(--color-surface-container);
     
     &__container{
       width: 3vw;

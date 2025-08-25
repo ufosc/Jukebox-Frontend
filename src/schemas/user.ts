@@ -6,7 +6,7 @@ export const UserTokenSchema: z.ZodSchema<{ token: string }> = z.object({
   token: z.string(),
 })
 
-export const UserDetailsSchema: z.ZodSchema<IUserDetails> = z.object({
+export const UserDetailsSchema: z.ZodSchema<IUserDetailsAdd> = z.object({
   ...ModelSchemaBase,
   email: z.string(),
   username: z.string(),
@@ -23,6 +23,17 @@ export const UserDetailsSchema: z.ZodSchema<IUserDetails> = z.object({
     .nullish()
     .transform((val) => val ?? undefined) as any,
   clubs: z.array(ClubInlineSchema),
+  profile: z.object({
+    is_school_email_verified: z.boolean(),
+    image: z.string(),
+    name: z.string(),
+    phone: z.string().optional(),
+    bio: z.string().optional(),
+    city: z.string().optional(),
+    state: z.string().optional(),
+    country: z.string().optional(),
+    graduation_date: z.string().optional(),
+  }),
 })
 
 export const SpotifyLinkSchema: z.ZodSchema<ISpotifyLink> = z.object({
