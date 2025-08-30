@@ -12,11 +12,11 @@ import {
 import {
   thunkClearNextTracks,
   thunkFetchCurrentlyPlaying,
-  thunkFetchJBX,
+  thunkFetchJukebox,
   thunkFetchJukeboxes,
   thunkFetchNextTracks,
   thunkSyncSpotifyTokens,
-  thunkUpdateActiveLink,
+  thunkUpdateAccountLink,
 } from './jbxThunks'
 
 const {
@@ -111,7 +111,7 @@ export const authenticateLink = async (link?: IJukeboxLink) => {
   const jukeboxId = selectCurrentJukebox(store.getState())?.id
   if (!jukeboxId) return
 
-  await store.dispatch(thunkUpdateActiveLink({ jukeboxId, link }))
+  await store.dispatch(thunkUpdateAccountLink({ jukeboxId, link }))
 
   if (link.type === 'spotify') {
     await store.dispatch(thunkSyncSpotifyTokens(jukeboxId))
@@ -146,5 +146,5 @@ export const checkLinkAuth = async () => {
 }
 
 export const fetchJukebox = async (jukeboxId: number) => {
-  await store.dispatch(thunkFetchJBX(jukeboxId))
+  await store.dispatch(thunkFetchJukebox(jukeboxId))
 }

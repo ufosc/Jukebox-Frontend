@@ -26,7 +26,7 @@ export const MusicSearch = () => {
     event.preventDefault()
     if (jukebox !== null) {
       console.log(inputs)
-      const tracksResult = await network.getTracks(
+      const tracksResult = await network.searchTracks(
         jukebox.id,
         inputs.track,
         inputs.album,

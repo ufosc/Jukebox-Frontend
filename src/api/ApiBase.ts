@@ -94,7 +94,7 @@ export abstract class ApiBase {
           mock: { data: mockData as any },
         })
       },
-      detail: async (id: number) => {
+      retrieve: async (id: number) => {
         return await this.get<R>(url + `${id}/`, {
           schema: detailSchema,
           mock: {
@@ -147,7 +147,7 @@ export abstract class ApiBase {
           mock: { data: mockData as any },
         })
       },
-      detail: async (parentId: number, id: number) => {
+      retrieve: async (parentId: number, id: number) => {
         return await this.get<R>(url(parentId), {
           schema: detailSchema,
           mock: {
@@ -200,7 +200,7 @@ export abstract class ApiBase {
           mock: { data: mockData as any },
         })
       },
-      detail: async (
+      retrieve: async (
         outerParentId: number,
         innerParentId: number,
         id: number,

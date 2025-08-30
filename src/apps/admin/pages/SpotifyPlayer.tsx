@@ -85,7 +85,7 @@ export const SpotifyPlayer = () => {
         throw new Error('Club not found in user clubs.')
       }
       const clubId = foundClub.id
-      const response = await network.getCurrentMembership(
+      const response = await network.getMyClubMemberships(
         currentClub?.id,
         clubId,
       )

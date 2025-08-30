@@ -8,7 +8,7 @@ import {
   thunkUpdateLinks,
 } from './userThunks'
 
-const network = ApiClient.getInstance()
+const api = ApiClient.getInstance()
 
 /**
  * If the user token exists, will set logged in to true,
@@ -37,11 +37,11 @@ export const loginUser = async (usernameOrEmail: string, password: string) => {
  * Send user to the google consent screen.
  */
 export const loginUserWithGoogle = (returnPath: string) => {
-  return network.loginWithOauth('google', returnPath)
+  return api.loginWithOauth('google', { returnPath })
 }
 
 export const handleUserOauthReturn = async () => {
-  const res = await network.handleOauthReturn()
+  const res = await api.handleOauthReturn()
   if (!res.success) return res
 
   await initializeUser()

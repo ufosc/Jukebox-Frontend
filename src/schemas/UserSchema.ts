@@ -1,13 +1,13 @@
+import { CountryType } from 'src/types/club-portal-enums'
 import { z } from 'zod'
 import { ModelSchemaBase } from './base'
-import { ClubInlineSchema } from './club'
-import { CountryType } from 'src/types/club-portal-enums'
+import { ClubInlineSchema } from './ClubSchema'
 
 export const UserTokenSchema: z.ZodSchema<{ token: string }> = z.object({
   token: z.string(),
 })
 
-export const UserDetailsSchema: z.ZodSchema<IUser> = z.object({
+export const UserSchema: z.ZodSchema<IUser> = z.object({
   ...ModelSchemaBase,
   email: z.string(),
   username: z.string(),
@@ -40,17 +40,3 @@ export const UserDetailsSchema: z.ZodSchema<IUser> = z.object({
     graduation_date: z.string().optional(),
   }),
 })
-
-export const SpotifyLinkSchema: z.ZodSchema<ISpotifyLink> = z.object({
-  ...ModelSchemaBase,
-  deleted_on: z.string().nullable(),
-  access_token: z.string(),
-  refresh_token: z.string(),
-  user_id: z.number(),
-  spotify_email: z.string(),
-  expires_in: z.number(),
-  expires_at: z.string(),
-  token_type: z.string(),
-})
-
-export const SpotifyLinksSchema = z.array(SpotifyLinkSchema)

@@ -1,25 +1,19 @@
 import {
   ClubListSchema,
-  ClubMembershipSchema,
-  ClubMembershipsSchema,
+  ClubMembershipListSchema,
   ClubSchema,
   JukeboxListSchema,
-  JukeboxSchema,
   SpotifyAccountSchema,
   SpotifyAuthRedirectUrlSchema,
-  SpotifyLinksSchema,
-  UserDetailsSchema,
+  UserSchema,
 } from 'src/schemas'
-import { QueuedTrackListSchema, swapTrackSchema } from 'src/schemas/player'
 import {
-  getRandomSample,
-  mockClubs,
+  MockClubs,
   mockJukeboxes,
-  mockQueuedTracks,
   mockSpotifyAccount,
-  mockUser,
+  MockUser,
 } from 'src/utils'
-import { mockMembership } from 'src/utils/mock/mock-memberships'
+import { mockMemberships } from 'src/utils/mock/mock-memberships'
 import { mockPlayerQueueState } from '../utils/mock/mock-spotify'
 import { ApiAuth } from './ApiAuth'
 
@@ -37,16 +31,18 @@ export class ApiClient extends ApiAuth {
     return this.instance
   }
 
-  /*=== Club & User Routes ================================*/
+  // ======================================
+  // User & Club Routes
+  // ======================================
   /**
    * Fetch details for logged in user.
    */
-  public async getCurrentUser() {
+  public async getMe() {
     const url = this.endpoints.user.info
 
     return await this.get(url, {
-      schema: UserDetailsSchema,
-      mock: { data: mockUser },
+      schema: UserSchema,
+      mock: { data: MockUser },
     })
   }
 
@@ -58,7 +54,7 @@ export class ApiClient extends ApiAuth {
 
     return await this.get(url, {
       schema: ClubListSchema,
-      mock: { data: mockClubs },
+      mock: { data: MockClubs },
     })
   }
 
@@ -66,25 +62,80 @@ export class ApiClient extends ApiAuth {
    * Fetch details for a club.
    */
   public async getClub(id: number) {
-    const url = this.endpoints.club.get(id)
+    const url = this.endpoints.club.detail(id)
 
     return await this.get(url, {
       schema: ClubSchema,
       mock: {
-        data: mockClubs.find((club) => club.id === id),
+        data: MockClubs.find((club) => club.id === id) ?? null,
         errorIfEmpty: true,
       },
     })
   }
 
-  /*=== Jukebox Routes ====================================*/
+  /**
+   * Get club members.
+   */
+  public async getClubMembers(clubId: number) {
+    const url = this.endpoints.club.memberList(clubId)
+
+    return await this.get<IClubMembership[]>(url, {
+      schema: ClubMembershipListSchema,
+    })
+  }
+
+  /**
+   * Get club memberships for the current user.
+   */
+  public async getMyClubMemberships() {
+    const url = this.endpoints.club.membershipList
+
+    return await this.get(url, {
+      schema: ClubMembershipListSchema,
+      mock: { data: mockMemberships },
+    })
+  }
+
+  // ======================================
+  // Jukebox Routes
+  // ======================================
+
+  /**
+   * CRUD routes for jukeboxes.
+   */
+  readonly jukeboxes = this.resourceFactory<
+    IJukebox,
+    IJukeboxCreate,
+    IJukeboxUpdate
+  >(this.endpoints.jukebox.list)
+
+  /**
+   * Standard CRUD routes for juke sessions.
+   */
+  readonly jukeSessions = this.nestedResourceFactory<
+    IJukeSession,
+    IJukeSessionCreate,
+    IJukeSessionUpdate
+  >(this.endpoints.jukebox.jukeSessionList)
+
+  /**
+   * Standard CRUD routes for account links.
+   */
+  readonly accountLinks = this.nestedResourceFactory<
+    IAccountLink,
+    IAccountLinkCreate,
+    IAccountLinkUpdate
+  >(this.endpoints.jukebox.accountLinkList)
+
   /**
    * Get account info for the active spotify account
    * linked to the Jukebox. This includes the necessary
    * access tokens to initialize the web player.
+   *
+   * Returns 404 if no account link is active.
    */
-  public async getSpotifyAuth(jukeboxId: number) {
-    const url = this.endpoints.jukebox.getSpotifyAccount(jukeboxId)
+  public async getActiveAccountLink(jukeboxId: number) {
+    const url = this.endpoints.jukebox.accountLinkActive(jukeboxId)
 
     return await this.get(url, {
       schema: SpotifyAccountSchema,
@@ -99,8 +150,8 @@ export class ApiClient extends ApiAuth {
    * will make up the list for the user that is
    * connected to the auth token sent in the request.
    */
-  public async listJukeboxes(clubId: number) {
-    const url = this.endpoints.jukebox.list(clubId)
+  public async listJukeboxesForClub(clubId: number) {
+    const url = this.endpoints.jukebox.listForClub(clubId)
 
     return await this.get(url, {
       schema: JukeboxListSchema,
@@ -112,38 +163,21 @@ export class ApiClient extends ApiAuth {
    * Change the active device controlling playback
    * for Spotify.
    */
-  public async connectSpotifyDevice(jukeboxId: number, deviceId: string) {
+  public async connectPlayerDevice(jukeboxId: number, deviceId: string) {
     const url = this.endpoints.jukebox.connectDevice(jukeboxId)
 
-    return await this.post(url, {
+    return await this.post<IPlayerState>(url, {
       body: { device_id: deviceId },
     })
   }
 
   /**
-   * Set a linked account as active for a jukebox.
-   *
-   * This will determine whose account is used when
-   * managing the player state.
-   */
-  public async updateActiveJukeboxLink(jukeboxId: number, link: IJukeboxLink) {
-    const url = this.endpoints.jukebox.activeLink(jukeboxId)
-
-    return await this.post(url, {
-      body: { type: link.type, email: link.email },
-    })
-  }
-
-  /**
    * Get the current player state for a jukebox,
-   * includes the player queue.
-   *
-   * Throws a 404 error if nothing is playing.
    */
   public async getCurrentlyPlaying(jukeboxId: number) {
     const url = this.endpoints.jukebox.playerState(jukeboxId)
 
-    return await this.get(url, {
+    return await this.get<IPlayerState>(url, {
       mock: { data: mockPlayerQueueState },
     })
   }
@@ -152,70 +186,31 @@ export class ApiClient extends ApiAuth {
    * Get the next tracks that are queued up.
    * Excludes the current track.
    */
-  public async getNextTracks(jukeboxId: number) {
-    const url = this.endpoints.jukebox.nextTracks(jukeboxId)
+  public async getQueuedTracks(jukeboxId: number, jukeSessionId: number) {
+    const url = this.endpoints.jukebox.queueTrackList(jukeboxId, jukeSessionId)
 
-    return await this.get(url, {
-      schema: QueuedTrackListSchema,
-      mock: { data: getRandomSample(mockQueuedTracks) },
-    })
+    return await this.get<IQueue>(url)
   }
 
   /**
    * Clears the track queue for next tracks.
    */
-  public async clearNextTracks(jukeboxId: number) {
-    const url = this.endpoints.jukebox.nextTracks(jukeboxId)
+  public async clearNextTracks(jukeboxId: number, jukeSessionId: number) {
+    const url = this.endpoints.jukebox.queueTrackList(jukeboxId, jukeSessionId)
 
     return await this.delete(url)
   }
 
   /**
-   *
+   * Get url for redirecting to spotify for logging in.
    */
   public async getSpotifyAuthRedirectUrl(jukeboxId?: number) {
     const url = this.endpoints.spotify.login(location.href, jukeboxId)
     return await this.get(url, { schema: SpotifyAuthRedirectUrlSchema })
   }
 
-  private async createJukeboxObject(clubId: number, jbxName: string) {
-    const url = this.endpoints.jukebox.list(clubId)
-
-    return await this.post(url, {
-      body: { name: jbxName, club_id: clubId },
-    })
-  }
-
-  /**
-   *  Creates a new Jukebox
-   *  TODO: fix schema type
-   */
-  public async createJukebox(
-    jukeboxId: number,
-    jukeboxName: string,
-    spotifyLink?: ISpotifyLink[],
-  ) {
-    const res = await this.createJukeboxObject(jukeboxId, jukeboxName)
-
-    const url = this.endpoints.jukebox.links(jukeboxId)
-    if (spotifyLink !== undefined && spotifyLink.length !== 0) {
-      spotifyLink.forEach(async (link) => {
-        await this.post(url, {
-          body: { type: link.token_type, email: link.spotify_email },
-        })
-      })
-    }
-
-    return res
-  }
-
-  public async getLinks() {
-    const url = this.endpoints.spotify.links
-
-    return await this.get(url, { schema: SpotifyLinksSchema })
-  }
-
-  public async getTracks(
+  // TODO: Fix this on backend
+  public async searchTracks(
     jukeboxId: number,
     trackName: string,
     albumName: string,
@@ -234,64 +229,67 @@ export class ApiClient extends ApiAuth {
     return response
   }
 
-  public async queueTrack(jukeboxId: number, songID: string) {
-    const url = this.endpoints.jukebox.queue(jukeboxId)
+  /**
+   * Add track to the queue.
+   */
+  public async queueTrack(
+    jukeboxId: number,
+    jukeSessionId: number,
+    body: IQueueUpTrack,
+  ) {
+    const url = this.endpoints.jukebox.queueTrackList(jukeboxId, jukeSessionId)
 
-    return await this.post(url, {
-      body: { track_id: songID, position: 100 },
+    return await this.post<IQueuedTrack>(url, {
+      body,
     })
   }
 
   /**
-   *
-   * @param clubID
-   * @returns List of members for a given club
+   * Remove track from the queue.
    */
-  public async getMembers(clubID: number) {
-    const url = this.endpoints.club.members(clubID)
-
-    return await this.get(url, { schema: ClubMembershipsSchema })
-  }
-
-  public async getJukebox(jukeboxId: number) {
-    const url = this.endpoints.jukebox.getJbk(jukeboxId)
-
-    return await this.get(url, { schema: JukeboxSchema })
-  }
-
-  public async listClubJukeboxes(clubId: number) {
-    const url = this.endpoints.jukebox.getClubList(clubId)
-
-    return await this.get(url, {
-      schema: JukeboxListSchema,
-      mock: { data: mockJukeboxes },
-    })
-  }
-
-  public async removeQueuedTrack(jukeboxId: number, queueId: string) {
-    const url = this.endpoints.jukebox.removeQTrack(jukeboxId, queueId)
+  public async removeQueuedTrack(
+    jukeboxId: number,
+    queueId: number,
+    queuedTrackId: number,
+  ) {
+    const url = this.endpoints.jukebox.queueTrackDetail(
+      jukeboxId,
+      queueId,
+      queuedTrackId,
+    )
 
     return await this.delete(url)
   }
 
-  public async swapTracks(
+  /**
+   * Set ordering of all tracks in the queue.
+   */
+  public async setQueueOrder(
     jukeboxId: number,
-    currentPosition: number,
-    targetPosition: number,
+    jukeSessionId: number,
+    body: ISetQueueOrder,
   ) {
-    const url = this.endpoints.jukebox.swapTracks(jukeboxId)
-    return await this.post(url, {
-      schema: swapTrackSchema,
-      body: { currentPos: currentPosition, targetPos: targetPosition },
+    const url = this.endpoints.jukebox.queueTrackList(jukeboxId, jukeSessionId)
+    return await this.post<IQueue>(url, {
+      body,
     })
   }
 
-  public async getCurrentMembership(clubId: number, memberId: number) {
-    const url = this.endpoints.club.membership(clubId, memberId)
-
-    return await this.get(url, {
-      schema: ClubMembershipSchema,
-      mock: { data: mockMembership },
+  /**
+   * Get all spotify accounts for the current user.
+   */
+  public async getSpotifyAccounts() {
+    const url = this.endpoints.spotify.accountList
+    return await this.get<ISpotifyAccount>(url, {
+      mock: { data: mockSpotifyAccount },
     })
+  }
+
+  /**
+   * Remove spotify account for the current user.
+   */
+  public async deleteSpotifyAccount(id: number) {
+    const url = this.endpoints.spotify.accountDetail(id)
+    return await this.delete(url)
   }
 }

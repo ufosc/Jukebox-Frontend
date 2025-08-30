@@ -1,3 +1,4 @@
+import { UserTokenSchema } from 'src/schemas'
 import { localDataFactory } from 'src/utils'
 import { ApiBase } from './ApiBase'
 
@@ -94,6 +95,28 @@ export class ApiAuth extends ApiBase {
     document.body.appendChild(form)
 
     form.submit()
+  }
+
+  /**
+   * Handle return request from oauth.
+   *
+   * The server returns with a new session id stored as a cookie.
+   * This session id allows us to authenticate with the server
+   * and obtain a user token to use with the REST API.
+   */
+  public async handleOauthReturn() {
+    const url = this.endpoints.user.token
+
+    const res = await this.get(url, {
+      schema: UserTokenSchema,
+      isPublic: true,
+      mock: { data: { token: 'test-token' } },
+    })
+
+    if (!res.success) return res
+    this.setToken(res.data.token)
+
+    return res
   }
 
   /**

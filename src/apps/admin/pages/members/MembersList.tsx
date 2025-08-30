@@ -28,7 +28,7 @@ export const MembersList: React.FC = () => {
     console.log(currentClub?.id)
     const clubId = currentClub?.id
     if (clubId !== undefined) {
-      const res = await network.getMembers(clubId)
+      const res = await network.getClubMembers(clubId)
       console.log(res)
       if (res.success) {
         setMembers(res.data)

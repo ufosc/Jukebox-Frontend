@@ -186,7 +186,7 @@ export const SpotifyProvider = (props: {
 
   const connectDevice = async () => {
     if (jukebox) {
-      await networkRef.current?.connectSpotifyDevice(jukebox.id, deviceId)
+      await networkRef.current?.connectPlayerDevice(jukebox.id, deviceId)
     }
   }
 

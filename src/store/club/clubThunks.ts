@@ -3,11 +3,6 @@ import { ApiClient } from 'src/api'
 
 const network = ApiClient.getInstance()
 
-declare interface FetchMembershipArgs {
-  clubId: number
-  memberId: number
-}
-
 export const thunkFetchClubs = createAsyncThunk('club/fetchClubs', async () => {
   return await network.listClubs()
 })
@@ -21,7 +16,7 @@ export const thunkFetchClubInfo = createAsyncThunk(
 
 export const thunkFetchMembership = createAsyncThunk(
   'club/fetchMembershipInfo',
-  async (args: FetchMembershipArgs) => {
-    return await network.getCurrentMembership(args.clubId, args.memberId)
+  async () => {
+    return await network.getMyClubMemberships()
   },
 )

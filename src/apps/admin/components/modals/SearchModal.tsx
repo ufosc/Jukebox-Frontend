@@ -29,7 +29,7 @@ export const SearchModal = ({
     console.log('Clicked')
     const searchPath = '/dashboard/music/search'
     if (currentJbx) {
-      const response = await network.getTracks(
+      const response = await network.searchTracks(
         currentJbx.id,
         searchQuery.trackName,
         searchQuery.albumName,

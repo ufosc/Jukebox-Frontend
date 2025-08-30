@@ -14,7 +14,7 @@ export const thunkLoginUser = createAsyncThunk(
 export const thunkInitializeUser = createAsyncThunk(
   'user/fetchInfo',
   async () => {
-    return await network.getCurrentUser()
+    return await network.getMe()
   },
 )
 
@@ -23,5 +23,5 @@ export const thunkLogoutUser = createAsyncThunk('user/logout', async () => {
 })
 
 export const thunkUpdateLinks = createAsyncThunk('users/links', async () => {
-  return await network.getLinks()
+  return await network.getSpotifyAccounts()
 })

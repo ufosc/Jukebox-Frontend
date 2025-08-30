@@ -2,10 +2,10 @@ import { createSlice } from '@reduxjs/toolkit'
 import { builderDefaults } from 'src/utils'
 import {
   thunkFetchCurrentlyPlaying,
+  thunkFetchJukebox,
   thunkFetchJukeboxes,
   thunkFetchNextTracks,
   thunkSyncSpotifyTokens,
-  thunkFetchJBX,
 } from './jbxThunks'
 
 export const jukeboxSlice = createSlice({
@@ -112,7 +112,7 @@ export const jukeboxSlice = createSlice({
 
       state.spotifyAuth = action.payload.data
     })
-    builder.addCase(thunkFetchJBX.fulfilled, (state, action) =>{ 
+    builder.addCase(thunkFetchJukebox.fulfilled, (state, action) => {
       if (action.payload.success) {
         state.currentJukebox = action.payload.data
         return

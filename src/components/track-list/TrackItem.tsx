@@ -58,7 +58,7 @@ export const TrackItem = (props: {
     drop: (item: any, monitor: any) => {
       console.log(`Moving the ${originalIndex} to ${targetPos}`)
       if (currentJukebox) {
-        const res = network.swapTracks(
+        const res = network.setQueueOrder(
           currentJukebox.id,
           originalIndex,
           targetPos,

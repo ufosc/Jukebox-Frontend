@@ -70,7 +70,7 @@ export const Topbar = () => {
 
         if (jukebox !== null) {
           // Only Searches using track name currently
-          const tracksResult = await network.getTracks(
+          const tracksResult = await network.searchTracks(
             jukebox.id,
             searchInput,
             '',
@@ -116,7 +116,12 @@ export const Topbar = () => {
     e.preventDefault()
     const searchPath = '/dashboard/music/search'
     if (jukebox) {
-      const response = await network.getTracks(jukebox.id, searchInput, '', '')
+      const response = await network.searchTracks(
+        jukebox.id,
+        searchInput,
+        '',
+        '',
+      )
 
       const query = {
         trackName: searchInput,
