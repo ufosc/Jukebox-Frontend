@@ -10,6 +10,19 @@
   margin-bottom: 2%;
   margin-top: 2%;
   justify-items: center;
+  margin-left: 1vh;
+}
+
+.spotify-player-header {
+  color: var(--color-surface-on);
+  font-family: Poppins;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px; /* 117.647% */
+  letter-spacing: 0.51px;
+
+  margin-bottom: 3rem;
 }
 
 .left-container {
@@ -71,7 +84,7 @@
   margin-bottom: 3rem;
 }
 
-.spotify-accounts{
+.spotify-accounts {
   display: flex;
   flex-direction: column;
   margin-top: 2rem;

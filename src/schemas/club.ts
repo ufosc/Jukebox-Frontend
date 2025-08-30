@@ -17,6 +17,13 @@ export const ClubSchema: z.ZodSchema<IClub> = z.object({
   // members: z.array(ClubMemberSchema),
 })
 
+export const ClubLogoSchema = z.object({
+  id: z.number(),
+  display_name: z.string(),
+  url: z.string(),
+  size: z.unknown().nullish(),
+})
+
 export const ClubListSchema = z.array(ClubSchema)
 
 export const ClubInlineSchema = z.object({

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { AudioPlayer, Form, FormSelectGroup, FormSubmit } from 'src/components'
+import { AudioPlayer } from 'src/components'
 import { REACT_ENV } from 'src/config'
 import { SpotifyContext } from 'src/context'
 import { Network } from 'src/network'
@@ -69,6 +69,12 @@ export const Player = () => {
     }
     setConnected(true)
   }
+
+  useEffect(()=>{
+    if(isConnected) {
+      setConnected(true)
+    }
+  },[])
 
   useEffect(() => {
     connectDevice()
@@ -200,26 +206,25 @@ export const Player = () => {
         </>
       ) : (
         <>
-        <div className='col-6'>
-          <div>
-            Connect to Spotify to Get Started!
-          </div>
-          {jukeboxLinks ? (
-            <button onClick={initializeAccount}>Connect Account</button>
-          ) : (
-            <div>Loading...</div>
-          )}
-        </div>
+          <div className="spotify-player-container grid">
+            <div className="col-6">
+              <div className="spotify-player-header">
+                Connect to Spotify to Get Started!
+              </div>
+              {jukeboxLinks ? (
+                <button className='button-fancy' onClick={initializeAccount}>Connect Account</button>
+              ) : (
+                <div>Loading...</div>
+              )}
+            </div>
 
-        <div className='col-5'>
-          <div>
-            Connected Spotify Accounts
+            <div className="col-5">
+              <div className="spotify-player-header">
+                Connected Spotify Accounts
+              </div>
+              <div>Your connected accounts will show up here</div>
+            </div>
           </div>
-          <div>
-            Your connected accounts will show up here
-          </div>
-        </div>
-        
         </>
       )}
     </>

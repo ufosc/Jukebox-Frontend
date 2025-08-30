@@ -4,7 +4,7 @@ import { ModalNavItem } from './ModalNavItem'
 import { logoutUser } from 'src/store'
 
 interface UserModalProps {
-  user: IUserDetails | null
+  user: IUserDetailsAdd | null
   closeModal: () => void
 }
 
