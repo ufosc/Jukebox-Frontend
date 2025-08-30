@@ -8,7 +8,7 @@ export const NestedClubFileSchema = z.object({
   size: z.string(),
 })
 export const ClubSchema: z.Schema<IClub> = z.object({
-  id: z.number(),
+  ...ModelSchemaBase,
   name: z.string(),
   logo: NestedClubFileSchema,
   banner: NestedClubFileSchema.nullish(),
@@ -76,8 +76,6 @@ export const ClubSchema: z.Schema<IClub> = z.object({
       }),
     }),
   ),
-  created_at: z.coerce.date(),
-  updated_at: z.coerce.date(),
   member_count: z.number(),
 })
 

@@ -17,3 +17,5 @@ declare namespace React {
 declare type StoreStatus = 'idle' | 'loading' | 'failed' | 'succeeded'
 
 declare type ThemeMode = 'light' | 'dark'
+
+declare type DateString = string

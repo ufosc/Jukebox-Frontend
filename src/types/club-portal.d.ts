@@ -70,9 +70,9 @@ declare interface IClub {
     role_type: 'admin' | 'editor' | 'viewer' | 'follower' | 'custom'
   }[]
 
-  readonly created_at: Date
+  readonly created_at: DateString
 
-  readonly updated_at: Date
+  readonly updated_at: DateString
 
   readonly member_count: number
 
@@ -245,9 +245,9 @@ declare interface IClubMembership {
     roles: string[]
   }[]
 
-  readonly created_at: Date
+  readonly created_at: DateString
 
-  readonly updated_at: Date
+  readonly updated_at: DateString
 
   readonly club_id: number
 
@@ -354,9 +354,9 @@ declare interface IClubFile {
 
   readonly uploaded_by?: number | null
 
-  readonly created_at: Date
+  readonly created_at: DateString
 
-  readonly updated_at: Date
+  readonly updated_at: DateString
 }
 
 /**
@@ -456,9 +456,9 @@ declare interface ITeam {
 
   memberships: ITeamMembership[]
 
-  readonly created_at: Date
+  readonly created_at: DateString
 
-  readonly updated_at: Date
+  readonly updated_at: DateString
 }
 
 /**
@@ -543,9 +543,9 @@ declare interface ITeamMembership {
     readonly name: string
   }
 
-  readonly created_at: Date
+  readonly created_at: DateString
 
-  readonly updated_at: Date
+  readonly updated_at: DateString
 }
 
 /**
@@ -611,15 +611,15 @@ declare interface IEvent {
   /** Create poll for event and users to attend. */
   enable_attendance: boolean
 
-  start_at: Date
+  start_at: DateString
 
-  end_at: Date
+  end_at: DateString
 
   is_draft: boolean
 
   is_public: boolean
 
-  make_public_at?: Date | null
+  make_public_at?: DateString | null
 
   recurring_event?: number | null
 
@@ -664,9 +664,9 @@ declare interface IEvent {
 
   readonly is_all_day: boolean
 
-  readonly created_at: Date
+  readonly created_at: DateString
 
-  readonly updated_at: Date
+  readonly updated_at: DateString
 }
 
 /**
@@ -693,15 +693,15 @@ declare interface IEventCreate {
   /** Create poll for event and users to attend. */
   enable_attendance?: boolean | null
 
-  start_at?: Date | null
+  start_at?: DateString | null
 
-  end_at?: Date | null
+  end_at?: DateString | null
 
   is_draft?: boolean | null
 
   is_public?: boolean | null
 
-  make_public_at?: Date | null
+  make_public_at?: DateString | null
 
   recurring_event?: number | null
 
@@ -754,15 +754,15 @@ declare interface IEventUpdate {
   /** Create poll for event and users to attend. */
   enable_attendance?: boolean | null
 
-  start_at?: Date | null
+  start_at?: DateString | null
 
-  end_at?: Date | null
+  end_at?: DateString | null
 
   is_draft?: boolean | null
 
   is_public?: boolean | null
 
-  make_public_at?: Date | null
+  make_public_at?: DateString | null
 
   recurring_event?: number | null
 
@@ -844,11 +844,11 @@ declare interface IRecurringEvent {
 
   name: string
 
-  /** Date of the first occurance of this event */
-  start_date: Date
+  /** DateString of the first occurance of this event */
+  start_date: DateString
 
-  /** Date of the last occurance of this event */
-  end_date: Date
+  /** DateString of the last occurance of this event */
+  end_date: DateString
 
   event_type:
     | 'gbm'
@@ -897,12 +897,12 @@ declare interface IRecurringEvent {
 
   readonly is_all_day: boolean
 
-  readonly created_at: Date
+  readonly created_at: DateString
 
-  readonly updated_at: Date
+  readonly updated_at: DateString
 
   /** Last time events were synced */
-  readonly last_synced?: Date | null
+  readonly last_synced?: DateString | null
 }
 
 /**
@@ -913,11 +913,11 @@ declare interface IRecurringEvent {
 declare interface IRecurringEventCreate {
   name?: string | null
 
-  /** Date of the first occurance of this event */
-  start_date?: Date | null
+  /** DateString of the first occurance of this event */
+  start_date?: DateString | null
 
-  /** Date of the last occurance of this event */
-  end_date?: Date | null
+  /** DateString of the last occurance of this event */
+  end_date?: DateString | null
 
   event_type?:
     | 'gbm'
@@ -971,11 +971,11 @@ declare interface IRecurringEventUpdate {
 
   name?: string | null
 
-  /** Date of the first occurance of this event */
-  start_date?: Date | null
+  /** DateString of the first occurance of this event */
+  start_date?: DateString | null
 
-  /** Date of the last occurance of this event */
-  end_date?: Date | null
+  /** DateString of the last occurance of this event */
+  end_date?: DateString | null
 
   event_type?:
     | 'gbm'
@@ -1031,9 +1031,9 @@ declare interface IPoll {
 
   description?: string | null
 
-  open_at?: Date | null
+  open_at?: DateString | null
 
-  close_at?: Date | null
+  close_at?: DateString | null
 
   event?: {
     /** Primary key */
@@ -1053,9 +1053,9 @@ declare interface IPoll {
 
     readonly name: string
 
-    readonly start_at: Date
+    readonly start_at: DateString
 
-    readonly end_at: Date
+    readonly end_at: DateString
   } | null
 
   club?: {
@@ -1079,13 +1079,13 @@ declare interface IPoll {
 
   fields: IPollField[]
 
-  readonly created_at: Date
+  readonly created_at: DateString
 
-  readonly updated_at: Date
+  readonly updated_at: DateString
 
   readonly submissions_count: number
 
-  readonly last_submission_at?: Date | null
+  readonly last_submission_at?: DateString | null
 
   readonly status: 'open' | 'closed' | 'scheduled' | 'draft'
 
@@ -1106,9 +1106,9 @@ declare interface IPollCreate {
 
   description?: string | null
 
-  open_at?: Date | null
+  open_at?: DateString | null
 
-  close_at?: Date | null
+  close_at?: DateString | null
 
   event?: {
     /** Primary key */
@@ -1140,9 +1140,9 @@ declare interface IPollUpdate {
 
   description?: string | null
 
-  open_at?: Date | null
+  open_at?: DateString | null
 
-  close_at?: Date | null
+  close_at?: DateString | null
 
   event?: {
     /** Primary key */
@@ -1446,9 +1446,9 @@ declare interface ITextInput {
 
   text_type: import('./club-portal-enums.ts').TextType
 
-  readonly created_at: Date
+  readonly created_at: DateString
 
-  readonly updated_at: Date
+  readonly updated_at: DateString
 }
 
 /**
@@ -1493,9 +1493,9 @@ declare interface IChoiceInput {
 
   options: IChoiceInputOption[]
 
-  readonly created_at: Date
+  readonly created_at: DateString
 
-  readonly updated_at: Date
+  readonly updated_at: DateString
 }
 
 /**
@@ -1546,9 +1546,9 @@ declare interface IChoiceInputOption {
 
   is_other: boolean
 
-  readonly created_at: Date
+  readonly created_at: DateString
 
-  readonly updated_at: Date
+  readonly updated_at: DateString
 }
 
 /**
@@ -1607,9 +1607,9 @@ declare interface IScaleInput {
 
   initial_value: number
 
-  readonly created_at: Date
+  readonly created_at: DateString
 
-  readonly updated_at: Date
+  readonly updated_at: DateString
 }
 
 /**
@@ -1658,9 +1658,9 @@ declare interface IUploadInput {
 
   file_types?: import('./club-portal-enums.ts').FilesType[] | null
 
-  readonly created_at: Date
+  readonly created_at: DateString
 
-  readonly updated_at: Date
+  readonly updated_at: DateString
 }
 
 /**
@@ -1703,9 +1703,9 @@ declare interface INumberInput {
 
   max_value: number
 
-  readonly created_at: Date
+  readonly created_at: DateString
 
-  readonly updated_at: Date
+  readonly updated_at: DateString
 }
 
 /**
@@ -1746,9 +1746,9 @@ declare interface IEmailInput {
 
   is_school_email: boolean
 
-  readonly created_at: Date
+  readonly created_at: DateString
 
-  readonly updated_at: Date
+  readonly updated_at: DateString
 }
 
 /**
@@ -1787,9 +1787,9 @@ declare interface IPhoneInput {
   /** Primary key */
   readonly id: number
 
-  readonly created_at: Date
+  readonly created_at: DateString
 
-  readonly updated_at: Date
+  readonly updated_at: DateString
 }
 
 /**
@@ -1816,15 +1816,15 @@ declare interface IDateInput {
   /** Primary key */
   readonly id: number
 
-  min_value?: Date | null
+  min_value?: DateString | null
 
-  max_value?: Date | null
+  max_value?: DateString | null
 
   exclude_day: boolean
 
-  readonly created_at: Date
+  readonly created_at: DateString
 
-  readonly updated_at: Date
+  readonly updated_at: DateString
 }
 
 /**
@@ -1833,9 +1833,9 @@ declare interface IDateInput {
  * @see {@link IDateInput}
  */
 declare interface IDateInputCreate {
-  min_value?: Date | null
+  min_value?: DateString | null
 
-  max_value?: Date | null
+  max_value?: DateString | null
 
   exclude_day?: boolean | null
 }
@@ -1849,9 +1849,9 @@ declare interface IDateInputUpdate {
   /** Primary key */
   readonly id?: number | null
 
-  min_value?: Date | null
+  min_value?: DateString | null
 
-  max_value?: Date | null
+  max_value?: DateString | null
 
   exclude_day?: boolean | null
 }
@@ -1867,9 +1867,9 @@ declare interface ITimeInput {
 
   max_value?: string | null
 
-  readonly created_at: Date
+  readonly created_at: DateString
 
-  readonly updated_at: Date
+  readonly updated_at: DateString
 }
 
 /**
@@ -1908,9 +1908,9 @@ declare interface IUrlInput {
 
   max_length?: number | null
 
-  readonly created_at: Date
+  readonly created_at: DateString
 
-  readonly updated_at: Date
+  readonly updated_at: DateString
 }
 
 /**
@@ -1951,9 +1951,9 @@ declare interface ICheckboxInput {
 
   label?: string | null
 
-  readonly created_at: Date
+  readonly created_at: DateString
 
-  readonly updated_at: Date
+  readonly updated_at: DateString
 }
 
 /**
@@ -2013,7 +2013,7 @@ declare interface IPollSubmission {
 
       country?: import('./club-portal-enums.ts').CountryType | null
 
-      birthday?: Date | null
+      birthday?: DateString | null
 
       school_email?: string | null
 
@@ -2035,9 +2035,9 @@ declare interface IPollSubmission {
 
   readonly is_valid: boolean
 
-  readonly created_at: Date
+  readonly created_at: DateString
 
-  readonly updated_at: Date
+  readonly updated_at: DateString
 }
 
 /**
@@ -2084,9 +2084,9 @@ declare interface IPollSubmissionAnswer {
 
   readonly is_valid: boolean
 
-  readonly created_at: Date
+  readonly created_at: DateString
 
-  readonly updated_at: Date
+  readonly updated_at: DateString
 
   /** Error message if input is not valid. */
   readonly error?: string | null
@@ -2163,7 +2163,7 @@ declare interface IUser {
 
     country?: import('./club-portal-enums.ts').CountryType | null
 
-    birthday?: Date | null
+    birthday?: DateString | null
 
     school_email?: string | null
 
@@ -2208,9 +2208,9 @@ declare interface IUser {
     order: number
   }[]
 
-  readonly created_at: Date
+  readonly created_at: DateString
 
-  readonly updated_at: Date
+  readonly updated_at: DateString
 
   readonly is_onboarded: boolean
 
@@ -2248,7 +2248,7 @@ declare interface IUserCreate {
 
     country?: import('./club-portal-enums.ts').CountryType | null
 
-    birthday?: Date | null
+    birthday?: DateString | null
 
     school_email?: string | null
 
@@ -2313,7 +2313,7 @@ declare interface IUserUpdate {
 
     country?: import('./club-portal-enums.ts').CountryType | null
 
-    birthday?: Date | null
+    birthday?: DateString | null
 
     school_email?: string | null
 
@@ -2434,9 +2434,9 @@ declare interface ISocialProvider {
 
   uid: string
 
-  readonly last_login: Date
+  readonly last_login: DateString
 
-  readonly date_joined: Date
+  readonly date_joined: DateString
 }
 
 /**

@@ -2,8 +2,8 @@ export const MockUser: IUser = {
   id: 0,
   email: 'john@example.com',
   username: 'john@example.com',
-  created_at: new Date('8/20/2024'),
-  updated_at: new Date('5/15/2024'),
+  created_at: new Date('8/20/2024').toISOString(),
+  updated_at: new Date('5/15/2024').toISOString(),
   profile: {
     is_school_email_verified: true,
     image:

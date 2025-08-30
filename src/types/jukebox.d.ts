@@ -1,7 +1,7 @@
 declare interface IModelBase {
   id: number
-  created_at: Date
-  updated_at: Date
+  created_at: DateString
+  updated_at: DateString
 }
 
 /* == Jukebox Model == */
@@ -31,20 +31,20 @@ declare interface IJukeSession extends IModelBase {
   join_code: string
   qr_code: string
   next_order: number
-  start_at: Date
-  end_at: Date
+  start_at: DateString
+  end_at: DateString
   is_active: boolean
 }
 
 declare interface IJukeSessionCreate {
-  start_at?: Date
+  start_at?: DateString
 
-  end_at: Date
+  end_at: DateString
 }
 
 declare interface IJukeSessionUpdate {
-  start_at?: Date
-  end_at?: Date
+  start_at?: DateString
+  end_at?: DateString
 }
 
 declare interface IJukeSessionMembership {
@@ -65,7 +65,7 @@ declare interface IQueuedTrack extends IModelBase {
   likes: number
   dislikes: number
   played: boolean
-  played_at?: Date
+  played_at?: DateString
   order: number
 
   /**
@@ -104,6 +104,9 @@ declare interface ITrack extends IModelBase {
   artists: string[]
   spotify_id: string
   spotify_uri: string
+  duration_ms: number
+  is_explicit: boolean
+  preview_url: string | null
 }
 
 declare interface ITrackCreate {
@@ -126,7 +129,7 @@ declare interface IPlayerAuxUpdate {
   jukebox_id: number
   action: 'played' | 'paused' | 'changed_tracks' | 'other'
   progress?: number
-  timestamp?: Date
+  timestamp?: DateString
   current_track?: ITrack
 }
 
@@ -145,7 +148,7 @@ declare interface IPlayerState {
    */
   spotify_track?: ITrack
   progress: number
-  last_progress_update: Date
+  last_progress_update: DateString
   is_playing: boolean
   /**
    * Spotify device id the player is playing on.
@@ -165,7 +168,7 @@ declare interface ISpotifyAccount extends IModelBase {
   user_id: number
   spotify_email: string
   expires_in: number
-  expires_at: string
+  expires_at: DateString
   token_type: string
 }
 

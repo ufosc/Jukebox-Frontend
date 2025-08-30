@@ -10,11 +10,11 @@ import {
 import {
   MockClubs,
   mockJukeboxes,
-  mockSpotifyAccount,
+  MockSpotifyAccount,
   MockUser,
 } from 'src/utils'
 import { mockMemberships } from 'src/utils/mock/mock-memberships'
-import { mockPlayerQueueState } from '../utils/mock/mock-spotify'
+import { MockPlayerState } from '../utils/mock/mock-spotify'
 import { ApiAuth } from './ApiAuth'
 
 /**
@@ -139,7 +139,7 @@ export class ApiClient extends ApiAuth {
 
     return await this.get(url, {
       schema: SpotifyAccountSchema,
-      mock: { data: mockSpotifyAccount, errorIfEmpty: true },
+      mock: { data: MockSpotifyAccount, errorIfEmpty: true },
     })
   }
 
@@ -178,7 +178,7 @@ export class ApiClient extends ApiAuth {
     const url = this.endpoints.jukebox.playerState(jukeboxId)
 
     return await this.get<IPlayerState>(url, {
-      mock: { data: mockPlayerQueueState },
+      mock: { data: MockPlayerState },
     })
   }
 
@@ -281,7 +281,7 @@ export class ApiClient extends ApiAuth {
   public async getSpotifyAccounts() {
     const url = this.endpoints.spotify.accountList
     return await this.get<ISpotifyAccount>(url, {
-      mock: { data: mockSpotifyAccount },
+      mock: { data: MockSpotifyAccount },
     })
   }
 
