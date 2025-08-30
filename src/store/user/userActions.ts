@@ -1,5 +1,5 @@
 import { unwrapResult } from '@reduxjs/toolkit'
-import { Network } from 'src/network'
+import { ApiClient } from 'src/api'
 import { store } from '../store'
 import {
   thunkInitializeUser,
@@ -8,7 +8,7 @@ import {
   thunkUpdateLinks,
 } from './userThunks'
 
-const network = Network.getInstance()
+const network = ApiClient.getInstance()
 
 /**
  * If the user token exists, will set logged in to true,

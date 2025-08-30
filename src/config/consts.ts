@@ -15,3 +15,8 @@ export const CSRF_COOKIE_NAME = 'csrftoken'
 export const SESSION_COOKIE_NAME = 'sessionid'
 
 export const CURRENT_URL = `${window.location.protocol}//${window.location.host}`
+
+/**
+ * Artificial delay to use in dev and network mode.
+ */
+export const MOCK_DELAY_MS = import.meta.env.VITE_MOCK_DELAY_MS ?? 500

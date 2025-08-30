@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Network } from 'src/network'
+import { ApiClient } from 'src/api'
 import { selectCurrentJukebox } from 'src/store'
 import { formatDuration } from 'src/utils'
 
@@ -9,7 +9,7 @@ import './SearchTrackItem.scss'
 export const SearchTrackItem = (props: { track: Nullable<ITrackDetails> }) => {
   const { track } = props
 
-  const network = Network.getInstance()
+  const network = ApiClient.getInstance()
   const jukebox = useSelector(selectCurrentJukebox)
 
   const [addedToQueue, setAddedToQueue] = useState(false)

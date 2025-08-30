@@ -64,8 +64,8 @@ export const setNextTracks = (nextTracks: IQueuedTrack[]) => {
   store.dispatch(setNextTracksReducer(nextTracks))
 }
 
-export const fetchJukeboxes = async () => {
-  await store.dispatch(thunkFetchJukeboxes())
+export const fetchJukeboxes = async (clubId: number) => {
+  await store.dispatch(thunkFetchJukeboxes(clubId))
 }
 export const fetchCurrentlyPlaying = async () => {
   const jukeboxId = selectCurrentJukebox(store.getState())?.id
@@ -145,6 +145,6 @@ export const checkLinkAuth = async () => {
   }
 }
 
-export const fetchJukebox = async (jukeboxId: number) =>{
+export const fetchJukebox = async (jukeboxId: number) => {
   await store.dispatch(thunkFetchJBX(jukeboxId))
 }

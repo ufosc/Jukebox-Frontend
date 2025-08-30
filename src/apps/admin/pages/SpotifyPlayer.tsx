@@ -3,7 +3,12 @@ import { useSelector } from 'react-redux'
 import { AudioPlayer, Form, FormSelectGroup, FormSubmit } from 'src/components'
 import { REACT_ENV } from 'src/config'
 import { SpotifyContext } from 'src/context'
-import { authenticateLink, selectCurrentClub, selectCurrentMembership, updateMembership } from 'src/store'
+import {
+  authenticateLink,
+  selectCurrentClub,
+  selectCurrentMembership,
+  updateMembership,
+} from 'src/store'
 import {
   selectCurrentTrack,
   selectJukeboxLinks,
@@ -16,8 +21,8 @@ import { SpotifyPlayerAccount } from '../components/SpotifyPlayer/SpotifyPlayerA
 import { SpotifyPlayerDetail } from '../components/SpotifyPlayer/SpotifyPlayerDetail'
 import { SpotifyPlayerInfo } from '../components/SpotifyPlayer/SpotifyPlayerInfo'
 
-import { Network } from 'src/network'
-const network = Network.getInstance()
+import { ApiClient } from 'src/api'
+const network = ApiClient.getInstance()
 
 export const SpotifyPlayer = () => {
   const jukeboxLinks = useSelector(selectJukeboxLinks)
@@ -67,7 +72,12 @@ export const SpotifyPlayer = () => {
   }
 
   const getCurrentMemberships = async () => {
-    if(currentClub !== undefined && currentUser !== undefined && currentClub && currentUser){
+    if (
+      currentClub !== undefined &&
+      currentUser !== undefined &&
+      currentClub &&
+      currentUser
+    ) {
       const foundClub = currentUser.clubs.find(
         (club) => club.name === currentClub.name,
       )
@@ -75,7 +85,10 @@ export const SpotifyPlayer = () => {
         throw new Error('Club not found in user clubs.')
       }
       const clubId = foundClub.id
-      const response = await network.getCurrentMembership(currentClub?.id, clubId)
+      const response = await network.getCurrentMembership(
+        currentClub?.id,
+        clubId,
+      )
       console.log(response)
       updateMembership(currentClub?.id, clubId)
       console.log(currentMembership)
@@ -128,7 +141,11 @@ export const SpotifyPlayer = () => {
               getCurrentMembership
             </button>
             <div>
-              {currentMembership ? <div> {currentMembership.roles} </div> : <div> Empty</div>}
+              {currentMembership ? (
+                <div> {currentMembership.roles} </div>
+              ) : (
+                <div> Empty</div>
+              )}
             </div>
           </div>
 

@@ -1,9 +1,9 @@
 import { useContext, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { ApiClient } from 'src/api'
 import { AudioPlayer } from 'src/components'
 import { REACT_ENV } from 'src/config'
 import { SpotifyContext } from 'src/context'
-import { Network } from 'src/network'
 import { authenticateLink } from 'src/store'
 import {
   selectCurrentJukebox,
@@ -25,7 +25,7 @@ export const Player = () => {
 
   const [connected, setConnected] = useState(false)
 
-  const networkRef = useRef(Network.getInstance())
+  const networkRef = useRef(ApiClient.getInstance())
   const connectLinkIdRef = useRef<HTMLSelectElement>(null)
 
   const {
@@ -36,7 +36,7 @@ export const Player = () => {
   } = useContext(SpotifyContext)
 
   useEffect(() => {
-    networkRef.current = Network.getInstance()
+    networkRef.current = ApiClient.getInstance()
   }, [])
 
   const handleConnectPlayback = async () => {
@@ -70,11 +70,11 @@ export const Player = () => {
     setConnected(true)
   }
 
-  useEffect(()=>{
-    if(isConnected) {
+  useEffect(() => {
+    if (isConnected) {
       setConnected(true)
     }
-  },[])
+  }, [])
 
   useEffect(() => {
     connectDevice()
@@ -212,7 +212,9 @@ export const Player = () => {
                 Connect to Spotify to Get Started!
               </div>
               {jukeboxLinks ? (
-                <button className='button-fancy' onClick={initializeAccount}>Connect Account</button>
+                <button className="button-fancy" onClick={initializeAccount}>
+                  Connect Account
+                </button>
               ) : (
                 <div>Loading...</div>
               )}

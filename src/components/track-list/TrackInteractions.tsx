@@ -4,10 +4,10 @@ import './TrackInteractions.scss'
 
 import { useDrag } from 'react-dnd'
 import { useSelector } from 'react-redux'
+import { ApiClient } from 'src/api'
 import { AdminContext } from 'src/apps/admin'
 import { TrackModifyContext } from 'src/apps/admin/pages/trackContext'
 import { MoveIcon, RemoveIcon } from 'src/assets/Icons'
-import { Network } from 'src/network'
 import { selectCurrentMembership } from 'src/store'
 
 export const TrackInteractions = (props: {
@@ -18,7 +18,7 @@ export const TrackInteractions = (props: {
 
   const adminStatus = useContext(AdminContext)
   const trackStatus = useContext(TrackModifyContext)
-  const network = Network.getInstance()
+  const network = ApiClient.getInstance()
 
   const currrentMembership = useSelector(selectCurrentMembership)
 

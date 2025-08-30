@@ -3,7 +3,7 @@
  *
  * Inspired by: https://leafty.medium.com/getting-started-with-logging-in-react-e8d493458689
  */
-import { LOG_LEVEL } from 'src/config/constants'
+import { LOG_LEVEL } from 'src/config/consts'
 
 /** Signature of a logging function */
 export type LogFn = (message?: any, ...optionalParams: any[]) => void

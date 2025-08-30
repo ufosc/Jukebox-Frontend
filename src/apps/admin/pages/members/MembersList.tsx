@@ -2,16 +2,16 @@ import type { ChangeEvent } from 'react'
 import React, { useEffect, useState } from 'react'
 import './MembersList.css'
 
-import { MemberObj } from '../../components/memberObj'
 import { useSelector } from 'react-redux'
+import { ApiClient } from 'src/api'
 import { selectCurrentClub } from 'src/store'
-import { Network } from 'src/network'
+import { MemberObj } from '../../components/memberObj'
 
 export const MembersList: React.FC = () => {
   const [searchMember, setSearchMember] = useState('')
   const [members, setMembers] = useState<IClubMembership[]>([])
   const currentClub = useSelector(selectCurrentClub)
-  const network = Network.getInstance()
+  const network = ApiClient.getInstance()
 
   const [loading, setLoading] = useState(false)
 
@@ -26,27 +26,25 @@ export const MembersList: React.FC = () => {
 
   const updateMembers = async () => {
     console.log(currentClub?.id)
-    const clubId = currentClub?.id;
-    if(clubId !== undefined)
-    {
+    const clubId = currentClub?.id
+    if (clubId !== undefined) {
       const res = await network.getMembers(clubId)
       console.log(res)
-      if(res.success)
-      {
+      if (res.success) {
         setMembers(res.data)
       }
       //setMembers(res.data)
-    }else{
+    } else {
       console.log('Fetching Users')
     }
   }
 
   useEffect(() => {
     updateMembers()
-    return () =>{
-      console.log("Done Getting Users")
+    return () => {
+      console.log('Done Getting Users')
     }
-  },[currentClub])
+  }, [currentClub])
 
   return (
     <>
@@ -54,7 +52,9 @@ export const MembersList: React.FC = () => {
         <section className="member-header">
           <h1 className="header-font">Members</h1>
 
-          <button className="button-tonal" onClick={updateMembers}>+ Add member</button>
+          <button className="button-tonal" onClick={updateMembers}>
+            + Add member
+          </button>
         </section>
 
         <div className="grid">
@@ -82,7 +82,7 @@ export const MembersList: React.FC = () => {
           <section className="lists">
             <div>
               {members.map((member, key) => (
-                <MemberObj member={member} key={key}/>
+                <MemberObj member={member} key={key} />
               ))}
             </div>
           </section>

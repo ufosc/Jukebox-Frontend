@@ -1,12 +1,13 @@
 import { z } from 'zod'
 import { ModelSchemaBase } from './base'
 import { ClubInlineSchema } from './club'
+import { CountryType } from 'src/types/club-portal-enums'
 
 export const UserTokenSchema: z.ZodSchema<{ token: string }> = z.object({
   token: z.string(),
 })
 
-export const UserDetailsSchema: z.ZodSchema<IUserDetailsAdd> = z.object({
+export const UserDetailsSchema: z.ZodSchema<IUser> = z.object({
   ...ModelSchemaBase,
   email: z.string(),
   username: z.string(),
@@ -23,6 +24,10 @@ export const UserDetailsSchema: z.ZodSchema<IUserDetailsAdd> = z.object({
     .nullish()
     .transform((val) => val ?? undefined) as any,
   clubs: z.array(ClubInlineSchema),
+  is_onboarded: z.boolean(),
+  is_email_verified: z.boolean(),
+  can_authenticate: z.boolean(),
+  is_club_admin: z.boolean(),
   profile: z.object({
     is_school_email_verified: z.boolean(),
     image: z.string(),
@@ -31,7 +36,7 @@ export const UserDetailsSchema: z.ZodSchema<IUserDetailsAdd> = z.object({
     bio: z.string().optional(),
     city: z.string().optional(),
     state: z.string().optional(),
-    country: z.string().optional(),
+    country: z.nativeEnum(CountryType).optional(),
     graduation_date: z.string().optional(),
   }),
 })

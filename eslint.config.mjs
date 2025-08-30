@@ -22,7 +22,6 @@ export default tseslint.config(
       // 'func-style': ['error', 'expression', { allowArrowFunctions: true }],
       'react/react-in-jsx-scope': 'off',
 
-      '@typescript-eslint/consistent-type-imports': 'warn',
       '@typescript-eslint/no-redeclare': 'off',
       '@typescript-eslint/space-before-function-paren': 'off',
       'prefer-const': 'warn',
@@ -39,6 +38,8 @@ export default tseslint.config(
       'func-style': ['warn', 'expression', { allowArrowFunctions: true }],
       'react/prop-types': ['off'],
       '@typescript-eslint/no-unused-expressions': ['off'],
+      // '@typescript-eslint/consistent-type-imports': 'warn',
+      '@typescript-eslint/no-empty-object-type': 'off',
       // 'import/no-internal-modules': ['error'],
       // 'no-restricted-imports': [
       //   'error',

@@ -13,8 +13,8 @@ import {
 } from 'src/store'
 
 import { useNavigate } from 'react-router-dom'
+import { ApiClient } from 'src/api'
 import { Dialog } from 'src/components'
-import { Network } from 'src/network'
 import { debounce } from 'src/utils'
 import { ClubModal } from './modals/ClubModal'
 import { NotificationModal } from './modals/NotificationModal'
@@ -28,7 +28,7 @@ export const Topbar = () => {
   const currentClub = useSelector(selectCurrentClub)
   const jukebox = useSelector(selectCurrentJukebox)
   const hasAux = useSelector(selectHasJukeboxAux)
-  const network = Network.getInstance()
+  const network = ApiClient.getInstance()
 
   const [showUser, setShowUser] = useState(false)
   const [showClubs, setShowClubs] = useState(false)
@@ -129,7 +129,6 @@ export const Topbar = () => {
       })
     }
     setSearchActive(false)
-
   }
 
   return (
@@ -246,7 +245,12 @@ export const Topbar = () => {
           </div>
           <div className="topbar__profile__container">
             <button className="topbar__profile" onClick={handleUser}>
-              {user && <img src={user?.profile?.image ?? undefined} alt={user.last_name} />}
+              {user && (
+                <img
+                  src={user?.profile?.image ?? undefined}
+                  alt={user.last_name}
+                />
+              )}
               {!user && <p>Login required.</p>}
             </button>
           </div>

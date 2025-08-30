@@ -1,8 +1,8 @@
 import type { ChangeEvent } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { ApiClient } from 'src/api'
 import { Form, FormInputGroup, FormSection } from 'src/components'
-import { Network } from 'src/network'
 import {
   selectAllClubs,
   selectAllLinks,
@@ -14,7 +14,7 @@ import './CreateJukebox.scss'
 import { SpotifyLinkAccount } from './members/SpotifyDetail'
 
 export const CreateJukebox = () => {
-  const network = Network.getInstance()
+  const network = ApiClient.getInstance()
   const [selectedClub, setSelectedClub] = useState(-1)
   const [jbxName, setJbxName] = useState('')
   const jukeboxRef = useRef<HTMLInputElement>(null)
@@ -144,10 +144,10 @@ export const CreateJukebox = () => {
               </FormSection>
 
               <div className="grid">
-                <div className='col-4'>
-                <button className="button-fancy height-jbx">
-                  Create Jukebox
-                </button>
+                <div className="col-4">
+                  <button className="button-fancy height-jbx">
+                    Create Jukebox
+                  </button>
                 </div>
               </div>
             </Form>

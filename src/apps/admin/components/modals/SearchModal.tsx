@@ -7,22 +7,26 @@ interface SearchModalProps {
     albumName: string
     artistName: string
   }
-  changeState:any
+  changeState: any
 }
 
 import { useSelector } from 'react-redux'
+import { ApiClient } from 'src/api'
 import { ViewArrow } from 'src/assets/Icons'
-import { Network } from 'src/network'
 import { selectCurrentJukebox } from 'src/store'
 import './Modal.scss'
 
-export const SearchModal = ({ tracks, searchQuery, changeState }: SearchModalProps) => {
-  const network = Network.getInstance()
+export const SearchModal = ({
+  tracks,
+  searchQuery,
+  changeState,
+}: SearchModalProps) => {
+  const network = ApiClient.getInstance()
   const currentJbx = useSelector(selectCurrentJukebox)
 
   const navigate = useNavigate()
   const searchRedirect = async () => {
-    console.log("Clicked")
+    console.log('Clicked')
     const searchPath = '/dashboard/music/search'
     if (currentJbx) {
       const response = await network.getTracks(
@@ -33,7 +37,11 @@ export const SearchModal = ({ tracks, searchQuery, changeState }: SearchModalPro
       )
 
       navigate(searchPath, {
-        state: { searchedTracks: response, query: searchQuery, needSearch: false },
+        state: {
+          searchedTracks: response,
+          query: searchQuery,
+          needSearch: false,
+        },
       })
     }
     changeState(false)

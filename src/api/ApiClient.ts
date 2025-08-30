@@ -10,7 +10,7 @@ import {
   SpotifyLinksSchema,
   UserDetailsSchema,
 } from 'src/schemas'
-import { deleteTrackListResult, deleteTrackResultSchema, QueuedTrackListSchema, swapTrackSchema, TrackListResult } from 'src/schemas/player'
+import { QueuedTrackListSchema, swapTrackSchema } from 'src/schemas/player'
 import {
   getRandomSample,
   mockClubs,
@@ -19,24 +19,16 @@ import {
   mockSpotifyAccount,
   mockUser,
 } from 'src/utils'
-import { mockPlayerQueueState } from './../utils/mock/mock-spotify'
-import { NetworkBase, NetworkResponse } from './NetworkBase'
-import { mockMembership, mockMemberships } from 'src/utils/mock/mock-memberships'
+import { mockMembership } from 'src/utils/mock/mock-memberships'
+import { mockPlayerQueueState } from '../utils/mock/mock-spotify'
+import { ApiAuth } from './ApiAuth'
 
 /**
  * Handle API requests to connected servers.
  */
-export class Network extends NetworkBase {
-  private static instance: Network
+export class ApiClient extends ApiAuth {
+  protected static instance: ApiClient
 
-  private constructor() {
-    super()
-  }
-
-  /**
-   * Ensures there only exists one instance
-   * of this class.
-   */
   public static getInstance() {
     if (!this.instance) {
       this.instance = new this()
@@ -49,10 +41,11 @@ export class Network extends NetworkBase {
   /**
    * Fetch details for logged in user.
    */
-  public async getCurrentUser(): Promise<NetworkResponse<IUserDetailsAdd>>{
+  public async getCurrentUser() {
     const url = this.endpoints.user.info
 
-    return await this.request(url, UserDetailsSchema, {
+    return await this.get(url, {
+      schema: UserDetailsSchema,
       mock: { data: mockUser },
     })
   }
@@ -63,7 +56,8 @@ export class Network extends NetworkBase {
   public async listClubs() {
     const url = this.endpoints.club.list
 
-    return await this.request(url, ClubListSchema, {
+    return await this.get(url, {
+      schema: ClubListSchema,
       mock: { data: mockClubs },
     })
   }
@@ -74,7 +68,8 @@ export class Network extends NetworkBase {
   public async getClub(id: number) {
     const url = this.endpoints.club.get(id)
 
-    return await this.request(url, ClubSchema, {
+    return await this.get(url, {
+      schema: ClubSchema,
       mock: {
         data: mockClubs.find((club) => club.id === id),
         errorIfEmpty: true,
@@ -91,7 +86,8 @@ export class Network extends NetworkBase {
   public async getSpotifyAuth(jukeboxId: number) {
     const url = this.endpoints.jukebox.getSpotifyAccount(jukeboxId)
 
-    return await this.request(url, SpotifyAccountSchema, {
+    return await this.get(url, {
+      schema: SpotifyAccountSchema,
       mock: { data: mockSpotifyAccount, errorIfEmpty: true },
     })
   }
@@ -103,10 +99,11 @@ export class Network extends NetworkBase {
    * will make up the list for the user that is
    * connected to the auth token sent in the request.
    */
-  public async listJukeboxes() {
-    const url = this.endpoints.jukebox.list
+  public async listJukeboxes(clubId: number) {
+    const url = this.endpoints.jukebox.list(clubId)
 
-    return await this.request(url, JukeboxListSchema, {
+    return await this.get(url, {
+      schema: JukeboxListSchema,
       mock: { data: mockJukeboxes },
     })
   }
@@ -118,9 +115,8 @@ export class Network extends NetworkBase {
   public async connectSpotifyDevice(jukeboxId: number, deviceId: string) {
     const url = this.endpoints.jukebox.connectDevice(jukeboxId)
 
-    return await this.request(url, null, {
-      method: 'POST',
-      data: { device_id: deviceId },
+    return await this.post(url, {
+      body: { device_id: deviceId },
     })
   }
 
@@ -133,9 +129,8 @@ export class Network extends NetworkBase {
   public async updateActiveJukeboxLink(jukeboxId: number, link: IJukeboxLink) {
     const url = this.endpoints.jukebox.activeLink(jukeboxId)
 
-    return await this.request(url, null, {
-      method: 'POST',
-      data: { type: link.type, email: link.email },
+    return await this.post(url, {
+      body: { type: link.type, email: link.email },
     })
   }
 
@@ -148,7 +143,7 @@ export class Network extends NetworkBase {
   public async getCurrentlyPlaying(jukeboxId: number) {
     const url = this.endpoints.jukebox.playerState(jukeboxId)
 
-    return await this.request(url, null, {
+    return await this.get(url, {
       mock: { data: mockPlayerQueueState },
     })
   }
@@ -160,7 +155,8 @@ export class Network extends NetworkBase {
   public async getNextTracks(jukeboxId: number) {
     const url = this.endpoints.jukebox.nextTracks(jukeboxId)
 
-    return await this.request(url, QueuedTrackListSchema, {
+    return await this.get(url, {
+      schema: QueuedTrackListSchema,
       mock: { data: getRandomSample(mockQueuedTracks) },
     })
   }
@@ -171,7 +167,7 @@ export class Network extends NetworkBase {
   public async clearNextTracks(jukeboxId: number) {
     const url = this.endpoints.jukebox.nextTracks(jukeboxId)
 
-    return await this.request(url, null, { method: 'DELETE' })
+    return await this.delete(url)
   }
 
   /**
@@ -179,20 +175,15 @@ export class Network extends NetworkBase {
    */
   public async getSpotifyAuthRedirectUrl(jukeboxId?: number) {
     const url = this.endpoints.spotify.login(location.href, jukeboxId)
-    console.log(url)
-    const response = await this.request(url, SpotifyAuthRedirectUrlSchema)
-    console.log(response)
-    return response
+    return await this.get(url, { schema: SpotifyAuthRedirectUrlSchema })
   }
 
-  public async createJbx(jbxId: number, jbxName: string) {
-    const url = this.endpoints.jukebox.list
-    const res = await this.request(url, null, {
-      method: 'POST',
-      data: { name: jbxName, club_id: jbxId },
-    })
+  private async createJukeboxObject(clubId: number, jbxName: string) {
+    const url = this.endpoints.jukebox.list(clubId)
 
-    return res
+    return await this.post(url, {
+      body: { name: jbxName, club_id: clubId },
+    })
   }
 
   /**
@@ -204,14 +195,13 @@ export class Network extends NetworkBase {
     jukeboxName: string,
     spotifyLink?: ISpotifyLink[],
   ) {
-    const res = await this.createJbx(jukeboxId, jukeboxName)
+    const res = await this.createJukeboxObject(jukeboxId, jukeboxName)
 
     const url = this.endpoints.jukebox.links(jukeboxId)
     if (spotifyLink !== undefined && spotifyLink.length !== 0) {
       spotifyLink.forEach(async (link) => {
-        const res = await this.request(url, null, {
-          method: 'POST',
-          data: { type: link.token_type, email: link.spotify_email },
+        await this.post(url, {
+          body: { type: link.token_type, email: link.spotify_email },
         })
       })
     }
@@ -220,20 +210,9 @@ export class Network extends NetworkBase {
   }
 
   public async getLinks() {
-    /**
-     * const url = this.endpoints.jukebox.getSpotifyAccount(jukeboxId)
-
-    return await this.request(url, SpotifyAccountSchema, {
-      mock: { data: mockSpotifyAccount, errorIfEmpty: true },
-    })
-     */
     const url = this.endpoints.spotify.links
 
-    //const response = await this.request(url)
-
-    const response = await this.request(url, SpotifyLinksSchema)
-    //console.log(response);
-    return response
+    return await this.get(url, { schema: SpotifyLinksSchema })
   }
 
   public async getTracks(
@@ -244,48 +223,47 @@ export class Network extends NetworkBase {
   ) {
     const url = this.endpoints.jukebox.search(jukeboxId)
 
-    const response = await this.request(url, TrackListResult, {
-      method: 'POST',
-      data: { trackQuery: trackName, albumQuery: albumName, artistQuery: artistName },
+    const response = await this.post(url, {
+      body: {
+        trackQuery: trackName,
+        albumQuery: albumName,
+        artistQuery: artistName,
+      },
     })
 
     return response
   }
 
-  public async queueTrack(jukeboxId:number, songID:string){
+  public async queueTrack(jukeboxId: number, songID: string) {
     const url = this.endpoints.jukebox.queue(jukeboxId)
 
-    const response = await this.request(url, null, {
-      method: 'POST',
-      data: {track_id: songID, position: 100}
+    return await this.post(url, {
+      body: { track_id: songID, position: 100 },
     })
   }
 
   /**
-   * 
-   * @param clubID 
+   *
+   * @param clubID
    * @returns List of members for a given club
    */
   public async getMembers(clubID: number) {
     const url = this.endpoints.club.members(clubID)
 
-    const response = await this.request(url, ClubMembershipsSchema)
-
-    return response
+    return await this.get(url, { schema: ClubMembershipsSchema })
   }
 
-  public async listJukebox(jukeboxId: number) {
+  public async getJukebox(jukeboxId: number) {
     const url = this.endpoints.jukebox.getJbk(jukeboxId)
 
-    const response = await this.request(url, JukeboxSchema)
-
-    return response
+    return await this.get(url, { schema: JukeboxSchema })
   }
 
   public async listClubJukeboxes(clubId: number) {
     const url = this.endpoints.jukebox.getClubList(clubId)
 
-    return await this.request(url, JukeboxListSchema, {
+    return await this.get(url, {
+      schema: JukeboxListSchema,
       mock: { data: mockJukeboxes },
     })
   }
@@ -293,31 +271,27 @@ export class Network extends NetworkBase {
   public async removeQueuedTrack(jukeboxId: number, queueId: string) {
     const url = this.endpoints.jukebox.removeQTrack(jukeboxId, queueId)
 
-    const response = await this.request(url, deleteTrackListResult, {
-      method: 'DELETE',
-    })
-
-    return response
+    return await this.delete(url)
   }
 
-  public async swapTracks(jukeboxId: number, currentPosition: number, targetPosition: number) {
+  public async swapTracks(
+    jukeboxId: number,
+    currentPosition: number,
+    targetPosition: number,
+  ) {
     const url = this.endpoints.jukebox.swapTracks(jukeboxId)
-    const response = await this.request(url, swapTrackSchema, {
-      method: 'POST',
-      data: {currentPos: currentPosition, targetPos:  targetPosition}
+    return await this.post(url, {
+      schema: swapTrackSchema,
+      body: { currentPos: currentPosition, targetPos: targetPosition },
     })
-
-    return response
   }
 
-  public async getCurrentMembership(clubId: number, memberId: number){
+  public async getCurrentMembership(clubId: number, memberId: number) {
     const url = this.endpoints.club.membership(clubId, memberId)
 
-    const response = await this.request(url, ClubMembershipSchema, {
+    return await this.get(url, {
+      schema: ClubMembershipSchema,
       mock: { data: mockMembership },
-  })
-    console.log(response)
-    return response
+    })
   }
-
 }

@@ -15,10 +15,6 @@ declare namespace React {
   }
 }
 declare type StoreStatus = 'idle' | 'loading' | 'failed' | 'succeeded'
-declare interface SystemStatus {
-  text: string
-  status: MonitorStatus
-}
 
 declare type ThemeMode = 'light' | 'dark'
 
@@ -34,7 +30,7 @@ declare interface ISpotifyLink extends IModel {
 }
 
 //Maybe combine?
-declare interface ITrackSearch{
+declare interface ITrackSearch {
   href: string
   items: ITrackDetails[]
   limit: number
@@ -44,15 +40,14 @@ declare interface ITrackSearch{
   total: number
 }
 
-declare interface ITrackSeachList{
+declare interface ITrackSeachList {
   tracks: ITrackSearch
 }
 
-declare interface IRemovedTrack{
+declare interface IRemovedTrack {
   item: IQueuedTrack
 }
 
-
-declare interface ISwapTrack{
+declare interface ISwapTrack {
   success: number
 }

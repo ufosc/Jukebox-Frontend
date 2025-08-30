@@ -1,26 +1,26 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { Network } from 'src/network'
+import { ApiClient } from 'src/api'
 
-const network = Network.getInstance()
+const network = ApiClient.getInstance()
 
 export const thunkFetchJukeboxes = createAsyncThunk(
   'jukebox/fetchJukeboxes',
-  async () => {
-    return await network.listJukeboxes()
+  async (clubId: number) => {
+    return await network.listJukeboxes(clubId)
   },
 )
 
 export const thunkFetchJBX = createAsyncThunk(
   'jukebox/fetchJBX',
-  async (jukeboxId: number) =>{
-     return await network.listJukebox(jukeboxId)
+  async (jukeboxId: number) => {
+    return await network.getJukebox(jukeboxId)
   },
 )
 
 export const thunkFetchCurrentlyPlaying = createAsyncThunk(
   'jukebox/fetchCurrentlyPlaying',
   async (jukeboxId: number) => {
-    const res = network.getCurrentlyPlaying(jukeboxId);
+    const res = network.getCurrentlyPlaying(jukeboxId)
     return res
     //return await network.getCurrentlyPlaying(jukeboxId)
   },

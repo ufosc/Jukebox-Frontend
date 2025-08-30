@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { Network } from 'src/network'
+import { ApiClient } from 'src/api'
 
-const network = Network.getInstance()
+const network = ApiClient.getInstance()
 
 declare interface FetchMembershipArgs {
   clubId: number

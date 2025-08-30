@@ -34,12 +34,12 @@ export const AuthGuard = (props: { children?: ReactNode }) => {
   const initializeStores = async () => {
     await fetchAllClubs()
     await fetchCurrentClubInfo()
-    await fetchJukeboxes()
 
     const initialClub = selectCurrentClub(store.getState())
 
     if (initialClub !== null && user !== null) {
       updateMembership(initialClub.id, user.id)
+      await fetchJukeboxes(initialClub.id)
     }
   }
 

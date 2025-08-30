@@ -4,8 +4,8 @@ import { useContext, useEffect, useRef, useState } from 'react'
 
 import { useDrop } from 'react-dnd'
 import { useSelector } from 'react-redux'
+import { ApiClient } from 'src/api'
 import { AdminContext } from 'src/apps/admin'
-import { Network } from 'src/network'
 import { selectCurrentJukebox } from 'src/store'
 import { TrackInteractions } from './TrackInteractions'
 import './TrackItem.scss'
@@ -20,7 +20,7 @@ export const TrackItem = (props: {
   const adminStatus = useContext(AdminContext)
   const ref = useRef<HTMLLIElement>(null)
 
-  const network = Network.getInstance()
+  const network = ApiClient.getInstance()
   const currentJukebox = useSelector(selectCurrentJukebox)
 
   const [targetPos, setTargetPos] = useState(-1)
