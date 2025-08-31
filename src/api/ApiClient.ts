@@ -292,4 +292,12 @@ export class ApiClient extends ApiAuth {
     const url = this.endpoints.spotify.accountDetail(id)
     return await this.delete(url)
   }
+
+  /**
+   * Control player via the server.
+   */
+  public async executePlayerAction(jukeboxId: number, body: IPlayerAction) {
+    const url = this.endpoints.jukebox.playerAction(jukeboxId)
+    return await this.post<IPlayerState>(url, { body })
+  }
 }

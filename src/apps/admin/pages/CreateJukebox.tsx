@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ApiClient } from 'src/api'
 import { Form, FormInputGroup, FormSection } from 'src/components'
 import {
+  selectAccountLinks,
   selectAllClubs,
   selectAllLinks,
   selectCurrentClub,
-  selectJukeboxLinks,
 } from 'src/store'
 
 import './CreateJukebox.scss'
@@ -21,7 +21,7 @@ export const CreateJukebox = () => {
   const clubRef = useRef<HTMLInputElement>(null)
   const currentClub = useSelector(selectCurrentClub)
   const clubs = useSelector(selectAllClubs)
-  const jukeboxLinks = useSelector(selectJukeboxLinks)
+  const jukeboxLinks = useSelector(selectAccountLinks)
   const spotifyLinks = useSelector(selectAllLinks)
 
   const dispatch = useDispatch()

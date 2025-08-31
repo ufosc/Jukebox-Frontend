@@ -1,19 +1,14 @@
-import { useContext, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import { AudioPlayer, Form, FormSelectGroup, FormSubmit } from 'src/components'
 import { REACT_ENV } from 'src/config'
-import { SpotifyContext } from 'src/context'
 import {
   authenticateLink,
   selectCurrentClub,
   selectCurrentMembership,
   updateMembership,
 } from 'src/store'
-import {
-  selectCurrentTrack,
-  selectJukeboxLinks,
-  selectNextTracks,
-} from 'src/store/jukebox'
+import { selectAccountLinks, selectNextTracks } from 'src/store/jukebox'
 
 import { selectAllLinks, selectUser } from 'src/store/user'
 import { formatDuration } from 'src/utils'
@@ -25,8 +20,7 @@ import { ApiClient } from 'src/api'
 const network = ApiClient.getInstance()
 
 export const SpotifyPlayer = () => {
-  const jukeboxLinks = useSelector(selectJukeboxLinks)
-  const currentTrack = useSelector(selectCurrentTrack)
+  const jukeboxLinks = useSelector(selectAccountLinks)
   const nextTracks = useSelector(selectNextTracks)
   const spotifyLinks = useSelector(selectAllLinks)
   //const dispatch = useDispatch();
@@ -35,11 +29,11 @@ export const SpotifyPlayer = () => {
   const currentUser = useSelector(selectUser)
   const currentMembership = useSelector(selectCurrentMembership)
 
-  const {
-    deviceIsActive: isActive,
-    spotifyIsConnected: isConnected,
-    connectDevice,
-  } = useContext(SpotifyContext)
+  // const {
+  //   deviceIsActive: isActive,
+  //   spotifyIsConnected: isConnected,
+  //   connectDevice,
+  // } = useContext(SpotifyPlayerContext)
 
   const connectLinkIdRef = useRef<HTMLSelectElement>(null)
 

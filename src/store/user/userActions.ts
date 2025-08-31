@@ -2,10 +2,10 @@ import { unwrapResult } from '@reduxjs/toolkit'
 import { ApiClient } from 'src/api'
 import { store } from '../store'
 import {
+  thunkGetSpotifyAccounts,
   thunkInitializeUser,
   thunkLoginUser,
   thunkLogoutUser,
-  thunkUpdateLinks,
 } from './userThunks'
 
 const api = ApiClient.getInstance()
@@ -16,6 +16,7 @@ const api = ApiClient.getInstance()
  */
 export const initializeUser = async () => {
   await store.dispatch(thunkInitializeUser())
+  await store.dispatch(thunkGetSpotifyAccounts())
 }
 
 /**
@@ -78,11 +79,4 @@ export const registerUser = async (
  */
 export const logoutUser = async () => {
   await store.dispatch(thunkLogoutUser())
-}
-
-/**
- * Updates the connected Spotify account for a given user
- */
-export const updateLinks = async () => {
-  await store.dispatch(thunkUpdateLinks())
 }

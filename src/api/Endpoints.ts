@@ -43,6 +43,8 @@ export const ApiEndpoints = Object.freeze({
       `${JUKEBOX_V1}/jukebox/jukeboxes/${jukeboxId}/juke-sessions/${jukeSessionId}/queue/${id}`,
     jukeSessionList: (jukeboxId: number) =>
       `${JUKEBOX_V1}/jukebox/jukeboxes/${jukeboxId}/juke-sessions/`,
+    playerAction: (jukeboxId: number) =>
+      `${JUKEBOX_V1}/jukebox/jukeboxes/${jukeboxId}/player/action`,
   },
   spotify: {
     login: (redirectUri: string, jukeboxId?: number) =>

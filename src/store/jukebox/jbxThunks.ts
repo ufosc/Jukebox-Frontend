@@ -17,14 +17,7 @@ export const thunkFetchJukebox = createAsyncThunk(
   },
 )
 
-export const thunkFetchCurrentlyPlaying = createAsyncThunk(
-  'jukebox/fetchCurrentlyPlaying',
-  async (jukeboxId: number) => {
-    return api.getCurrentlyPlaying(jukeboxId)
-  },
-)
-
-export const thunkFetchNextTracks = createAsyncThunk(
+export const thunkFetchQueue = createAsyncThunk(
   'jukebox/fetchNextTracks',
   async (payload: { jukeboxId: number; jukeSessionId: number }) => {
     return await api.getQueuedTracks(payload.jukeboxId, payload.jukeSessionId)

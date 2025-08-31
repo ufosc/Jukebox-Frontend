@@ -1,10 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { builderDefaults } from 'src/utils'
 import {
-  thunkFetchCurrentlyPlaying,
   thunkFetchJukebox,
   thunkFetchJukeboxes,
-  thunkFetchNextTracks,
+  thunkFetchQueue,
   thunkSyncSpotifyTokens,
 } from './jbxThunks'
 
@@ -14,66 +13,22 @@ export const jukeboxSlice = createSlice({
     status: 'idle' as StoreStatus,
     error: null as string | null,
     jukeboxes: [] as IJukebox[],
-    /** User is connected to spotify, and the player is active */
     hasAux: false,
     currentJukebox: null as IJukebox | null,
-    playerState: null as IPlayerState | null,
-    nextTracks: [] as IQueuedTrack[],
+    currentJukeSession: null as IJukeSession | null,
+    queue: null as IQueue | null,
     spotifyAuth: null as ISpotifyAccount | null,
     liveProgress: 0 as number | null,
+    accountLinks: [] as IAccountLink[],
   },
   reducers: {
-    setPlayerStateReducer: (state, action: { payload: IPlayerState }) => {
-      state.playerState = action.payload
-    },
-    setIsPlayingReducer: (state, action: { payload: boolean }) => {
-      if (!state.playerState) return
-      state.playerState.is_playing = action.payload
-    },
-    setProgressReducer: (state, action: { payload: number }) => {
-      if (!state.playerState) return
-      state.playerState.progress = action.payload
-      state.liveProgress = action.payload
-    },
-    setInteractionReducer: (
-      state,
-      action: { payload: IJukeboxInteraction },
-    ) => {
-      if (
-        action.payload.jukebox_id !== state.currentJukebox?.id ||
-        !state.playerState?.current_track
-      ) {
-        return
-      }
-
-      switch (action.payload.action) {
-        case 'like':
-          state.playerState.current_track.interactions.likes += 1
-          break
-        case 'dislike':
-          state.playerState.current_track.interactions.dislikes += 1
-          break
-      }
-    },
-    performPlayerUpdateReducer: (state, action: { payload: IPlayerUpdate }) => {
-      if (!state.playerState?.current_track) return
-
-      Object.keys(action.payload).forEach((key: any) => {
-        if (action.payload[key as keyof IPlayerUpdate] === undefined) {
-          delete action.payload[key as keyof IPlayerUpdate]
-        }
-      })
-      Object.assign(state.playerState, action.payload)
-
-      if (action.payload.progress !== undefined) {
-        state.liveProgress = action.payload.progress
-      }
-    },
-    setNextTracksReducer: (state, action: { payload: IQueuedTrack[] }) => {
-      state.nextTracks = action.payload
-    },
     setHasAuxReducer: (state, action: { payload: boolean }) => {
       state.hasAux = action.payload
+    },
+    setCurrentJukeboxReducer: (state, action: { payload: { id: number } }) => {
+      state.currentJukebox =
+        state.jukeboxes.find((jukebox) => jukebox.id === action.payload.id) ??
+        null
     },
   },
   extraReducers: (builder) => {
@@ -88,21 +43,13 @@ export const jukeboxSlice = createSlice({
         state.currentJukebox = state.jukeboxes[0]
       }
     })
-    builder.addCase(thunkFetchCurrentlyPlaying.fulfilled, (state, action) => {
+    builder.addCase(thunkFetchQueue.fulfilled, (state, action) => {
       if (!action.payload.success) {
-        state.playerState = null
+        state.queue = null
         return
       }
 
-      state.playerState = action.payload.data
-    })
-    builder.addCase(thunkFetchNextTracks.fulfilled, (state, action) => {
-      if (!action.payload.success) {
-        state.nextTracks = []
-        return
-      }
-
-      state.nextTracks = action.payload.data ?? []
+      state.queue = action.payload.data
     })
     builder.addCase(thunkSyncSpotifyTokens.fulfilled, (state, action) => {
       if (!action.payload.success) {

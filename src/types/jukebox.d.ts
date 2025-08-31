@@ -125,12 +125,20 @@ declare interface IPlayerAction {
   action_type: import('./jukebox-enums').ActionType
 }
 
-declare interface IPlayerAuxUpdate {
+declare interface IPlayerAuxClientUpdate {
   jukebox_id: number
   action: 'played' | 'paused' | 'changed_tracks' | 'other'
   progress?: number
   timestamp?: DateString
   current_track?: ITrack
+}
+
+declare interface IPlayerServerUpdate {
+  jukebox_id: number
+  progress?: number
+  timestamp?: DateString
+  current_track?: ITrack
+  is_playing?: boolean
 }
 
 declare interface IPlayerInteractionCreate {
@@ -155,6 +163,12 @@ declare interface IPlayerState {
    */
   current_device_id?: string
   juke_session_id?: number
+}
+
+declare interface IPlayerAuxState {
+  current_track?: Spotify.Track | null
+  progress: number
+  is_playing: boolean
 }
 
 declare interface ISetPlayerDevice {

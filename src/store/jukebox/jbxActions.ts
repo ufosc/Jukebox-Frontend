@@ -1,4 +1,3 @@
-import { unwrapResult } from '@reduxjs/toolkit'
 import { SPOTIFY_AUTH_CHECK_MS } from 'src/config'
 import { NotImplementedError } from 'src/utils'
 import { jukeboxActions } from '.'
@@ -6,92 +5,34 @@ import { store } from '../store'
 import {
   selectActiveLink,
   selectCurrentJukebox,
-  selectCurrentTrack,
+  selectJukeboxAndSessionIds,
   selectSpotifyAuth,
 } from './jbxSelectors'
 import {
-  thunkClearNextTracks,
-  thunkFetchCurrentlyPlaying,
-  thunkFetchJukebox,
   thunkFetchJukeboxes,
-  thunkFetchNextTracks,
+  thunkFetchQueue,
   thunkSyncSpotifyTokens,
   thunkUpdateAccountLink,
 } from './jbxThunks'
 
-const {
-  setPlayerStateReducer,
-  setNextTracksReducer,
-  setHasAuxReducer,
-  performPlayerUpdateReducer: updatePlayerStateReducer,
-  setProgressReducer,
-  setIsPlayingReducer,
-  setInteractionReducer,
-} = jukeboxActions
-
-export const setPlayerState = (currentlyPlaying: IPlayerState) => {
-  store.dispatch(setPlayerStateReducer(currentlyPlaying))
-}
-
-export const updatePlayerState = async (payload: IPlayerUpdate) => {
-  // Check if there's currently a track in state, if not request it from api
-  const currentTrack = selectCurrentTrack(store.getState())
-  if (!currentTrack) {
-    await fetchCurrentlyPlaying()
-  }
-
-  // ...Then process the update
-  store.dispatch(updatePlayerStateReducer(payload))
-}
-
-export const setPlayerProgress = (ms: number) => {
-  store.dispatch(setProgressReducer(ms))
-}
-
-export const setPlayerIsPlaying = (isPlaying: boolean) => {
-  store.dispatch(setIsPlayingReducer(isPlaying))
-}
-
-export const setInteraction = (interaction: IJukeboxInteraction) => {
-  store.dispatch(setInteractionReducer(interaction))
-}
-
-// export const incrementLiveProgress = () => {
-//   store.dispatch(incrementLiveProgressReducer())
-// }
-
-export const setNextTracks = (nextTracks: IQueuedTrack[]) => {
-  store.dispatch(setNextTracksReducer(nextTracks))
-}
+const { setHasAuxReducer, setCurrentJukeboxReducer } = jukeboxActions
 
 export const fetchJukeboxes = async (clubId: number) => {
   await store.dispatch(thunkFetchJukeboxes(clubId))
 }
-export const fetchCurrentlyPlaying = async () => {
-  const jukeboxId = selectCurrentJukebox(store.getState())?.id
-  console.log('jukebox id:', jukeboxId)
-  if (!jukeboxId) return
 
-  await store
-    .dispatch(thunkFetchCurrentlyPlaying(jukeboxId))
-    .then(unwrapResult)
-    .then((res) => {
-      console.log('currently playing from http:', res)
-    })
-}
+export const fetchSessionQueue = async () => {
+  const { jukeboxId, jukeSessionId } = selectJukeboxAndSessionIds(
+    store.getState(),
+  )
+  if (jukeboxId == null || jukeSessionId == null) return
 
-export const fetchNextTracks = async () => {
-  const jukeboxId = selectCurrentJukebox(store.getState())?.id
-  if (!jukeboxId) return
-
-  await store.dispatch(thunkFetchNextTracks(jukeboxId))
-}
-
-export const clearNextTracks = async () => {
-  const jukeboxId = selectCurrentJukebox(store.getState())?.id
-  if (!jukeboxId) return
-
-  await store.dispatch(thunkClearNextTracks(jukeboxId))
+  await store.dispatch(
+    thunkFetchQueue({
+      jukeboxId,
+      jukeSessionId,
+    }),
+  )
 }
 
 export const setHasAux = (value: boolean) => {
@@ -101,10 +42,14 @@ export const setHasAux = (value: boolean) => {
   store.dispatch(setHasAuxReducer(value))
 }
 
+export const setCurrentJukebox = (id: number) => {
+  store.dispatch(setCurrentJukeboxReducer({ id }))
+}
+
 /**
  * Authenticate with external music service specified in link
  */
-export const authenticateLink = async (link?: IJukeboxLink) => {
+export const authenticateLink = async (link?: IAccountLink) => {
   link = link ? link : selectActiveLink(store.getState())
   if (!link) return
 
@@ -113,7 +58,7 @@ export const authenticateLink = async (link?: IJukeboxLink) => {
 
   await store.dispatch(thunkUpdateAccountLink({ jukeboxId, link }))
 
-  if (link.type === 'spotify') {
+  if (link.spotify_account) {
     await store.dispatch(thunkSyncSpotifyTokens(jukeboxId))
   } else {
     throw new NotImplementedError('Cannot connect non-spotify account')
@@ -126,7 +71,7 @@ export const checkLinkAuth = async () => {
 
   if (!jukebox || !link) return
 
-  if (link.type === 'spotify') {
+  if (link.spotify_account) {
     const auth = selectSpotifyAuth(store.getState())
     if (!auth) return
 
@@ -143,8 +88,4 @@ export const checkLinkAuth = async () => {
       'Handling non-spotify auth credentials is not implemented yet.',
     )
   }
-}
-
-export const fetchJukebox = async (jukeboxId: number) => {
-  await store.dispatch(thunkFetchJukebox(jukeboxId))
 }

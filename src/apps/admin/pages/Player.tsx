@@ -3,15 +3,13 @@ import { useSelector } from 'react-redux'
 import { ApiClient } from 'src/api'
 import { AudioPlayer } from 'src/components'
 import { REACT_ENV } from 'src/config'
-import { SpotifyContext } from 'src/context'
+import { PlayerContext } from 'src/context'
 import { authenticateLink } from 'src/store'
 import {
+  selectAccountLinks,
   selectCurrentJukebox,
-  selectCurrentTrack,
-  selectJukeboxLinks,
   selectNextTracks,
 } from 'src/store/jukebox'
-import { formatDuration } from 'src/utils'
 import { SpotifyPlayerAccount } from '../components/SpotifyPlayer/SpotifyPlayerAccount'
 import { SpotifyPlayerDetail } from '../components/SpotifyPlayer/SpotifyPlayerDetail'
 import { SpotifyPlayerInfo } from '../components/SpotifyPlayer/SpotifyPlayerInfo'
@@ -19,21 +17,21 @@ import './Player.scss'
 
 export const Player = () => {
   const jukebox = useSelector(selectCurrentJukebox)
-  const jukeboxLinks = useSelector(selectJukeboxLinks)
-  const currentTrack = useSelector(selectCurrentTrack)
+  const jukeboxLinks = useSelector(selectAccountLinks)
   const nextTracks = useSelector(selectNextTracks)
 
   const [connected, setConnected] = useState(false)
 
   const networkRef = useRef(ApiClient.getInstance())
   const connectLinkIdRef = useRef<HTMLSelectElement>(null)
+  const { playerState } = useContext(PlayerContext)
 
-  const {
-    deviceIsActive: isActive,
-    spotifyIsConnected: isConnected,
-    connectDevice,
-    deviceId,
-  } = useContext(SpotifyContext)
+  // const {
+  //   deviceIsActive: isActive,
+  //   spotifyIsConnected: isConnected,
+  //   connectDevice,
+  //   deviceId,
+  // } = useContext(SpotifyPlayerContext)
 
   useEffect(() => {
     networkRef.current = ApiClient.getInstance()
@@ -70,79 +68,29 @@ export const Player = () => {
     setConnected(true)
   }
 
-  useEffect(() => {
-    if (isConnected) {
-      setConnected(true)
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (isConnected) {
+  //     setConnected(true)
+  //   }
+  // }, [])
 
-  useEffect(() => {
-    connectDevice()
-  }, [deviceId])
+  // useEffect(() => {
+  //   connectDevice()
+  // }, [deviceId])
 
   return (
     <>
       <div className="spotify-player-title">Player</div>
-      {connected ? (
+      {connected && (
         <>
           <div className="spotify-player-container grid">
             <div className="col-6 left-container">
-              <div className="spotify-player-desc">
-                <div className="spotify-song-title">
-                  {currentTrack?.track.name ?? 'No Track Playing'}
-                </div>
-                <div className="spotify-song-author">
-                  {currentTrack?.track.artists
-                    .map((artist) => artist.name)
-                    .join(', ') ?? 'Author Unavailable'}
-                </div>
-              </div>
               <div className="audio-container">
-                <AudioPlayer showInfo={false} />
+                <AudioPlayer />
               </div>
               <div className="next-track-container">
                 <SpotifyPlayerInfo title="Next Tracks" />
               </div>
-              {nextTracks.length > 0 && (
-                <>
-                  <h2 className="song-queue__title">Next Up</h2>
-                  <ol>
-                    {nextTracks.map(
-                      (track) =>
-                        track && (
-                          <li className="track-list-track" key={track.track.id}>
-                            {/* TODO: Make different set of styles for track list */}
-                            {!track && <p>No track specified.</p>}
-                            {track && (
-                              <>
-                                <span className="track-list-track__preview">
-                                  <img
-                                    src={track?.track.album?.images[0].url}
-                                    alt={track.track.name}
-                                  />
-                                </span>
-                                <div className="track-list-track__name-group">
-                                  <h3 className="track-list-track__name">
-                                    {track.track.name}
-                                  </h3>
-                                  <span className="track-list-track__artists">
-                                    {track.track.artists
-                                      .map((artist) => artist.name)
-                                      .join(', ')}
-                                  </span>
-                                </div>
-
-                                <span className="track-list-track__info track-list-track__duration">
-                                  {formatDuration(track.track.duration_ms)}
-                                </span>
-                              </>
-                            )}
-                          </li>
-                        ),
-                    )}
-                  </ol>
-                </>
-              )}
             </div>
 
             <div className="col-5 right-container">
@@ -159,7 +107,7 @@ export const Player = () => {
                   />
                 </div>
               </div>
-              {!isActive && (
+              {/* {!isActive && (
                 <div className="switchAccounts">
                   Connected Accounts
                   <div>
@@ -177,7 +125,7 @@ export const Player = () => {
                     </button>
                   </div>
                 </div>
-              )}
+              )} */}
 
               <div className="spotify-accounts">
                 <SpotifyPlayerInfo title="Connected Spotify Accounts" />
@@ -186,7 +134,7 @@ export const Player = () => {
                     <SpotifyPlayerAccount key={link.id} link={link} />
                   ))}
                 </div>
-                <div className="connect-button-container">
+                {/* <div className="connect-button-container">
                   {isConnected && !isActive && (
                     <>
                       {REACT_ENV !== 'dev' && (
@@ -199,12 +147,13 @@ export const Player = () => {
                       )}
                     </>
                   )}
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
         </>
-      ) : (
+      )}
+      {!connected && (
         <>
           <div className="spotify-player-container grid">
             <div className="col-6">
