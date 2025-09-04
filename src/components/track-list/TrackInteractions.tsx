@@ -8,10 +8,10 @@ import { ApiClient } from 'src/api'
 import { AdminContext } from 'src/apps/admin'
 import { TrackModifyContext } from 'src/apps/admin/pages/trackContext'
 import { MoveIcon, RemoveIcon } from 'src/assets/Icons'
-import { selectCurrentMembership } from 'src/store'
+import { selectCurrentJukeSession, selectCurrentMembership } from 'src/store'
 
 export const TrackInteractions = (props: {
-  track?: IQueuedTrack
+  track: IQueuedTrack
   index?: number
 }) => {
   const { track, index } = props
@@ -20,12 +20,16 @@ export const TrackInteractions = (props: {
   const trackStatus = useContext(TrackModifyContext)
   const network = ApiClient.getInstance()
 
-  const currrentMembership = useSelector(selectCurrentMembership)
+  const jukeSession = useSelector(selectCurrentJukeSession)
+  const currentMembership = useSelector(selectCurrentMembership)
 
   const removeTrack = () => {
-    if (track !== undefined && adminStatus.jukebox !== null) {
-      console.log(track.queue_id)
-      network.removeQueuedTrack(adminStatus.jukebox.id, track.queue_id)
+    if (track.id != null && adminStatus.jukebox !== null && jukeSession) {
+      network.removeQueuedTrack(
+        adminStatus.jukebox.id,
+        jukeSession.id,
+        track.id,
+      )
     }
   }
 
@@ -39,7 +43,7 @@ export const TrackInteractions = (props: {
 
   useEffect(() => {
     console.log(adminStatus.role)
-  }, [currrentMembership])
+  }, [currentMembership])
 
   return (
     <>
@@ -62,11 +66,11 @@ export const TrackInteractions = (props: {
         <div className="track-interactivity">
           <div className="track-interactivity__item track-interactivity__item--likes">
             <ThumbUpAltOutlined />
-            {track?.interactions.likes ?? 0}
+            {track?.likes ?? 0}
           </div>
           <div className="track-interactivity__item track-interactivity__item--dislikes">
             <ThumbDownAltOutlined />
-            {track?.interactions.dislikes ?? 0}
+            {track?.dislikes ?? 0}
           </div>
         </div>
       )}

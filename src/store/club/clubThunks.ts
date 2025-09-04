@@ -14,7 +14,14 @@ export const thunkFetchClubInfo = createAsyncThunk(
   },
 )
 
-export const thunkFetchMembership = createAsyncThunk(
+export const thunkUpdateMembership = createAsyncThunk(
+  'club/updateMembershipInfo',
+  async (data: { id: number; body: IClubMembershipUpdate }) => {
+    return await network.updateMyClubMembership(data.id, data.body)
+  },
+)
+
+export const thunkFetchMemberships = createAsyncThunk(
   'club/fetchMembershipInfo',
   async () => {
     return await network.getMyClubMemberships()

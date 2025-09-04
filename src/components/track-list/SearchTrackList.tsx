@@ -2,7 +2,7 @@ import { mergeClassNames } from 'src/utils'
 
 import { SearchTrackItem } from './SearchTrackItem'
 
-export const TrackSearchList = (props: { tracks: ITrackDetails[] }) => {
+export const TrackSearchList = (props: { tracks: ITrack[] }) => {
   const { tracks } = props
 
   return (

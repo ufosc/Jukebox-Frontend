@@ -1,22 +1,22 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { authenticateLink } from 'src/store'
 import './SpotifyPlayerAccount.scss'
 
-export const SpotifyPlayerAccount = (props: { link: IJukeboxLink }) => {
+export const SpotifyPlayerAccount = (props: { link: IAccountLink }) => {
   const { link } = props
 
   const [activeLink, setActiveLink] = useState(link.active)
-  const [type, setType] = useState<string>(link.type)
+  const [type, setType] = useState<'spotify'>('spotify')
 
   const handleTransferPlayback = async () => {
     await authenticateLink(link)
   }
 
-  useEffect(() => {
-    if (link.type === 'spotify') {
-      setType('Spotify')
-    }
-  }, [link])
+  // useEffect(() => {
+  //   if (link.type === 'spotify') {
+  //     setType('Spotify')
+  //   }
+  // }, [link])
 
   return (
     <>
@@ -29,7 +29,9 @@ export const SpotifyPlayerAccount = (props: { link: IJukeboxLink }) => {
               </div>
             </div>
             <div className="userInfo">
-              <div className="email-container">{link.email}</div>
+              <div className="email-container">
+                {link.spotify_account.spotify_email}
+              </div>
               <div className="attribute-container">
                 <div className="account-type-container">{type} Account</div>
                 <div className="account-active-container">
@@ -53,7 +55,9 @@ export const SpotifyPlayerAccount = (props: { link: IJukeboxLink }) => {
             </div>
           </div>
           <div className="userInfo">
-            <div className="email-container">{link.email}</div>
+            <div className="email-container">
+              {link.spotify_account.spotify_email}
+            </div>
             <div className="attribute-container">
               <div className="account-type-container">{type} Account</div>
               <div className="account-active-container">

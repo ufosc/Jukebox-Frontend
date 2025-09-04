@@ -113,8 +113,9 @@ export class ApiAuth extends ApiBase {
       mock: { data: { token: 'test-token' } },
     })
 
-    if (!res.success) return res
-    this.setToken(res.data.token)
+    if (res.success) {
+      this.setToken(res.data.token)
+    }
 
     return res
   }
@@ -128,11 +129,17 @@ export class ApiAuth extends ApiBase {
   async loginWithUsername(usernameOrEmail: string, password: string) {
     const url = this.endpoints.user.token
 
-    return await this.post<TokenResponse>(url, {
+    const res = await this.post<TokenResponse>(url, {
       body: { username: usernameOrEmail, password },
       isPublic: true,
       mock: { data: { token: 'test-token' } },
     })
+
+    if (res.success) {
+      this.setToken(res.data.token)
+    }
+
+    return res
   }
 
   /**

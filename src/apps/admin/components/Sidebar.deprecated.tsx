@@ -1,10 +1,15 @@
 import { ChangeEvent, useContext, useState, type ReactNode } from 'react'
+import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { ThemeContext } from 'src/context/Theme'
+import {
+  selectAllJukeboxes,
+  selectCurrentClub,
+  selectCurrentJukebox,
+  setCurrentJukebox,
+} from 'src/store'
 import { mergeClassNames } from 'src/utils'
 import './Sidebar.scss'
-import { fetchJukebox, selectAllJukeboxes, selectCurrentClub, selectCurrentJukebox } from 'src/store'
-import { useSelector } from 'react-redux'
 
 const NavItem = (props: {
   text: string
@@ -47,8 +52,8 @@ export const Sidebar = (props: { className?: string }) => {
 
   const handleJukeboxChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedJukeboxId: number = Number(e.target.value)
-    fetchJukebox(selectedJukeboxId)
-  
+    setCurrentJukebox(selectedJukeboxId)
+
     if (currentJukebox !== null) {
       console.log('Selected JBX is: ', currentJukebox.id)
     }
@@ -351,20 +356,22 @@ export const Sidebar = (props: { className?: string }) => {
           </nav>
           <div>
             <div className="topbar__group-dropdown__jukebox">
-          <select
-            name="current-jukebox"
-            id="current-jukebox"
-            onChange={handleJukeboxChange}
-            defaultValue={currentClub?.id}
-          >
-            {!currentJukebox && <option value="">No Jukebox Selected</option>}
-            {allJukeboxes.map((jukebox) => (
-              <option key={jukebox.id} value={jukebox.id}>
-                {jukebox.name}
-              </option>
-            ))}
-          </select>
-        </div>
+              <select
+                name="current-jukebox"
+                id="current-jukebox"
+                onChange={handleJukeboxChange}
+                defaultValue={currentClub?.id}
+              >
+                {!currentJukebox && (
+                  <option value="">No Jukebox Selected</option>
+                )}
+                {allJukeboxes.map((jukebox) => (
+                  <option key={jukebox.id} value={jukebox.id}>
+                    {jukebox.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
         <div className="navbar__row">

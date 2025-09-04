@@ -12,7 +12,9 @@ import {
 } from './context'
 import {
   checkLinkAuth,
+  fetchJukeboxes,
   fetchSessionQueue,
+  selectCurrentClub,
   selectCurrentJukebox,
   selectCurrentJukeSession,
   selectSpotifyAuth,
@@ -24,6 +26,7 @@ export const App = () => {
   const currentJukebox = useSelector(selectCurrentJukebox)
   const currentSession = useSelector(selectCurrentJukeSession)
   const isLoggedIn = useSelector(selectUserLoggedIn)
+  const currentClub = useSelector(selectCurrentClub)
 
   const { emitMessage } = useContext(SocketContext)
 
@@ -53,6 +56,11 @@ export const App = () => {
     },
     [currentJukebox],
   )
+
+  useEffect(() => {
+    if (!currentClub) return
+    fetchJukeboxes(currentClub.id).then()
+  }, [currentClub])
 
   // Initialize Jukebox
   useEffect(() => {

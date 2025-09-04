@@ -26,7 +26,9 @@ export const CreateJukebox = () => {
 
   const dispatch = useDispatch()
 
-  const [selectedAccounts, setSelectedAccounts] = useState<ISpotifyLink[]>([])
+  const [selectedAccounts, setSelectedAccounts] = useState<ISpotifyAccount[]>(
+    [],
+  )
 
   const handleLoginSubmit = async () => {
     //const selectedSClub: NetworkResponse<IClub> = await network.getClub(parseInt(selectedClub))!;
@@ -43,7 +45,10 @@ export const CreateJukebox = () => {
     console.log(selectedAccounts)
 
     //Add API Call to create new Jukebox
-    const res = network.createJukebox(clubID, jbxName, selectedAccounts)
+    const res = await network.jukeboxes.create({
+      club_id: clubID,
+      name: jbxName,
+    })
 
     //remove Later
     console.log(res)
@@ -61,7 +66,7 @@ export const CreateJukebox = () => {
     setJbxName(newName)
   }
 
-  const changeAccounts = (link: ISpotifyLink) => {
+  const changeAccounts = (link: ISpotifyAccount) => {
     console.log(link.spotify_email)
 
     const isChosen: boolean = selectedAccounts.some(
@@ -69,7 +74,7 @@ export const CreateJukebox = () => {
     )
 
     if (isChosen) {
-      const newSpotifyList: ISpotifyLink[] = selectedAccounts.filter(
+      const newSpotifyList: ISpotifyAccount[] = selectedAccounts.filter(
         (account) => account.spotify_email !== link.spotify_email,
       )
       setSelectedAccounts(newSpotifyList)

@@ -8,8 +8,6 @@ import {
   selectCurrentJukebox,
   selectHasJukeboxAux,
   selectUser,
-  updateClub,
-  updateMembership,
 } from 'src/store'
 
 import { useNavigate } from 'react-router-dom'
@@ -34,7 +32,7 @@ export const Topbar = () => {
   const [showClubs, setShowClubs] = useState(false)
   const [showNotification, setShowNotification] = useState(false)
   const [searchInput, setSearchInput] = useState('')
-  const [searchList, setSearchList] = useState<ITrackDetails[]>([])
+  const [searchList, setSearchList] = useState<ITrack[]>([])
 
   const [searchActive, setSearchActive] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
@@ -45,19 +43,6 @@ export const Topbar = () => {
     }
   }
   const onBlur = () => setSearchActive(false)
-
-  const handleClubChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const selectedClubId: number = Number(e.target.value)
-
-    console.log('Set current club to:', selectedClubId)
-    updateClub(selectedClubId)
-    if (currentClub !== null) {
-      console.log('Current club is ', currentClub.id)
-    }
-    if (user !== null) {
-      updateMembership(selectedClubId, user.id)
-    }
-  }
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     const searchEntry = e.target.value
@@ -78,9 +63,9 @@ export const Topbar = () => {
           )
           console.log(tracksResult)
           if (tracksResult.success) {
-            console.log(tracksResult.data.tracks.items)
+            console.log(tracksResult.data.tracks)
             //Modify logic for Modal
-            setSearchList(tracksResult.data.tracks.items)
+            setSearchList(tracksResult.data.tracks)
           }
         } else {
           console.log('Jukebox is not connected')
@@ -253,7 +238,7 @@ export const Topbar = () => {
               {user && (
                 <img
                   src={user?.profile?.image ?? undefined}
-                  alt={user.last_name}
+                  alt={user.username}
                 />
               )}
               {!user && <p>Login required.</p>}

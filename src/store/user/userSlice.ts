@@ -12,11 +12,11 @@ import {
 export const userSlice = createSlice({
   name: 'user',
   initialState: {
-    user: null as IUserDetailsAdd | null,
+    user: null as IUser | null,
     loggedIn: null as boolean | null,
     status: 'idle' as StoreStatus,
     error: null as string | null,
-    links: null as ISpotifyLink[] | null,
+    spotifyAccounts: null as ISpotifyAccount[] | null,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -31,6 +31,11 @@ export const userSlice = createSlice({
 
       state.loggedIn = true
       state.user = action.payload.data
+    })
+    builder.addCase(thunkInitializeUser.rejected, (state, action) => {
+      state.user = null
+      state.loggedIn = false
+      state.error = 'Failed to initialize user'
     })
 
     builder.addCase(thunkLoginUser.fulfilled, (state, action) => {
@@ -57,12 +62,12 @@ export const userSlice = createSlice({
     builder.addCase(thunkGetSpotifyAccounts.fulfilled, (state, action) => {
       //console.log(action.payload)
       if (!action.payload.success) {
-        state.links = null
+        state.spotifyAccounts = null
         state.error = 'Failed to get Spotify Links'
         return
       }
 
-      state.links = action.payload.data
+      state.spotifyAccounts = action.payload.data
     })
 
     builder.addCase(thunkGetSpotifyAccounts.rejected, (state, action) => {

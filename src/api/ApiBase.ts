@@ -276,6 +276,8 @@ export abstract class ApiBase {
       console.error(
         'Zod received an invalid response from the server:',
         res.error.errors,
+        'Data:',
+        body,
       )
       return res.data || body
     }

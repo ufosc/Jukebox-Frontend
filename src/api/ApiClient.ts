@@ -96,6 +96,15 @@ export class ApiClient extends ApiAuth {
     })
   }
 
+  /**
+   * Update membership for current user.
+   */
+  public async updateMyClubMembership(id: number, body: IClubMembershipUpdate) {
+    const url = this.endpoints.club.membershipDetail(id)
+
+    return await this.patch<IClubMembership>(url, { body })
+  }
+
   // ======================================
   // Jukebox Routes
   // ======================================
@@ -218,7 +227,7 @@ export class ApiClient extends ApiAuth {
   ) {
     const url = this.endpoints.jukebox.search(jukeboxId)
 
-    const response = await this.post(url, {
+    const response = await this.post<{ tracks: ITrack[] }>(url, {
       body: {
         trackQuery: trackName,
         albumQuery: albumName,
@@ -249,12 +258,12 @@ export class ApiClient extends ApiAuth {
    */
   public async removeQueuedTrack(
     jukeboxId: number,
-    queueId: number,
+    jukeSessionId: number,
     queuedTrackId: number,
   ) {
     const url = this.endpoints.jukebox.queueTrackDetail(
       jukeboxId,
-      queueId,
+      jukeSessionId,
       queuedTrackId,
     )
 
@@ -280,8 +289,8 @@ export class ApiClient extends ApiAuth {
    */
   public async getSpotifyAccounts() {
     const url = this.endpoints.spotify.accountList
-    return await this.get<ISpotifyAccount>(url, {
-      mock: { data: MockSpotifyAccount },
+    return await this.get<ISpotifyAccount[]>(url, {
+      mock: { data: MockSpotifyAccount ? [MockSpotifyAccount] : [] },
     })
   }
 

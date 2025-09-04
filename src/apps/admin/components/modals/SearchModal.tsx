@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 
 interface SearchModalProps {
-  tracks: ITrackDetails[]
+  tracks: ITrack[]
   searchQuery: {
     trackName: string
     albumName: string
@@ -57,20 +57,20 @@ export const SearchModal = ({
 
               <div className="modal__search__information">
                 <div className="modal__search__information__item">
-                  {track.artists[0].name}
+                  {track.artists.join(', ')}
                   {track.artists.length > 1 ? <>...</> : <></>}
                 </div>
 
                 <div className="modal__search__information__album">
-                  {track.album.name}
+                  {track.album}
                 </div>
 
                 <div className="modal__search__information__detail">
-                  {track.album.release_date.split('-')[0]}
+                  {track.release_year}
                 </div>
 
                 <div className="modal__search__information_detail">
-                  {track.explicit ? <>Explicit</> : <>Clean</>}
+                  {track.is_explicit ? <>Explicit</> : <>Clean</>}
                 </div>
               </div>
             </div>

@@ -158,7 +158,9 @@ export const AudioPlayer = (props: {
                     {playerState.spotify_track.artists.join(', ') ||
                       'Artist Unavailable'}
                   </p>
-                  <TrackInteractions track={playerState.queued_track} />
+                  {playerState.queued_track && (
+                    <TrackInteractions track={playerState.queued_track} />
+                  )}
                 </div>
                 <p className="audio-player__track__rec">Queued by Spotify</p>
               </div>

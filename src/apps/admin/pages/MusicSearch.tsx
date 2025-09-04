@@ -8,7 +8,7 @@ import './MusicSearch.scss'
 
 export const MusicSearch = () => {
   const [inputs, setInputs] = useState({ track: '', album: '', artist: '' })
-  const [tracks, setTracks] = useState<ITrackDetails[]>([])
+  const [tracks, setTracks] = useState<ITrack[]>([])
   const jukebox = useSelector(selectCurrentJukebox)
   const network = ApiClient.getInstance()
 
@@ -34,8 +34,8 @@ export const MusicSearch = () => {
       )
       console.log(tracksResult)
       if (tracksResult.success) {
-        console.log(tracksResult.data.tracks.items)
-        setTracks(tracksResult.data.tracks.items)
+        console.log(tracksResult.data.tracks)
+        setTracks(tracksResult.data.tracks)
       }
     } else {
       console.log('Jukebox is not connected')

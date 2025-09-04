@@ -29,6 +29,8 @@ export const loginUser = async (usernameOrEmail: string, password: string) => {
     .then(async (res) => {
       if (res.success) {
         await initializeUser()
+      } else {
+        console.error('Error initializing user:', res.data)
       }
       return res
     })

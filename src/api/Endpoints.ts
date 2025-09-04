@@ -16,8 +16,10 @@ export const ApiEndpoints = Object.freeze({
   club: {
     list: `${CLUBS_V1}/club/clubs/`,
     detail: (id: number) => `${CLUBS_V1}/club/clubs/${id}/`,
-    memberList: (id: number) => `${CLUBS_V1}/club/clubs/${id}/members`,
+    memberList: (id: number) => `${CLUBS_V1}/club/clubs/${id}/members/`,
     membershipList: `${CLUBS_V1}/club/club-memberships/`,
+    membershipDetail: (id: number) =>
+      `${CLUBS_V1}/club/club-memberships/${id}/`,
   },
   jukebox: {
     list: `${JUKEBOX_V1}/jukebox/jukeboxes`,
