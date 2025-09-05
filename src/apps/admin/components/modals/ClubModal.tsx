@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux'
 import {
+  fetchMemberships,
   selectAllClubs,
   selectCurrentClub,
   selectUser,
   updateClub,
-  updateMembership,
 } from 'src/store'
 
 export const ClubModal = () => {
@@ -12,16 +12,16 @@ export const ClubModal = () => {
   const clubs = useSelector(selectAllClubs)
   const currentClub = useSelector(selectCurrentClub)
 
-  const handleClubclick = (club: IClub) => {
+  const handleClubClick = (club: IClub) => {
     const selectedClubId = club.id
     console.log(club.id)
     updateClub(selectedClubId)
     if (currentClub !== null) {
       console.log('Current club is ', currentClub.id)
     }
-    if (user !== null) {
-      updateMembership(selectedClubId, user.id)
-    }
+    // if (user !== null) {
+    //   fetchMemberships(selectedClubId, user.id)
+    // }
   }
 
   return (
@@ -30,7 +30,7 @@ export const ClubModal = () => {
         {clubs.map((club, id) => (
           <div
             className={`modal__club__item ${club.name === currentClub?.name ? 'modal__club__item__active' : ''}`}
-            onClick={() => handleClubclick(club)}
+            onClick={() => handleClubClick(club)}
             key={id}
           >
             {club.name}

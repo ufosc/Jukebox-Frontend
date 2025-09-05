@@ -1,12 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { Network } from 'src/network'
+import { ApiClient } from 'src/api'
 
-const network = Network.getInstance()
-
-declare interface FetchMembershipArgs {
-  clubId: number
-  memberId: number
-}
+const network = ApiClient.getInstance()
 
 export const thunkFetchClubs = createAsyncThunk('club/fetchClubs', async () => {
   return await network.listClubs()
@@ -19,9 +14,16 @@ export const thunkFetchClubInfo = createAsyncThunk(
   },
 )
 
-export const thunkFetchMembership = createAsyncThunk(
+export const thunkUpdateMembership = createAsyncThunk(
+  'club/updateMembershipInfo',
+  async (data: { id: number; body: IClubMembershipUpdate }) => {
+    return await network.updateMyClubMembership(data.id, data.body)
+  },
+)
+
+export const thunkFetchMemberships = createAsyncThunk(
   'club/fetchMembershipInfo',
-  async (args: FetchMembershipArgs) => {
-    return await network.getCurrentMembership(args.clubId, args.memberId)
+  async () => {
+    return await network.getMyClubMemberships()
   },
 )

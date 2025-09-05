@@ -7,24 +7,26 @@ import {
   KeyboardProvider,
   PlayerProvider,
   SocketContext,
-  SpotifyProvider,
+  SpotifyPlayerProvider,
   Theme,
 } from './context'
 import {
   checkLinkAuth,
-  fetchNextTracks,
+  fetchJukeboxes,
+  fetchSessionQueue,
+  selectCurrentClub,
   selectCurrentJukebox,
+  selectCurrentJukeSession,
   selectSpotifyAuth,
   selectUserLoggedIn,
-  setPlayerIsPlaying,
-  setPlayerProgress,
-  updateLinks,
 } from './store'
 
 export const App = () => {
   const spotifyAuth = useSelector(selectSpotifyAuth)
   const currentJukebox = useSelector(selectCurrentJukebox)
+  const currentSession = useSelector(selectCurrentJukeSession)
   const isLoggedIn = useSelector(selectUserLoggedIn)
+  const currentClub = useSelector(selectCurrentClub)
 
   const { emitMessage } = useContext(SocketContext)
 
@@ -41,37 +43,40 @@ export const App = () => {
 
   // Primary function that runs when Spotify Player changes
   const handlePlayerTrackChange = useCallback(
-    (state?: IPlayerAuxUpdate) => {
+    (state?: IPlayerAuxClientUpdate) => {
       if (!state) {
         emitMessage('player-aux-update', {})
         return
       }
       // Update player state with select settings
-      setPlayerIsPlaying(state.is_playing)
-      setPlayerProgress(state.progress)
+      // setPlayerIsPlaying(state.is_playing)
+      // setPlayerProgress(state.progress)
       // Update server with new state
-      emitMessage<IPlayerAuxUpdate>('player-aux-update', state)
+      emitMessage<IPlayerAuxClientUpdate>('player-aux-update', state)
     },
     [currentJukebox],
   )
 
   useEffect(() => {
-    fetchNextTracks()
+    if (!currentClub) return
+    fetchJukeboxes(currentClub.id).then()
+  }, [currentClub])
+
+  // Initialize Jukebox
+  useEffect(() => {
+    fetchSessionQueue()
   }, [currentJukebox])
 
-  /**
-   * Updates the links for usage
-   * Figure out the placement later
-   */
+  // Initialize JukeSession
   useEffect(() => {
-    updateLinks()
-  }, [])
+    // ...
+  }, [currentSession])
 
   return (
     <Theme>
       <KeyboardProvider>
         <NoticesProvider>
-          <SpotifyProvider
+          <SpotifyPlayerProvider
             token={spotifyAuth?.access_token}
             jukebox={currentJukebox}
             onPlayerStateChange={handlePlayerTrackChange}
@@ -79,7 +84,7 @@ export const App = () => {
             <PlayerProvider>
               <Outlet />
             </PlayerProvider>
-          </SpotifyProvider>
+          </SpotifyPlayerProvider>
         </NoticesProvider>
       </KeyboardProvider>
     </Theme>

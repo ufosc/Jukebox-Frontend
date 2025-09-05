@@ -1,4 +1,4 @@
-export const mockTracks: IPlayerTrack[] = [
+export const mockTracks: ISpotifyPlayerTrack[] = [
   {
     uid: '274c57e5-b7b5-4026-a85d-49e12a040b48',
     id: '63ad6cd4-fd23-46b4-9dbd-eb336cefd005',

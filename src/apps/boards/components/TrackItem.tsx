@@ -3,7 +3,7 @@ import { formatDuration } from 'src/utils'
 /**
  * TODO: MOVE THIS COMPONENT TO GLOBAL SCOPE
  */
-export const TrackItem = (props: { track: Nullable<IPlayerTrack> }) => {
+export const TrackItem = (props: { track: ITrack }) => {
   const { track } = props
   return (
     <li className="track-list__track">
@@ -11,12 +11,12 @@ export const TrackItem = (props: { track: Nullable<IPlayerTrack> }) => {
       {track && (
         <>
           <span className="track-list__track__preview">
-            <img src={track?.album?.images[0].url} alt={track.name} />
+            <img src={track?.preview_url ?? ''} alt={track.name} />
           </span>
           <div className="track-list__track__name-group">
             <h3 className="track-list__track__name">{track.name}</h3>
             <span className="track-list__track__artists">
-              {track.artists.map((artist) => artist.name).join(', ')}
+              {track.artists.join(', ')}
             </span>
           </div>
           <span className="track-list__track__info track-list__track__rec-by">

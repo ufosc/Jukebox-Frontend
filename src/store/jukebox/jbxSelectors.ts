@@ -5,53 +5,56 @@ type RootState = {
   jukebox: JukeboxState
 }
 
-const jbxStateSelector = (state: RootState) => state.jukebox
+export const selectJukeboxState = (state: RootState) => state.jukebox
 
 export const selectAllJukeboxes = createSelector(
-  jbxStateSelector,
+  selectJukeboxState,
   (state) => state.jukeboxes,
 )
 
 export const selectCurrentJukebox = createSelector(
-  jbxStateSelector,
+  selectJukeboxState,
   (state) => state.currentJukebox,
 )
 
+export const selectCurrentJukeSession = createSelector(
+  selectJukeboxState,
+  (state) => state.currentJukeSession,
+)
+
 export const selectHasJukeboxAux = createSelector(
-  jbxStateSelector,
+  selectJukeboxState,
   (state) => state.hasAux,
 )
 
-export const selectJukeboxLinks = createSelector(
-  jbxStateSelector,
-  (state) => state.currentJukebox?.links,
+export const selectAccountLinks = createSelector(
+  selectJukeboxState,
+  (state) => state.accountLinks,
 )
 
 export const selectSpotifyAuth = createSelector(
-  jbxStateSelector,
+  selectJukeboxState,
   (state) => state.spotifyAuth,
 )
 
-export const selectPlayerState = createSelector(
-  jbxStateSelector,
-  (state) => state.playerState,
-)
-
 export const selectNextTracks = createSelector(
-  jbxStateSelector,
-  (state) => state.nextTracks,
+  selectJukeboxState,
+  (state) => state.queue?.tracks ?? [],
 )
 
-export const selectActiveLink = createSelector(jbxStateSelector, (state) =>
-  state.currentJukebox?.links.find((link) => link.active),
+export const selectActiveLink = createSelector(selectJukeboxState, (state) =>
+  state.accountLinks.find((link) => link.active),
 )
 
-export const selectCurrentTrack = createSelector(
-  jbxStateSelector,
-  (state) => state.playerState?.current_track,
+export const selectJukeboxAndSessionIds = createSelector(
+  selectJukeboxState,
+  (state) => ({
+    jukeboxId: state.currentJukebox?.id,
+    jukeSessionId: state.currentJukeSession?.id,
+  }),
 )
 
-// export const selectCurrentlyPlaying = createSelector(
-//   jbxStateSelector,
-//   (state) => state.playerState,
+// export const selectDeviceId = createSelector(
+//   selectJukeboxState,
+//   (state) => state.deviceId,
 // )

@@ -2,14 +2,7 @@ import { useEffect } from 'react'
 
 import './memberObj.css'
 
-export const MemberObj = (props: {
-  member: {
-    user: IClubUser
-    is_owner: boolean
-    points: number
-    created_at: string
-  }
-}) => {
+export const MemberObj = (props: { member: IClubMembership }) => {
   const { member } = props
   useEffect(() => {
     console.log(`hi there ${props}`)

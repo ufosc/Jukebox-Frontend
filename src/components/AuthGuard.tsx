@@ -1,21 +1,32 @@
 import { useEffect, type ReactNode } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { ApiClient } from 'src/api'
 import {
   fetchAllClubs,
   fetchCurrentClubInfo,
   fetchJukeboxes,
+  fetchMemberships,
   initializeUser,
   logoutUser,
   selectCurrentClub,
   selectUser,
   selectUserLoggedIn,
   store,
-  updateMembership,
 } from 'src/store'
 
 export const AuthGuard = (props: { children?: ReactNode }) => {
   const userIsLoggedIn = useSelector(selectUserLoggedIn)
+
+  const api = ApiClient.getInstance()
+
+  useEffect(() => {
+    if (api.isAuthenticated) {
+      initializeUser()
+    } else {
+      logoutUser()
+    }
+  }, [])
 
   /**
    * Slices for getting current club membership
@@ -34,18 +45,18 @@ export const AuthGuard = (props: { children?: ReactNode }) => {
   const initializeStores = async () => {
     await fetchAllClubs()
     await fetchCurrentClubInfo()
-    await fetchJukeboxes()
 
     const initialClub = selectCurrentClub(store.getState())
 
     if (initialClub !== null && user !== null) {
-      updateMembership(initialClub.id, user.id)
+      fetchMemberships()
+      await fetchJukeboxes(initialClub.id)
     }
   }
 
-  useEffect(() => {
-    initializeUser()
-  }, [])
+  // useEffect(() => {
+  //   initializeUser()
+  // }, [])
 
   // Triggers when login status changes
   useEffect(() => {

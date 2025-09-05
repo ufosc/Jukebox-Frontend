@@ -4,7 +4,7 @@ import { ModalNavItem } from './ModalNavItem'
 import { logoutUser } from 'src/store'
 
 interface UserModalProps {
-  user: IUserDetailsAdd | null
+  user: IUser | null
   closeModal: () => void
 }
 
@@ -24,13 +24,7 @@ export const UserModal = (props: UserModalProps) => {
       <div className="modal modal__user">
         <div className="modal__user__information">
           <div className="modal__user__information__name">
-            {user.first_name || user.last_name ? (
-              <>
-                {user.first_name} {user.last_name}
-              </>
-            ) : (
-              <>Not Set</>
-            )}
+            {user.profile.name ? <>{user.profile.name}</> : <>Not Set</>}
           </div>
           <div className="modal__user__information__username">
             {user.username}

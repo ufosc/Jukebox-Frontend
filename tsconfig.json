@@ -30,7 +30,8 @@
     //   "node_modules/@testing-library",
     //   "@ufosc/jukebox-types"
     // ],
-    "types": ["jukebox-types", "@types/spotify-web-playback-sdk"],
+    // "types": ["jukebox-types", "@types/spotify-web-playback-sdk"],
+    "types": ["@types/spotify-web-playback-sdk"],
     // "typeRoots": ["node_modules/@types", "node_modules/@testing-library"],
     "paths": {
       "src/*": ["./src/*"]

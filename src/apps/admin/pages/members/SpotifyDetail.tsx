@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './SpotifyDetail.scss'
 
-export const SpotifyLinkAccount = (props: { link: ISpotifyLink }) => {
+export const SpotifyLinkAccount = (props: { link: ISpotifyAccount }) => {
   const { link } = props
 
   const [isSelected, setIsSelected] = useState(false)

@@ -1,12 +1,12 @@
-import { getRandomItem, getRandomSample } from '../helpers/random'
-import { mockQueuedTracks } from './mock-track-meta'
+import { getRandomItem } from '../helpers/random'
+import { mockQueuedTracks } from './mock-queued-track'
 
-export const mockPlayerQueueState: IPlayerQueueState = {
-  current_track: getRandomItem(mockQueuedTracks),
-  next_tracks: getRandomSample(mockQueuedTracks),
+export const MockPlayerState: IPlayerState = {
   jukebox_id: 1,
+  queued_track: getRandomItem(mockQueuedTracks),
   progress: 30000,
   is_playing: false,
+  last_progress_update: new Date().toISOString(),
 }
 
 // When in dev mode, this allows us to use the access token defined
@@ -29,4 +29,4 @@ if (localToken) {
   }
 }
 
-export const mockSpotifyAccount = localSpotifyAccount
+export const MockSpotifyAccount = localSpotifyAccount

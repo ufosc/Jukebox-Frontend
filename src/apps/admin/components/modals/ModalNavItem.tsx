@@ -1,7 +1,7 @@
-import React, { ReactNode } from "react"
-import { NavLink } from "react-router-dom"
+import { ReactNode } from 'react'
+import { NavLink } from 'react-router-dom'
 
-import "../Sidebar.scss"
+import '../Sidebar.scss'
 
 export const ModalNavItem = (props: {
   text: string

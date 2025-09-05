@@ -8,13 +8,11 @@ import {
   selectCurrentJukebox,
   selectHasJukeboxAux,
   selectUser,
-  updateClub,
-  updateMembership,
 } from 'src/store'
 
 import { useNavigate } from 'react-router-dom'
+import { ApiClient } from 'src/api'
 import { Dialog } from 'src/components'
-import { Network } from 'src/network'
 import { debounce } from 'src/utils'
 import { ClubModal } from './modals/ClubModal'
 import { NotificationModal } from './modals/NotificationModal'
@@ -28,13 +26,13 @@ export const Topbar = () => {
   const currentClub = useSelector(selectCurrentClub)
   const jukebox = useSelector(selectCurrentJukebox)
   const hasAux = useSelector(selectHasJukeboxAux)
-  const network = Network.getInstance()
+  const network = ApiClient.getInstance()
 
   const [showUser, setShowUser] = useState(false)
   const [showClubs, setShowClubs] = useState(false)
   const [showNotification, setShowNotification] = useState(false)
   const [searchInput, setSearchInput] = useState('')
-  const [searchList, setSearchList] = useState<ITrackDetails[]>([])
+  const [searchList, setSearchList] = useState<ITrack[]>([])
 
   const [searchActive, setSearchActive] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
@@ -45,19 +43,6 @@ export const Topbar = () => {
     }
   }
   const onBlur = () => setSearchActive(false)
-
-  const handleClubChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const selectedClubId: number = Number(e.target.value)
-
-    console.log('Set current club to:', selectedClubId)
-    updateClub(selectedClubId)
-    if (currentClub !== null) {
-      console.log('Current club is ', currentClub.id)
-    }
-    if (user !== null) {
-      updateMembership(selectedClubId, user.id)
-    }
-  }
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     const searchEntry = e.target.value
@@ -70,7 +55,7 @@ export const Topbar = () => {
 
         if (jukebox !== null) {
           // Only Searches using track name currently
-          const tracksResult = await network.getTracks(
+          const tracksResult = await network.searchTracks(
             jukebox.id,
             searchInput,
             '',
@@ -78,9 +63,9 @@ export const Topbar = () => {
           )
           console.log(tracksResult)
           if (tracksResult.success) {
-            console.log(tracksResult.data.tracks.items)
+            console.log(tracksResult.data.tracks)
             //Modify logic for Modal
-            setSearchList(tracksResult.data.tracks.items)
+            setSearchList(tracksResult.data.tracks)
           }
         } else {
           console.log('Jukebox is not connected')
@@ -116,7 +101,12 @@ export const Topbar = () => {
     e.preventDefault()
     const searchPath = '/dashboard/music/search'
     if (jukebox) {
-      const response = await network.getTracks(jukebox.id, searchInput, '', '')
+      const response = await network.searchTracks(
+        jukebox.id,
+        searchInput,
+        '',
+        '',
+      )
 
       const query = {
         trackName: searchInput,
@@ -129,7 +119,6 @@ export const Topbar = () => {
       })
     }
     setSearchActive(false)
-
   }
 
   return (
@@ -246,7 +235,12 @@ export const Topbar = () => {
           </div>
           <div className="topbar__profile__container">
             <button className="topbar__profile" onClick={handleUser}>
-              {user && <img src={user?.profile?.image ?? undefined} alt={user.last_name} />}
+              {user && (
+                <img
+                  src={user?.profile?.image ?? undefined}
+                  alt={user.username}
+                />
+              )}
               {!user && <p>Login required.</p>}
             </button>
           </div>
