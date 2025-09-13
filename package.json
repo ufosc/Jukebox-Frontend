@@ -25,7 +25,7 @@
     "@tanstack/react-table": "^8.16.0",
     "@types/spotify-web-playback-sdk": "^0.1.19",
     "ag-grid-react": "^32.1.0",
-    "axios": "^1.8.2",
+    "axios": "^1.12.0",
     "cross-env": "^7.0.3",
     "material-icons": "^1.13.12",
     "react": "^18.2.0",
