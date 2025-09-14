@@ -1,10 +1,9 @@
 import { useSelector } from 'react-redux'
 import {
-  fetchMemberships,
   selectAllClubs,
   selectCurrentClub,
   selectUser,
-  updateClub,
+  setCurrentClub,
 } from 'src/store'
 
 export const ClubModal = () => {
@@ -15,7 +14,7 @@ export const ClubModal = () => {
   const handleClubClick = (club: IClub) => {
     const selectedClubId = club.id
     console.log(club.id)
-    updateClub(selectedClubId)
+    setCurrentClub(selectedClubId)
     if (currentClub !== null) {
       console.log('Current club is ', currentClub.id)
     }

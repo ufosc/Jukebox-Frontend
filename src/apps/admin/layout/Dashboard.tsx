@@ -49,7 +49,7 @@ export const Dashboard = () => {
         <div className="dashboard__sidebar">
           <Sidebar />
         </div>
-        <div className="dashboard__main">
+        <div className="dashboard__main container">
           <Topbar />
           <div className="dashboard__main__outlet">
             <Outlet />

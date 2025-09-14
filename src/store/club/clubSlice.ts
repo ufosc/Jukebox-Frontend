@@ -17,6 +17,15 @@ export const clubSlice = createSlice({
     memberships: [] as IClubMembership[],
   },
   reducers: {
+    setCurrentClubIdReducer: (state, action: { payload: number }) => {
+      const id = action.payload
+      const club = state.allClubs.find((club) => club.id === +id)
+      console.log('found club:', club)
+
+      if (club) {
+        state.currentClub = club
+      }
+    },
     setCurrentClubReducer: (state, action: { payload: IClub }) => {
       state.currentClub = action.payload
     },
@@ -30,9 +39,9 @@ export const clubSlice = createSlice({
       }
       state.allClubs = action.payload.data ?? []
 
-      if (state.allClubs.length > 0) {
-        state.currentClub = state.allClubs[0]
-      }
+      // if (state.allClubs.length > 0) {
+      //   state.currentClub = state.allClubs[0]
+      // }
     })
     builder.addCase(thunkFetchClubInfo.fulfilled, (state, action) => {
       if (!action.payload.success) return

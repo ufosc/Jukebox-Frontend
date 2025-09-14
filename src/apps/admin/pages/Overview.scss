@@ -1,6 +1,4 @@
 .disk {
-  margin-top: 1vh;
-
   align-items: center;
   float: right;
   display: flex;
@@ -28,16 +26,16 @@
     animation: diskPlaying 2s linear infinite paused;
   }
 
-  &__spin{
+  &__spin {
     animation-play-state: running;
   }
 }
 
-.overview{
-  &__header{
+.overview {
+  &__header {
     min-height: 47%;
 
-    &__audio-card{
+    &__audio-card {
       display: flex;
       flex-direction: column;
       margin: auto;
@@ -47,27 +45,27 @@
     }
   }
 
-  &__track__shifter{
+  &__track__shifter {
     min-height: 53%;
   }
 
-  &__fill-height{
-  min-height: 100%;
+  &__fill-height {
+    min-height: 100%;
   }
 
   &__song-queue {
-  background-color: var(--color-surface);
-  display: flex;
-  min-height: 100%;
+    background-color: var(--color-surface);
+    display: flex;
+    min-height: 100%;
 
-  flex-direction: column;
+    flex-direction: column;
 
-  padding: 2.5rem;
-  border-radius: 1rem;
+    padding: 2.5rem;
+    border-radius: 1rem;
 
-  position: relative;
-  z-index: 3;
-  overflow: overlay;
+    position: relative;
+    z-index: 3;
+    overflow: overlay;
 
     &__title {
       @include font-headline('xs');
@@ -75,14 +73,13 @@
     }
   }
 
-  &__disk{
+  &__disk {
     height: 100%;
     position: relative;
   }
-
 }
 
-.disk-container{
+.disk-container {
   position: absolute;
   right: 0;
   width: 100%;
@@ -90,7 +87,7 @@
   display: flex;
   justify-content: right;
 
-  svg{
+  svg {
     height: 90%;
     width: 90%;
   }
@@ -160,7 +157,6 @@
 .diskSpin {
   animation-play-state: running;
 }
-
 
 @keyframes diskPlaying {
   from {

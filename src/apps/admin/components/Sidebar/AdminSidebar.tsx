@@ -21,6 +21,7 @@ import {
   selectCurrentJukebox,
   setCurrentJukebox,
 } from 'src/store'
+import { truncate } from 'src/utils/helpers/truncate'
 
 export const AdminSidebar = () => {
   const { toggleMode, mode } = useContext(ThemeContext)
@@ -128,7 +129,7 @@ export const AdminSidebar = () => {
                 )}
                 {allJukeboxes.map((jukebox) => (
                   <option key={jukebox.id} value={jukebox.id}>
-                    {jukebox.name}
+                    {truncate(jukebox.name, 22)}
                   </option>
                 ))}
               </select>

@@ -14,6 +14,7 @@ import { PlayerControls } from './types'
 
 interface Player extends PlayerControls {
   hasAux: boolean
+  accountConnected: boolean
   playerState: IPlayerState | null
   // currentTrack?: ITrack
   liveProgress: number | null
@@ -44,10 +45,12 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
     repeat: auxRepeat,
     togglePlay: auxTogglePlay,
     playerState: auxPlayerState,
+    spotifyIsConnected,
     deviceId,
   } = useContext(SpotifyPlayerContext)
 
   useEffect(() => {
+    console.log('player state changed')
     setCurrentTrack(
       playerState?.spotify_track || playerState?.queued_track?.track || null,
     )
@@ -61,10 +64,12 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
     liveProgress,
     playerError,
     currentTrack,
+    accountConnected: spotifyIsConnected,
     connectDevice: async () => {
       if (jukebox && deviceId) {
         const res = await api.connectPlayerDevice(jukebox.id, deviceId)
         if (!res.success) {
+          console.error(res.data)
           setPlayerError(res.data.message)
         } else {
           setPlayerState(res.data)
@@ -103,6 +108,7 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
   // API Track State Sync
   // ===============================================================
   useEffect(() => {
+    console.log('jukebox and session changed')
     if (!hasAux && jukebox && jukeSession) {
       api.getCurrentlyPlaying(jukebox.id).then((res) => {
         if (!res.success) {

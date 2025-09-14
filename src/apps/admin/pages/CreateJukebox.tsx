@@ -6,8 +6,8 @@ import { Form, FormInputGroup, FormSection } from 'src/components'
 import {
   selectAccountLinks,
   selectAllClubs,
-  selectAllLinks,
   selectCurrentClub,
+  selectUserAccounts,
 } from 'src/store'
 
 import './CreateJukebox.scss'
@@ -22,7 +22,7 @@ export const CreateJukebox = () => {
   const currentClub = useSelector(selectCurrentClub)
   const clubs = useSelector(selectAllClubs)
   const jukeboxLinks = useSelector(selectAccountLinks)
-  const spotifyLinks = useSelector(selectAllLinks)
+  const spotifyLinks = useSelector(selectUserAccounts)
 
   const dispatch = useDispatch()
 

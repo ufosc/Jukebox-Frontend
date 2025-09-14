@@ -3,11 +3,10 @@ import './Overview.scss'
 import FallbackImg from 'src/assets/img/jukeboxImage.png'
 import Disk from 'src/assets/svg/Disk.svg?react'
 
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { useSelector } from 'react-redux'
 import { AudioPlayer, TrackList } from 'src/components'
 import { PlayerContext } from 'src/context'
-import { fetchSessionQueue } from 'src/store'
 import { selectCurrentJukebox, selectNextTracks } from 'src/store/jukebox'
 import { TrackModifyContext } from './trackContext'
 
@@ -15,11 +14,6 @@ export const Overview = () => {
   const queuedTracks = useSelector(selectNextTracks)
   const { playerState, currentTrack } = useContext(PlayerContext)
   const currentJukebox = useSelector(selectCurrentJukebox)
-
-  useEffect(() => {
-    console.log('queued tracks ', queuedTracks)
-    fetchSessionQueue()
-  }, [currentJukebox])
 
   return (
     <>

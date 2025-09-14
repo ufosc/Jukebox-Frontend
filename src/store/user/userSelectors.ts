@@ -27,7 +27,7 @@ export const selectUserStatus = createSelector(
   (state) => state.status,
 )
 
-export const selectAllLinks = createSelector(
+export const selectUserAccounts = createSelector(
   userStateSelector,
   (state) => state.spotifyAccounts,
 )

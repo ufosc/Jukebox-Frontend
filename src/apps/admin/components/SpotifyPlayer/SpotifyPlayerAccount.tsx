@@ -1,81 +1,48 @@
-import { useState } from 'react'
-import { authenticateLink } from 'src/store'
 import './SpotifyPlayerAccount.scss'
+import SpotifyIcon from 'src/assets/img/spotify-icon.png'
 
-export const SpotifyPlayerAccount = (props: { link: IAccountLink }) => {
-  const { link } = props
-
-  const [activeLink, setActiveLink] = useState(link.active)
-  const [type, setType] = useState<'spotify'>('spotify')
-
-  const handleTransferPlayback = async () => {
-    await authenticateLink(link)
-  }
-
-  // useEffect(() => {
-  //   if (link.type === 'spotify') {
-  //     setType('Spotify')
-  //   }
-  // }, [link])
+export const SpotifyPlayerAccount = (props: {
+  account: ISpotifyAccount
+  active?: boolean
+  actions: {
+    color?: 'success' | 'error'
+    text: string
+    disabled?: boolean
+    onClick: (id: number) => Promise<void>
+  }[]
+}) => {
+  const { account, active, actions } = props
 
   return (
     <>
-      {activeLink ? (
-        <>
-          <div className="player-account player-account__active">
-            <div className="profile-border-container">
-              <div className="profile-image-container">
-                <img src={'#'} />
-              </div>
-            </div>
-            <div className="userInfo">
-              <div className="email-container">
-                {link.spotify_account.spotify_email}
-              </div>
-              <div className="attribute-container">
-                <div className="account-type-container">{type} Account</div>
-                <div className="account-active-container">
-                  {link.active && 'Active'}
-                </div>
-              </div>
-            </div>
-            <div className="player-account__controls">
-              <button className="button-text--disabled player-account__controls__active">
-                Activate
-              </button>
-              <button className="button-text">Remove</button>
-            </div>
-          </div>
-        </>
-      ) : (
-        <div className="player-account">
-          <div className="profile-border-container">
-            <div className="profile-image-container">
-              <img src={'#'} />
-            </div>
-          </div>
-          <div className="userInfo">
-            <div className="email-container">
-              {link.spotify_account.spotify_email}
-            </div>
-            <div className="attribute-container">
-              <div className="account-type-container">{type} Account</div>
-              <div className="account-active-container">
-                {link.active && 'Active'}
-              </div>
-            </div>
-          </div>
-          <div className="player-account__controls">
-            <button
-              className="button-text--success"
-              onClick={handleTransferPlayback}
-            >
-              Activate
-            </button>
-            <button className="button-text">Remove</button>
+      <div className="player-account">
+        <div className="profile-border-container">
+          <div className="profile-image-container">
+            <img src={SpotifyIcon} />
           </div>
         </div>
-      )}
+        <div className="userInfo">
+          <div className="email-container">{account.spotify_email}</div>
+          <div className="attribute-container">
+            <div className="account-type-container">Spotify Account</div>
+            <div className="account-active-container">{active && 'Active'}</div>
+          </div>
+        </div>
+        <div className="player-account__controls">
+          {actions.map((action) => (
+            <button
+              disabled={action.disabled}
+              key={action.text}
+              className={
+                action.color ? `button-text--${action.color}` : 'button-text'
+              }
+              onClick={(e) => action.onClick(account.id)}
+            >
+              {action.text}
+            </button>
+          ))}
+        </div>
+      </div>
     </>
   )
 }

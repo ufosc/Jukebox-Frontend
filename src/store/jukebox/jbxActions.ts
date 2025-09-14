@@ -1,3 +1,4 @@
+import { ApiClient } from 'src/api'
 import { SPOTIFY_AUTH_CHECK_MS } from 'src/config'
 import { NotImplementedError } from 'src/utils'
 import { jukeboxActions } from '.'
@@ -9,6 +10,9 @@ import {
   selectSpotifyAuth,
 } from './jbxSelectors'
 import {
+  thunkCreateAccountLink,
+  thunkDeleteAccountLink,
+  thunkFetchAccountLinks,
   thunkFetchJukeboxes,
   thunkFetchQueue,
   thunkSyncSpotifyTokens,
@@ -16,12 +20,21 @@ import {
 } from './jbxThunks'
 
 const { setHasAuxReducer, setCurrentJukeboxReducer } = jukeboxActions
+const api = ApiClient.getInstance()
 
 export const fetchJukeboxes = async (clubId: number) => {
   await store.dispatch(thunkFetchJukeboxes(clubId))
 }
 
-export const fetchSessionQueue = async () => {
+export const fetchCurrentJukeboxInfo = async () => {
+  const jukeboxId = selectCurrentJukebox(store.getState())?.id
+  if (!jukeboxId) return
+
+  await store.dispatch(thunkFetchAccountLinks({ jukeboxId: jukeboxId }))
+  await authenticateLink()
+}
+
+export const fetchCurrentJukeSessionInfo = async () => {
   const { jukeboxId, jukeSessionId } = selectJukeboxAndSessionIds(
     store.getState(),
   )
@@ -56,7 +69,7 @@ export const authenticateLink = async (link?: IAccountLink) => {
   const jukeboxId = selectCurrentJukebox(store.getState())?.id
   if (!jukeboxId) return
 
-  await store.dispatch(thunkUpdateAccountLink({ jukeboxId, link }))
+  // await store.dispatch(thunkUpdateAccountLink({ jukeboxId, link }))
 
   if (link.spotify_account) {
     await store.dispatch(thunkSyncSpotifyTokens(jukeboxId))
@@ -88,4 +101,51 @@ export const checkLinkAuth = async () => {
       'Handling non-spotify auth credentials is not implemented yet.',
     )
   }
+}
+
+export const connectNewSpotifyAccount = async () => {
+  const jukebox = selectCurrentJukebox(store.getState())
+  if (!jukebox) return
+
+  const res = await api.getSpotifyAuthRedirectUrl(jukebox.id)
+  if (!res.success) {
+    console.error(res.data.message)
+    return
+  }
+
+  window.location.href = res.data.url
+}
+
+export const addAccountToJukebox = async (account: ISpotifyAccount) => {
+  const jukebox = selectCurrentJukebox(store.getState())
+  if (!jukebox) return
+
+  await store.dispatch(
+    thunkCreateAccountLink({
+      jukeboxId: jukebox.id,
+      link: { spotify_account: account, active: true },
+    }),
+  )
+}
+
+export const deleteAccountLinkFromJukebox = async (accountLinkId: number) => {
+  const jukebox = selectCurrentJukebox(store.getState())
+  if (!jukebox) return
+
+  await store.dispatch(
+    thunkDeleteAccountLink({ jukeboxId: jukebox.id, accountLinkId }),
+  )
+}
+
+export const setActiveAccountLink = async (accountLinkId: number) => {
+  const jukebox = selectCurrentJukebox(store.getState())
+  if (!jukebox) return
+
+  await store.dispatch(
+    thunkUpdateAccountLink({
+      jukeboxId: jukebox.id,
+      accountLinkId: accountLinkId,
+      body: { active: true },
+    }),
+  )
 }

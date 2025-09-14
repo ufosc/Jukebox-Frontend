@@ -58,6 +58,7 @@ export const SpotifyPlayerProvider = (props: {
   }, [])
 
   useEffect(() => {
+    console.log('token changed')
     if (token && jukebox && !playerRef.current) {
       SpotifyPlayer.getInstance(token)
         .getPlayer()
@@ -73,6 +74,7 @@ export const SpotifyPlayerProvider = (props: {
 
   // Control the aux value in state
   useEffect(() => {
+    console.log('active or connected changed')
     if (connected && active) {
       setHasAux(true)
     } else {
@@ -111,6 +113,7 @@ export const SpotifyPlayerProvider = (props: {
   }
 
   useEffect(() => {
+    console.log('jukebox, etc, changed')
     if (initialized && jukebox !== null) {
       // When changed event is emitted, update state with the current track
       playerRef.current?.addListener(

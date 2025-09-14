@@ -31,21 +31,50 @@ export const thunkClearNextTracks = createAsyncThunk(
   },
 )
 
+export const thunkFetchAccountLinks = createAsyncThunk(
+  'jukebox/fetchAccountLink',
+  async (payload: { jukeboxId: number }) => {
+    return await api.accountLinks.list(payload.jukeboxId)
+  },
+)
+
+export const thunkCreateAccountLink = createAsyncThunk(
+  'jukebox/createActiveLink',
+  async (payload: { jukeboxId: number; link: IAccountLinkCreate }) => {
+    return await api.accountLinks.create(payload.jukeboxId, payload.link)
+  },
+)
+
 export const thunkUpdateAccountLink = createAsyncThunk(
   'jukebox/updateActiveLink',
-  async (payload: { jukeboxId: number; link: IAccountLink }) => {
-    await api.accountLinks.update(
+  async (payload: {
+    jukeboxId: number
+    accountLinkId: number
+    body: IAccountLinkUpdate
+  }) => {
+    return await api.accountLinks.update(
       payload.jukeboxId,
-      payload.link.id,
-      payload.link,
+      payload.accountLinkId,
+      payload.body,
     )
-    return { link: payload.link }
+  },
+)
+
+export const thunkDeleteAccountLink = createAsyncThunk(
+  'jukebox/deleteAccountLink',
+  async (payload: { jukeboxId: number; accountLinkId: number }) => {
+    const res = await api.accountLinks.delete(
+      payload.jukeboxId,
+      payload.accountLinkId,
+    )
+
+    return { res, accountLinkId: payload.accountLinkId }
   },
 )
 
 export const thunkSyncSpotifyTokens = createAsyncThunk(
   'jukebox/syncSpotifyTokens',
   async (clubId: number) => {
-    return await api.getActiveAccountLink(clubId)
+    return await api.getActiveAccountLink(clubId, true)
   },
 )

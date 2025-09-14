@@ -217,4 +217,4 @@ declare interface IAccountLinkCreate {
   active?: boolean
 }
 
-declare interface IAccountLinkUpdate extends Partial<IAccountLInkCreate> {}
+declare interface IAccountLinkUpdate extends Partial<IAccountLinkCreate> {}

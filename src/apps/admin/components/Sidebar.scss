@@ -1,5 +1,9 @@
 @import 'src/styles/main';
 
+#current-jukebox {
+  text-overflow: ellipsis;
+}
+
 .navbar {
   $nav-width: var(--sidebar-width);
 

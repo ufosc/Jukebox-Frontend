@@ -1,9 +1,9 @@
 import {
+  AccountLinkSchema,
   ClubListSchema,
   ClubMembershipListSchema,
   ClubSchema,
   JukeboxListSchema,
-  SpotifyAccountSchema,
   SpotifyAuthRedirectUrlSchema,
   UserSchema,
 } from 'src/schemas'
@@ -13,6 +13,7 @@ import {
   MockSpotifyAccount,
   MockUser,
 } from 'src/utils'
+import { MockAccountLink } from 'src/utils/mock/mock-account-link'
 import { mockMemberships } from 'src/utils/mock/mock-memberships'
 import { MockPlayerState } from '../utils/mock/mock-spotify'
 import { ApiAuth } from './ApiAuth'
@@ -143,12 +144,20 @@ export class ApiClient extends ApiAuth {
    *
    * Returns 404 if no account link is active.
    */
-  public async getActiveAccountLink(jukeboxId: number) {
-    const url = this.endpoints.jukebox.accountLinkActive(jukeboxId)
+  public async getActiveAccountLink(jukeboxId: number, refresh?: boolean) {
+    let url: string
+
+    if (refresh) {
+      url = this.endpoints.jukebox.accountLinkActiveRefresh(jukeboxId)
+    } else {
+      url = this.endpoints.jukebox.accountLinkActive(jukeboxId)
+    }
 
     return await this.get(url, {
-      schema: SpotifyAccountSchema,
-      mock: { data: MockSpotifyAccount, errorIfEmpty: true },
+      schema: AccountLinkSchema,
+      mock: {
+        data: MockAccountLink,
+      },
     })
   }
 

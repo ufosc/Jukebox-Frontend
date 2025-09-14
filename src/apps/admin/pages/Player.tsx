@@ -1,183 +1,130 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { ApiClient } from 'src/api'
 import { AudioPlayer } from 'src/components'
-import { REACT_ENV } from 'src/config'
 import { PlayerContext } from 'src/context'
-import { authenticateLink } from 'src/store'
 import {
+  addAccountToJukebox,
+  connectNewSpotifyAccount,
+  deleteAccountLinkFromJukebox,
   selectAccountLinks,
-  selectCurrentJukebox,
-  selectNextTracks,
-} from 'src/store/jukebox'
+  selectUserAccounts,
+  setActiveAccountLink,
+} from 'src/store'
+import { AdminHeader } from '../components/AdminHeader'
 import { SpotifyPlayerAccount } from '../components/SpotifyPlayer/SpotifyPlayerAccount'
-import { SpotifyPlayerDetail } from '../components/SpotifyPlayer/SpotifyPlayerDetail'
-import { SpotifyPlayerInfo } from '../components/SpotifyPlayer/SpotifyPlayerInfo'
 import './Player.scss'
 
 export const Player = () => {
-  const jukebox = useSelector(selectCurrentJukebox)
-  const jukeboxLinks = useSelector(selectAccountLinks)
-  const nextTracks = useSelector(selectNextTracks)
+  const { accountConnected, connectDevice, hasAux } = useContext(PlayerContext)
+  const userAccounts = useSelector(selectUserAccounts)
+  const jukeboxAccounts = useSelector(selectAccountLinks)
 
-  const [connected, setConnected] = useState(false)
-
-  const networkRef = useRef(ApiClient.getInstance())
-  const connectLinkIdRef = useRef<HTMLSelectElement>(null)
-  const { playerState } = useContext(PlayerContext)
-
-  // const {
-  //   deviceIsActive: isActive,
-  //   spotifyIsConnected: isConnected,
-  //   connectDevice,
-  //   deviceId,
-  // } = useContext(SpotifyPlayerContext)
-
-  useEffect(() => {
-    networkRef.current = ApiClient.getInstance()
-  }, [])
-
-  const handleConnectPlayback = async () => {
-    if (!connectLinkIdRef.current) return
-
-    const link = jukeboxLinks?.find(
-      (link) => link.id === +connectLinkIdRef.current!.value,
-    )
-
-    if (!link)
-      throw new Error(`Link with id ${connectLinkIdRef.current} not found.`)
-
-    await authenticateLink(link)
+  const [isAddingAccount, setIsAddingAccount] = useState(false)
+  const handleAddAccount = async (account: ISpotifyAccount) => {
+    await addAccountToJukebox(account)
+    setIsAddingAccount(false)
   }
-
-  const handleAddNewAccount = async () => {
-    const res = await networkRef.current.getSpotifyAuthRedirectUrl(jukebox?.id)
-
-    if (res.success) {
-      location.href = res.data.url
-    } else {
-      console.error('Error getting spotify url')
-    }
-  }
-
-  const initializeAccount = async () => {
-    if (jukeboxLinks && jukeboxLinks.length > 0) {
-      const res = await authenticateLink(jukeboxLinks[0])
-      console.log(res)
-    }
-    setConnected(true)
-  }
-
-  // useEffect(() => {
-  //   if (isConnected) {
-  //     setConnected(true)
-  //   }
-  // }, [])
-
-  // useEffect(() => {
-  //   connectDevice()
-  // }, [deviceId])
 
   return (
-    <>
-      <div className="spotify-player-title">Player</div>
-      {connected && (
-        <>
-          <div className="spotify-player-container grid">
-            <div className="col-6 left-container">
-              <div className="audio-container">
-                <AudioPlayer />
+    <div className="player-page section">
+      <AdminHeader title="Player" />
+      <div className="row player-page__row">
+        <div className="player-page__col col-6">
+          {accountConnected && hasAux && <AudioPlayer />}
+          {accountConnected && !hasAux && (
+            <div className="player-page__section">
+              <div className="font-title-md">
+                Spotify connected, transfer playback to get started!
               </div>
-              <div className="next-track-container">
-                <SpotifyPlayerInfo title="Next Tracks" />
-              </div>
+              <button className="button-solid" onClick={() => connectDevice()}>
+                Transfer playback
+              </button>
             </div>
-
-            <div className="col-5 right-container">
-              <div className="session-container">
-                <SpotifyPlayerInfo title="Session Info" />
-                <div className="detail-container">
-                  <SpotifyPlayerDetail
-                    firstDetail="Active Device"
-                    secondDetail="John's MacBook Air"
-                  />
-                  <SpotifyPlayerDetail
-                    firstDetail="This Device"
-                    secondDetail="John's MacBook Air"
-                  />
-                </div>
-              </div>
-              {/* {!isActive && (
-                <div className="switchAccounts">
-                  Connected Accounts
-                  <div>
-                    <button className="button-solid" onClick={connectDevice}>
-                      Connect to Jukebox
-                    </button>
-                  </div>
-                  <br />
-                  <div>
-                    <button
-                      className="button-solid"
-                      onClick={handleAddNewAccount}
-                    >
-                      Add Spotify Account
-                    </button>
-                  </div>
-                </div>
-              )} */}
-
-              <div className="spotify-accounts">
-                <SpotifyPlayerInfo title="Connected Spotify Accounts" />
-                <div className="account-container">
-                  {jukeboxLinks?.map((link) => (
-                    <SpotifyPlayerAccount key={link.id} link={link} />
-                  ))}
-                </div>
-                {/* <div className="connect-button-container">
-                  {isConnected && !isActive && (
-                    <>
-                      {REACT_ENV !== 'dev' && (
-                        <button
-                          className="button-outlined connect-button"
-                          onClick={connectDevice}
-                        >
-                          Connect New Account
-                        </button>
-                      )}
-                    </>
-                  )}
-                </div> */}
-              </div>
-            </div>
-          </div>
-        </>
-      )}
-      {!connected && (
-        <>
-          <div className="spotify-player-container grid">
-            <div className="col-6">
-              <div className="spotify-player-header">
+          )}
+          {!accountConnected && (
+            <div className="player-page__section">
+              <div className="font-title-md">
                 Connect to Spotify to Get Started!
               </div>
-              {jukeboxLinks ? (
-                <button className="button-fancy" onClick={initializeAccount}>
-                  Connect Account
+            </div>
+          )}
+        </div>
+        <div className="player-page__col col-6">
+          <div className="player-page__col__section">
+            <h2 className="player-page__title">Connected Accounts</h2>
+            {jukeboxAccounts.length === 0 && <p>No accounts connected</p>}
+            <ul>
+              {jukeboxAccounts?.map((accountLink) => (
+                <li key={accountLink.id}>
+                  <SpotifyPlayerAccount
+                    account={accountLink.spotify_account}
+                    active={accountLink.active}
+                    actions={[
+                      {
+                        text: 'Activate',
+                        color: 'success',
+                        disabled: accountLink.active,
+                        onClick: (id) => setActiveAccountLink(accountLink.id),
+                      },
+                      {
+                        text: 'Remove',
+                        color: 'error',
+                        onClick: () =>
+                          deleteAccountLinkFromJukebox(accountLink.id),
+                      },
+                    ]}
+                  />
+                </li>
+              ))}
+            </ul>
+            <div className="player-page__col__section__actions">
+              {(!isAddingAccount && (
+                <button
+                  className="button-outlined"
+                  onClick={() => setIsAddingAccount(true)}
+                >
+                  Link New Account
                 </button>
-              ) : (
-                <div>Loading...</div>
+              )) || (
+                <button
+                  className="button-outlined"
+                  onClick={() => setIsAddingAccount(false)}
+                >
+                  Cancel
+                </button>
               )}
             </div>
-
-            <div className="col-5">
-              <div className="spotify-player-header">
-                Connected Spotify Accounts
-              </div>
-              <div>Your connected accounts will show up here</div>
-            </div>
           </div>
-        </>
-      )}
-    </>
+          {isAddingAccount && (
+            <div className="player-page__col__section">
+              <h2 className="player-page__title">User Accounts</h2>
+              <ul>
+                {userAccounts?.map((account) => (
+                  <li key={account.id}>
+                    <SpotifyPlayerAccount
+                      account={account}
+                      actions={[
+                        {
+                          text: 'Connect',
+                          onClick: (id) => handleAddAccount(account),
+                        },
+                      ]}
+                    />
+                  </li>
+                ))}
+              </ul>
+              <div className="player-page__col__section__actions">
+                <button
+                  className="button-outlined"
+                  onClick={() => connectNewSpotifyAccount()}
+                >
+                  Connect New Account
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   )
 }

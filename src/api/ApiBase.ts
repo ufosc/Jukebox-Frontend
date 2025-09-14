@@ -267,14 +267,14 @@ export abstract class ApiBase {
   /**
    * Run zod validation for response data.
    */
-  private parseSchema(schema: z.Schema, body: any) {
+  private parseSchema(schema: z.Schema, body: any, url?: string) {
     // return schema.parse(body);
     const res = schema.safeParse(body, {})
     if (res.success) {
       return res.data
     } else {
       console.error(
-        'Zod received an invalid response from the server:',
+        `Zod received an invalid response from the server (${url}):`,
         res.error.errors,
         'Data:',
         body,
@@ -485,7 +485,7 @@ export abstract class ApiBase {
 
       if (schema) {
         if (isPaginated) {
-          const parsedData = this.parseSchema(schema, data.results)
+          const parsedData = this.parseSchema(schema, data.results, url)
           return {
             success: true,
             paginated: true,
@@ -497,7 +497,7 @@ export abstract class ApiBase {
             success: true,
             paginated: false,
             status: response.status,
-            data: this.parseSchema(schema, data),
+            data: this.parseSchema(schema, data, url),
           }
         }
       } else {

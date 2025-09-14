@@ -1,4 +1,3 @@
-import { NotificationsOutlined } from '@mui/icons-material'
 import type { ChangeEvent } from 'react'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -8,14 +7,14 @@ import {
   selectCurrentJukebox,
   selectHasJukeboxAux,
   selectUser,
+  setCurrentClub,
 } from 'src/store'
 
 import { useNavigate } from 'react-router-dom'
 import { ApiClient } from 'src/api'
 import { Dialog } from 'src/components'
+import { usePopover } from 'src/hooks'
 import { debounce } from 'src/utils'
-import { ClubModal } from './modals/ClubModal'
-import { NotificationModal } from './modals/NotificationModal'
 import { SearchModal } from './modals/SearchModal'
 import { UserModal } from './modals/UserModal'
 import './Topbar.scss'
@@ -26,16 +25,18 @@ export const Topbar = () => {
   const currentClub = useSelector(selectCurrentClub)
   const jukebox = useSelector(selectCurrentJukebox)
   const hasAux = useSelector(selectHasJukeboxAux)
-  const network = ApiClient.getInstance()
 
   const [showUser, setShowUser] = useState(false)
-  const [showClubs, setShowClubs] = useState(false)
-  const [showNotification, setShowNotification] = useState(false)
   const [searchInput, setSearchInput] = useState('')
   const [searchList, setSearchList] = useState<ITrack[]>([])
-
   const [searchActive, setSearchActive] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
+
+  const network = ApiClient.getInstance()
+  const navigate = useNavigate()
+  const { Popover: ClubPopover, PopoverButton: ClubPopoverButton } =
+    usePopover('clubs-popover')
+
   const onFocus = () => {
     if (searchInput.trim() !== '') {
       setSearchActive(true)
@@ -76,14 +77,6 @@ export const Topbar = () => {
     }
   }
 
-  const handleClubs = () => {
-    setShowClubs(!showClubs)
-  }
-
-  const handleNotification = () => {
-    setShowNotification(!showNotification)
-  }
-
   const handleUser = () => {
     setShowUser(!showUser)
   }
@@ -92,11 +85,10 @@ export const Topbar = () => {
     setShowUser(false)
   }
 
-  const closeNotificationModal = () => {
-    setShowNotification(false)
+  const handleSelectClub = async (id: number) => {
+    await setCurrentClub(id)
   }
 
-  const navigate = useNavigate()
   const handleSearchSubmit = async (e: any) => {
     e.preventDefault()
     const searchPath = '/dashboard/music/search'
@@ -194,26 +186,29 @@ export const Topbar = () => {
           </div>
           */}
 
-          <div className="topbar__club" onClick={handleClubs}>
-            <div className="topbar__club__selection">{currentClub?.name}</div>
+          <div className="topbar__club">
+            <ClubPopoverButton type="button" className="topbar__club__button">
+              {currentClub && (
+                <div className="topbar__club__selected">{currentClub.name}</div>
+              )}
+            </ClubPopoverButton>
           </div>
-          {showClubs ? (
-            <>
-              <Dialog
-                backdrop={true}
-                defaultOpen={true}
-                dismissible={true}
-                changeState={setShowClubs}
-                className={'overlay-dialog__club'}
-              >
-                <ClubModal />
-              </Dialog>
-            </>
-          ) : (
-            <></>
-          )}
+          <ClubPopover className="topbar__club__popover">
+            <ul className="topbar__club__list">
+              {clubs.map((club) => (
+                <li className="topbar__club__list__item">
+                  <button
+                    className="button-tonal"
+                    onClick={(e) => handleSelectClub(club.id)}
+                  >
+                    {club.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </ClubPopover>
 
-          <div className="topbar__notifications">
+          {/* <div className="topbar__notifications">
             <button onClick={handleNotification}>
               <NotificationsOutlined fontSize="large" />
             </button>
@@ -232,7 +227,7 @@ export const Topbar = () => {
             ) : (
               <></>
             )}
-          </div>
+          </div> */}
           <div className="topbar__profile__container">
             <button className="topbar__profile" onClick={handleUser}>
               {user && (

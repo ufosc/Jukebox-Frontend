@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { ModelSchemaBase } from './base'
+import { SpotifyAccountSchema } from './SpotifyAccountSchema'
 
 export const JukeboxSchema: z.ZodSchema<IJukebox> = z.object({
   ...ModelSchemaBase,
@@ -10,3 +11,10 @@ export const JukeboxSchema: z.ZodSchema<IJukebox> = z.object({
 })
 
 export const JukeboxListSchema = z.array(JukeboxSchema)
+
+export const AccountLinkSchema: z.ZodSchema<IAccountLink> = z.object({
+  ...ModelSchemaBase,
+  spotify_account: SpotifyAccountSchema,
+  jukebox_id: z.number(),
+  active: z.boolean(),
+})

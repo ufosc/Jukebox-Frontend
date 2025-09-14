@@ -4,6 +4,7 @@ export const useTime = (interval: number = 1000) => {
   const [date, setDate] = useState(new Date())
 
   useEffect(() => {
+    console.log('interval change')
     const timer = setInterval(() => {
       setDate(new Date())
     }, interval)

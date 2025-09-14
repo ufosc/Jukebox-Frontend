@@ -12,8 +12,10 @@ import {
 } from './context'
 import {
   checkLinkAuth,
+  fetchCurrentClubInfo,
+  fetchCurrentJukeboxInfo,
+  fetchCurrentJukeSessionInfo,
   fetchJukeboxes,
-  fetchSessionQueue,
   selectCurrentClub,
   selectCurrentJukebox,
   selectCurrentJukeSession,
@@ -32,6 +34,7 @@ export const App = () => {
 
   // Triggers when receive spotify credentials from server
   useEffect(() => {
+    console.log('spotify auth changed')
     if (!spotifyAuth || !isLoggedIn) return
 
     const timer = setInterval(async () => {
@@ -44,6 +47,7 @@ export const App = () => {
   // Primary function that runs when Spotify Player changes
   const handlePlayerTrackChange = useCallback(
     (state?: IPlayerAuxClientUpdate) => {
+      console.log('current jukebox changed')
       if (!state) {
         emitMessage('player-aux-update', {})
         return
@@ -58,19 +62,24 @@ export const App = () => {
   )
 
   useEffect(() => {
+    console.log('current club:', currentClub)
     if (!currentClub) return
+    fetchCurrentClubInfo().then()
     fetchJukeboxes(currentClub.id).then()
   }, [currentClub])
 
   // Initialize Jukebox
   useEffect(() => {
-    fetchSessionQueue()
+    console.log('fetching session queue')
+
+    fetchCurrentJukeboxInfo()
+    fetchCurrentJukeSessionInfo()
   }, [currentJukebox])
 
   // Initialize JukeSession
-  useEffect(() => {
-    // ...
-  }, [currentSession])
+  // useEffect(() => {
+  //   // ...
+  // }, [currentSession])
 
   return (
     <Theme>

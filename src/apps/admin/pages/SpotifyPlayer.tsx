@@ -8,7 +8,7 @@ import {
 } from 'src/store'
 import { selectAccountLinks, selectNextTracks } from 'src/store/jukebox'
 
-import { selectAllLinks, selectUser } from 'src/store/user'
+import { selectUser, selectUserAccounts } from 'src/store/user'
 import { formatDuration } from 'src/utils'
 import { SpotifyPlayerAccount } from '../components/SpotifyPlayer/SpotifyPlayerAccount'
 import { SpotifyPlayerDetail } from '../components/SpotifyPlayer/SpotifyPlayerDetail'
@@ -21,7 +21,7 @@ const network = ApiClient.getInstance()
 export const SpotifyPlayer = () => {
   const jukeboxLinks = useSelector(selectAccountLinks)
   const nextTracks = useSelector(selectNextTracks)
-  const spotifyLinks = useSelector(selectAllLinks)
+  const spotifyLinks = useSelector(selectUserAccounts)
   const currentClub = useSelector(selectCurrentClub)
   const currentUser = useSelector(selectUser)
   const currentMembership = useSelector(selectCurrentMembership)

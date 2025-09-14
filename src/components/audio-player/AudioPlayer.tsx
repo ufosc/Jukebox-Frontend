@@ -184,6 +184,9 @@ export const AudioPlayer = (props: {
           </div>
         </div>
       )}
+      {!playerState?.spotify_track && !playerState?.queued_track && (
+        <h3 className="audio-player__track__name">Nothing playing</h3>
+      )}
     </>
   )
 }

@@ -28,11 +28,11 @@ export const ApiEndpoints = Object.freeze({
     detail: (jukeboxId: number) =>
       `${JUKEBOX_V1}/jukebox/jukeboxes/${jukeboxId}`,
     accountLinkList: (jukeboxId: number) =>
-      `${JUKEBOX_V1}/jukebox/jukeboxes/${jukeboxId}/account-links`,
+      `${JUKEBOX_V1}/jukebox/jukeboxes/${jukeboxId}/account-links/`,
     accountLinkActive: (jukeboxId: number) =>
       `${JUKEBOX_V1}/jukebox/jukeboxes/${jukeboxId}/account-links/active`,
     accountLinkActiveRefresh: (jukeboxId: number) =>
-      `${JUKEBOX_V1}/jukebox/jukeboxes/${jukeboxId}/account-links/active?force-refresh=true`,
+      `${JUKEBOX_V1}/jukebox/jukeboxes/${jukeboxId}/account-links/active?refresh=true`,
     connectDevice: (jukeboxId: number) =>
       `${JUKEBOX_V1}/jukebox/jukeboxes/${jukeboxId}/player/device`,
     playerState: (jukeboxId: number) =>
