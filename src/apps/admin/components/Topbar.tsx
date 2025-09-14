@@ -167,25 +167,6 @@ export const Topbar = () => {
             </p>
           )}
 
-          {/* 
-          <div className="form-select-club">
-            <select
-              className="club-selection"
-              name="current-club"
-              id="current-club"
-              onChange={handleClubChange}
-              defaultValue={currentClub?.id}
-            >
-              {!currentClub && <option value="">No Club Selected</option>}
-              {clubs.map((club) => (
-                <option key={club.id} value={club.id}>
-                  {club.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          */}
-
           <div className="topbar__club">
             <ClubPopoverButton type="button" className="topbar__club__button">
               {currentClub && (
@@ -196,7 +177,7 @@ export const Topbar = () => {
           <ClubPopover className="topbar__club__popover">
             <ul className="topbar__club__list">
               {clubs.map((club) => (
-                <li className="topbar__club__list__item">
+                <li className="topbar__club__list__item" key={club.id}>
                   <button
                     className="button-tonal"
                     onClick={(e) => handleSelectClub(club.id)}
@@ -207,27 +188,6 @@ export const Topbar = () => {
               ))}
             </ul>
           </ClubPopover>
-
-          {/* <div className="topbar__notifications">
-            <button onClick={handleNotification}>
-              <NotificationsOutlined fontSize="large" />
-            </button>
-            {showNotification ? (
-              <>
-                <Dialog
-                  backdrop={true}
-                  defaultOpen={true}
-                  dismissible={true}
-                  changeState={setShowNotification}
-                  className={'overlay-dialog__notifications'}
-                >
-                  <NotificationModal closeModal={closeNotificationModal} />
-                </Dialog>
-              </>
-            ) : (
-              <></>
-            )}
-          </div> */}
           <div className="topbar__profile__container">
             <button className="topbar__profile" onClick={handleUser}>
               {user && (

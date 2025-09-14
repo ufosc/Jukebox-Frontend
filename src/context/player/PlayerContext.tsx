@@ -56,6 +56,25 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
     )
   }, [playerState])
 
+  useEffect(() => {
+    if (currentTrack && playerState) {
+      const timer = setInterval(() => {
+        if (playerState.is_playing) {
+          // setLiveProgress((prev) => (prev ?? 0) + 1000)
+          const passedMs = playerState.last_progress_update
+            ? new Date().getTime() -
+              new Date(playerState.last_progress_update).getTime()
+            : 1000
+          setLiveProgress(playerState.progress + passedMs)
+        }
+      }, 1000)
+
+      return () => clearInterval(timer)
+    } else {
+      setLiveProgress(null)
+    }
+  }, [currentTrack, playerState])
+
   const api = ApiClient.getInstance()
 
   let player: Player = {
@@ -120,10 +139,40 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
     }
   }, [jukebox, jukeSession])
 
+  useEffect(() => {
+    if (auxPlayerState && jukebox) {
+      console.log('aux player state:', auxPlayerState)
+      const auxTrack = auxPlayerState.current_track
+      setPlayerState({
+        jukebox_id: jukebox.id,
+        last_progress_update: new Date().toISOString(),
+        is_playing: auxPlayerState.is_playing,
+        progress: auxPlayerState.progress,
+        spotify_track: auxTrack
+          ? {
+              name: auxTrack.name,
+              album: auxTrack.album.name,
+              release_year: 0, // TODO: Get from api
+              artists: auxTrack.artists.map((artist) => artist.name),
+              spotify_id: auxTrack.id!,
+              spotify_uri: auxTrack.uri,
+              duration_ms: auxTrack.duration_ms,
+              is_explicit: false, // TODO: Get from API
+              preview_url: null,
+              id: 0, // TODO: Get from API
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString(),
+            }
+          : undefined,
+      })
+    }
+  }, [hasAux, auxPlayerState])
+
   // ===============================================================
   // Set Controls and State
   // ===============================================================
-  if (hasAux) {
+  // FIXME: This is reevaluated every time any state variable changes
+  if (jukebox && hasAux) {
     // User is connected to Spotify's player directly
     player = {
       ...player,

@@ -38,6 +38,10 @@ export const AudioPlayer = (props: {
     console.log('player state:', playerState)
   }, [playerState])
 
+  useEffect(() => {
+    console.log('Current track:', currentTrack)
+  }, [currentTrack])
+
   // Refs
   const containerRef = useRef<HTMLDivElement>(null)
   const progressBarRef = useRef<HTMLInputElement>(null)
@@ -103,31 +107,34 @@ export const AudioPlayer = (props: {
 
   return (
     <>
-      {playerState?.queued_track && (
+      {currentTrack && (
         <div className="audio-player" ref={containerRef}>
           <div className="audio-player__inner">
             {displayInfo && (
               <div className="audio-player__track">
                 <h3 className="audio-player__track__name" ref={trackNameRef}>
-                  {playerState.queued_track.track.name}
+                  {currentTrack.name}
                 </h3>
 
                 <div className="audio-player__track__info">
                   <p className="audio-player__track__artists">
-                    {playerState.queued_track.track.artists.join(', ') ||
-                      'Artist Unavailable'}
+                    {currentTrack.artists.join(', ') || 'Artist Unavailable'}
                   </p>
-                  <TrackInteractions track={playerState.queued_track} />
+                  {playerState?.queued_track && (
+                    <TrackInteractions track={playerState.queued_track} />
+                  )}
                 </div>
                 <p className="audio-player__track__rec">
-                  Recommended by:{' '}
-                  {playerState.queued_track.queued_by.user_id ?? 'Spotify'}
+                  Recommended by:
+                  {(playerState?.queued_track &&
+                    playerState.queued_track.queued_by.user_id) ||
+                    'Spotify'}
                 </p>
               </div>
             )}
             {!disableControls && (
               <Controls
-                playing={playerState.is_playing}
+                playing={playerState?.is_playing ?? false}
                 nextTrack={nextTrack}
                 prevTrack={prevTrack}
                 togglePlay={togglePlay}
@@ -138,13 +145,13 @@ export const AudioPlayer = (props: {
             <ProgressBar
               setProgress={setProgress}
               ref={progressBarRef}
-              duration={playerState.queued_track?.track.duration_ms}
+              duration={currentTrack.duration_ms}
               progress={liveProgress ?? undefined}
             />
           </div>
         </div>
       )}
-      {playerState?.spotify_track && !playerState.queued_track && (
+      {/* {playerState?.spotify_track && !playerState.queued_track && (
         <div className="audio-player" ref={containerRef}>
           <div className="audio-player__inner">
             {displayInfo && (
@@ -183,7 +190,7 @@ export const AudioPlayer = (props: {
             />
           </div>
         </div>
-      )}
+      )} */}
       {!playerState?.spotify_track && !playerState?.queued_track && (
         <h3 className="audio-player__track__name">Nothing playing</h3>
       )}
