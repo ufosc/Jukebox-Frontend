@@ -14,8 +14,10 @@ export const TrackItem = (props: {
   track: Nullable<IQueuedTrack>
   moveListItem: (dragIndex: number, hoverIndex: number) => void
   index: number
+  showIcon: boolean
+  showLength: boolean
 }) => {
-  const { track, moveListItem, index } = props
+  const { track, moveListItem, index, showIcon, showLength } = props
 
   const adminStatus = useContext(AdminContext)
   const ref = useRef<HTMLLIElement>(null)
@@ -98,12 +100,16 @@ export const TrackItem = (props: {
           {!track && <p>No track specified.</p>}
           {track && (
             <>
-              <div className="track-list-track__preview">
-                <img
-                  src={track?.track.album?.images[0]?.url}
-                  alt={track.track.name}
-                />
-              </div>
+              {!showIcon ? (
+                <></>
+              ) : (
+                <div className="track-list-track__preview">
+                  <img
+                    src={track?.track.album?.images[0]?.url}
+                    alt={track.track.name}
+                  />
+                </div>
+              )}
               <div className="track-list-track__name-group">
                 <h3 className="track-list-track__name">{track.track.name}</h3>
                 <span className="track-list-track__artists">
@@ -113,9 +119,13 @@ export const TrackItem = (props: {
               <div className="track-list-track__info track-list-track__rec-by">
                 {track.recommended_by || 'Spotify'}
               </div>
-              <div className="track-list-track__info track-list-track__duration">
-                {formatDuration(track.track.duration_ms)}
-              </div>
+              {!showLength ? (
+                <></>
+              ) : (
+                <div className="track-list-track__info track-list-track__duration">
+                  {formatDuration(track.track.duration_ms)}
+                </div>
+              )}
               <div className="track-list-track__info track-list-track__activity">
                 <TrackInteractions track={track} index={index} />
               </div>

@@ -12,6 +12,9 @@ import { MemberDetail } from './pages/members/MemberDetail'
 import { MemberNew } from './pages/members/MemberNew'
 import { MembersList } from './pages/members/MembersList'
 import { MembersOverview } from './pages/members/MembersOverview'
+import { JukeSession } from './pages/JukeSession'
+import { ActiveJukeSession } from './pages/JukeSession/ActiveJukeSession'
+import { JukeSessionMembers } from './pages/JukeSession/JukeSessionMembers'
 
 export const adminRoutes: RouteObject[] = [
   {
@@ -55,11 +58,15 @@ export const adminRoutes: RouteObject[] = [
   },
   {
     path: 'jam-sessions',
-    // element: <div>Jam Sessions</div>,
+    element: <JukeSession />,
     children: [
       {
-        path: 'leaderboard',
-        element: <div>Leader Board</div>,
+        path: '',
+        element: <ActiveJukeSession />,
+      },
+      {
+        path: 'members',
+        element: <JukeSessionMembers />,
       },
       {
         path: 'invite',

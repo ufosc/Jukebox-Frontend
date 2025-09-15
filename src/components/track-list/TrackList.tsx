@@ -7,8 +7,10 @@ export const TrackList = (props: {
   tracks: IQueuedTrack[]
   offsetCount?: boolean
   maxCount?: number
+  showIcon?: boolean
+  showLength?: boolean
 }) => {
-  const { tracks, offsetCount, maxCount } = props
+  const { tracks, offsetCount, maxCount, showIcon , showLength} = props
 
   function deepCopy<T>(value: T): T {
     return structuredClone(value)
@@ -55,6 +57,8 @@ export const TrackList = (props: {
                   key={track.queue_id}
                   moveListItem={moveListItem}
                   index={index}
+                  showIcon={showIcon !== undefined ? false : true}
+                  showLength={showLength !== undefined ? false : true}
                 />
               ),
           )

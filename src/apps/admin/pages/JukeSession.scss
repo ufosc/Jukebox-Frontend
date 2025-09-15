@@ -1,0 +1,31 @@
+.juke-session {
+  &__title {
+    color: var(--color-primary-contrast);
+    /* Display Md */
+    font-family: Chango;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 37px; /* 123.333% */
+    letter-spacing: 0.9px;
+  }
+
+  &__page-switch {
+    @include font-label('md', 300);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 3vh;
+    margin-top: 3vh;
+  }
+
+  &__page-link {
+    color: var(--color-primary-surface);
+  }
+
+  &__page-link:active,
+  &__page-link:focus,
+  &__page-link:focus-visible{
+    border-bottom: 2.5px solid #0a98b4
+  }
+}

@@ -224,7 +224,7 @@ export const Topbar = () => {
             <></>
           )}
 
-          <div className="topbar__notifications">
+          {/*<div className="topbar__notifications">
             <button onClick={handleNotification}>
               <NotificationsOutlined fontSize="large" />
             </button>
@@ -243,7 +243,7 @@ export const Topbar = () => {
             ) : (
               <></>
             )}
-          </div>
+          </div>*/}
           <div className="topbar__profile__container">
             <button className="topbar__profile" onClick={handleUser}>
               {user && <img src={user?.profile?.image ?? undefined} alt={user.last_name} />}
