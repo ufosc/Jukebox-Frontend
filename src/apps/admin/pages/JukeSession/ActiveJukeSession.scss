@@ -1,0 +1,139 @@
+
+
+.active-juke-session{
+  $flex-g-s: 0 1;
+
+  &__border{
+    border-radius: 5px;
+    border: 0.5px solid var(--color-outline);
+    background: var(--color-surface);
+  }
+
+  &__time{
+    height: 3rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    
+    margin-bottom: 1.5rem;
+    
+
+    &__text-info{
+      display: flex;
+      flex-direction: row;
+      min-width: 7rem;
+      
+    }
+  }
+
+  &__subtext{
+    @include font-label('sm');
+    margin-right: 1rem;
+    margin-left: 1rem;
+  }
+
+  &__main-text{
+    @include font-label('md', 600);
+    margin-right: 1rem;
+  }
+
+  &__main-info{
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    height: 10rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  &__numbers{
+    color: var(--color-primary-contrast);
+    text-align: right;
+    @include font-display('lg');
+    
+  }
+
+  &__numbers-subtext{
+    @include font-label('lg');
+  }
+
+
+  &__main-container{
+    height: 47rem;
+    padding: 2rem;
+
+    &__header{
+      @include font-label('sm');
+      
+      height: 4rem;
+      align-items: center;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  &__member{
+    display: flex;
+    flex-direction: row;
+    height: 5rem;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid var(--color-label);
+
+    &__name{
+      width: 10vw;
+    }
+
+    &__joined{
+      width: 8vw;
+    }
+
+    &__queued{
+      width: 8vw;
+    }
+
+    &__likes{
+      width: 8vw;
+    }
+
+  }
+
+  &__member-list{
+    display: flex;
+    flex-direction: column;
+    height: 33rem;
+  }
+
+  &__button-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+  }
+
+  &__main-list-header{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1rem;
+
+    &__name{
+      flex: $flex-g-s 55%;
+    }
+
+    &__recommend{
+      flex: $flex-g-s 23%;
+    }
+
+    &__interactions{
+      flex: $flex-g-s 15%;
+    }
+  }
+
+  &____track-list-container{
+    height: 47rem;
+  }
+
+}

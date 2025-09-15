@@ -93,7 +93,7 @@ export const AdminSidebar = () => {
                       </button>
                     </span>
                   </li>
-                  <li className="navbar__nav__list__item">
+                  {/*<li className="navbar__nav__list__item">
                     <span className="navbar__nav__item">
                       <JamIcon />
                       <NavItem route="members" text="Members" end />
@@ -103,7 +103,7 @@ export const AdminSidebar = () => {
     
                       </button>
                     </span>
-                  </li>
+                  </li>*/}
                   <li className="navbar__nav__list__item">
                     <span className="navbar__nav__item">
                       <SettingsIcon />

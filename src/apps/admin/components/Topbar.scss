@@ -126,12 +126,10 @@ $size: 4rem;
     width: 3vw;
     display: flex;
     justify-content: center;
-
     button {
+      background-color: var(--color-surface-container);
       border: none;
       cursor: pointer;
-      background-color: #dad8d7;
-      border-radius: 500px;
       width: $size;
       height: $size;
       display: flex;
