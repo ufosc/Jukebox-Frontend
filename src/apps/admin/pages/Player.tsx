@@ -70,11 +70,11 @@ export const Player = () => {
     setConnected(true)
   }
 
-  useEffect(()=>{
-    if(isConnected) {
+  useEffect(() => {
+    if (isConnected) {
       setConnected(true)
     }
-  },[])
+  }, [])
 
   useEffect(() => {
     connectDevice()
@@ -212,7 +212,9 @@ export const Player = () => {
                 Connect to Spotify to Get Started!
               </div>
               {jukeboxLinks ? (
-                <button className='button-fancy' onClick={initializeAccount}>Connect Account</button>
+                <button className="button-fancy" onClick={initializeAccount}>
+                  Connect Account
+                </button>
               ) : (
                 <div>Loading...</div>
               )}

@@ -129,7 +129,6 @@ export const Topbar = () => {
       })
     }
     setSearchActive(false)
-
   }
 
   return (
@@ -246,7 +245,12 @@ export const Topbar = () => {
           </div>*/}
           <div className="topbar__profile__container">
             <button className="topbar__profile" onClick={handleUser}>
-              {user && <img src={user?.profile?.image ?? undefined} alt={user.last_name} />}
+              {user && (
+                <img
+                  src={user?.profile?.image ?? undefined}
+                  alt={user.last_name}
+                />
+              )}
               {!user && <p>Login required.</p>}
             </button>
           </div>

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { mergeClassNames } from 'src/utils'
 
-import './Dialog.scss';
+import './Dialog.scss'
 //import '../../styles/components/_overlays.scss'
 
 export const Dialog = (props: {
