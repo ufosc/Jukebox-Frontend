@@ -23,92 +23,77 @@ export const Settings = () => {
 
   const handleDelete = async () => {
     console.log('deleted account')
-
   }
 
   return (
     <div>
-      <div className=''>
-        <h2 className='settings-title'>Settings</h2>
-        
-        <div className='grid'>
-          <div className='col-7'>
-              <div className='settings-category'>
+      <div className="">
+        <h2 className="settings-title">Settings</h2>
 
-                <div className='outline'>
-                  <div className='name'>
-                    Name
-                  </div>
-                  <button>
-                    Edit
-                  </button>
-                </div>
-
-                <div className='details'>
-                  {user?.first_name} {user?.last_name}
-                </div>
+        <div className="grid">
+          <div className="col-7">
+            <div className="settings-category">
+              <div className="outline">
+                <div className="name">Name</div>
+                <button>Edit</button>
               </div>
 
-
-              <div className='settings-category'>
-                <div className='outline'>
-                  <div className='name'>
-                    Email
-                  </div>
-                  <button>
-                    Edit
-                  </button>
-
-                  </div>
-
-                <div className='details'>
-                  {user?.email}
-                </div>
+              <div className="details">
+                {user?.first_name} {user?.last_name}
               </div>
-              
-              <div className='settings-category'>
-                <div className='outline'>
-                  <div className='name'>
-                    Username
-                  </div>
-                  <button>
-                    Edit
-                  </button>
-                </div>
+            </div>
 
-                <div className='details'>
-                  {user?.username}
-                </div>
+            <div className="settings-category">
+              <div className="outline">
+                <div className="name">Email</div>
+                <button>Edit</button>
               </div>
 
+              <div className="details">{user?.email}</div>
+            </div>
+
+            <div className="settings-category">
+              <div className="outline">
+                <div className="name">Username</div>
+                <button>Edit</button>
+              </div>
+
+              <div className="details">{user?.username}</div>
+            </div>
           </div>
 
-          <section className='col-1 spacer'>
-          </section>
+          <section className="col-1 spacer"></section>
 
-          <section className='col-4'>
-            <div className='authentication-title'>
-              Password
-            </div>
-            <div className='password-container'>
-              <button className="button-fancy" onClick={handleLogout}>Change Password</button>
-              <div className='description'>
+          <section className="col-4">
+            <div className="authentication-title">Password</div>
+            <div className="password-container">
+              <button className="button-fancy" onClick={handleLogout}>
+                Change Password
+              </button>
+              <div className="description">
                 Password last changed on May 23, 2025
               </div>
             </div>
-           <div className='logout-container'>
-             <button className="button-fancy logout-btn" onClick={handleLogout}>Logout</button>  
-             <button className="button-outlined delete-btn" onClick={handleDelete}>Delete Account</button>
-           </div>
+            <div className="logout-container">
+              <button
+                className="button-fancy logout-btn"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+              <button
+                className="button-outlined delete-btn"
+                onClick={handleDelete}
+              >
+                Delete Account
+              </button>
+            </div>
           </section>
-
         </div>
       </div>
 
-      
       <br />
 
-      
       <section>
         <h2>Clubs</h2>
         <ul>

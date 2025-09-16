@@ -12,15 +12,15 @@ export const thunkFetchJukeboxes = createAsyncThunk(
 
 export const thunkFetchJBX = createAsyncThunk(
   'jukebox/fetchJBX',
-  async (jukeboxId: number) =>{
-     return await network.listJukebox(jukeboxId)
+  async (jukeboxId: number) => {
+    return await network.listJukebox(jukeboxId)
   },
 )
 
 export const thunkFetchCurrentlyPlaying = createAsyncThunk(
   'jukebox/fetchCurrentlyPlaying',
   async (jukeboxId: number) => {
-    const res = network.getCurrentlyPlaying(jukeboxId);
+    const res = network.getCurrentlyPlaying(jukeboxId)
     return res
     //return await network.getCurrentlyPlaying(jukeboxId)
   },

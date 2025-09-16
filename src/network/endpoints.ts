@@ -21,7 +21,7 @@ export const NetworkEndpoints = Object.freeze({
   },
   jukebox: {
     list: `${jukeboxApi}/jukebox/jukeboxes/`,
-    getJbk: (jukeboxId : number) => 
+    getJbk: (jukeboxId: number) =>
       `${jukeboxApi}/jukebox/jukeboxes/${jukeboxId}`,
     getClubList: (clubId: number) =>
       `${jukeboxApi}/jukebox/jukeboxes/club/${clubId}`,
@@ -35,15 +35,13 @@ export const NetworkEndpoints = Object.freeze({
       `${jukeboxApi}/jukebox/${jukeboxId}/player-state/`,
     nextTracks: (jukeboxId: number) =>
       `${jukeboxApi}/jukebox/${jukeboxId}/tracks-queue/`,
-    links: (jukeboxId: number) =>
-      `${jukeboxApi}/jukebox/${jukeboxId}/links/`,
-    search: (jukeboxId: number) =>
-      `${jukeboxApi}/jukebox/${jukeboxId}/search`,
-    queue: (jukeboxId: number)=>
+    links: (jukeboxId: number) => `${jukeboxApi}/jukebox/${jukeboxId}/links/`,
+    search: (jukeboxId: number) => `${jukeboxApi}/jukebox/${jukeboxId}/search`,
+    queue: (jukeboxId: number) =>
       `${jukeboxApi}/jukebox/${jukeboxId}/tracks-queue`,
     removeQTrack: (jukeboxId: number, queue_id: string) =>
       `${jukeboxApi}/jukebox/${jukeboxId}/tracks-queue/${queue_id}/`,
-    swapTracks: (jukeboxId: number) => 
+    swapTracks: (jukeboxId: number) =>
       `${jukeboxApi}/jukebox/${jukeboxId}/tracks-queue/swap-tracks`,
   },
   spotify: {

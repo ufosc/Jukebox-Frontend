@@ -10,7 +10,13 @@ import {
   SpotifyLinksSchema,
   UserDetailsSchema,
 } from 'src/schemas'
-import { deleteTrackListResult, deleteTrackResultSchema, QueuedTrackListSchema, swapTrackSchema, TrackListResult } from 'src/schemas/player'
+import {
+  deleteTrackListResult,
+  deleteTrackResultSchema,
+  QueuedTrackListSchema,
+  swapTrackSchema,
+  TrackListResult,
+} from 'src/schemas/player'
 import {
   getRandomSample,
   mockClubs,
@@ -21,7 +27,10 @@ import {
 } from 'src/utils'
 import { mockPlayerQueueState } from './../utils/mock/mock-spotify'
 import { NetworkBase, NetworkResponse } from './NetworkBase'
-import { mockMembership, mockMemberships } from 'src/utils/mock/mock-memberships'
+import {
+  mockMembership,
+  mockMemberships,
+} from 'src/utils/mock/mock-memberships'
 
 /**
  * Handle API requests to connected servers.
@@ -49,7 +58,7 @@ export class Network extends NetworkBase {
   /**
    * Fetch details for logged in user.
    */
-  public async getCurrentUser(): Promise<NetworkResponse<IUserDetailsAdd>>{
+  public async getCurrentUser(): Promise<NetworkResponse<IUserDetailsAdd>> {
     const url = this.endpoints.user.info
 
     return await this.request(url, UserDetailsSchema, {
@@ -246,24 +255,28 @@ export class Network extends NetworkBase {
 
     const response = await this.request(url, TrackListResult, {
       method: 'POST',
-      data: { trackQuery: trackName, albumQuery: albumName, artistQuery: artistName },
+      data: {
+        trackQuery: trackName,
+        albumQuery: albumName,
+        artistQuery: artistName,
+      },
     })
 
     return response
   }
 
-  public async queueTrack(jukeboxId:number, songID:string){
+  public async queueTrack(jukeboxId: number, songID: string) {
     const url = this.endpoints.jukebox.queue(jukeboxId)
 
     const response = await this.request(url, null, {
       method: 'POST',
-      data: {track_id: songID, position: 100}
+      data: { track_id: songID, position: 100 },
     })
   }
 
   /**
-   * 
-   * @param clubID 
+   *
+   * @param clubID
    * @returns List of members for a given club
    */
   public async getMembers(clubID: number) {
@@ -300,24 +313,27 @@ export class Network extends NetworkBase {
     return response
   }
 
-  public async swapTracks(jukeboxId: number, currentPosition: number, targetPosition: number) {
+  public async swapTracks(
+    jukeboxId: number,
+    currentPosition: number,
+    targetPosition: number,
+  ) {
     const url = this.endpoints.jukebox.swapTracks(jukeboxId)
     const response = await this.request(url, swapTrackSchema, {
       method: 'POST',
-      data: {currentPos: currentPosition, targetPos:  targetPosition}
+      data: { currentPos: currentPosition, targetPos: targetPosition },
     })
 
     return response
   }
 
-  public async getCurrentMembership(clubId: number, memberId: number){
+  public async getCurrentMembership(clubId: number, memberId: number) {
     const url = this.endpoints.club.membership(clubId, memberId)
 
     const response = await this.request(url, ClubMembershipSchema, {
       mock: { data: mockMembership },
-  })
+    })
     console.log(response)
     return response
   }
-
 }

@@ -50,6 +50,4 @@ export const ClubMembershipSchema: z.ZodSchema<IClubMembership> = z.object({
   roles: z.array(z.string()),
 })
 
-export const ClubMembershipsSchema = z.array(ClubMembershipSchema);
-
-
+export const ClubMembershipsSchema = z.array(ClubMembershipSchema)

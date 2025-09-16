@@ -72,7 +72,6 @@ export const TrackSearchResult: z.ZodSchema<ITrackSearch> = z.object({
   offset: z.number(),
   previous: z.string().nullable(),
   total: z.number(),
-
 })
 
 export const TrackListResult: z.ZodSchema<ITrackSeachList> = z.object({

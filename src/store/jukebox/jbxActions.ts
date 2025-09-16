@@ -145,6 +145,6 @@ export const checkLinkAuth = async () => {
   }
 }
 
-export const fetchJukebox = async (jukeboxId: number) =>{
+export const fetchJukebox = async (jukeboxId: number) => {
   await store.dispatch(thunkFetchJBX(jukeboxId))
 }

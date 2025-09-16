@@ -112,7 +112,7 @@ export const jukeboxSlice = createSlice({
 
       state.spotifyAuth = action.payload.data
     })
-    builder.addCase(thunkFetchJBX.fulfilled, (state, action) =>{ 
+    builder.addCase(thunkFetchJBX.fulfilled, (state, action) => {
       if (action.payload.success) {
         state.currentJukebox = action.payload.data
         return

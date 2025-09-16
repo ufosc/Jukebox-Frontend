@@ -14,7 +14,6 @@ declare interface IClubUser {
   username: string
 }
 
-
 declare interface IClubLogo {
   id: number
   display_name: string
@@ -22,21 +21,21 @@ declare interface IClubLogo {
   size: unknown
 }
 
-declare interface IUserDetailsAdd extends IUserDetails{
+declare interface IUserDetailsAdd extends IUserDetails {
   profile: {
-    is_school_email_verified: boolean,
-    image: string | null,
-    phone?: string | null,
-    name: string | null,
-    bio?: string | null,
-    city?: string | null,
-    state?: string | null,
-    country?: string | null,
-    birthday?: string | null,
-    school_email?: string | null,
-    major?: string | null, 
-    minor?: string | null,
-    college?: string | null,
+    is_school_email_verified: boolean
+    image: string | null
+    phone?: string | null
+    name: string | null
+    bio?: string | null
+    city?: string | null
+    state?: string | null
+    country?: string | null
+    birthday?: string | null
+    school_email?: string | null
+    major?: string | null
+    minor?: string | null
+    college?: string | null
     graduation_date?: string | null
   }
 }

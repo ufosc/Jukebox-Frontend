@@ -1,10 +1,9 @@
-.juke-session{
-
-  &__header-title{
+.juke-session {
+  &__header-title {
     @include font-headline('xs');
   }
 
-  &__member-search{
+  &__member-search {
     width: 100%;
     height: 4rem;
 
@@ -15,61 +14,121 @@
     padding-right: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
-    
+    margin-bottom: 2rem;
+    color: white;
 
     @include font-label('sm');
-
   }
 
-  &__member-list{
+  &__member-list {
     background-color: var(--color-surface);
-    padding: 3rem;
+    padding: 2.5rem;
 
-    height: 55rem;
+    height: 48rem;
 
-    &__header{
+    &__header {
       display: flex;
       flex-direction: row;
+      color: var(--color-label);
+      @include font-label('sm', 300);
+      margin-bottom: 1rem;
     }
 
-    &__member{
+    &__member {
       display: flex;
       flex-direction: row;
       align-items: center;
       border-bottom: 1px solid var(--color-label);
-      
-      height: 6rem;
 
-      &__name{
-        width: 22vw;
+      height: 5rem;
+
+      &__name {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 18rem;
+        margin-right: 2rem;
       }
 
-      &__role{
+      &__role {
         width: 12vw;
       }
 
-      &__joined{
+      &__joined {
         width: 10vw;
       }
 
-      &__queued{
+      &__queued {
         width: 10vw;
       }
-      
-      &__likes{
+
+      &__likes {
         width: 8vw;
       }
 
-      &__sessions{
+      &__sessions {
         width: 3vw;
+        margin-right: auto;
       }
 
-      &__sessions-header{
+      &__sessions-header {
         width: 8vw;
       }
 
-      &__remove{
+      &__remove {
         width: 8vw;
+        justify-self: flex-end;
+      }
+    }
+
+    &__navigator {
+      position: absolute;
+      flex-direction: row;
+      left: 55%;
+      top: 90%;
+
+      > * {
+        display: inline-flex;
+      }
+
+      &__ellipsis {
+        color: var(--color-label);
+        margin-right: 1.5rem;
+        width: 1.5rem;
+        user-select: none;
+      }
+
+      &__text {
+        color: var(--color-label);
+        width: 1.5rem;
+        margin-right: 1.5rem;
+        user-select: none;
+        @include font-body('lg');
+
+        &__selected {
+          color: var(--color-surface-on);
+          width: 1.5rem;
+          margin-right: 1.5rem;
+          user-select: none;
+          @include font-body('lg');
+        }
+      }
+
+      &__text:hover {
+        color: var(--color-surface-on);
+        cursor: pointer;
+      }
+
+      &__arrow {
+        color: var(--color-label);
+        margin-right: 1.5rem;
+        user-select: none;
+        @include font-body('lg');
+      }
+
+      &__arrow:hover {
+        color: var(--color-surface-on);
+        cursor: pointer;
       }
     }
   }

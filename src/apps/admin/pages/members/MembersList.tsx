@@ -26,27 +26,25 @@ export const MembersList: React.FC = () => {
 
   const updateMembers = async () => {
     console.log(currentClub?.id)
-    const clubId = currentClub?.id;
-    if(clubId !== undefined)
-    {
+    const clubId = currentClub?.id
+    if (clubId !== undefined) {
       const res = await network.getMembers(clubId)
       console.log(res)
-      if(res.success)
-      {
+      if (res.success) {
         setMembers(res.data)
       }
       //setMembers(res.data)
-    }else{
+    } else {
       console.log('Fetching Users')
     }
   }
 
   useEffect(() => {
     updateMembers()
-    return () =>{
-      console.log("Done Getting Users")
+    return () => {
+      console.log('Done Getting Users')
     }
-  },[currentClub])
+  }, [currentClub])
 
   return (
     <>
@@ -54,7 +52,9 @@ export const MembersList: React.FC = () => {
         <section className="member-header">
           <h1 className="header-font">Members</h1>
 
-          <button className="button-tonal" onClick={updateMembers}>+ Add member</button>
+          <button className="button-tonal" onClick={updateMembers}>
+            + Add member
+          </button>
         </section>
 
         <div className="grid">
@@ -82,7 +82,7 @@ export const MembersList: React.FC = () => {
           <section className="lists">
             <div>
               {members.map((member, key) => (
-                <MemberObj member={member} key={key}/>
+                <MemberObj member={member} key={key} />
               ))}
             </div>
           </section>

@@ -10,7 +10,7 @@ export const TrackList = (props: {
   showIcon?: boolean
   showLength?: boolean
 }) => {
-  const { tracks, offsetCount, maxCount, showIcon , showLength} = props
+  const { tracks, offsetCount, maxCount, showIcon, showLength } = props
 
   function deepCopy<T>(value: T): T {
     return structuredClone(value)

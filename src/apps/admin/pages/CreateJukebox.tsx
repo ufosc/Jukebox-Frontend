@@ -144,10 +144,10 @@ export const CreateJukebox = () => {
               </FormSection>
 
               <div className="grid">
-                <div className='col-4'>
-                <button className="button-fancy height-jbx">
-                  Create Jukebox
-                </button>
+                <div className="col-4">
+                  <button className="button-fancy height-jbx">
+                    Create Jukebox
+                  </button>
                 </div>
               </div>
             </Form>
