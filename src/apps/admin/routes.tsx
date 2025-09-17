@@ -61,12 +61,16 @@ export const adminRoutes: RouteObject[] = [
     element: <JukeSession />,
     children: [
       {
-        path: '',
+        path: 'active',
         element: <ActiveJukeSession />,
       },
       {
         path: 'members',
         element: <JukeSessionMembers />,
+      },
+      {
+        path: 'history',
+        element: <div>FIX ME</div>,
       },
       {
         path: 'invite',

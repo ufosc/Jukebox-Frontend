@@ -16,17 +16,17 @@
     flex-direction: row;
     justify-content: space-between;
     margin-top: 2vh;
-    margin-bottom: 0.5rem;
+    margin-bottom: 4rem;
   }
 
   &__page-link {
     color: var(--color-primary-surface);
     margin-right: 3rem;
-  }
 
-  &__page-link:active,
-  &__page-link:focus,
-  &__page-link:focus-visible {
-    border-bottom: 2.5px solid #0a98b4;
+    &__focused {
+      color: var(--color-primary-surface);
+      margin-right: 3rem;
+      border-bottom: 2.5px solid #0a98b4;
+    }
   }
 }

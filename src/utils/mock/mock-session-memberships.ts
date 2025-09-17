@@ -50,7 +50,7 @@ export const mockSessionMemberships = {
       queued_tracks: [],
     },
     // repeat baseline Jim entries…
-    ...Array.from({ length: 34 }).map((_, i) => ({
+    ...Array.from({ length: 44 }).map((_, i) => ({
       juke_session: 1,
       member: {
         name:
@@ -72,5 +72,5 @@ export const mockSessionMemberships = {
       queued_tracks: [],
     })),
   ],
-  count: 38,
+  count: 48,
 }
