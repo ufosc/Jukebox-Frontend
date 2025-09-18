@@ -262,7 +262,12 @@ export const SpotifyPlayer = () => {
           GetAccount
           <div className="account-container">
             {jukeboxLinks?.map((link) => (
-              <SpotifyPlayerAccount key={link.id} link={link} />
+              <SpotifyPlayerAccount
+                key={link.id}
+                account={link.spotify_account}
+                active={link.active}
+                actions={[]}
+              />
             ))}
           </div>
           {/* <div className="connect-button-container">
