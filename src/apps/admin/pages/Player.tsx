@@ -6,7 +6,10 @@ import {
   addAccountToJukebox,
   connectNewSpotifyAccount,
   deleteAccountLinkFromJukebox,
+  joinCurrentJukeSession,
   selectAccountLinks,
+  selectCurrentJukeSession,
+  selectCurrentJukeSessionMembership,
   selectUserAccounts,
   setActiveAccountLink,
 } from 'src/store'
@@ -18,6 +21,8 @@ export const Player = () => {
   const { accountConnected, connectDevice, hasAux } = useContext(PlayerContext)
   const userAccounts = useSelector(selectUserAccounts)
   const jukeboxAccounts = useSelector(selectAccountLinks)
+  const jukeSession = useSelector(selectCurrentJukeSession)
+  const jukeSessionMembership = useSelector(selectCurrentJukeSessionMembership)
 
   const [isAddingAccount, setIsAddingAccount] = useState(false)
   const handleAddAccount = async (account: ISpotifyAccount) => {
@@ -28,10 +33,23 @@ export const Player = () => {
   return (
     <div className="player-page section">
       <AdminHeader title="Player" />
-      <div className="row player-page__row">
+      <div className="row player-page__row section__main">
         <div className="player-page__col col-6">
           {accountConnected && hasAux && <AudioPlayer />}
-          {accountConnected && !hasAux && (
+          {jukeSession && !jukeSessionMembership && (
+            <div className="player-page__section">
+              <div className="font-title-md">
+                Join Juke Session to manage playback
+              </div>
+              <button
+                className="button-solid"
+                onClick={() => joinCurrentJukeSession()}
+              >
+                Join Juke Session
+              </button>
+            </div>
+          )}
+          {accountConnected && !jukeSession && !hasAux && (
             <div className="player-page__section">
               <div className="font-title-md">
                 Spotify connected, transfer playback to get started!

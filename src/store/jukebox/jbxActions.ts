@@ -6,6 +6,8 @@ import { store } from '../store'
 import {
   selectActiveLink,
   selectCurrentJukebox,
+  selectCurrentJukeSession,
+  selectCurrentJukeSessionMembership,
   selectJukeboxAndSessionIds,
   selectSpotifyAuth,
 } from './jbxSelectors'
@@ -14,7 +16,10 @@ import {
   thunkDeleteAccountLink,
   thunkFetchAccountLinks,
   thunkFetchJukeboxes,
+  thunkFetchJukeSession,
+  thunkFetchJukeSessionMembership,
   thunkFetchQueue,
+  thunkJoinJukeSession,
   thunkSyncSpotifyTokens,
   thunkUpdateAccountLink,
 } from './jbxThunks'
@@ -35,17 +40,26 @@ export const fetchCurrentJukeboxInfo = async () => {
 }
 
 export const fetchCurrentJukeSessionInfo = async () => {
-  const { jukeboxId, jukeSessionId } = selectJukeboxAndSessionIds(
-    store.getState(),
-  )
-  if (jukeboxId == null || jukeSessionId == null) return
+  const jukeboxId = selectCurrentJukebox(store.getState())?.id
+  console.log('jukebox id:', jukeboxId)
+  if (!jukeboxId) return
 
-  await store.dispatch(
+  await store.dispatch(thunkFetchJukeSession({ jukeboxId }))
+  const jukeSessionId = selectCurrentJukeSession(store.getState())?.id
+  console.log('juke session id:', jukeSessionId)
+  if (!jukeSessionId) return
+
+  const membershipReq = store.dispatch(
+    thunkFetchJukeSessionMembership({ jukeboxId, jukeSessionId }),
+  )
+  const queueReq = store.dispatch(
     thunkFetchQueue({
       jukeboxId,
       jukeSessionId,
     }),
   )
+
+  await Promise.allSettled([membershipReq, queueReq])
 }
 
 export const setHasAux = (value: boolean) => {
@@ -123,7 +137,7 @@ export const addAccountToJukebox = async (account: ISpotifyAccount) => {
   await store.dispatch(
     thunkCreateAccountLink({
       jukeboxId: jukebox.id,
-      link: { spotify_account: account, active: true },
+      link: { spotify_account_id: account.id, active: true },
     }),
   )
 }
@@ -148,4 +162,16 @@ export const setActiveAccountLink = async (accountLinkId: number) => {
       body: { active: true },
     }),
   )
+}
+
+export const joinCurrentJukeSession = async () => {
+  const { jukeSessionId, jukeboxId } = selectJukeboxAndSessionIds(
+    store.getState(),
+  )
+  if (!jukeSessionId || !jukeboxId) return
+
+  const currentMembership = selectCurrentJukeSessionMembership(store.getState())
+  if (currentMembership) return
+
+  await store.dispatch(thunkJoinJukeSession({ jukeboxId, jukeSessionId }))
 }

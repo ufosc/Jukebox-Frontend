@@ -22,6 +22,11 @@ export const selectCurrentJukeSession = createSelector(
   (state) => state.currentJukeSession,
 )
 
+export const selectCurrentJukeSessionMembership = createSelector(
+  selectJukeboxState,
+  (state) => state.currentJukeSessionMembership,
+)
+
 export const selectHasJukeboxAux = createSelector(
   selectJukeboxState,
   (state) => state.hasAux,

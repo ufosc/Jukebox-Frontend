@@ -72,8 +72,9 @@ export const App = () => {
   useEffect(() => {
     console.log('fetching session queue')
 
-    fetchCurrentJukeboxInfo()
-    fetchCurrentJukeSessionInfo()
+    fetchCurrentJukeboxInfo().then(() => {
+      fetchCurrentJukeSessionInfo()
+    })
   }, [currentJukebox])
 
   // Initialize JukeSession

@@ -19,13 +19,14 @@ export const fetchAllClubs = async () => {
 export const fetchCurrentClubInfo = async () => {
   let club = selectCurrentClub(store.getState())
   const clubs = selectAllClubs(store.getState())
+  
+  console.log('current club:', club)
 
   if (!club) {
     const clubId = cachedSelectedClub.get()
+    const selected = clubs.find((c) => c.id === clubId)
 
-    if (clubId != null) {
-      const selected = clubs.find((c) => c.id === clubId)
-      if (!selected) return
+    if (clubId != null && selected) {
       club = selected
     } else if (clubs.length > 0) {
       club = clubs[0]

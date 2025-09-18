@@ -6,7 +6,10 @@ import {
   thunkFetchAccountLinks,
   thunkFetchJukebox,
   thunkFetchJukeboxes,
+  thunkFetchJukeSession,
+  thunkFetchJukeSessionMembership,
   thunkFetchQueue,
+  thunkJoinJukeSession,
   thunkSyncSpotifyTokens,
   thunkUpdateAccountLink,
 } from './jbxThunks'
@@ -20,6 +23,7 @@ export const jukeboxSlice = createSlice({
     hasAux: false,
     currentJukebox: null as IJukebox | null,
     currentJukeSession: null as IJukeSession | null,
+    currentJukeSessionMembership: null as IJukeSessionMembership | null,
     queue: null as IQueue | null,
     spotifyAuth: null as ISpotifyAccount | null,
     liveProgress: 0 as number | null,
@@ -47,6 +51,25 @@ export const jukeboxSlice = createSlice({
         state.currentJukebox = state.jukeboxes[0]
       }
     })
+    builder.addCase(thunkFetchJukeSession.fulfilled, (state, action) => {
+      if (!action.payload.success) {
+        state.currentJukeSession = null
+        state.currentJukeSessionMembership = null
+        return
+      }
+      state.currentJukeSession = action.payload.data
+    })
+    builder.addCase(
+      thunkFetchJukeSessionMembership.fulfilled,
+      (state, action) => {
+        if (!action.payload.success) {
+          state.currentJukeSessionMembership = null
+          return
+        }
+        state.currentJukeSessionMembership = action.payload.data
+      },
+    )
+
     builder.addCase(thunkFetchQueue.fulfilled, (state, action) => {
       if (!action.payload.success) {
         state.queue = null
@@ -122,7 +145,15 @@ export const jukeboxSlice = createSlice({
         state.error = res.data.message
       }
     })
-    builderDefaults(builder)
+    builder.addCase(thunkJoinJukeSession.fulfilled, (state, action) => {
+      if (!action.payload.success) {
+        state.error = action.payload.data.message
+        return
+      }
+      state.currentJukeSessionMembership = action.payload.data
+      state.error = null
+    }),
+      builderDefaults(builder)
   },
 })
 

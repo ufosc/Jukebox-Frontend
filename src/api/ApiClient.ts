@@ -7,6 +7,7 @@ import {
   SpotifyAuthRedirectUrlSchema,
   UserSchema,
 } from 'src/schemas'
+import { JukeSessionSchema } from 'src/schemas/JukeSessionSchema'
 import {
   MockClubs,
   mockJukeboxes,
@@ -136,6 +137,39 @@ export class ApiClient extends ApiAuth {
     IAccountLinkCreate,
     IAccountLinkUpdate
   >(this.endpoints.jukebox.accountLinkList)
+
+  /**
+   * Get current active juke session for specific jukebox id.
+   */
+  public async getCurrentJukeSession(jukeboxId: number) {
+    const url = this.endpoints.jukebox.currentJukeSession(jukeboxId)
+
+    return this.get(url, { schema: JukeSessionSchema })
+  }
+
+  /**
+   * Get juke session membership for specific user, or 404 if not a member.
+   */
+  public async getJukeSessionMembership(
+    jukeboxId: number,
+    jukeSessionId: number,
+  ) {
+    const url = this.endpoints.jukebox.jukeSessionMembership(
+      jukeboxId,
+      jukeSessionId,
+    )
+
+    return this.get<IJukeSessionMembership>(url)
+  }
+
+  /**
+   * Add current user to juke session.
+   */
+  public async joinJukeSession(jukeboxId: number, jukeSessionId: number) {
+    const url = this.endpoints.jukebox.joinJukeSession(jukeboxId, jukeSessionId)
+
+    return this.post<IJukeSessionMembership>(url)
+  }
 
   /**
    * Get account info for the active spotify account

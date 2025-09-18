@@ -213,7 +213,7 @@ declare interface IAccountLink extends IModelBase {
 }
 
 declare interface IAccountLinkCreate {
-  spotify_account: ISpotifyAccount
+  spotify_account_id: number
   active?: boolean
 }
 

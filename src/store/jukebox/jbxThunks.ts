@@ -24,6 +24,30 @@ export const thunkFetchQueue = createAsyncThunk(
   },
 )
 
+export const thunkFetchJukeSession = createAsyncThunk(
+  'jukebox/fetchJukeSession',
+  async (payload: { jukeboxId: number }) => {
+    return await api.getCurrentJukeSession(payload.jukeboxId)
+  },
+)
+
+export const thunkFetchJukeSessionMembership = createAsyncThunk(
+  'jukebox/fetchJukeSessionMembership',
+  async (payload: { jukeboxId: number; jukeSessionId: number }) => {
+    return await api.getJukeSessionMembership(
+      payload.jukeboxId,
+      payload.jukeSessionId,
+    )
+  },
+)
+
+export const thunkJoinJukeSession = createAsyncThunk(
+  'jukebox/joinJukeSession',
+  async (payload: { jukeboxId: number; jukeSessionId: number }) => {
+    return await api.joinJukeSession(payload.jukeboxId, payload.jukeSessionId)
+  },
+)
+
 export const thunkClearNextTracks = createAsyncThunk(
   'jukebox/clearNextTracks',
   async (payload: { jukeboxId: number; jukeSessionId: number }) => {

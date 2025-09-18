@@ -7,7 +7,7 @@ export const JukeSessionSchema: z.Schema<IJukeSession> = z.object({
   join_code: z.string(),
   qr_code: z.string(),
   next_order: z.number(),
-  start_at: z.string().date(),
-  end_at: z.string().date(),
+  start_at: z.string().datetime(),
+  end_at: z.string().datetime(),
   is_active: z.boolean(),
 })
