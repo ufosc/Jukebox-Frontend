@@ -11,50 +11,71 @@ export const JukeSessionMembers = () => {
   const beginningRowRange = page * LIST_LENGTH
 
   const getNavigatorNums = (page: number): JSX.Element => {
-    const currMinPage = totalPages - page < 4 ? totalPages - 4 : page
-    const pageRange = totalPages - currMinPage
-    if (pageRange < 5) {
+    if (totalPages < 6) {
       return (
         <>
-          {Array.from({ length: 4 }, (_, idx) => {
-            const pageNumber = idx + currMinPage
-            return (
-              <div
-                className={`juke-session__member-list__navigator__text${pageNumber === page ? '__selected' : ''}`}
-                onClick={() => setPage(pageNumber)}
-              >
-                {`${pageNumber + 1}`}
-              </div>
-            )
-          })}
+          {Array.from({ length: totalPages }, (_, idx) => (
+            <div
+              className={`juke-session__member-list__navigator__text${page === idx ? '__selected' : ''}`}
+              onClick={() => setPage(idx)}
+            >
+              {idx + 1}
+            </div>
+          ))}
+        </>
+      )
+    } else {
+      return (
+        <>
+          <div
+            className={`juke-session__member-list__navigator__text${page === 0 ? '__selected' : ''}`}
+            onClick={() => setPage(0)}
+          >
+            1
+          </div>
+          {page > 2 ? (
+            <div className="juke-session__member-list__navigator__ellipsis">
+              {'...'}
+            </div>
+          ) : (
+            <div
+              className={`juke-session__member-list__navigator__text${page === 1 ? '__selected' : ''}`}
+              onClick={() => setPage(1)}
+            >
+              2
+            </div>
+          )}
+          <div
+            className={`juke-session__member-list__navigator__text${page > 1 && page < totalPages - 2 ? '__selected' : ''}`}
+            onClick={() =>
+              setPage(
+                page < 2 ? 2 : page > totalPages - 3 ? totalPages - 3 : page,
+              )
+            }
+          >
+            {page < 2 ? 3 : page > totalPages - 3 ? totalPages - 2 : page + 1}
+          </div>
+          {page < totalPages - 3 ? (
+            <div className="juke-session__member-list__navigator__ellipsis">
+              {'...'}
+            </div>
+          ) : (
+            <div
+              className={`juke-session__member-list__navigator__text${page === totalPages - 2 ? '__selected' : ''}`}
+              onClick={() => setPage(totalPages - 2)}
+            >
+              {totalPages - 1}
+            </div>
+          )}
+          <div
+            className={`juke-session__member-list__navigator__text${page === totalPages - 1 ? '__selected' : ''}`}
+            onClick={() => setPage(totalPages - 1)}
+          >
+            {`${totalPages}`}
+          </div>
         </>
       )
     }
-    return (
-      <>
-        <div
-          className="juke-session__member-list__navigator__text__selected"
-          onClick={() => setPage(page)}
-        >
-          {`${page + 1}`}
-        </div>
-        <div
-          className="juke-session__member-list__navigator__text"
-          onClick={() => setPage(page + 1)}
-        >
-          {`${page + 2}`}
-        </div>
-        <div className="juke-session__member-list__navigator__ellipsis">
-          {'...'}
-        </div>
-        <div
-          className="juke-session__member-list__navigator__text"
-          onClick={() => setPage(totalPages - 1)}
-        >
-          {`${totalPages}`}
-        </div>
-      </>
-    )
   }
 
   return (
