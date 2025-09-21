@@ -4,7 +4,7 @@ import { TrackList } from 'src/components'
 import { PlayerContext } from 'src/context'
 
 export const TracksPanel = () => {
-  const {currentTrack} = useContext(PlayerContext)
+  const { currentTrack } = useContext(PlayerContext)
   // const currentTrack = useSelector(selectCurrentTrack)
   // const nextTracks = useSelector(selectNextTracks)
 
