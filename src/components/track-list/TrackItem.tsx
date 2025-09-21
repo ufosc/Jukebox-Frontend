@@ -6,24 +6,24 @@ import { useDrop } from 'react-dnd'
 import { useSelector } from 'react-redux'
 import { ApiClient } from 'src/api'
 import { AdminContext } from 'src/apps/admin'
-import { selectCurrentJukebox, selectCurrentJukeSession } from 'src/store'
+import { selectCurrentJukebox } from 'src/store'
 import { TrackInteractions } from './TrackInteractions'
 import './TrackItem.scss'
 
 export const TrackItem = (props: {
-  track: IQueuedTrack
+  track: Nullable<IQueuedTrack>
   moveListItem: (dragIndex: number, hoverIndex: number) => void
   index: number
-  recommendedBy?: string
+  showIcon: boolean
+  showLength: boolean
 }) => {
-  const { track, moveListItem, index, recommendedBy } = props
+  const { track, moveListItem, index, showIcon, showLength } = props
 
   const adminStatus = useContext(AdminContext)
   const ref = useRef<HTMLLIElement>(null)
 
   const network = ApiClient.getInstance()
   const currentJukebox = useSelector(selectCurrentJukebox)
-  const currentJukeSession = useSelector(selectCurrentJukeSession)
 
   const [targetPos, setTargetPos] = useState(-1)
   const [hoverIndexNum, setHoverIndexNum] = useState(-1)
@@ -59,17 +59,18 @@ export const TrackItem = (props: {
     },
     drop: (item: any, monitor: any) => {
       console.log(`Moving the ${originalIndex} to ${targetPos}`)
-      // if (currentJukebox) {
-      //   const res = network.setQueueOrder(currentJukebox.id, originalIndex, {
-      //     ordering: targetPos,
-      //   })
-      //   console.log(res)
-      // }
+      if (currentJukebox) {
+        // TODO: Fix swapping tracks
+        // const res = network.swapTracks(
+        //   currentJukebox.id,
+        //   originalIndex,
+        //   targetPos,
+        // )
+        // console.log(res)
+      }
 
       //update track position
       setOriginalIndex(targetPos)
-      // if (!currentJukebox || !currentJukeSession) return
-      // network.setQueueOrder(currentJukebox.id, currentJukeSession.id, {ordering: []})
     },
   })
 
@@ -100,12 +101,16 @@ export const TrackItem = (props: {
           {!track && <p>No track specified.</p>}
           {track && (
             <>
-              <div className="track-list-track__preview">
-                <img
-                  src={track?.track.preview_url ?? ''}
-                  alt={track.track.name}
-                />
-              </div>
+              {!showIcon ? (
+                <></>
+              ) : (
+                <div className="track-list-track__preview">
+                  <img
+                    src={track.track.preview_url ?? ''}
+                    alt={track.track.name}
+                  />
+                </div>
+              )}
               <div className="track-list-track__name-group">
                 <h3 className="track-list-track__name">{track.track.name}</h3>
                 <span className="track-list-track__artists">
@@ -113,11 +118,15 @@ export const TrackItem = (props: {
                 </span>
               </div>
               <div className="track-list-track__info track-list-track__rec-by">
-                {recommendedBy || 'Spotify'}
+                {track.queued_by.user_id || 'Spotify'}
               </div>
-              <div className="track-list-track__info track-list-track__duration">
-                {formatDuration(track.track.duration_ms)}
-              </div>
+              {!showLength ? (
+                <></>
+              ) : (
+                <div className="track-list-track__info track-list-track__duration">
+                  {formatDuration(track.track.duration_ms)}
+                </div>
+              )}
               <div className="track-list-track__info track-list-track__activity">
                 <TrackInteractions track={track} index={index} />
               </div>

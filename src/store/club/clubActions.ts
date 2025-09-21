@@ -19,7 +19,7 @@ export const fetchAllClubs = async () => {
 export const fetchCurrentClubInfo = async () => {
   let club = selectCurrentClub(store.getState())
   const clubs = selectAllClubs(store.getState())
-  
+
   console.log('current club:', club)
 
   if (!club) {

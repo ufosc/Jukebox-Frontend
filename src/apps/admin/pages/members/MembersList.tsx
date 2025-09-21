@@ -40,7 +40,6 @@ export const MembersList: React.FC = () => {
   }
 
   useEffect(() => {
-    console.log('updating members')
     updateMembers()
     return () => {
       console.log('Done Getting Users')

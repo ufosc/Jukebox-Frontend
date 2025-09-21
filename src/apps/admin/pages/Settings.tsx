@@ -1,10 +1,10 @@
 import { useContext } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { PlayerContext } from 'src/context'
 import { logoutUser, selectAllClubs, selectUser } from 'src/store'
 import { selectAllJukeboxes, selectCurrentJukebox } from 'src/store/jukebox'
 
+import { PlayerContext } from 'src/context'
 import './Settings.scss'
 
 export const Settings = () => {
@@ -38,9 +38,7 @@ export const Settings = () => {
                 <button>Edit</button>
               </div>
 
-              <div className="details">
-                {user?.profile.name ?? user!.username}
-              </div>
+              <div className="details">{user?.profile.name}</div>
             </div>
 
             <div className="settings-category">

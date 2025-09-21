@@ -7,10 +7,13 @@ export const TrackList = (props: {
   tracks: IQueuedTrack[]
   offsetCount?: boolean
   maxCount?: number
+  showIcon?: boolean
+  showLength?: boolean
 }) => {
-  const { tracks, offsetCount, maxCount } = props
+  const { tracks, offsetCount, maxCount, showIcon, showLength } = props
 
   const initialCopy = useMemo(() => structuredClone(tracks), [tracks])
+
   const [queuedTracks, swapTracks] = useState<IQueuedTrack[]>(initialCopy)
 
   const moveListItem = useCallback(
@@ -50,6 +53,8 @@ export const TrackList = (props: {
                   key={track.id}
                   moveListItem={moveListItem}
                   index={index}
+                  showIcon={showIcon !== undefined ? false : true}
+                  showLength={showLength !== undefined ? false : true}
                 />
               ),
           )
