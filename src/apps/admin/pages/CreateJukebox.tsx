@@ -1,32 +1,34 @@
 import type { ChangeEvent } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { ApiClient } from 'src/api'
 import { Form, FormInputGroup, FormSection } from 'src/components'
-import { Network } from 'src/network'
 import {
+  selectAccountLinks,
   selectAllClubs,
-  selectAllLinks,
   selectCurrentClub,
-  selectJukeboxLinks,
+  selectUserAccounts,
 } from 'src/store'
 
 import './CreateJukebox.scss'
 import { SpotifyLinkAccount } from './members/SpotifyDetail'
 
 export const CreateJukebox = () => {
-  const network = Network.getInstance()
+  const network = ApiClient.getInstance()
   const [selectedClub, setSelectedClub] = useState(-1)
   const [jbxName, setJbxName] = useState('')
   const jukeboxRef = useRef<HTMLInputElement>(null)
   const clubRef = useRef<HTMLInputElement>(null)
   const currentClub = useSelector(selectCurrentClub)
   const clubs = useSelector(selectAllClubs)
-  const jukeboxLinks = useSelector(selectJukeboxLinks)
-  const spotifyLinks = useSelector(selectAllLinks)
+  const jukeboxLinks = useSelector(selectAccountLinks)
+  const spotifyLinks = useSelector(selectUserAccounts)
 
   const dispatch = useDispatch()
 
-  const [selectedAccounts, setSelectedAccounts] = useState<ISpotifyLink[]>([])
+  const [selectedAccounts, setSelectedAccounts] = useState<ISpotifyAccount[]>(
+    [],
+  )
 
   const handleLoginSubmit = async () => {
     //const selectedSClub: NetworkResponse<IClub> = await network.getClub(parseInt(selectedClub))!;
@@ -43,7 +45,10 @@ export const CreateJukebox = () => {
     console.log(selectedAccounts)
 
     //Add API Call to create new Jukebox
-    const res = network.createJukebox(clubID, jbxName, selectedAccounts)
+    const res = await network.jukeboxes.create({
+      club_id: clubID,
+      name: jbxName,
+    })
 
     //remove Later
     console.log(res)
@@ -61,7 +66,7 @@ export const CreateJukebox = () => {
     setJbxName(newName)
   }
 
-  const changeAccounts = (link: ISpotifyLink) => {
+  const changeAccounts = (link: ISpotifyAccount) => {
     console.log(link.spotify_email)
 
     const isChosen: boolean = selectedAccounts.some(
@@ -69,7 +74,7 @@ export const CreateJukebox = () => {
     )
 
     if (isChosen) {
-      const newSpotifyList: ISpotifyLink[] = selectedAccounts.filter(
+      const newSpotifyList: ISpotifyAccount[] = selectedAccounts.filter(
         (account) => account.spotify_email !== link.spotify_email,
       )
       setSelectedAccounts(newSpotifyList)

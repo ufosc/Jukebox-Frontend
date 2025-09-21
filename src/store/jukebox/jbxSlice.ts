@@ -1,11 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { builderDefaults } from 'src/utils'
 import {
-  thunkFetchCurrentlyPlaying,
+  thunkCreateAccountLink,
+  thunkDeleteAccountLink,
+  thunkFetchAccountLinks,
+  thunkFetchJukebox,
   thunkFetchJukeboxes,
-  thunkFetchNextTracks,
+  thunkFetchJukeSession,
+  thunkFetchJukeSessionMembership,
+  thunkFetchQueue,
+  thunkJoinJukeSession,
   thunkSyncSpotifyTokens,
-  thunkFetchJBX,
+  thunkUpdateAccountLink,
 } from './jbxThunks'
 
 export const jukeboxSlice = createSlice({
@@ -14,66 +20,23 @@ export const jukeboxSlice = createSlice({
     status: 'idle' as StoreStatus,
     error: null as string | null,
     jukeboxes: [] as IJukebox[],
-    /** User is connected to spotify, and the player is active */
     hasAux: false,
     currentJukebox: null as IJukebox | null,
-    playerState: null as IPlayerState | null,
-    nextTracks: [] as IQueuedTrack[],
+    currentJukeSession: null as IJukeSession | null,
+    currentJukeSessionMembership: null as IJukeSessionMembership | null,
+    queue: null as IQueue | null,
     spotifyAuth: null as ISpotifyAccount | null,
     liveProgress: 0 as number | null,
+    accountLinks: [] as IAccountLink[],
   },
   reducers: {
-    setPlayerStateReducer: (state, action: { payload: IPlayerState }) => {
-      state.playerState = action.payload
-    },
-    setIsPlayingReducer: (state, action: { payload: boolean }) => {
-      if (!state.playerState) return
-      state.playerState.is_playing = action.payload
-    },
-    setProgressReducer: (state, action: { payload: number }) => {
-      if (!state.playerState) return
-      state.playerState.progress = action.payload
-      state.liveProgress = action.payload
-    },
-    setInteractionReducer: (
-      state,
-      action: { payload: IJukeboxInteraction },
-    ) => {
-      if (
-        action.payload.jukebox_id !== state.currentJukebox?.id ||
-        !state.playerState?.current_track
-      ) {
-        return
-      }
-
-      switch (action.payload.action) {
-        case 'like':
-          state.playerState.current_track.interactions.likes += 1
-          break
-        case 'dislike':
-          state.playerState.current_track.interactions.dislikes += 1
-          break
-      }
-    },
-    performPlayerUpdateReducer: (state, action: { payload: IPlayerUpdate }) => {
-      if (!state.playerState?.current_track) return
-
-      Object.keys(action.payload).forEach((key: any) => {
-        if (action.payload[key as keyof IPlayerUpdate] === undefined) {
-          delete action.payload[key as keyof IPlayerUpdate]
-        }
-      })
-      Object.assign(state.playerState, action.payload)
-
-      if (action.payload.progress !== undefined) {
-        state.liveProgress = action.payload.progress
-      }
-    },
-    setNextTracksReducer: (state, action: { payload: IQueuedTrack[] }) => {
-      state.nextTracks = action.payload
-    },
     setHasAuxReducer: (state, action: { payload: boolean }) => {
       state.hasAux = action.payload
+    },
+    setCurrentJukeboxReducer: (state, action: { payload: { id: number } }) => {
+      state.currentJukebox =
+        state.jukeboxes.find((jukebox) => jukebox.id === action.payload.id) ??
+        null
     },
   },
   extraReducers: (builder) => {
@@ -88,21 +51,32 @@ export const jukeboxSlice = createSlice({
         state.currentJukebox = state.jukeboxes[0]
       }
     })
-    builder.addCase(thunkFetchCurrentlyPlaying.fulfilled, (state, action) => {
+    builder.addCase(thunkFetchJukeSession.fulfilled, (state, action) => {
       if (!action.payload.success) {
-        state.playerState = null
+        state.currentJukeSession = null
+        state.currentJukeSessionMembership = null
         return
       }
-
-      state.playerState = action.payload.data
+      state.currentJukeSession = action.payload.data
     })
-    builder.addCase(thunkFetchNextTracks.fulfilled, (state, action) => {
+    builder.addCase(
+      thunkFetchJukeSessionMembership.fulfilled,
+      (state, action) => {
+        if (!action.payload.success) {
+          state.currentJukeSessionMembership = null
+          return
+        }
+        state.currentJukeSessionMembership = action.payload.data
+      },
+    )
+
+    builder.addCase(thunkFetchQueue.fulfilled, (state, action) => {
       if (!action.payload.success) {
-        state.nextTracks = []
+        state.queue = null
         return
       }
 
-      state.nextTracks = action.payload.data ?? []
+      state.queue = action.payload.data
     })
     builder.addCase(thunkSyncSpotifyTokens.fulfilled, (state, action) => {
       if (!action.payload.success) {
@@ -110,16 +84,76 @@ export const jukeboxSlice = createSlice({
         return
       }
 
-      state.spotifyAuth = action.payload.data
+      state.spotifyAuth = action.payload.data.spotify_account
     })
-    builder.addCase(thunkFetchJBX.fulfilled, (state, action) => {
+    builder.addCase(thunkFetchJukebox.fulfilled, (state, action) => {
       if (action.payload.success) {
         state.currentJukebox = action.payload.data
         return
       }
     })
+    builder.addCase(thunkFetchAccountLinks.fulfilled, (state, action) => {
+      if (action.payload.success) {
+        state.accountLinks = action.payload.data
+        state.spotifyAuth =
+          action.payload.data.find((account) => account.active)
+            ?.spotify_account ?? null
+        state.error = null
+      } else {
+        state.error = action.payload.data.message
+      }
+    })
+    builder.addCase(thunkCreateAccountLink.fulfilled, (state, action) => {
+      if (action.payload.success) {
+        const { data } = action.payload
+        state.accountLinks.push(data)
+        if (data.active) {
+          state.spotifyAuth = data.spotify_account
+        }
+        state.error = null
+      } else {
+        state.error = action.payload.data.message
+      }
+    })
+    builder.addCase(thunkUpdateAccountLink.fulfilled, (state, action) => {
+      if (action.payload.success) {
+        const { data } = action.payload
+        state.accountLinks = state.accountLinks.map((accountLink) => {
+          if (accountLink.id === data.id) {
+            return data
+          } else {
+            return accountLink
+          }
+        })
 
-    builderDefaults(builder)
+        if (data.active) {
+          state.spotifyAuth = data.spotify_account
+        }
+        state.error = null
+      } else {
+        state.error = action.payload.data.message
+      }
+    })
+    builder.addCase(thunkDeleteAccountLink.fulfilled, (state, action) => {
+      const { res, accountLinkId } = action.payload
+      if (res.success) {
+        state.accountLinks = state.accountLinks.filter(
+          (link) => link.id !== accountLinkId,
+        )
+        state.error = null
+      } else {
+        state.error = res.data.message
+      }
+    })
+    builder.addCase(thunkJoinJukeSession.fulfilled, (state, action) => {
+      if (!action.payload.success) {
+        state.error = action.payload.data.message
+        return
+      }
+      state.currentJukeSessionMembership = action.payload.data
+      state.error = null
+    }),
+      builderDefaults(builder)
   },
 })
 

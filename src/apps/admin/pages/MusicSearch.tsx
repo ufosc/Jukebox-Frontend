@@ -1,16 +1,16 @@
 import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react'
 import { useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
+import { ApiClient } from 'src/api'
 import { TrackSearchList } from 'src/components/track-list/SearchTrackList'
-import { Network } from 'src/network'
 import { selectCurrentJukebox } from 'src/store'
 import './MusicSearch.scss'
 
 export const MusicSearch = () => {
   const [inputs, setInputs] = useState({ track: '', album: '', artist: '' })
-  const [tracks, setTracks] = useState<ITrackDetails[]>([])
+  const [tracks, setTracks] = useState<ITrack[]>([])
   const jukebox = useSelector(selectCurrentJukebox)
-  const network = Network.getInstance()
+  const network = ApiClient.getInstance()
 
   const location = useLocation()
 
@@ -26,7 +26,7 @@ export const MusicSearch = () => {
     event.preventDefault()
     if (jukebox !== null) {
       console.log(inputs)
-      const tracksResult = await network.getTracks(
+      const tracksResult = await network.searchTracks(
         jukebox.id,
         inputs.track,
         inputs.album,
@@ -34,8 +34,8 @@ export const MusicSearch = () => {
       )
       console.log(tracksResult)
       if (tracksResult.success) {
-        console.log(tracksResult.data.tracks.items)
-        setTracks(tracksResult.data.tracks.items)
+        console.log(tracksResult.data.tracks)
+        setTracks(tracksResult.data.tracks)
       }
     } else {
       console.log('Jukebox is not connected')

@@ -12,11 +12,7 @@ export const TrackList = (props: {
 }) => {
   const { tracks, offsetCount, maxCount, showIcon, showLength } = props
 
-  function deepCopy<T>(value: T): T {
-    return structuredClone(value)
-  }
-
-  const initialCopy = useMemo(() => deepCopy(tracks), [tracks])
+  const initialCopy = useMemo(() => structuredClone(tracks), [tracks])
 
   const [queuedTracks, swapTracks] = useState<IQueuedTrack[]>(initialCopy)
 
@@ -36,7 +32,7 @@ export const TrackList = (props: {
   )
 
   useEffect(() => {
-    swapTracks(deepCopy(tracks))
+    swapTracks(structuredClone(tracks))
   }, [tracks])
 
   return (
@@ -54,7 +50,7 @@ export const TrackList = (props: {
               track && (
                 <TrackItem
                   track={track}
-                  key={track.queue_id}
+                  key={track.id}
                   moveListItem={moveListItem}
                   index={index}
                   showIcon={showIcon !== undefined ? false : true}

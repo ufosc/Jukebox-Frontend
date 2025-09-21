@@ -2,16 +2,16 @@ import type { ChangeEvent } from 'react'
 import React, { useEffect, useState } from 'react'
 import './MembersList.css'
 
-import { MemberObj } from '../../components/memberObj'
 import { useSelector } from 'react-redux'
+import { ApiClient } from 'src/api'
 import { selectCurrentClub } from 'src/store'
-import { Network } from 'src/network'
+import { MemberObj } from '../../components/memberObj'
 
 export const MembersList: React.FC = () => {
   const [searchMember, setSearchMember] = useState('')
   const [members, setMembers] = useState<IClubMembership[]>([])
   const currentClub = useSelector(selectCurrentClub)
-  const network = Network.getInstance()
+  const network = ApiClient.getInstance()
 
   const [loading, setLoading] = useState(false)
 
@@ -28,7 +28,7 @@ export const MembersList: React.FC = () => {
     console.log(currentClub?.id)
     const clubId = currentClub?.id
     if (clubId !== undefined) {
-      const res = await network.getMembers(clubId)
+      const res = await network.getClubMembers(clubId)
       console.log(res)
       if (res.success) {
         setMembers(res.data)

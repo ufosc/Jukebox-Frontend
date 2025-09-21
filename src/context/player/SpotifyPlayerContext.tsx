@@ -12,42 +12,38 @@ import {
   useState,
   type ReactNode,
 } from 'react'
+import { ApiClient } from 'src/api'
 import { SpotifyPlayer } from 'src/lib'
-import { Network } from 'src/network'
 import { setHasAux } from 'src/store'
 import { KeyboardContext } from '../KeyboardContext'
 
-export const SpotifyContext = createContext({
+export const SpotifyPlayerContext = createContext({
   player: null as Spotify.Player | null,
   /** This device is connected for playback */
   deviceIsActive: false,
   /** The player has authenticated with Spotify */
   spotifyIsConnected: false,
-
   deviceId: '',
-
   playerState: null as IPlayerAuxState | null,
-  // nextTracks: [] as Spotify.Track[],
   nextTrack: () => {},
   prevTrack: () => {},
   play: () => {},
   pause: () => {},
   like: () => {},
   repeat: () => {},
-  togglePlay: () => {},
-  connectDevice: () => {},
   setProgress: (timeMs: number) => {},
+  togglePlay: () => {},
 })
 
-export const SpotifyProvider = (props: {
+export const SpotifyPlayerProvider = (props: {
   children: ReactNode
   token: Nullable<string>
   jukebox: IJukebox | null
-  onPlayerStateChange: (state?: IPlayerAuxUpdate) => void
+  onPlayerStateChange: (state?: IPlayerAuxClientUpdate) => void
 }) => {
   const { children, token, jukebox, onPlayerStateChange } = props
   const playerRef = useRef<Spotify.Player | null>(null)
-  const networkRef = useRef<Network>()
+  const networkRef = useRef<ApiClient>()
 
   const [initialized, setInitialized] = useState(false)
   const [playerState, setPlayerState] = useState<IPlayerAuxState | null>(null)
@@ -58,10 +54,11 @@ export const SpotifyProvider = (props: {
   const { onSpace, onArrow } = useContext(KeyboardContext)
 
   useEffect(() => {
-    networkRef.current = Network.getInstance()
+    networkRef.current = ApiClient.getInstance()
   }, [])
 
   useEffect(() => {
+    console.log('token changed')
     if (token && jukebox && !playerRef.current) {
       SpotifyPlayer.getInstance(token)
         .getPlayer()
@@ -77,6 +74,7 @@ export const SpotifyProvider = (props: {
 
   // Control the aux value in state
   useEffect(() => {
+    console.log('active or connected changed')
     if (connected && active) {
       setHasAux(true)
     } else {
@@ -99,20 +97,12 @@ export const SpotifyProvider = (props: {
     console.debug('Player state changed:', state)
 
     setPlayerState((prev) => {
-      const changedTracks =
-        spotifyTrack?.id !== prev?.current_track?.id || state.position === 0
-
-      const newState = {
+      return {
         ...prev,
-        jukebox_id: jukebox?.id,
-        current_track: spotifyTrack?.id ? (spotifyTrack as IPlayerTrack) : null,
+        current_track: spotifyTrack?.id ? spotifyTrack : null,
         progress: state.position,
         is_playing: !state.paused,
-        changed_tracks: changedTracks,
       }
-
-      onPlayerStateChange(newState)
-      return newState
     })
     setDeviceId(state.playback_id)
 
@@ -123,6 +113,7 @@ export const SpotifyProvider = (props: {
   }
 
   useEffect(() => {
+    console.log('jukebox, etc, changed')
     if (initialized && jukebox !== null) {
       // When changed event is emitted, update state with the current track
       playerRef.current?.addListener(
@@ -184,12 +175,6 @@ export const SpotifyProvider = (props: {
     console.log('TODO: Repeat Track')
   }
 
-  const connectDevice = async () => {
-    if (jukebox) {
-      await networkRef.current?.connectSpotifyDevice(jukebox.id, deviceId)
-    }
-  }
-
   const setTimeProgress = (timeMs: number) => {
     playerRef.current?.seek(timeMs)
   }
@@ -225,7 +210,7 @@ export const SpotifyProvider = (props: {
   })
 
   return (
-    <SpotifyContext.Provider
+    <SpotifyPlayerContext.Provider
       value={{
         player: playerRef.current,
         deviceIsActive: active,
@@ -238,12 +223,11 @@ export const SpotifyProvider = (props: {
         pause,
         like,
         repeat,
-        togglePlay,
-        connectDevice,
         setProgress: setTimeProgress,
+        togglePlay,
       }}
     >
       {children}
-    </SpotifyContext.Provider>
+    </SpotifyPlayerContext.Provider>
   )
 }

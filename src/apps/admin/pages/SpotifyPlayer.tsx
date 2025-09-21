@@ -1,45 +1,37 @@
 import { useContext, useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
-import { AudioPlayer, Form, FormSelectGroup, FormSubmit } from 'src/components'
-import { REACT_ENV } from 'src/config'
-import { SpotifyContext } from 'src/context'
+import { AudioPlayer } from 'src/components'
 import {
   authenticateLink,
   selectCurrentClub,
   selectCurrentMembership,
-  updateMembership,
 } from 'src/store'
-import {
-  selectCurrentTrack,
-  selectJukeboxLinks,
-  selectNextTracks,
-} from 'src/store/jukebox'
+import { selectAccountLinks, selectNextTracks } from 'src/store/jukebox'
 
-import { selectAllLinks, selectUser } from 'src/store/user'
+import { selectUser, selectUserAccounts } from 'src/store/user'
 import { formatDuration } from 'src/utils'
 import { SpotifyPlayerAccount } from '../components/SpotifyPlayer/SpotifyPlayerAccount'
 import { SpotifyPlayerDetail } from '../components/SpotifyPlayer/SpotifyPlayerDetail'
 import { SpotifyPlayerInfo } from '../components/SpotifyPlayer/SpotifyPlayerInfo'
 
-import { Network } from 'src/network'
-const network = Network.getInstance()
+import { ApiClient } from 'src/api'
+import { PlayerContext } from 'src/context'
+const network = ApiClient.getInstance()
 
 export const SpotifyPlayer = () => {
-  const jukeboxLinks = useSelector(selectJukeboxLinks)
-  const currentTrack = useSelector(selectCurrentTrack)
+  const jukeboxLinks = useSelector(selectAccountLinks)
   const nextTracks = useSelector(selectNextTracks)
-  const spotifyLinks = useSelector(selectAllLinks)
-  //const dispatch = useDispatch();
-
+  const spotifyLinks = useSelector(selectUserAccounts)
   const currentClub = useSelector(selectCurrentClub)
   const currentUser = useSelector(selectUser)
   const currentMembership = useSelector(selectCurrentMembership)
+  const { currentTrack } = useContext(PlayerContext)
 
-  const {
-    deviceIsActive: isActive,
-    spotifyIsConnected: isConnected,
-    connectDevice,
-  } = useContext(SpotifyContext)
+  // const {
+  //   deviceIsActive: isActive,
+  //   spotifyIsConnected: isConnected,
+  //   connectDevice,
+  // } = useContext(SpotifyPlayerContext)
 
   const connectLinkIdRef = useRef<HTMLSelectElement>(null)
 
@@ -62,7 +54,7 @@ export const SpotifyPlayer = () => {
   }
 
   const getSpotLinks = async () => {
-    const response = await network.getLinks()
+    const response = await network.getSpotifyAccounts()
     console.log(response.data)
   }
 
@@ -78,19 +70,16 @@ export const SpotifyPlayer = () => {
       currentClub &&
       currentUser
     ) {
-      const foundClub = currentUser.clubs.find(
+      const foundClub = currentUser.clubs?.find(
         (club) => club.name === currentClub.name,
       )
       if (!foundClub) {
         throw new Error('Club not found in user clubs.')
       }
       const clubId = foundClub.id
-      const response = await network.getCurrentMembership(
-        currentClub?.id,
-        clubId,
-      )
+      const response = await network.getMyClubMemberships()
       console.log(response)
-      updateMembership(currentClub?.id, clubId)
+      // fetchMemberships()
       console.log(currentMembership)
     }
   }
@@ -149,15 +138,15 @@ export const SpotifyPlayer = () => {
             </div>
           </div>
 
-          <p className="playerActive">
+          {/* <p className="playerActive">
             {(isActive && 'Player is active') || 'Player is not active'}
           </p>
           <p className="playerConnected">
             {(isConnected && 'Player is connected') ||
               'Player is not connected'}
-          </p>
+          </p> */}
 
-          {!isActive && (
+          {/* {!isActive && (
             <div>
               My Accounts
               <Form onSubmit={handleConnectPlayback}>
@@ -175,15 +164,13 @@ export const SpotifyPlayer = () => {
                 Switch Playback
               </button>
             </div>
-          )}
+          )} */}
           <div className="spotify-player-desc">
             <div className="spotify-song-title">
-              {currentTrack?.track.name ?? 'No Track Playing'}
+              {currentTrack?.name ?? 'No Track Playing'}
             </div>
             <div className="spotify-song-author">
-              {currentTrack?.track.artists
-                .map((artist) => artist.name)
-                .join(', ') ?? 'Author Unavailable'}
+              {currentTrack?.artists.join(', ') ?? 'Author Unavailable'}
             </div>
           </div>
           <div className="audio-container">
@@ -194,7 +181,7 @@ export const SpotifyPlayer = () => {
             <SpotifyPlayerDetail firstDetail="Explicit" secondDetail="False" />
             <SpotifyPlayerDetail
               firstDetail={'Album'}
-              secondDetail={currentTrack?.track.album.name ?? 'Unavailable'}
+              secondDetail={currentTrack?.album ?? 'Unavailable'}
             />
             <SpotifyPlayerDetail
               firstDetail="Release Date"
@@ -232,7 +219,7 @@ export const SpotifyPlayer = () => {
                           <>
                             <span className="track-list-track__preview">
                               <img
-                                src={track?.track.album?.images[0].url}
+                                src={track?.track.preview_url ?? ''}
                                 alt={track.track.name}
                               />
                             </span>
@@ -241,9 +228,7 @@ export const SpotifyPlayer = () => {
                                 {track.track.name}
                               </h3>
                               <span className="track-list-track__artists">
-                                {track.track.artists
-                                  .map((artist) => artist.name)
-                                  .join(', ')}
+                                {track.track.artists.join(', ')}
                               </span>
                             </div>
 
@@ -277,10 +262,15 @@ export const SpotifyPlayer = () => {
           GetAccount
           <div className="account-container">
             {jukeboxLinks?.map((link) => (
-              <SpotifyPlayerAccount key={link.id} link={link} />
+              <SpotifyPlayerAccount
+                key={link.id}
+                account={link.spotify_account}
+                active={link.active}
+                actions={[]}
+              />
             ))}
           </div>
-          <div className="connect-button-container">
+          {/* <div className="connect-button-container">
             {isConnected && !isActive && (
               <>
                 {REACT_ENV !== 'dev' && (
@@ -293,7 +283,7 @@ export const SpotifyPlayer = () => {
                 )}
               </>
             )}
-          </div>
+          </div> */}
         </div>
       </div>
     </>

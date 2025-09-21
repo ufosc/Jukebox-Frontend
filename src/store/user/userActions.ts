@@ -1,14 +1,14 @@
 import { unwrapResult } from '@reduxjs/toolkit'
-import { Network } from 'src/network'
+import { ApiClient } from 'src/api'
 import { store } from '../store'
 import {
+  thunkGetSpotifyAccounts,
   thunkInitializeUser,
   thunkLoginUser,
   thunkLogoutUser,
-  thunkUpdateLinks,
 } from './userThunks'
 
-const network = Network.getInstance()
+const api = ApiClient.getInstance()
 
 /**
  * If the user token exists, will set logged in to true,
@@ -16,6 +16,7 @@ const network = Network.getInstance()
  */
 export const initializeUser = async () => {
   await store.dispatch(thunkInitializeUser())
+  await store.dispatch(thunkGetSpotifyAccounts())
 }
 
 /**
@@ -28,6 +29,8 @@ export const loginUser = async (usernameOrEmail: string, password: string) => {
     .then(async (res) => {
       if (res.success) {
         await initializeUser()
+      } else {
+        console.error('Error initializing user:', res.data)
       }
       return res
     })
@@ -37,11 +40,11 @@ export const loginUser = async (usernameOrEmail: string, password: string) => {
  * Send user to the google consent screen.
  */
 export const loginUserWithGoogle = (returnPath: string) => {
-  return network.loginWithOauth('google', returnPath)
+  return api.loginWithOauth('google', { returnPath })
 }
 
 export const handleUserOauthReturn = async () => {
-  const res = await network.handleOauthReturn()
+  const res = await api.handleOauthReturn()
   if (!res.success) return res
 
   await initializeUser()
@@ -78,11 +81,4 @@ export const registerUser = async (
  */
 export const logoutUser = async () => {
   await store.dispatch(thunkLogoutUser())
-}
-
-/**
- * Updates the connected Spotify account for a given user
- */
-export const updateLinks = async () => {
-  await store.dispatch(thunkUpdateLinks())
 }

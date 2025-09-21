@@ -1,7 +1,7 @@
 $size: 4rem;
 
 .topbar {
-  --dashboard-gutter: 1rem;
+  // --dashboard-gutter: 1rem;
 
   background-color: var(--color-surface-container);
   position: relative;
@@ -12,9 +12,8 @@ $size: 4rem;
   justify-content: space-between;
   align-items: center;
   z-index: 5;
-  padding-right: 1.1rem;
 
-  padding: var(--dashboard-gutter);
+  padding: 1.6rem var(--dashboard-gutter);
 
   @media (max-width: 375px) {
     padding: 0 0.1rem;
@@ -23,7 +22,7 @@ $size: 4rem;
   &__nav-toggle {
     position: relative;
     display: none;
-    
+
     @include breakpoint('lg') {
       display: block;
     }
@@ -73,12 +72,12 @@ $size: 4rem;
     align-items: center;
     height: 100%;
     gap: 2rem;
-    
+
     &__jukebox {
       display: flex;
       gap: 1rem;
     }
-    
+
     select {
       padding: 6px;
       border-radius: 500px;
@@ -95,23 +94,41 @@ $size: 4rem;
     height: 100%;
   }
 
-  &__club{
+  &__club {
     display: flex;
-    width: 10vw;
     height: 100%;
-    font-family: Poppins;
-    @include font-label("md", 500);
 
     justify-content: center;
     align-items: center;
 
-    &__selection{
+    &__selected {
       text-decoration: underline 3px var(--color-primary);
-
-
+      @include font-label('md', 500);
     }
 
+    &__button {
+      background-color: inherit;
+      color: inherit;
+      border: none;
+      cursor: pointer;
+    }
 
+    &__list {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: stretch;
+
+      &__item {
+        button {
+          border-radius: 5px;
+          width: 100%;
+          justify-content: flex-start;
+          padding: 0.8rem 1.7rem;
+        }
+      }
+    }
   }
 
   &__success {
@@ -149,8 +166,8 @@ $size: 4rem;
     border: none;
     cursor: pointer;
     background-color: var(--color-surface-container);
-    
-    &__container{
+
+    &__container {
       width: 3vw;
       display: flex;
       justify-content: center;
@@ -169,16 +186,16 @@ $size: 4rem;
     }
   }
 
-  &__search-tracks{
+  &__search-tracks {
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    width: 40%
+    width: 40%;
   }
 }
 
-.search-tracks-field{
+.search-tracks-field {
   height: 4vh;
   width: 100%;
   color: var(--color-disabled);
@@ -188,16 +205,15 @@ $size: 4rem;
   padding: 7px 10px;
 
   font-family: Poppins;
-  @include font-label("sm");
+  @include font-label('sm');
 }
 
 .club-selection:focus {
   outline: none;
 }
 
-.activeAux{
+.activeAux {
   width: 100%;
   height: 0.25rem;
   background: var(--color-success);
 }
-

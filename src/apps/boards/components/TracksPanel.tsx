@@ -1,10 +1,12 @@
+import { useContext } from 'react'
 import { useSelector } from 'react-redux'
 import { TrackList } from 'src/components'
-import { selectCurrentTrack, selectNextTracks } from 'src/store'
+import { PlayerContext } from 'src/context'
 
 export const TracksPanel = () => {
-  const currentTrack = useSelector(selectCurrentTrack)
-  const nextTracks = useSelector(selectNextTracks)
+  const { currentTrack } = useContext(PlayerContext)
+  // const currentTrack = useSelector(selectCurrentTrack)
+  // const nextTracks = useSelector(selectNextTracks)
 
   return (
     <div className="board__col board__tracks">
@@ -13,7 +15,7 @@ export const TracksPanel = () => {
           Currently Playing
         </h2>
         <div className="board__tracks__group__inner">
-          <TrackList tracks={(currentTrack && [currentTrack]) || []} />
+          {/* <TrackList tracks={(currentTrack && [currentTrack]) || []} /> */}
         </div>
       </div>
       <div className="board__queue board__tracks__group">
@@ -21,7 +23,7 @@ export const TracksPanel = () => {
           Up Next
         </h2>
         <div className="board__tracks__group__inner">
-          <TrackList tracks={nextTracks} offsetCount={true} maxCount={5} />
+          {/* <TrackList tracks={nextTracks} offsetCount={true} maxCount={5} /> */}
         </div>
       </div>
     </div>

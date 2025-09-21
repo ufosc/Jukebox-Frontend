@@ -1,26 +1,49 @@
+import { localDataFactory } from 'src/utils'
+import { clubActions } from '.'
 import { store } from '../store'
-import { selectCurrentClub } from './clubSelectors'
+import { selectAllClubs, selectCurrentClub } from './clubSelectors'
 import {
   thunkFetchClubInfo,
   thunkFetchClubs,
-  thunkFetchMembership,
+  thunkFetchMemberships,
 } from './clubThunks'
+
+const { setCurrentClubIdReducer } = clubActions
+
+const cachedSelectedClub = localDataFactory<number>('selected-club')
 
 export const fetchAllClubs = async () => {
   await store.dispatch(thunkFetchClubs())
 }
 
 export const fetchCurrentClubInfo = async () => {
-  const club = selectCurrentClub(store.getState())
-  if (!club) return
+  let club = selectCurrentClub(store.getState())
+  const clubs = selectAllClubs(store.getState())
 
-  await store.dispatch(thunkFetchClubInfo(club.id))
+  console.log('current club:', club)
+
+  if (!club) {
+    const clubId = cachedSelectedClub.get()
+    const selected = clubs.find((c) => c.id === clubId)
+
+    if (clubId != null && selected) {
+      club = selected
+    } else if (clubs.length > 0) {
+      club = clubs[0]
+    } else {
+      return
+    }
+  }
+
+  cachedSelectedClub.set(club.id)
+  store.dispatch(setCurrentClubIdReducer(club.id))
 }
 
-export const updateClub = async (clubID: number) => {
+export const setCurrentClub = async (clubID: number) => {
+  store.dispatch(setCurrentClubIdReducer(clubID))
   await store.dispatch(thunkFetchClubInfo(clubID))
 }
 
-export const updateMembership = async (clubId: number, memberId: number) => {
-  await store.dispatch(thunkFetchMembership({ clubId, memberId }))
+export const fetchMemberships = async () => {
+  await store.dispatch(thunkFetchMemberships())
 }

@@ -32,8 +32,15 @@
   width: 40px;
   height: 40px;
   border-radius: 5px;
-  border: 1px solid lightgray;
+  // border: 0.5px solid lightgray;
   background-color: var(--color-label-variant);
+  overflow: hidden;
+  border: none;
+  
+  img {
+    width: 120%;
+    height: 120%;
+  }
 }
 
 .profile-border-container {
@@ -43,7 +50,7 @@
   margin-left: 20px;
   margin-right: 20px;
   border-radius: 8px;
-  border: 1px solid whitesmoke;
+  border: 1px solid var(--color-outline-variant);
   width: 46px;
   height: 46px;
 }

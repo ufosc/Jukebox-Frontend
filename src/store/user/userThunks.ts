@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { Network } from 'src/network'
+import { ApiClient } from 'src/api'
 
-const network = Network.getInstance()
+const network = ApiClient.getInstance()
 
 export const thunkLoginUser = createAsyncThunk(
   'user/loginUser',
@@ -14,7 +14,7 @@ export const thunkLoginUser = createAsyncThunk(
 export const thunkInitializeUser = createAsyncThunk(
   'user/fetchInfo',
   async () => {
-    return await network.getCurrentUser()
+    return await network.getMe()
   },
 )
 
@@ -22,6 +22,9 @@ export const thunkLogoutUser = createAsyncThunk('user/logout', async () => {
   return await network.logout()
 })
 
-export const thunkUpdateLinks = createAsyncThunk('users/links', async () => {
-  return await network.getLinks()
-})
+export const thunkGetSpotifyAccounts = createAsyncThunk(
+  'users/links',
+  async () => {
+    return await network.getSpotifyAccounts()
+  },
+)

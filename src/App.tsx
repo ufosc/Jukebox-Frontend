@@ -7,29 +7,34 @@ import {
   KeyboardProvider,
   PlayerProvider,
   SocketContext,
-  SpotifyProvider,
+  SpotifyPlayerProvider,
   Theme,
 } from './context'
 import {
   checkLinkAuth,
-  fetchNextTracks,
+  fetchCurrentClubInfo,
+  fetchCurrentJukeboxInfo,
+  fetchCurrentJukeSessionInfo,
+  fetchJukeboxes,
+  selectCurrentClub,
   selectCurrentJukebox,
+  selectCurrentJukeSession,
   selectSpotifyAuth,
   selectUserLoggedIn,
-  setPlayerIsPlaying,
-  setPlayerProgress,
-  updateLinks,
 } from './store'
 
 export const App = () => {
   const spotifyAuth = useSelector(selectSpotifyAuth)
   const currentJukebox = useSelector(selectCurrentJukebox)
+  const currentSession = useSelector(selectCurrentJukeSession)
   const isLoggedIn = useSelector(selectUserLoggedIn)
+  const currentClub = useSelector(selectCurrentClub)
 
   const { emitMessage } = useContext(SocketContext)
 
   // Triggers when receive spotify credentials from server
   useEffect(() => {
+    console.log('spotify auth changed')
     if (!spotifyAuth || !isLoggedIn) return
 
     const timer = setInterval(async () => {
@@ -41,37 +46,47 @@ export const App = () => {
 
   // Primary function that runs when Spotify Player changes
   const handlePlayerTrackChange = useCallback(
-    (state?: IPlayerAuxUpdate) => {
+    (state?: IPlayerAuxClientUpdate) => {
+      console.log('current jukebox changed')
       if (!state) {
         emitMessage('player-aux-update', {})
         return
       }
       // Update player state with select settings
-      setPlayerIsPlaying(state.is_playing)
-      setPlayerProgress(state.progress)
+      // setPlayerIsPlaying(state.is_playing)
+      // setPlayerProgress(state.progress)
       // Update server with new state
-      emitMessage<IPlayerAuxUpdate>('player-aux-update', state)
+      emitMessage<IPlayerAuxClientUpdate>('player-aux-update', state)
     },
     [currentJukebox],
   )
 
   useEffect(() => {
-    fetchNextTracks()
+    console.log('current club:', currentClub)
+    if (!currentClub) return
+    fetchCurrentClubInfo().then()
+    fetchJukeboxes(currentClub.id).then()
+  }, [currentClub])
+
+  // Initialize Jukebox
+  useEffect(() => {
+    console.log('fetching session queue')
+
+    fetchCurrentJukeboxInfo().then(() => {
+      fetchCurrentJukeSessionInfo()
+    })
   }, [currentJukebox])
 
-  /**
-   * Updates the links for usage
-   * Figure out the placement later
-   */
-  useEffect(() => {
-    updateLinks()
-  }, [])
+  // Initialize JukeSession
+  // useEffect(() => {
+  //   // ...
+  // }, [currentSession])
 
   return (
     <Theme>
       <KeyboardProvider>
         <NoticesProvider>
-          <SpotifyProvider
+          <SpotifyPlayerProvider
             token={spotifyAuth?.access_token}
             jukebox={currentJukebox}
             onPlayerStateChange={handlePlayerTrackChange}
@@ -79,7 +94,7 @@ export const App = () => {
             <PlayerProvider>
               <Outlet />
             </PlayerProvider>
-          </SpotifyProvider>
+          </SpotifyPlayerProvider>
         </NoticesProvider>
       </KeyboardProvider>
     </Theme>

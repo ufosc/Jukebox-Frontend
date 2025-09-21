@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useContext } from 'react'
+import { ChangeEvent, useContext } from 'react'
 import { useSelector } from 'react-redux'
 import { ThemeContext } from 'src/context'
 
@@ -7,21 +7,21 @@ import { NavItem } from './NavItem'
 import '../Sidebar.scss'
 
 import {
-  selectCurrentJukebox,
+  BoardIcon,
+  HomeIcon,
+  JamIcon,
+  JukeboxIcon,
+  MusicIcon,
+  SettingsIcon,
+  SpeakerIcon,
+} from 'src/assets/Icons'
+import {
   selectAllJukeboxes,
   selectCurrentClub,
-  fetchJukebox,
+  selectCurrentJukebox,
+  setCurrentJukebox,
 } from 'src/store'
-import {
-  JukeboxIcon,
-  HomeIcon,
-  SpeakerIcon,
-  BoardIcon,
-  MusicIcon,
-  JamIcon,
-  SettingsIcon,
-} from 'src/assets/Icons'
-import { mergeClassNames } from 'src/utils'
+import { truncate } from 'src/utils/helpers/truncate'
 
 export const AdminSidebar = () => {
   const { toggleMode, mode } = useContext(ThemeContext)
@@ -36,7 +36,7 @@ export const AdminSidebar = () => {
 
   const handleJukeboxChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedJukeboxId: number = Number(e.target.value)
-    fetchJukebox(selectedJukeboxId)
+    setCurrentJukebox(selectedJukeboxId)
 
     if (currentJukebox !== null) {
       console.log('Selected JBX is: ', currentJukebox.id)
@@ -95,17 +95,13 @@ export const AdminSidebar = () => {
                   <button className="navbar__dropdown__button"></button>
                 </span>
               </li>
-              {/*<li className="navbar__nav__list__item">
-                    <span className="navbar__nav__item">
-                      <JamIcon />
-                      <NavItem route="members" text="Members" end />
-                      <button
-                        className="navbar__dropdown__button"
-                      >
-    
-                      </button>
-                    </span>
-                  </li>*/}
+              <li className="navbar__nav__list__item">
+                <span className="navbar__nav__item">
+                  <JamIcon />
+                  <NavItem route="members" text="Members" end />
+                  <button className="navbar__dropdown__button"></button>
+                </span>
+              </li>
               <li className="navbar__nav__list__item">
                 <span className="navbar__nav__item">
                   <SettingsIcon />
@@ -133,7 +129,7 @@ export const AdminSidebar = () => {
                 )}
                 {allJukeboxes.map((jukebox) => (
                   <option key={jukebox.id} value={jukebox.id}>
-                    {jukebox.name}
+                    {truncate(jukebox.name, 22)}
                   </option>
                 ))}
               </select>

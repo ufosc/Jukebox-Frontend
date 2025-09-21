@@ -1,31 +1,26 @@
 import type { ReactNode } from 'react'
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { ApiClient } from 'src/api'
 import {
-  fetchCurrentlyPlaying,
   selectCurrentJukebox,
+  selectCurrentJukeSession,
   selectHasJukeboxAux,
-  selectPlayerState,
-  setInteraction,
-  setNextTracks,
-  updatePlayerState,
 } from 'src/store'
-import { uniqueId } from 'src/utils'
-import { SocketContext } from '../SocketContext'
-import { SpotifyContext } from './SpotifyContext'
+import { ActionType } from 'src/types/jukebox-enums'
+import { NotImplementedError } from 'src/utils'
+import { SpotifyPlayerContext } from './SpotifyPlayerContext'
+import { PlayerControls } from './types'
 
-interface Player {
+interface Player extends PlayerControls {
   hasAux: boolean
+  accountConnected: boolean
   playerState: IPlayerState | null
+  // currentTrack?: ITrack
   liveProgress: number | null
-  play: () => void
-  pause: () => void
-  togglePlay: () => void
-  setProgress: (progressMs: number) => void
-  nextTrack: () => void
-  prevTrack: () => void
-  like: () => void
-  repeat: () => void
+  playerError: string | null
+  currentTrack: ITrack | null
+  connectDevice: () => Promise<void>
 }
 
 export const PlayerContext = createContext({} as Player)
@@ -33,241 +28,199 @@ export const PlayerContext = createContext({} as Player)
 export const PlayerProvider = (props: { children: ReactNode }) => {
   const [playerState, setPlayerState] = useState<IPlayerState | null>(null)
   const jukebox = useSelector(selectCurrentJukebox)
+  const jukeSession = useSelector(selectCurrentJukeSession)
   const progressTimerRef = useRef<number | undefined>()
-  const [liveProgress, setLiveProgress] = useState<number | null>(null)
 
-  /*== Get state from aux ==*/
+  const [liveProgress, setLiveProgress] = useState<number | null>(null)
   const hasAux = useSelector(selectHasJukeboxAux)
+  const [playerError, setPlayerError] = useState<string | null>(null)
+  const [currentTrack, setCurrentTrack] = useState<ITrack | null>(null)
   const {
     play: auxPlay,
     pause: auxPause,
-    togglePlay: auxTogglePlay,
     setProgress: auxSetProgress,
     nextTrack: auxNextTrack,
     prevTrack: auxPrevTrack,
     like: auxLike,
     repeat: auxRepeat,
+    togglePlay: auxTogglePlay,
     playerState: auxPlayerState,
-  } = useContext(SpotifyContext)
-
-  /*== Get state from API ==*/
-  const storePlayerState = useSelector(selectPlayerState)
-
-  /*== Determine which controls are given in interface ==*/
-  const play = auxPlay
-  const pause = auxPause
-  const togglePlay = auxTogglePlay
-  const setProgress = auxSetProgress
-  const nextTrack = auxNextTrack
-  const prevTrack = auxPrevTrack
-  // let playerState: IPlayerState | null = null
-
-  /**
-   * ======================== *
-   * API Track State Sync     *
-   * ======================== *
-   */
-  const { onEvent, isConnected: socketIsConnected } = useContext(SocketContext)
+    spotifyIsConnected,
+    deviceId,
+  } = useContext(SpotifyPlayerContext)
 
   useEffect(() => {
-    if (!hasAux) {
-      fetchCurrentlyPlaying().then()
-    }
-  }, [jukebox])
-
-  // Receives track updates from server, updates store
-  useEffect(() => {
-    onEvent<IPlayerUpdate>('player-update', (data) => {
-      if (hasAux) {
-        // If spotify player is connected, only set certain state vars through player
-        data.progress = undefined
-        data.is_playing = undefined
-      }
-
-      console.log('data:', data)
-
-      updatePlayerState(data)
-    })
-
-    onEvent<IJukeboxInteraction>('player-interaction', (data) => {
-      setInteraction(data)
-    })
-
-    onEvent<IQueuedTrack[]>('track-queue-update', (data) => {
-      setNextTracks(data)
-    })
-  }, [jukebox, socketIsConnected])
-
-  useEffect(() => {
-    if (jukebox == null) {
-      return
-    }
-
-    const stagedPlayerState: IPlayerState = {
-      jukebox_id: 0,
-      progress: 0,
-      is_playing: false,
-      current_track: {
-        track: {
-          artists: [],
-          album: {
-            id: '',
-            album_type: 'album',
-            artists: [],
-            available_markets: [],
-            href: '',
-            release_date: '',
-            release_date_precision: 'day',
-            total_tracks: 0,
-            uri: '',
-            name: '',
-            images: [],
-          },
-          disc_number: 0,
-          explicit: false,
-          popularity: 0,
-          preview_url: null,
-          track_number: 0,
-          id: '',
-          uri: '',
-          name: '',
-          type: 'track',
-          duration_ms: 0,
-        },
-        queue_id: '',
-        interactions: {
-          likes: 0,
-          dislikes: 0,
-        },
-      },
-    }
-
-    stagedPlayerState.jukebox_id = jukebox.id
-
-    if (hasAux && auxPlayerState?.current_track) {
-      stagedPlayerState.is_playing = auxPlayerState.is_playing
-      stagedPlayerState.progress = auxPlayerState.progress
-      stagedPlayerState.current_track = {
-        interactions: storePlayerState?.current_track?.interactions ?? {
-          dislikes: 0,
-          likes: 0,
-        },
-        queue_id: storePlayerState?.current_track?.queue_id ?? '',
-        track: {
-          artists:
-            storePlayerState?.current_track?.track.artists ??
-            auxPlayerState.current_track.artists.map((artist) => ({
-              href: artist.uri,
-              id: uniqueId(),
-              name: artist.name,
-              type: 'artist',
-              uri: artist.uri,
-            })),
-          album: {
-            id: storePlayerState?.current_track?.track.album.id ?? '',
-            album_type: 'album',
-            artists: storePlayerState?.current_track?.track.album.artists ?? [],
-            available_markets:
-              storePlayerState?.current_track?.track.album.available_markets ??
-              [],
-            href: storePlayerState?.current_track?.track.album.href ?? '#',
-            release_date:
-              storePlayerState?.current_track?.track.album.release_date ?? '',
-            release_date_precision:
-              storePlayerState?.current_track?.track.album
-                .release_date_precision ?? 'day',
-            total_tracks:
-              storePlayerState?.current_track?.track.album.total_tracks ?? 0,
-            uri: auxPlayerState.current_track.album.uri,
-            name: auxPlayerState.current_track.album.name,
-            images: auxPlayerState.current_track.album.images,
-          },
-          disc_number: storePlayerState?.current_track?.track.disc_number ?? 0,
-          explicit: storePlayerState?.current_track?.track.explicit ?? false,
-          popularity: storePlayerState?.current_track?.track.popularity ?? 0,
-          preview_url:
-            storePlayerState?.current_track?.track.preview_url ??
-            auxPlayerState.current_track.album.images[0]?.url,
-          track_number:
-            storePlayerState?.current_track?.track.track_number ?? 0,
-          id: auxPlayerState.current_track.id,
-          uri: auxPlayerState.current_track.uri,
-          name: auxPlayerState.current_track.name,
-          type: 'track',
-          duration_ms: auxPlayerState.current_track.duration_ms,
-        },
-      }
-    } else {
-      stagedPlayerState.current_track = storePlayerState?.current_track
-      stagedPlayerState.is_playing = storePlayerState?.is_playing ?? false
-      stagedPlayerState.progress = storePlayerState?.progress ?? 0
-    }
-
-    setPlayerState(stagedPlayerState)
-  }, [storePlayerState?.current_track, auxPlayerState?.current_track])
-
-  /**
-   * ======================== *
-   * Spotify Track State Sync *
-   * ======================== *
-   */
-  /*== Store Player Progress ==*/
-  useEffect(() => {
-    if (hasAux) return
-
-    clearInterval(progressTimerRef.current)
-
-    if (storePlayerState?.is_playing) {
-      progressTimerRef.current = setInterval(() => {
-        setLiveProgress((prev) => (prev ?? 0) + 1000)
-      }, 1000)
-    }
-
-    return () => clearInterval(progressTimerRef.current)
-  }, [
-    storePlayerState?.current_track,
-    storePlayerState?.is_playing,
-    storePlayerState?.progress,
-  ])
-
-  /*== Aux Player Progress ==*/
-  useEffect(() => {
-    clearInterval(progressTimerRef.current)
-    setLiveProgress(auxPlayerState?.progress ?? 0)
-
-    if (auxPlayerState?.is_playing) {
-      progressTimerRef.current = setInterval(() => {
-        setLiveProgress((prev) => (prev ?? 0) + 1000)
-      }, 1000)
-    }
-
-    return () => clearInterval(progressTimerRef.current)
-  }, [
-    auxPlayerState?.current_track,
-    auxPlayerState?.is_playing,
-    auxPlayerState?.progress,
-  ])
-
-  useEffect(() => {
-    console.log('Player state in context:', playerState)
+    console.log('player state changed')
+    setCurrentTrack(
+      playerState?.spotify_track || playerState?.queued_track?.track || null,
+    )
   }, [playerState])
 
+  useEffect(() => {
+    if (currentTrack && playerState) {
+      const timer = setInterval(() => {
+        if (playerState.is_playing) {
+          // setLiveProgress((prev) => (prev ?? 0) + 1000)
+          const passedMs = playerState.last_progress_update
+            ? new Date().getTime() -
+              new Date(playerState.last_progress_update).getTime()
+            : 1000
+          setLiveProgress(playerState.progress + passedMs)
+        }
+      }, 1000)
+
+      return () => clearInterval(timer)
+    } else {
+      setLiveProgress(null)
+    }
+  }, [currentTrack, playerState])
+
+  const api = ApiClient.getInstance()
+
+  let player: Player = {
+    hasAux,
+    playerState,
+    liveProgress,
+    playerError,
+    currentTrack,
+    accountConnected: spotifyIsConnected,
+    connectDevice: async () => {
+      if (jukebox && deviceId) {
+        const res = await api.connectPlayerDevice(jukebox.id, deviceId)
+        if (!res.success) {
+          console.error(res.data)
+          setPlayerError(res.data.message)
+        } else {
+          setPlayerState(res.data)
+        }
+      } else {
+        setPlayerError('Must be connected to spotify to connect device')
+      }
+    },
+    play: () => {
+      throw new NotImplementedError()
+    },
+    pause: () => {
+      throw new NotImplementedError()
+    },
+    setProgress: (ms: number) => {
+      throw new NotImplementedError()
+    },
+    nextTrack: () => {
+      throw new NotImplementedError()
+    },
+    prevTrack: () => {
+      throw new NotImplementedError()
+    },
+    like: () => {
+      throw new NotImplementedError()
+    },
+    repeat: () => {
+      throw new NotImplementedError()
+    },
+    togglePlay: () => {
+      throw new NotImplementedError()
+    },
+  }
+
+  // ===============================================================
+  // API Track State Sync
+  // ===============================================================
+  useEffect(() => {
+    console.log('jukebox and session changed')
+    if (!hasAux && jukebox && jukeSession) {
+      api.getCurrentlyPlaying(jukebox.id).then((res) => {
+        if (!res.success) {
+          setPlayerError(res.data.message)
+        } else {
+          setPlayerState(res.data)
+        }
+      })
+    }
+  }, [jukebox, jukeSession])
+
+  useEffect(() => {
+    if (auxPlayerState && jukebox) {
+      console.log('aux player state:', auxPlayerState)
+      const auxTrack = auxPlayerState.current_track
+      setPlayerState({
+        jukebox_id: jukebox.id,
+        last_progress_update: new Date().toISOString(),
+        is_playing: auxPlayerState.is_playing,
+        progress: auxPlayerState.progress,
+        spotify_track: auxTrack
+          ? {
+              name: auxTrack.name,
+              album: auxTrack.album.name,
+              release_year: 0, // TODO: Get from api
+              artists: auxTrack.artists.map((artist) => artist.name),
+              spotify_id: auxTrack.id!,
+              spotify_uri: auxTrack.uri,
+              duration_ms: auxTrack.duration_ms,
+              is_explicit: false, // TODO: Get from API
+              preview_url: null,
+              id: 0, // TODO: Get from API
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString(),
+            }
+          : undefined,
+      })
+    }
+  }, [hasAux, auxPlayerState])
+
+  // ===============================================================
+  // Set Controls and State
+  // ===============================================================
+  // FIXME: This is reevaluated every time any state variable changes
+  if (jukebox && hasAux) {
+    // User is connected to Spotify's player directly
+    player = {
+      ...player,
+      play: auxPlay,
+      pause: auxPause,
+      setProgress: auxSetProgress,
+      nextTrack: auxNextTrack,
+      prevTrack: auxPrevTrack,
+      like: auxLike,
+      repeat: auxRepeat,
+      togglePlay: auxTogglePlay,
+    }
+  } else if (jukebox) {
+    // User get's player state from api
+    const executeAction = async (action: ActionType) => {
+      const playerRes = await api.executePlayerAction(jukebox.id, {
+        action_type: action,
+      })
+
+      if (!playerRes.success) {
+        setPlayerError(playerRes.data.message)
+      } else {
+        setPlayerError(null)
+        setPlayerState(playerRes.data)
+      }
+    }
+
+    const togglePlay = () => {
+      if (playerState?.is_playing) {
+        executeAction(ActionType.PAUSE)
+      } else {
+        executeAction(ActionType.PLAY)
+      }
+    }
+
+    player = {
+      ...player,
+      play: () => executeAction(ActionType.PLAY),
+      pause: () => executeAction(ActionType.PAUSE),
+      nextTrack: () => executeAction(ActionType.NEXT),
+      prevTrack: () => executeAction(ActionType.PREVIOUS),
+      repeat: () => executeAction(ActionType.LOOP),
+      togglePlay,
+    }
+  }
+
   return (
-    <PlayerContext.Provider
-      value={{
-        hasAux,
-        playerState,
-        liveProgress,
-        play,
-        pause,
-        togglePlay,
-        setProgress,
-        nextTrack,
-        prevTrack,
-        like: () => {},
-        repeat: () => {},
-      }}
-    >
+    <PlayerContext.Provider value={player}>
       {props.children}
     </PlayerContext.Provider>
   )

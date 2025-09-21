@@ -1,15 +1,15 @@
 import { ChangeEvent, useContext, useState, type ReactNode } from 'react'
+import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { ThemeContext } from 'src/context/Theme'
-import { mergeClassNames } from 'src/utils'
-import './Sidebar.scss'
 import {
-  fetchJukebox,
   selectAllJukeboxes,
   selectCurrentClub,
   selectCurrentJukebox,
+  setCurrentJukebox,
 } from 'src/store'
-import { useSelector } from 'react-redux'
+import { mergeClassNames } from 'src/utils'
+import './Sidebar.scss'
 
 const NavItem = (props: {
   text: string
@@ -52,7 +52,7 @@ export const Sidebar = (props: { className?: string }) => {
 
   const handleJukeboxChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedJukeboxId: number = Number(e.target.value)
-    fetchJukebox(selectedJukeboxId)
+    setCurrentJukebox(selectedJukeboxId)
 
     if (currentJukebox !== null) {
       console.log('Selected JBX is: ', currentJukebox.id)

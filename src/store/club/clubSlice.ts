@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import {
   thunkFetchClubInfo,
   thunkFetchClubs,
-  thunkFetchMembership,
+  thunkFetchMemberships,
 } from './clubThunks'
 
 export const clubSlice = createSlice({
@@ -14,8 +14,18 @@ export const clubSlice = createSlice({
     error: null as string | null,
     allClubs: [] as IClub[],
     currentMembership: null as IClubMembership | null,
+    memberships: [] as IClubMembership[],
   },
   reducers: {
+    setCurrentClubIdReducer: (state, action: { payload: number }) => {
+      const id = action.payload
+      const club = state.allClubs.find((club) => club.id === +id)
+      console.log('found club:', club)
+
+      if (club) {
+        state.currentClub = club
+      }
+    },
     setCurrentClubReducer: (state, action: { payload: IClub }) => {
       state.currentClub = action.payload
     },
@@ -24,14 +34,14 @@ export const clubSlice = createSlice({
     builder.addCase(thunkFetchClubs.fulfilled, (state, action) => {
       if (!action.payload.success) {
         state.status = 'failed'
-        state.error = action.payload.data.error ?? 'Invalid Request'
+        state.error = action.payload.data.message ?? 'Invalid Request'
         return
       }
       state.allClubs = action.payload.data ?? []
 
-      if (state.allClubs.length > 0) {
-        state.currentClub = state.allClubs[0]
-      }
+      // if (state.allClubs.length > 0) {
+      //   state.currentClub = state.allClubs[0]
+      // }
     })
     builder.addCase(thunkFetchClubInfo.fulfilled, (state, action) => {
       if (!action.payload.success) return
@@ -39,10 +49,10 @@ export const clubSlice = createSlice({
       state.currentClub = action.payload.data ?? null
     })
 
-    builder.addCase(thunkFetchMembership.fulfilled, (state, action) => {
+    builder.addCase(thunkFetchMemberships.fulfilled, (state, action) => {
       if (!action.payload.success) return
 
-      state.currentMembership = action.payload.data ?? null
+      state.memberships = action.payload.data ?? null
     })
 
     builder.addMatcher(

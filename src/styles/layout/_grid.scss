@@ -1,7 +1,7 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  gap: 1rem;
+  gap: 2rem;
 
   [class*='col-'] {
     min-height: 4rem;
