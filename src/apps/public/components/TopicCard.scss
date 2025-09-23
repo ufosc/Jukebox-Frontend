@@ -1,0 +1,82 @@
+.topic-card {
+  padding: 3rem;
+  border-radius: 3rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+
+  gap: 3rem;
+  width: 42rem;
+
+  &__media {
+    margin-top: 3rem;
+    gap: 3rem;
+  }
+
+  &__img {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  &__title {
+    font-family: Termina, system-ui, sans-serif;
+    font-size: 2.3rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  &__text {
+    font-family: Poppins, system-ui, sans-serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    letter-spacing: 1%;
+    font-style: normal;
+    line-height: 2.1rem;
+    margin: 0;
+  }
+
+  &__cta {
+    margin: 3rem 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: Poppins, system-ui, sans-serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &-icon {
+      width: 1.4rem;
+      height: 1.4rem;
+    }
+  }
+
+  /* Variants */
+  &--light {
+    background: var(--color-surface, #FFFFFF);
+    color: var(--color-on-surface-dark,#000);
+
+    & .topic-card__cta:hover {
+      color: map-get(map-get($tonal-swatches, n), 90)
+    }
+  }
+
+  &--teal {
+    background: map-get(map-get($tonal-swatches, t), 90);
+    color: #000;
+
+    & .topic-card__cta:hover {
+      color: map-get(map-get($tonal-swatches, t), 80);
+    }
+  }
+}

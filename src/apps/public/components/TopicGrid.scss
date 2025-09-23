@@ -1,0 +1,34 @@
+.topic-grid {
+  /* center the grid and cap width to match Figma */
+  --grid-max: 130rem;         /* 1300px */
+  --gap: 3.2rem;              /* 32px */
+  --card-h: 40.3rem;          /* 403px */
+
+  width: 100%;
+  max-width: var(--grid-max);
+  margin: 0 auto;             /* center on page */
+  padding-inline: 1.6rem;     /* small gutter on narrow screens */
+
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: var(--card-h);
+  gap: var(--gap);
+  align-items: stretch;                  /* make cells stretch in cross-axis */
+
+  /* collapse to two columns on medium-to-large screens */
+  @include breakpoint(lg) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* stack cards vertically on narrow screens */
+  @include breakpoint(md) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Ensure each card fills its grid cell */
+.topic-grid .topic-card {
+  height: 100%;
+  border-radius: 2rem;         /* matches the rounded corners in the mock */
+  overflow: hidden;            /* clip inner shadows/corners cleanly */
+}

@@ -1,0 +1,39 @@
+.repos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  max-width: 100dvw;
+  padding: 12rem 8rem 12rem 8rem;
+  background-color: #5B2222; /*FIX ME: need help using color variables */
+
+  height: 80rem;
+  }
+
+  .__inner {
+    display: flex;
+    align-items: relative;
+    justify-content: space-between;
+    padding: 8rem 8rem 4rem 8rem;
+    margin: 0 auto;
+    z-index: 1;
+    width: 100%;
+    padding: 0 2rem;
+  }
+
+  .repos__title {
+    font-family: Termina, system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 3.7rem;
+    margin-bottom: 4rem;
+    letter-spacing: 1%;
+    width: 100%;
+    color: var(--color-on-surface-dark, #fff);
+    }
+
+  .repos__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+  }

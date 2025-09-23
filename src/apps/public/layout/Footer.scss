@@ -1,0 +1,30 @@
+.site-footer {
+  /* Layout */
+  min-height: 8vh;             
+  padding-inline: 5%;
+  padding-block: 1.6rem;
+
+  /* Theme */
+  background: map-get(map-get($tonal-swatches, c), 15);        
+  color: var(--color-on-primary, #fff); /* FIX ME: need help using color variables */                 
+
+  display: flex;
+  align-items: center;
+}
+
+.site-footer__inner {
+  display: flext;
+  justify-content: center;
+  align-items: center;
+  gap: 1.6rem;                  /* 16px */
+  width: 100%;
+  text-align: center;
+}
+
+.site-footer__copy {
+  font-family: Poppins, system-ui, sans-serif;
+  font-size: 1.4rem;           
+  line-height: 2rem;           
+  letter-spacing: 0.01em;
+  margin: 0;            
+}
