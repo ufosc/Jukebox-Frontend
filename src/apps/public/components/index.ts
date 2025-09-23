@@ -1,0 +1,5 @@
+export * from './Hero'
+export * from './About'
+export * from './Features'
+export * from './Repos'
+export * from './CTA'

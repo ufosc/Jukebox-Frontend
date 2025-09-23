@@ -1,0 +1,79 @@
+.features {
+  height: 1176px;
+  padding: 0px 106px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  &_title {
+    align-self: start;
+    font-family: Termina;
+    font-weight: 600;
+    font-size: 37px;
+    line-height: 100%;
+    letter-spacing: 1%;
+    margin-top: 120px;
+  }
+
+  &_grid {
+    width: 1300px;
+    height: 826px;
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap:20px
+  }
+
+  &_card {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 3rem 2rem;
+    position: relative;
+  }
+
+  &_card-icon {
+    width: 83px;
+    height: 83px;
+    border-radius: 83px;
+    background-color: #F8F8F8;
+  }
+
+  &_card-title {
+    font-family: Termina;
+    font-weight: 600;
+    font-size: 23px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #000000;
+  }
+
+  &_card-description {
+    font-family: Poppins;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 1%;
+    color: #000000;
+    width: 380px;
+    height: 105px;
+  }
+
+  &_card-link {
+    position: absolute;
+    bottom: 3rem;
+    left: 2rem;
+    color: #2F1515;
+    font-family: Poppins;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 3%;
+  }
+
+  &_card-colored {
+    background-color: #CEECF2;
+    border-radius: 30px;
+  }
+}
