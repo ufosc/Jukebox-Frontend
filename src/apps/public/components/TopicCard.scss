@@ -1,73 +1,99 @@
-.topic-card {
-  padding: 3rem;
-  border-radius: 3rem;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+/* TopicCard.scss */
 
-  gap: 3rem;
-  width: 42rem;
+.topic-card {
+  /* internal spacing */
+  padding: 3rem 2rem;            /* top/bottom 3rem; left/right 2rem */
+  box-sizing: border-box;
+
+  /* 3-row grid: header (auto), content (1fr), CTA (auto) */
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  row-gap: 3rem;
+
+  /* visuals */
+  border-radius: 3rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
+  overflow: hidden;               /* keep rounded corners clean */
+  width: 100%;                    /* let grid cell control width/height */
+
+  /* Row 1: media + title */
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    min-height: 0;                /* avoid overflow in tight spaces */
+  }
 
   &__media {
-    margin-top: 3rem;
-    gap: 3rem;
+    display: grid;
+    place-items: left;
   }
 
   &__img {
-    width: 6rem;
-    height: 6rem;
+    width: 8.3rem;
+    height: 8.3rem;
     border-radius: 50%;
     object-fit: cover;
     display: block;
-  }
-
-  &__content {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
+    flex-shrink: 0;
   }
 
   &__title {
+    margin: 3rem 0 0;
     font-family: Termina, system-ui, sans-serif;
     font-size: 2.3rem;
     font-weight: 600;
-    margin: 0;
+    line-height: 1.2;
+    letter-spacing: 0;            /* adjust if your type scale needs it */
+  }
+
+  /* Row 2: body (expands) */
+  &__content {
+    display: grid;
+    align-content: start;
+    row-gap: 3rem;
+    min-height: 0;                /* allow the 1fr row to shrink when needed */
   }
 
   &__text {
+    margin: 0;
     font-family: Poppins, system-ui, sans-serif;
     font-size: 1.4rem;
     font-weight: 400;
-    letter-spacing: 1%;
-    font-style: normal;
     line-height: 2.1rem;
-    margin: 0;
+    letter-spacing: 0.01em;       /* was `1%` (invalid) */
+    color: inherit;
   }
 
+  /* Row 3: CTA (always at bottom, with 3rem bottom offset from card padding) */
   &__cta {
-    margin: 3rem 0;
+    margin: 0;                    /* no extra bottom gap; card padding handles it */
+    padding-top: 1.5rem;          /* small breathing room above CTA */
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+
     font-family: Poppins, system-ui, sans-serif;
     font-size: 1.4rem;
     font-weight: 500;
     text-decoration: none;
+    color: inherit;
     transition: color 0.2s ease;
 
     &-icon {
       width: 1.4rem;
       height: 1.4rem;
+      display: inline-block;
     }
   }
 
-  /* Variants */
+  /* Variants (hooked to your $tonal-swatches map) */
   &--light {
-    background: var(--color-surface, #FFFFFF);
-    color: var(--color-on-surface-dark,#000);
+    background: var(--color-surface, #fff);
+    color: var(--color-on-surface-dark, #000);
 
-    & .topic-card__cta:hover {
-      color: map-get(map-get($tonal-swatches, n), 90)
+    .topic-card__cta:hover {
+      color: map-get(map-get($tonal-swatches, n), 90);
     }
   }
 
@@ -75,8 +101,20 @@
     background: map-get(map-get($tonal-swatches, t), 90);
     color: #000;
 
-    & .topic-card__cta:hover {
+    .topic-card__cta:hover {
       color: map-get(map-get($tonal-swatches, t), 80);
     }
+  }
+}
+
+/* Responsive tweaks (optional) */
+@media (max-width: 768px) {
+  .topic-card {
+    padding: 2.4rem 1.6rem;
+    row-gap: 2.4rem;
+
+    &__img { width: 7rem; height: 7rem; }
+    &__title { font-size: 2rem; }
+    &__text { font-size: 1.3rem; line-height: 2rem; }
   }
 }

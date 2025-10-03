@@ -2,4 +2,25 @@
   flex: 1 0 auto;
   background: var(--color-background);
   color: var(--color-on-background);
+  //padding-top: var(--header-height);
+}
+
+/* 2px nav button */
+.button-outlined.btn--nav,
+.button-solid.btn--nav,
+.button-tonal.btn--nav,
+.button-fancy.btn--nav { border-width: 0.125rem; box-sizing: border-box; }
+
+/* 4px hero button */
+.button-outlined.btn--hero,
+.button-solid.btn--hero,
+.button-tonal.btn--hero,
+.button-fancy.btn--hero { border-width: 0.25rem; box-sizing: border-box; }
+
+.btn--nav .btn__label,
+.btn--hero .btn__label {
+  font-family: "Termina", sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.02em;
 }

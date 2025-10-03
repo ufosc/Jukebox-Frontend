@@ -6,8 +6,7 @@
 
   width: 100%;
   max-width: var(--grid-max);
-  margin: 0 auto;             /* center on page */
-  padding-inline: 1.6rem;     /* small gutter on narrow screens */
+  //padding-inline: 1.6rem;     /* small gutter on narrow screens */
 
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

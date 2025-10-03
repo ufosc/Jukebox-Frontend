@@ -4,7 +4,8 @@
   justify-content: center;
   gap: 24px;
   max-width: 100dvw;
-  padding: 12rem 8rem 12rem 8rem;
+  padding: clamp(6rem, 10svh, 12rem) clamp(2rem, 6vw, 8rem);
+  min-height: calc(100dvh - var(--header-height));
 }
 
 .features__title {

@@ -1,5 +1,5 @@
 import { Brand } from '../components/Brand'
-// import { Button } from '../components/Button'
+import { Button } from '../components/Button'
 import './Header.scss'
 
 type HeaderProps = {
@@ -21,28 +21,30 @@ export const Header = ({ isLoggedIn }: HeaderProps) => {
               <a href="/auth/logout" className="nav-link">
                 Logout
               </a>
-              {/* <Button
+              <Button
                 as="a"
                 href="/dashboard"
-                variant="outlined"
+                appearance="outlined"
                 colorRole="primary"
+                className={'btn--nav'}
               >
                 Jukebox
-              </Button> */}
+              </Button>
             </>
           ) : (
             <>
               <a href="/auth/login" className="nav-link">
                 Login
               </a>
-              {/* <Button
+              <Button
                 as="a"
                 href="/auth/register"
-                variant="outlined"
+                appearance="outlined"
                 colorRole="primary"
+                className={'btn--nav'}
               >
                 Sign Up
-              </Button> */}
+              </Button>
             </>
           )}
         </nav>

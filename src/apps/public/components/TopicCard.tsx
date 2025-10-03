@@ -18,18 +18,35 @@ export const TopicCard = ({
   ctaHref,
   imageSrc = Feature1,
 }: TopicCardProps) => {
+  const classes = ['topic-card']
+  if (variant) classes.push(`topic-card--${variant}`)
+
   return (
-    <div className={`topic-card topic-card--${variant}`}>
-      <div className="topic-card__media">
-        <img src={imageSrc} alt="" className="topic-card__img" />
-      </div>
-      <div className="topic-card__content">
+    <div className={classes.join(' ')}>
+      {/* Row 1: header/media */}
+      <div className="topic-card__header">
+        <div className="topic-card__media">
+          <img className="topic-card__img" src={imageSrc} />
+        </div>
         <h2 className="topic-card__title">{title}</h2>
-        <p className="topic-card__text">{text}</p>
-        <a href={ctaHref} className="topic-card__cta">
-          {ctaLabel} →
-        </a>
       </div>
+
+      {/* Row 2: body content (expands, 1fr) */}
+      <div className="topic-card__content">
+        <p className="topic-card__text">{text}</p>
+      </div>
+
+      {/* Row 3: CTA (auto, pinned to bottom by grid) */}
+      <a
+        href={ctaHref}
+        className="topic-card__cta"
+        aria-label={`${ctaLabel}: ${title}`}
+      >
+        {ctaLabel}{' '}
+        <span className="topic-card__cta-icon" aria-hidden>
+          →
+        </span>
+      </a>
     </div>
   )
 }

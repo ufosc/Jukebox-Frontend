@@ -4,36 +4,39 @@
   justify-content: center;
   gap: 24px;
   max-width: 100dvw;
-  padding: 12rem 8rem 12rem 8rem;
+  padding: clamp(6rem, 10svh, 12rem) clamp(2rem, 6vw, 8rem);
   background-color: #5B2222; /*FIX ME: need help using color variables */
+  min-height: calc(100dvh - var(--header-height));
+}
 
-  height: 80rem;
-  }
+.repos__inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 2rem;
+  z-index: 1;
+}
 
-  .__inner {
-    display: flex;
-    align-items: relative;
-    justify-content: space-between;
-    padding: 8rem 8rem 4rem 8rem;
-    margin: 0 auto;
-    z-index: 1;
-    width: 100%;
-    padding: 0 2rem;
-  }
+.repos__title {
+  font-family: Termina, system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 3.7rem;
+  margin-bottom: 4rem;
+  letter-spacing: 1%;
+  width: 100%;
+  color: var(--color-on-surface-dark, #fff);
+}
 
-  .repos__title {
-    font-family: Termina, system-ui, sans-serif;
-    font-weight: 600;
-    font-size: 3.7rem;
-    margin-bottom: 4rem;
-    letter-spacing: 1%;
-    width: 100%;
-    color: var(--color-on-surface-dark, #fff);
-    }
+.repos__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
 
-  .repos__list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-  }
+.repos__accordion {
+  flex: 1 1 auto;
+  width: 100%;
+}

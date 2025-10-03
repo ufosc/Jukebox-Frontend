@@ -1,0 +1,36 @@
+.accordion__panel {
+  overflow: hidden;
+  transition: max-height 1s ease;  /* universal 1s animation */
+}
+
+.accordion__panel-inner {
+  display: grid;
+  grid-template-columns: 1fr auto; /* text left, image right */
+  gap: 2rem;
+  padding: 2rem;
+}
+
+/* CSS +/− icon: hide vertical bar when open */
+/* Add styles for .accordion__icon and its pseudo-elements if needed */
+.accordion__icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #eee;
+  position: relative;
+}
+.accordion__icon::before, .accordion__icon::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 2px;
+  background: #333;
+  transform: translate(-50%, -50%);
+}
+.accordion__icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.accordion__item.is-open .accordion__icon::before { display: none; }

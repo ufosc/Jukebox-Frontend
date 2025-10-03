@@ -14,3 +14,5 @@ export const Brand = () => {
     </a>
   )
 }
+
+export default Brand

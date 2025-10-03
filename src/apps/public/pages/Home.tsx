@@ -5,7 +5,7 @@ import './Home.scss'
 export const Home = () => {
   return (
     <div className="site">
-      <Header isLoggedIn={false} />
+      <Header isLoggedIn={true} />
       <main className="site-content">
         {<Hero />}
         {<Goal />}

@@ -1,10 +1,16 @@
+$header-height: clamp(64px, 10dvh, 96px);
+
+:root {
+  --header-height: #{$header-height};
+}
+
 .site-header {
   position: sticky;
   top: 0;
   z-index: 1000;
 
   /* Height & padding: dynamic */
-  height: 10vh;                  /* 10% of viewport height */
+  height: var(--header-height);
   padding-inline: 5%;            /* scales with screen width */
 
   /* Theme gradient */

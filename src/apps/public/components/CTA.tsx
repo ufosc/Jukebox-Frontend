@@ -1,3 +1,4 @@
+import { Button } from './Button'
 import './CTA.scss'
 
 export const CTA = () => {
@@ -9,6 +10,15 @@ export const CTA = () => {
           <br />
           Pick a repo and get Started!
         </h2>
+        <Button
+          as="a"
+          href="/auth/register"
+          appearance="outlined"
+          colorRole="tertiary"
+          className={'btn--hero'}
+        >
+          CTA Primary
+        </Button>
       </div>
     </section>
   )
