@@ -9,6 +9,7 @@ import {
 } from 'src/store'
 import { ActionType } from 'src/types/jukebox-enums'
 import { NotImplementedError } from 'src/utils'
+import { SocketContext } from '../SocketContext'
 import { SpotifyPlayerContext } from './SpotifyPlayerContext'
 import { PlayerControls } from './types'
 
@@ -26,6 +27,8 @@ interface Player extends PlayerControls {
 export const PlayerContext = createContext({} as Player)
 
 export const PlayerProvider = (props: { children: ReactNode }) => {
+  const api = ApiClient.getInstance()
+
   const [playerState, setPlayerState] = useState<IPlayerState | null>(null)
   const jukebox = useSelector(selectCurrentJukebox)
   const jukeSession = useSelector(selectCurrentJukeSession)
@@ -49,8 +52,11 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
     deviceId,
   } = useContext(SpotifyPlayerContext)
 
+  const { onEvent, emitMessage } = useContext(SocketContext)
+
   useEffect(() => {
-    console.log('player state changed')
+    console.log('player track changed')
+    console.log(playerState)
     setCurrentTrack(
       playerState?.spotify_track || playerState?.queued_track?.track || null,
     )
@@ -70,12 +76,8 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
       }, 1000)
 
       return () => clearInterval(timer)
-    } else {
-      setLiveProgress(null)
     }
   }, [currentTrack, playerState])
-
-  const api = ApiClient.getInstance()
 
   let player: Player = {
     hasAux,
@@ -127,17 +129,45 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
   // API Track State Sync
   // ===============================================================
   useEffect(() => {
-    console.log('jukebox and session changed')
-    if (!hasAux && jukebox && jukeSession) {
-      api.getCurrentlyPlaying(jukebox.id).then((res) => {
-        if (!res.success) {
-          setPlayerError(res.data.message)
-        } else {
-          setPlayerState(res.data)
+    console.log(
+      'jukebox and session changed, has aux: ',
+      hasAux,
+      jukebox,
+      jukeSession,
+      playerState,
+    )
+    if (!hasAux && jukebox && jukeSession && !playerState) {
+      console.log('Attemping Player Join')
+      emitMessage<{ jukebox_id: number }>('player-join', {
+        jukebox_id: jukebox.id,
+      })
+      onEvent<IPlayerState>('player-join-success', (data) => {
+        if (!playerState) {
+          setPlayerState(data)
         }
       })
+      onEvent<IPlayerState>('player-state-update', (data) => {
+        setPlayerState(data)
+        console.log('aux player client updated')
+        console.log(data)
+      })
+    } else if (jukebox && jukeSession && playerState) {
+      console.log('Updating Player Aux Broadcast')
+      emitMessage('player-ping', {})
+      emitMessage<IPlayerAuxClientUpdate>('player-aux-update', {
+        jukebox_id: jukebox.id,
+        action: 'changed_tracks',
+        spotify_track: playerState.spotify_track,
+        progress: playerState.progress,
+        timestamp: new Date(),
+        duration_ms: auxPlayerState?.current_track?.duration_ms,
+      })
+      emitMessage<IPlayerAuxClientUpdate>('player-aux-update', {
+        jukebox_id: jukebox.id,
+        action: playerState.is_playing ? 'played' : 'paused',
+      })
     }
-  }, [jukebox, jukeSession])
+  }, [jukebox, jukeSession, auxPlayerState])
 
   useEffect(() => {
     if (auxPlayerState && jukebox) {
@@ -191,13 +221,6 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
       const playerRes = await api.executePlayerAction(jukebox.id, {
         action_type: action,
       })
-
-      if (!playerRes.success) {
-        setPlayerError(playerRes.data.message)
-      } else {
-        setPlayerError(null)
-        setPlayerState(playerRes.data)
-      }
     }
 
     const togglePlay = () => {

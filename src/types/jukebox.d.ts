@@ -129,8 +129,9 @@ declare interface IPlayerAuxClientUpdate {
   jukebox_id: number
   action: 'played' | 'paused' | 'changed_tracks' | 'other'
   progress?: number
-  timestamp?: DateString
-  current_track?: ITrack
+  timestamp?: Date
+  spotify_track?: ITrack
+  duration_ms?: number
 }
 
 declare interface IPlayerServerUpdate {
