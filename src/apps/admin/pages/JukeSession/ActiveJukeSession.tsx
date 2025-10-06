@@ -1,10 +1,19 @@
 import { useSelector } from 'react-redux'
 import { TrackList } from 'src/components'
-import { selectNextTracks } from 'src/store'
+import { selectCurrentJukebox, selectCurrentJukeSession, selectNextTracks } from 'src/store'
 import './ActiveJukeSession.scss'
+import { useEffect, useState } from 'react'
+import { ApiClient } from 'src/api'
 
 export const ActiveJukeSession = () => {
   const nextTracks = useSelector(selectNextTracks)
+  const currentJbx = useSelector(selectCurrentJukebox)
+  const currentJbxSession = useSelector(selectCurrentJukeSession)
+
+  const [sessionMembers, setSessionMembers] = useState([])
+  //const [sessionQueue, setSessionQueue] = useState<IQueue[]>([])
+  
+  const network = ApiClient.getInstance()
 
   const members = [
     {
@@ -80,7 +89,14 @@ export const ActiveJukeSession = () => {
       likes: '85%',
     },
   ]
-  const joinCode = 123456
+  const joinCode = currentJbxSession?.join_code
+
+  useEffect(()=>{
+    if(currentJbxSession && currentJbx){
+      const res = network.getQueuedTracks(currentJbx?.id, currentJbxSession.id)
+      console.log(res)
+    }
+  },[currentJbxSession])
 
   return (
     <>
@@ -88,11 +104,11 @@ export const ActiveJukeSession = () => {
         <div className="col-5 active-juke-session__time active-juke-session__border">
           <div className="active-juke-session__time__text-info">
             <div className="active-juke-session__subtext">Started</div>
-            <div className="active-juke-session__main-text">5:00p</div>
+            <div className="active-juke-session__main-text">{currentJbxSession?.start_at}</div>
           </div>
           <div className="active-juke-session__time__text-info">
             <div className="active-juke-session__subtext">Ended</div>
-            <div className="active-juke-session__main-text">7:00p</div>
+            <div className="active-juke-session__main-text">{currentJbxSession?.end_at}</div>
           </div>
           <div className="active-juke-session__time__text-info">
             <div className="active-juke-session__subtext">Remaining</div>
@@ -111,7 +127,7 @@ export const ActiveJukeSession = () => {
         </div>
 
         <div className="col-4 active-juke-session__main-info active-juke-session__border">
-          <div className="active-juke-session__numbers">{members.length}</div>
+          <div className="active-juke-session__numbers">{nextTracks.length}</div>
           <div className="active-juke-session__numbers-subtext">
             Tracks Queued
           </div>

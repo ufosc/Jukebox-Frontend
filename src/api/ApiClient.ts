@@ -168,7 +168,16 @@ export class ApiClient extends ApiAuth {
   public async joinJukeSession(jukeboxId: number, jukeSessionId: number) {
     const url = this.endpoints.jukebox.joinJukeSession(jukeboxId, jukeSessionId)
 
-    return this.post<IJukeSessionMembership>(url)
+    return await this.post<IJukeSessionMembership>(url, {
+      body: {user_id: 1}
+    })
+  }
+
+  public async getJukeSessionMembers(jukeboxId: number, jukeSessionId: number) {
+    const url = this.endpoints.jukebox.getJukeSessionMembers(jukeboxId, jukeSessionId)
+
+    return await this.get(url, {
+    })
   }
 
   /**

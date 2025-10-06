@@ -68,6 +68,7 @@ export const adminRoutes: RouteObject[] = [
         path: 'members',
         element: <JukeSessionMembers />,
       },
+      /*
       {
         path: 'history',
         element: <div>FIX ME</div>,
@@ -76,6 +77,7 @@ export const adminRoutes: RouteObject[] = [
         path: 'invite',
         element: <div>Invite Guests</div>,
       },
+      */
     ],
   },
   {
