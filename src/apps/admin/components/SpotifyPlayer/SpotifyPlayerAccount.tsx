@@ -1,5 +1,5 @@
-import './SpotifyPlayerAccount.scss'
 import SpotifyIcon from 'src/assets/img/spotify-icon.png'
+import './SpotifyPlayerAccount.scss'
 
 export const SpotifyPlayerAccount = (props: {
   account: ISpotifyAccount

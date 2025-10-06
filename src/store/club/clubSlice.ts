@@ -50,9 +50,13 @@ export const clubSlice = createSlice({
     })
 
     builder.addCase(thunkFetchMemberships.fulfilled, (state, action) => {
+      console.log(action)
       if (!action.payload.success) return
 
       state.memberships = action.payload.data ?? null
+      state.currentMembership =
+        state.memberships.find((m) => m.club_id == state.currentClub?.id) ??
+        null
     })
 
     builder.addMatcher(

@@ -35,7 +35,9 @@ export const fetchCurrentJukeboxInfo = async () => {
   const jukeboxId = selectCurrentJukebox(store.getState())?.id
   if (!jukeboxId) return
 
-  await store.dispatch(thunkFetchAccountLinks({ jukeboxId: jukeboxId }))
+  if (store.getState().club.currentMembership?.is_admin) {
+    await store.dispatch(thunkFetchAccountLinks({ jukeboxId: jukeboxId }))
+  }
   await authenticateLink()
 }
 
