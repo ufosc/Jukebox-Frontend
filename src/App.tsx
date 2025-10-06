@@ -7,6 +7,7 @@ import {
   KeyboardProvider,
   PlayerProvider,
   SocketContext,
+  SocketProvider,
   SpotifyPlayerProvider,
   Theme,
 } from './context'
@@ -47,11 +48,13 @@ export const App = () => {
   // Primary function that runs when Spotify Player changes
   const handlePlayerTrackChange = useCallback(
     (state?: IPlayerAuxClientUpdate) => {
-      console.log('current jukebox changed')
+      console.log('handlePlayerTrackChange')
       if (!state) {
         emitMessage('player-aux-update', {})
         return
       }
+      console.log('player aux state updated')
+      console.log(state)
       // Update player state with select settings
       // setPlayerIsPlaying(state.is_playing)
       // setPlayerProgress(state.progress)
@@ -91,10 +94,15 @@ export const App = () => {
             jukebox={currentJukebox}
             onPlayerStateChange={handlePlayerTrackChange}
           >
-            <PlayerProvider>
-              <Outlet />
-            </PlayerProvider>
+            <SocketProvider>
+              <PlayerProvider>
+                <Outlet />
+              </PlayerProvider>
+            </SocketProvider>
           </SpotifyPlayerProvider>
+          <PlayerProvider>
+            <Outlet />
+          </PlayerProvider>
         </NoticesProvider>
       </KeyboardProvider>
     </Theme>

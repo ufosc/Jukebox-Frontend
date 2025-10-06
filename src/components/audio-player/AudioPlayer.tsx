@@ -118,7 +118,7 @@ export const AudioPlayer = (props: {
 
                 <div className="audio-player__track__info">
                   <p className="audio-player__track__artists">
-                    {currentTrack.artists.join(', ') || 'Artist Unavailable'}
+                    {currentTrack.artists?.join(', ') || 'Artist Unavailable'}
                   </p>
                   {playerState?.queued_track && (
                     <TrackInteractions track={playerState.queued_track} />

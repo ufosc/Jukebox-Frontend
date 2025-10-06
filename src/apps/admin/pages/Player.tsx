@@ -36,7 +36,7 @@ export const Player = () => {
       <div className="row player-page__row section__main">
         <div className="player-page__col col-6">
           {accountConnected && hasAux && <AudioPlayer />}
-          {jukeSession && !jukeSessionMembership && (
+          {jukeSession && !hasAux && !jukeSessionMembership && (
             <div className="player-page__section">
               <div className="font-title-md">
                 Join Juke Session to manage playback
@@ -49,7 +49,7 @@ export const Player = () => {
               </button>
             </div>
           )}
-          {accountConnected && !jukeSession && !hasAux && (
+          {accountConnected && !hasAux && (
             <div className="player-page__section">
               <div className="font-title-md">
                 Spotify connected, transfer playback to get started!

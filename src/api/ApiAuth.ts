@@ -32,7 +32,7 @@ export class ApiAuth extends ApiBase {
   /**
    * Readonly accessor for auth token.
    */
-  protected get token() {
+  public get token() {
     return this._token
   }
 
