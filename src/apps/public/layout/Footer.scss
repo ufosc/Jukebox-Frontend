@@ -1,0 +1,10 @@
+.public-footer {
+  display: flex;
+  background: #502524;
+  height: 90px;
+
+  &_text {
+    color: #fff;
+    margin: auto;
+  }
+}
