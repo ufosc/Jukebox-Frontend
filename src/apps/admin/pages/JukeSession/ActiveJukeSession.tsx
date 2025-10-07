@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useFetcher } from 'react-router-dom'
 import { ApiClient } from 'src/api'
 import { TrackList } from 'src/components'
 import {
@@ -15,7 +15,7 @@ export const ActiveJukeSession = () => {
   const currentJbx = useSelector(selectCurrentJukebox)
   const currentJbxSession = useSelector(selectCurrentJukeSession)
 
-  const [sessionMembers, setSessionMembers] = useState([])
+  const [sessionMembers, setSessionMembers] = useState<IJukeSessionMember[]>([])
   const [sessionStart, setSessionStart] = useState('')
   const [sessionEnd, setSessionEnd] = useState('')
   const [timeLeft, setTimeLeft] = useState('')
@@ -101,7 +101,7 @@ export const ActiveJukeSession = () => {
 
   useEffect(() => {
     if (currentJbxSession && currentJbx) {
-      const res = network.getQueuedTracks(currentJbx?.id, currentJbxSession.id)
+      const res = network.getQueuedTracks(currentJbx.id, currentJbxSession.id)
       console.log(res)
     }
   }, [currentJbxSession])
@@ -155,8 +155,40 @@ export const ActiveJukeSession = () => {
       setTimeLeft(
         getTimeRemaining(currentJbxSession.start_at, currentJbxSession.end_at),
       )
+
     }
   }, [currentJbxSession])
+
+  useEffect(()=>{
+    const getMembers = async () => {
+      if(currentJbx && currentJbxSession){
+        const res = await network.getJbxSessionMembers(currentJbx.id, currentJbxSession.id, 0, 10)
+
+        if(res.success)
+        {
+          console.log(res.data)
+          const resData = res.data
+          const members = resData.memberships
+          
+          setSessionMembers(members)
+          
+        }
+
+      }
+
+    }
+
+    getMembers()
+
+
+  },[currentJbxSession])
+
+  const testMe = async () =>{
+    if(currentJbx && currentJbxSession){
+      const res = await network.getJbxSessionMembers(currentJbx.id, currentJbxSession.id, 0, 10)
+      console.log(res)
+    }
+  }
 
   return (
     <>

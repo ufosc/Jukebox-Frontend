@@ -53,6 +53,17 @@ declare interface IJukeSessionMembership {
   queued_tracks: number[]
 }
 
+declare interface IJukeSessionMember extends IModelBase {
+  juke_session: number
+  user_id: number
+  deleted_on?: DateString
+}
+
+declare interface IJukeSessionMemberList{
+  memberships: IJukeSessionMember[]
+  count: number
+}
+
 declare interface IJukeSessionMembershipCreate {
   user_id: number
 }

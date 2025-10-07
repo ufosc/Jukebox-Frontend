@@ -7,14 +7,18 @@ import { useContext } from 'react'
 import { useSelector } from 'react-redux'
 import { AudioPlayer, TrackList } from 'src/components'
 import { PlayerContext } from 'src/context'
-import { selectCurrentJukebox, selectNextTracks } from 'src/store/jukebox'
+import { selectCurrentJukebox, selectCurrentJukeSession, selectNextTracks } from 'src/store/jukebox'
 import { TrackModifyContext } from './trackContext'
+import { AdminContext } from '../layout/Dashboard'
 
 export const Overview = () => {
   const queuedTracks = useSelector(selectNextTracks)
   const { playerState, currentTrack } = useContext(PlayerContext)
   const currentJukebox = useSelector(selectCurrentJukebox)
+  const adminStatus = useContext(AdminContext)
+  const currentJbxSession = useSelector(selectCurrentJukeSession)
 
+  
   return (
     <>
       <TrackModifyContext.Provider value={false}>
