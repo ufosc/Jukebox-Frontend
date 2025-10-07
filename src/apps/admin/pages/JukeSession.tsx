@@ -1,9 +1,9 @@
-import { ChangeEvent, useContext, useState } from 'react'
+import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import { ApiClient } from 'src/api'
 import { usePopover } from 'src/hooks'
-import { selectCurrentJukebox, selectCurrentJukeSession, selectUser } from 'src/store'
+import { selectCurrentJukebox, selectCurrentJukeSession, selectCurrentJukeSessionMembership, selectUser } from 'src/store'
 import { AdminContext } from '../layout/Dashboard'
 import './JukeSession.scss'
 
@@ -15,6 +15,7 @@ export const JukeSession = () => {
 
   const jukeSession = useSelector(selectCurrentJukeSession)
   const currentJbx = useSelector(selectCurrentJukebox)
+  const currentJukeMember = useSelector(selectCurrentJukeSessionMembership)
 
   const adminStatus = useContext(AdminContext)
 
@@ -64,6 +65,10 @@ export const JukeSession = () => {
       console.log(res)
     }
   }
+  
+  useEffect(()=>{
+    console.log(currentJukeMember)
+  },[currentJukeMember])
 
   return (
     <>
@@ -93,7 +98,7 @@ export const JukeSession = () => {
         </span>
       </div>
 
-      {adminStatus.role === 'member' && jukeSession ? (
+      {adminStatus.role === 'member' && jukeSession && !currentJukeMember ? (
         <div>
           <input
           value={enterCode}
