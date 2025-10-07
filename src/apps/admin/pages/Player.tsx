@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { AudioPlayer } from 'src/components'
 import { PlayerContext } from 'src/context'
@@ -49,7 +49,8 @@ export const Player = () => {
               </button>
             </div>
           )}
-          {accountConnected && !hasAux && (
+
+          {accountConnected && jukeSession && !hasAux && (
             <div className="player-page__section">
               <div className="font-title-md">
                 Spotify connected, transfer playback to get started!

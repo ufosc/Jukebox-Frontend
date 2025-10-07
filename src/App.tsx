@@ -100,9 +100,6 @@ export const App = () => {
               </PlayerProvider>
             </SocketProvider>
           </SpotifyPlayerProvider>
-          <PlayerProvider>
-            <Outlet />
-          </PlayerProvider>
         </NoticesProvider>
       </KeyboardProvider>
     </Theme>

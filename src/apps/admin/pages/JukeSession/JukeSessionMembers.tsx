@@ -84,6 +84,7 @@ export const JukeSessionMembers = () => {
         <div className="col-3 juke-session__header-title">
           <div>Current Members</div>
 
+          {/*}
           <div className="col-5">
             <input
               className="juke-session__member-search"
@@ -91,6 +92,7 @@ export const JukeSessionMembers = () => {
               type="text"
             ></input>
           </div>
+          */}
         </div>
 
         <div className="col-12 juke-session__member-list">

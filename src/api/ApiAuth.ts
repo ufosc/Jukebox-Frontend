@@ -129,6 +129,14 @@ export class ApiAuth extends ApiBase {
   async loginWithUsername(usernameOrEmail: string, password: string) {
     const url = this.endpoints.user.token
 
+    function getCsrfTokenFromCookie(): string | null {
+      const cookie = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('csrftoken='));
+
+      return cookie ? decodeURIComponent(cookie.split('=')[1]) : null;
+    }
+
     const res = await this.post<TokenResponse>(url, {
       body: { username: usernameOrEmail, password },
       isPublic: true,

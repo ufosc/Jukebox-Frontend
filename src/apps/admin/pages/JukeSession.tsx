@@ -1,9 +1,41 @@
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import './JukeSession.scss'
+import { useSelector } from 'react-redux'
+import { selectCurrentJukebox, selectCurrentJukeSession } from 'src/store'
+import { usePopover } from 'src/hooks'
+import { useState } from 'react'
+import { ApiClient } from 'src/api'
 
 export const JukeSession = () => {
   const location = useLocation()
   const path = location.pathname
+
+  const network = ApiClient.getInstance()
+
+  const jukeSession = useSelector(selectCurrentJukeSession)
+  const currentJbx = useSelector(selectCurrentJukebox)
+
+  const [jbxName, setJbxName] = useState('')
+
+
+  const [isCreating, setIsCreating] = useState(false);
+
+  const { Popover: JukeSessionPopover, PopoverButton: JukeSessionPopoverButton } =
+      usePopover('juke-session-popover')
+
+
+  const handleSubmit = async () => {
+    const now = new Date;
+    const endTime = new Date(now.getTime() + 2 * 60 * 60 * 1000);
+    if(currentJbx){
+      const res = await network.jukeSessions.create(currentJbx?.id, {
+          start_at: now.toString(),
+          end_at: endTime.toString()
+      });
+
+      console.log(res)
+    }
+  }
 
   return (
     <>
@@ -33,7 +65,25 @@ export const JukeSession = () => {
         </span>
       </div>
 
-      <Outlet />
+
+      {jukeSession ? (<Outlet />) : 
+    <div>
+      <input
+        placeholder='Display Name'
+        
+        className=''
+      >
+      </input>
+      <button onClick={handleSubmit}>
+        Start Session
+      </button>
+      {
+
+
+      }
+      
+      </div>}
+
     </>
   )
 }
