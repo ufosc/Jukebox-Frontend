@@ -43,8 +43,8 @@ export const thunkFetchJukeSessionMembership = createAsyncThunk(
 
 export const thunkJoinJukeSession = createAsyncThunk(
   'jukebox/joinJukeSession',
-  async (payload: { jukeboxId: number; jukeSessionId: number }) => {
-    return await api.joinJukeSession(payload.jukeboxId, payload.jukeSessionId)
+  async (payload: { jukeboxId: number; jukeSessionId: number, userId: number }) => {
+    return await api.joinJukeSession(payload.jukeboxId, payload.jukeSessionId, payload.userId)
   },
 )
 

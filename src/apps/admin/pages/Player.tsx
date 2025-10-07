@@ -49,7 +49,8 @@ export const Player = () => {
               </button>
             </div>
           )}
-          {accountConnected && !hasAux && (
+
+          {accountConnected && jukeSession && !hasAux && (
             <div className="player-page__section">
               <div className="font-title-md">
                 Spotify connected, transfer playback to get started!

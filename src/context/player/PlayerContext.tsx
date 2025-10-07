@@ -147,6 +147,8 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
         }
       })
       onEvent<IPlayerState>('player-state-update', (data) => {
+        console.log("TESTING")
+        console.log(data)
         setPlayerState(data)
         console.log('aux player client updated')
         console.log(data)
