@@ -361,4 +361,28 @@ export class ApiClient extends ApiAuth {
     const url = this.endpoints.jukebox.playerAction(jukeboxId)
     return await this.post<IPlayerState>(url, { body })
   }
+
+  public async getJbxSessionMembers(jukeboxId: number, jukeSessionId: number, pageNum: number, rowAmt: number) {
+    const params = {page: pageNum, rows: rowAmt}
+    const qp = new URLSearchParams()
+    Object.entries(params).forEach(([k, v]) => qp.append(k, String(v)))
+
+    let url = this.endpoints.jukebox.getJukeSessionMembers(jukeboxId, jukeSessionId)
+    url = `${url}?${qp.toString()}`
+
+    console.log(url)
+    
+    const res = await this.get<IJukeSessionMemberList>(url)
+    return res;
+  }
+
+  public async joinJukeSessionWithCode(jukeboxId: number, joinCode: string, userId: number) {
+    const url = this.endpoints.jukebox.joinJukeSessionCode(jukeboxId, joinCode)
+
+    const res = await this.post(url, {
+      body: {user_id: userId}
+    })
+
+    return res
+  }
 }

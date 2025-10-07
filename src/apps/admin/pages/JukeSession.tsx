@@ -1,10 +1,11 @@
-import { Link, Outlet, useLocation } from 'react-router-dom'
-import './JukeSession.scss'
+import { ChangeEvent, useContext, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { selectCurrentJukebox, selectCurrentJukeSession } from 'src/store'
-import { usePopover } from 'src/hooks'
-import { useState } from 'react'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 import { ApiClient } from 'src/api'
+import { usePopover } from 'src/hooks'
+import { selectCurrentJukebox, selectCurrentJukeSession, selectUser } from 'src/store'
+import { AdminContext } from '../layout/Dashboard'
+import './JukeSession.scss'
 
 export const JukeSession = () => {
   const location = useLocation()
@@ -15,23 +16,50 @@ export const JukeSession = () => {
   const jukeSession = useSelector(selectCurrentJukeSession)
   const currentJbx = useSelector(selectCurrentJukebox)
 
+  const adminStatus = useContext(AdminContext)
+
   const [jbxName, setJbxName] = useState('')
 
+  const currentUser = useSelector(selectUser)
 
-  const [isCreating, setIsCreating] = useState(false);
+  const [isCreating, setIsCreating] = useState(false)
 
-  const { Popover: JukeSessionPopover, PopoverButton: JukeSessionPopoverButton } =
-      usePopover('juke-session-popover')
+  //Member stuff
+  const [enterCode, setEnterCode] = useState('')
 
+  const handleEnterCode = (e:ChangeEvent<HTMLInputElement>) => {
+    const joinCode = e.target.value
+    setEnterCode(joinCode)
+  }
+
+  const submitJoinCode = async (e:any) => {
+    e.preventDefault()
+    console.log(enterCode)
+    if(currentJbx && jukeSession && currentUser){
+      const res = await network.joinJukeSessionWithCode(currentJbx.id, enterCode, currentUser.id)
+      console.log(res)
+      setEnterCode('')
+    }else{
+      console.log("No jukebox active")
+    }
+
+    
+  }
+
+
+  const {
+    Popover: JukeSessionPopover,
+    PopoverButton: JukeSessionPopoverButton,
+  } = usePopover('juke-session-popover')
 
   const handleSubmit = async () => {
-    const now = new Date;
-    const endTime = new Date(now.getTime() + 2 * 60 * 60 * 1000);
-    if(currentJbx){
+    const now = new Date()
+    const endTime = new Date(now.getTime() + 2 * 60 * 60 * 1000)
+    if (currentJbx) {
       const res = await network.jukeSessions.create(currentJbx?.id, {
-          start_at: now.toString(),
-          end_at: endTime.toString()
-      });
+        start_at: now.toString(),
+        end_at: endTime.toString(),
+      })
 
       console.log(res)
     }
@@ -65,25 +93,31 @@ export const JukeSession = () => {
         </span>
       </div>
 
+      {adminStatus.role === 'member' && jukeSession ? (
+        <div>
+          <input
+          value={enterCode}
+          onChange={handleEnterCode}
+          ></input>
 
-      {jukeSession ? (<Outlet />) : 
-    <div>
-      <input
-        placeholder='Display Name'
-        
-        className=''
-      >
-      </input>
-      <button onClick={handleSubmit}>
-        Start Session
-      </button>
-      {
+          <button onClick={submitJoinCode}>Join Session</button>
+        </div>
+      ) : (
+        <></>
+      )}
 
-
-      }
-      
-      </div>}
-
+      {adminStatus.role === 'admin' ? (
+        jukeSession ? (
+          <Outlet />
+        ) : (
+          <div>
+            <input placeholder="Display Name" className=""></input>
+            <button onClick={handleSubmit}>Start Session</button>
+          </div>
+        )
+      ) : (
+        <></>
+      )}
     </>
   )
 }

@@ -1,7 +1,12 @@
 import { useContext } from 'react'
-import { HomeIcon, JukeboxIcon, MusicIcon } from 'src/assets/Icons'
+import {
+  HomeIcon,
+  JamIcon,
+  JukeboxIcon,
+  MusicIcon,
+  SettingsIcon,
+} from 'src/assets/Icons'
 import { ThemeContext } from 'src/context/Theme'
-import { mergeClassNames } from 'src/utils'
 import '../Sidebar.scss'
 import { NavItem } from './NavItem'
 
@@ -39,6 +44,19 @@ export const MemberSidebar = () => {
                 <MusicIcon />
                 <NavItem route="music" text="Music" end />
                 <button className="navbar__dropdown__button"></button>
+              </span>
+            </li>
+            <li className="navbar__nav__list__item">
+              <span className="navbar__nav__item">
+                <JamIcon />
+                <NavItem route="jam-sessions" text="Juke Session" end />
+                <button className="navbar__dropdown__button"></button>
+              </span>
+            </li>
+            <li className="navbar__nav__list__item">
+              <span className="navbar__nav__item">
+                <SettingsIcon />
+                <NavItem route="settings" text="Settings" end />
               </span>
             </li>
           </ul>

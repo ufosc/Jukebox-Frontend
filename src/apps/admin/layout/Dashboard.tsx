@@ -24,7 +24,9 @@ export const Dashboard = () => {
     jukebox: currentJukebox,
   })
 
+  //Re-enable later
   useEffect(() => {
+    console.log(currentMembership)
     if (currentMembership && currentMembership.is_admin) {
       setCurrentContext((prev) => ({
         ...prev,
@@ -33,7 +35,7 @@ export const Dashboard = () => {
     } else {
       setCurrentContext((prev) => ({
         ...prev,
-        role: 'admin',
+        role: 'member',
       }))
     }
   }, [currentMembership])
