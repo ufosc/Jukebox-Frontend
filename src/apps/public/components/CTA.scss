@@ -22,3 +22,17 @@
   margin-bottom: 4rem;
   line-height: 120%;
 }
+
+.CTA .button-outlined.btn--cta {
+  font-size: 1.3rem;
+  line-height: 2rem;
+  font-family: Termina, system-ui, sans-serif;
+  font-weight: 700;
+  padding-block: 1rem;
+  border-width: 0.25rem; 
+
+  &:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+}

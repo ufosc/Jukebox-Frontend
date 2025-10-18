@@ -15,7 +15,7 @@ export const CTA = () => {
           href="/auth/register"
           appearance="outlined"
           colorRole="tertiary"
-          className={'btn--hero'}
+          className={'btn--cta'}
         >
           CTA Primary
         </Button>
