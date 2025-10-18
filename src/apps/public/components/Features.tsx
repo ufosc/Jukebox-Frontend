@@ -4,7 +4,7 @@ import TopicGrid from './TopicGrid'
 
 export const Features = () => {
   return (
-    <section className="features">
+    <section id="features" className="features">
       <div className="features__inner container">
         <h2 className="features__title">Notable Features</h2>
         <div className="features__list">

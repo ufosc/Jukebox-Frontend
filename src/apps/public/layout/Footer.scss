@@ -1,7 +1,7 @@
 .site-footer {
   /* Layout */
-  min-height: 8vh;             
-  padding-inline: 5%;
+  min-height: 8vh;             /* responsive: footer height scales with viewport */
+  padding-inline: 5%;          /* responsive: side padding adjusts with screen width */
   padding-block: 1.6rem;
 
   /* Theme */

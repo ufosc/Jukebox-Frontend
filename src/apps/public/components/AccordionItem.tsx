@@ -24,8 +24,10 @@ export const AccordionItem = ({
   open,
   onToggle,
 }: AccordionItemProps) => {
+  const itemRef = React.useRef<HTMLDivElement>(null)
+  const headerRef = React.useRef<HTMLButtonElement>(null)
   const contentRef = React.useRef<HTMLDivElement>(null)
-  const [contentHeight, setContentHeight] = React.useState(0)
+  const [panelHeight, setPanelHeight] = React.useState(0)
 
   const panelId = `acc-panel-${id}`
   const buttonId = `acc-btn-${id}`
@@ -34,25 +36,61 @@ export const AccordionItem = ({
     onToggle(id)
   }, [id, onToggle])
 
+  // Responsive: recalculate panel height so accordion adapts to viewport changes.
   const recalcHeight = React.useCallback(() => {
     const content = contentRef.current
-    if (!content) return
+    const headerEl = headerRef.current
+    const itemEl = itemRef.current
+    if (!content || !headerEl || !itemEl) return
 
-    setContentHeight(content.scrollHeight)
+    const contentScrollHeight = content.scrollHeight
+    let targetHeight = contentScrollHeight
+
+    const accordionEl = itemEl.closest('.accordion') as HTMLElement | null
+    if (accordionEl) {
+      const headers = Array.from(
+        accordionEl.querySelectorAll<HTMLButtonElement>('.accordion__header'),
+      )
+
+      const totalHeaderHeight = headers.reduce((total, header) => {
+        const rect = header.getBoundingClientRect()
+        return total + rect.height
+      }, 0)
+
+      const accordionRect = accordionEl.getBoundingClientRect()
+      const availableSpace = Math.max(
+        0,
+        accordionRect.height - totalHeaderHeight,
+      )
+
+      if (availableSpace > 0) {
+        targetHeight = Math.max(contentScrollHeight, availableSpace)
+      }
+    }
+
+    const nextHeight = Math.max(0, Math.round(targetHeight))
+    setPanelHeight((prev) => (prev === nextHeight ? prev : nextHeight))
   }, [])
 
   React.useLayoutEffect(() => {
     recalcHeight()
 
     const content = contentRef.current
+    const itemEl = itemRef.current
     const ro: ResizeObserver | null =
       typeof window !== 'undefined' && 'ResizeObserver' in window
         ? new ResizeObserver(recalcHeight)
         : null
 
-    if (ro && content) ro.observe(content)
+    if (ro) {
+      // Responsive: observe content/container size changes to keep measured height accurate.
+      if (content) ro.observe(content)
+      const accordionEl = itemEl?.closest('.accordion')
+      if (accordionEl instanceof HTMLElement) ro.observe(accordionEl)
+    }
 
     const onResize = () => recalcHeight()
+    // Responsive: re-run sizing logic whenever the window size changes.
     if (typeof window !== 'undefined') {
       window.addEventListener('resize', onResize)
     }
@@ -70,12 +108,16 @@ export const AccordionItem = ({
     if (open) recalcHeight()
   }, [open, recalcHeight])
 
-  const maxHeight = open ? `${contentHeight}px` : '0px'
+  const maxHeight = open ? `${panelHeight || 0}px` : '0px'
 
   return (
-    <div className={`accordion__item ${open ? 'is-open' : ''} ${className}`}>
+    <div
+      ref={itemRef}
+      className={`accordion__item ${open ? 'is-open' : ''} ${className}`}
+    >
       <div className="accordion__heading" role="heading" aria-level={3}>
         <button
+          ref={headerRef}
           id={buttonId}
           type="button"
           className="accordion__header"

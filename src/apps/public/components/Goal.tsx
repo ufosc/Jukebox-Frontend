@@ -2,7 +2,7 @@ import './Goal.scss'
 
 export const Goal = () => {
   return (
-    <section className="goal">
+    <section id="goal" className="goal">
       <div className="goal__inner">
         <h2 className="goal__title">Who Are We?</h2>
         <p className="goal__text">

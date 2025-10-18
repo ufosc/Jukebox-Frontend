@@ -1,4 +1,4 @@
-$header-height: clamp(64px, 10dvh, 96px);
+$header-height: clamp(64px, 10dvh, 96px);        /* responsive: header height scales with viewport */
 
 :root {
   --header-height: #{$header-height};
@@ -11,7 +11,7 @@ $header-height: clamp(64px, 10dvh, 96px);
 
   /* Height & padding: dynamic */
   height: var(--header-height);
-  padding-inline: 5%;            /* scales with screen width */
+  padding-inline: 5%;            /* responsive: side gutters expand or contract with screen width */
 
   /* Theme gradient */
   $dark-tone: map-get(map-get($tonal-swatches, c), 15);
@@ -50,22 +50,31 @@ $header-height: clamp(64px, 10dvh, 96px);
 
   color: inherit;
   text-decoration: none;
+}
 
-  transition: color 0.2s ease;
+
+.site-header .button-outlined.btn--nav {
+  font-size: 1.3rem;
+  line-height: 2rem;
+  font-family: Termina, system-ui, sans-serif;
+  font-weight: 700;
+  padding-block: 1rem;
+  border-width: 0.125rem; 
 
   &:hover {
-    color: var(--color-primary); /* hover pulls in theme accent */
+    color: var(--color-primary);
+    border-color: var(--color-primary);
   }
 }
 
 /* Responsive adjustments */
 @include breakpoint(sm) {
   .site-header {
-    padding-inline: 1.6rem; 
+    padding-inline: 1.6rem;      /* responsive: tighter gutters on small screens */
   }
 }
 
 @include breakpoint(md) {
-  .site-header__nav { display: flex; }
-  .site-header__menu-btn { display: none; }
+  .site-header__nav { display: flex; }            /* responsive: ensure nav stays visible from tablet up */
+  .site-header__menu-btn { display: none; }       /* responsive: hide potential menu button on larger viewports */
 }

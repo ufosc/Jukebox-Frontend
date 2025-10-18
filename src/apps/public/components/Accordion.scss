@@ -2,64 +2,6 @@
 .accordion {
   display: flex;
   flex-direction: column;
-}
-
-.accordion__panel {
-  overflow: hidden;
-  transition: max-height 0.35s ease;
-  background: #5e2d2b;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  will-change: max-height;
-}
-
-.accordion__panel-inner {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 1.5rem 2rem;
-  align-items: start;
-  padding: 0 1.5rem 1.5rem;
-}
-
-.accordion__body {
-  min-width: 0;
-}
-
-.accordion__text {
-  margin: 0;
-  font: 400 1.4rem/1.6 Poppins, system-ui, sans-serif;
-  color: var(--color-on-surface, #fff);
-  opacity: 0.9;
-}
-
-.accordion__thumb {
-  width: 180px;
-  height: 140px;
-  border-radius: 0.4rem;
-  overflow: hidden;
-  background: #d9d9d9;
-}
-
-.accordion__thumb img {
-  display: block;
-  width: 100%;
   height: 100%;
-  object-fit: cover;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .accordion__panel {
-    transition: none;
-  }
-}
-
-@media (max-width: 768px) {
-  .accordion__panel-inner {
-    grid-template-columns: 1fr;
-  }
-
-  .accordion__thumb {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 3;
-  }
+  min-height: 0;
 }

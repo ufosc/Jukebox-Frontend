@@ -1,5 +1,5 @@
 .CTA {
-  max-width: 100vw;                                /* full viewport width */                               /* 300px (1rem = 10px with your setup) */
+  max-width: 100vw;                                /* responsive: span the full viewport width */
   background: var(--color-background, #F9F9F9);
   padding: 16rem 16rem 16rem 16rem;              
 
@@ -10,7 +10,7 @@
 }
 
 .CTA__inner {
-  max-width: 80.6rem;                            /* 800px */
+  max-width: 80.6rem;                            /* responsive: cap text width to keep lines readable */
   margin: 0 auto;
   padding: 1.6rem;                             /* 16px padding */
 }

@@ -1,9 +1,9 @@
 /* HERO LAYOUT */
 .hero {
   position: relative;
-  padding-inline: 5%;
+  padding-inline: 5%;                             /* responsive gutter scales with viewport width */
   box-sizing: border-box;
-  min-height: calc(100dvh - var(--header-height));
+  min-height: calc(100dvh - var(--header-height));/* keep hero full-height relative to viewport minus sticky header */
 
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@
   display: flex;
   align-items: stretch;
   flex: 1 1 auto;
-  padding-block: clamp(96px, 12vh, 160px); // top & bottom only
+  padding-block: clamp(96px, 12vh, 160px);       /* clamp keeps top/bottom breathing room responsive */
 }
 
 /* CONTENT */
@@ -28,7 +28,7 @@
   padding-bottom: 1rem;
   font-family: Termina, system-ui, sans-serif;
   font-weight: 800;
-  font-size: clamp(3.2rem, 6vw, 6.4rem);
+  font-size: clamp(3.2rem, 6vw, 6.4rem);          /* clamp scales heading smoothly between small and large screens */
   line-height: 1.05;                      /* close to Figma’s look */
   letter-spacing: -0.01em;                
   color: var(--color-on-surface);
@@ -54,17 +54,31 @@
   display: flex;
   align-items: center;
   gap: 2rem;
-  margin-top: clamp(14px, 2vh, 24px);      /* space between subtitle and button */
+  margin-top: clamp(14px, 2vh, 24px);             /* clamp adapts spacing between text and buttons to viewport height */
+}
+
+.hero__cta {
+  position: relative;
+  display: inline-block;
+}
+
+.hero__next {
+  position: absolute;
+  bottom: -2.125rem;
+  right: -1.125rem;
+  width: clamp(3.2rem, 5vw, 4.4rem);              /* clamp keeps decorative arrow proportional on any screen width */
+  pointer-events: none; 
+  filter: drop-shadow(.125rem .125rem 0.25rem rgba(0, 0, 0, 0.5));                    /* keep button clickable */
 }
 
 /* BACKGROUND ART (90% scale images + anchored bottom-right) */
 .hero__bg {
-  --bg1-w: clamp(320px, 42vw, 740px);
+  --bg1-w: clamp(320px, 42vw, 740px);             /* clamp gives art a responsive width range */
 
   position: absolute;
   bottom: 0;
   right: 0;
-  width: calc(var(--bg1-w) * var(--bg-scale));
+  width: calc(var(--bg1-w) * var(--bg-scale));    /* calc keeps rendered asset width tied to responsive variable */
   pointer-events: none;
   z-index: 0;
 }
@@ -73,7 +87,7 @@
   position: relative;
   width: var(--bg1-w);
   transform-origin: bottom right;
-  transform: scale(var(--bg-scale));
+  transform: scale(var(--bg-scale));              /* scale factor lets illustration respond to design tweaks */
 }
 
 .hero__bg-img {
@@ -87,50 +101,64 @@
 .hero__bg-img--2 { z-index: 2; }
 .hero__bg-img--3 { z-index: 3; }
 
-/* RESPONSIVE: tighten insets & full-width text on small screens */
+/* RESPONSIVE: tighten insets & full-width text as screens narrow */
 @media (max-width: 1024px) {
   .hero {
-    padding-inline: clamp(2.4rem, 4vw, 4rem);
+    padding-inline: clamp(2.4rem, 4vw, 4rem);     /* clamp keeps side padding balanced across tablet widths */
   }
 
   .hero__inner {
-    padding-block: clamp(8rem, 10vh, 12rem);
+    padding-block: clamp(8rem, 10vh, 12rem);      /* reduce vertical breathing room as viewport height shrinks */
   }
 
   .hero__content {
-    max-width: min(100%, 60rem);
-    padding-top: clamp(10rem, 12vh, 14rem);
-    padding-bottom: clamp(10rem, 12vh, 14rem);
+    max-width: min(100%, 60rem);                  /* cap width so content doesn't stretch on mid-sized screens */
+    padding-top: clamp(10rem, 12vh, 14rem);       /* maintain top offset relative to available height */
+    padding-bottom: clamp(10rem, 12vh, 14rem);    /* maintain bottom offset relative to available height */
   }
 
   .hero__subtitle {
-    font-size: clamp(1.8rem, 2.2vw, 2rem);
+    font-size: clamp(1.8rem, 2.2vw, 2rem);        /* clamp scales subtitle for tablet readability */
   }
 }
 
 @media (max-width: 768px) {
   .hero {
-    padding-inline: 2rem;
+    padding-inline: 2rem;                         /* fixed narrow gutter prevents overflow on phones */
   }
 
   .hero__inner {
-    padding-block: clamp(5rem, 9vh, 7rem);
+    padding-block: clamp(5rem, 9vh, 7rem);        /* tighter vertical rhythm for smaller screens */
   }
 
   .hero__content {
     max-width: 100%;
-    padding-top: clamp(6rem, 10vh, 8rem);
-    padding-bottom: clamp(6rem, 10vh, 8rem);
+    padding-top: clamp(6rem, 10vh, 8rem);         /* keep hero body centered within shorter viewports */
+    padding-bottom: clamp(6rem, 10vh, 8rem);      /* keep hero body centered within shorter viewports */
   }
 
   .hero__title {
-    font-size: clamp(2.4rem, 8vw, 3.6rem);
+    font-size: clamp(2.4rem, 8vw, 3.6rem);        /* clamp tightens heading to stay within phone width */
     line-height: 1.1;
   }
 
   .hero__subtitle {
-    font-size: clamp(1.6rem, 4vw, 1.8rem);
+    font-size: clamp(1.6rem, 4vw, 1.8rem);        /* clamp balances body text size for phones */
   }
 }
 
+.hero .button-outlined.btn--hero {
+  font-size: 1.3rem;
+  line-height: 2rem;
+  font-family: Termina, system-ui, sans-serif;
+  font-weight: 700;
+  padding-block: 1rem;
+  border-width: 0.45rem; 
+  transition: color 180ms ease, border-color 180ms ease;
+
+  &:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+}
 

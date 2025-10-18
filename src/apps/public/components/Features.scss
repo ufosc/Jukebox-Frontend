@@ -1,11 +1,11 @@
 .features {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap;                             /* responsive: allow cards to wrap onto new rows */
   justify-content: center;
   gap: 24px;
-  max-width: 100dvw;
-  padding: clamp(6rem, 10svh, 12rem) clamp(2rem, 6vw, 8rem);
-  min-height: calc(100dvh - var(--header-height));
+  max-width: 100dvw;                           /* responsive: prevent overflow past viewport width */
+  padding: clamp(6rem, 10svh, 12rem) clamp(2rem, 6vw, 8rem); /* clamp keeps section spacing fluid */
+  min-height: calc(100dvh - var(--header-height)); /* responsive: fill available height minus sticky header */
 }
 
 .features__title {

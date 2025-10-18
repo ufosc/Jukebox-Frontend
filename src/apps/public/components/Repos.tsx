@@ -14,7 +14,7 @@ export const Repos = () => {
       index: 1,
       title: 'Jukebox API',
       description:
-        'Node/Express service providing endpoints for track search, queue management, and playback state.',
+        'Node/Express service providing endpoints for track search, queue management, and playback state. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
       thumbSrc: RepoThumb1,
       thumbAlt: 'Jukebox API repository preview',
     },
@@ -38,27 +38,34 @@ export const Repos = () => {
   ]
 
   return (
-    <section className="repos">
+    <section id="repos" className="repos">
       <div className="repos__inner container">
         <h2 className="repos__title">Repositories</h2>
         <Button
           as="a"
           href="/dashboard"
           appearance="outlined"
-          colorRole="secondary"
-          className={'btn--hero'}
+          className={'btn--repo'}
+          style={
+            {
+              '--color-primary-contrast': '#fff', // background
+              '--color-primary-contrast-on': '#fff', // text
+            } as React.CSSProperties
+          }
         >
           Sign Up
         </Button>
       </div>
-      <div className="repos__list">
-        <Accordion
-          items={items}
-          allowMultiple={false} // set true if you want multi-open
-          defaultOpenIds={['repo-01']} // open first by default
-          className="repos__accordion"
-          itemClassName="repos__accordion-item"
-        />
+      <div className="repos__wrapper container">
+        <div className="repos__list">
+          <Accordion
+            items={items}
+            allowMultiple={false} // set true if you want multi-open
+            defaultOpenIds={['repo-01']} // open first by default
+            className="repos__accordion"
+            itemClassName="repos__accordion-item"
+          />
+        </div>
       </div>
     </section>
   )

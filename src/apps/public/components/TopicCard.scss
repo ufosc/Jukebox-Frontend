@@ -110,11 +110,11 @@
 /* Responsive tweaks (optional) */
 @media (max-width: 768px) {
   .topic-card {
-    padding: 2.4rem 1.6rem;
-    row-gap: 2.4rem;
+    padding: 2.4rem 1.6rem;            /* responsive: tighter padding on tablets/phones */
+    row-gap: 2.4rem;                   /* responsive: shrink vertical gaps so card stays compact */
 
-    &__img { width: 7rem; height: 7rem; }
-    &__title { font-size: 2rem; }
-    &__text { font-size: 1.3rem; line-height: 2rem; }
+    &__img { width: 7rem; height: 7rem; }         /* responsive: scale avatar down to fit narrow width */
+    &__title { font-size: 2rem; }                 /* responsive: reduce heading to avoid wrapping */
+    &__text { font-size: 1.3rem; line-height: 2rem; } /* responsive: smaller body copy for comfortable reading */
   }
 }

@@ -12,10 +12,10 @@ export const Header = ({ isLoggedIn }: HeaderProps) => {
       <div className="site-header__inner container">
         <Brand />
         <nav className="site-header__nav" aria-label="Main">
-          <a href="#about">About</a>
+          <a href="#goal">About</a>
           <a href="#features">Features</a>
-          <a href="#docs">Docs</a>
-          <a href="#contribute">Contribute</a>
+          <a href="#repos">Docs</a>
+          <a href="#cta">Contribute</a>
           {isLoggedIn ? (
             <>
               <a href="/auth/logout" className="nav-link">

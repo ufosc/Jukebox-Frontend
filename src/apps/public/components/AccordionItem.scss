@@ -1,37 +1,46 @@
 
 /* Base item borders */
 .accordion__item {
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 auto;
+  min-height: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  background: #632D2D;
 }
 
 .accordion__item:last-child {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 }
-
-.accordion__heading {
-  margin: 0;
-}
-
 /* Header button (always visible) */
 .accordion__header {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 5rem;
   width: 100%;
   background: transparent;
   border: 0;
-  padding: 1.25rem 1.5rem;
+  padding-block: 4rem;           /* closed size */
+  transition:
+    padding-block 0.35s ease,
+    margin-bottom 0.35s ease,
+    color 0.35s ease;
+  padding-left: 2rem;
+  padding-right: 2rem;
   text-align: left;
   color: rgba(255, 255, 255, 0.92);
   cursor: pointer;
   font: inherit;
+  flex-shrink: 0;
 }
 
 /* Animated container */
 .accordion__panel {
   overflow: hidden;
   transition: max-height 0.35s ease;
-  background: #5e2d2b; /* maroon panel color */
+
+  will-change: max-height;
+  flex: 0 1 auto;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -44,49 +53,61 @@
   display: grid;
   grid-template-columns: 1fr auto; /* text left | thumb right */
   gap: 1.5rem 2rem;
-  padding: 0 1.5rem 1.5rem;
-}
-
-/* Focus ring for accessibility */
-.accordion__header:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.8);
-  outline-offset: 2px;
-  border-radius: 6px;
+  align-items: flex-start;
+  padding: 0rem 11.5rem 3rem;
 }
 
 /* Header content */
 .accordion__index {
-  font-weight: 600;
   opacity: 0.9;
   letter-spacing: 0.02em;
+  font-family: Termina, system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 2.3rem;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+  display: inline-flex;
+  justify-content: flex-end;
+  min-width: 2ch;
 }
 
 .accordion__title {
   font-weight: 700;
   margin-right: auto; /* pushes icon right */
   line-height: 1.2;
+  font-family: Termina, system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 2.3rem;
 }
 
 /* Content layout */
 .accordion__body {
   grid-column: 1 / 2;
+  max-inline-size: 40vw;                         /* responsive: limit text width relative to viewport */
 }
 
 .accordion__text {
+  margin: 0;
+  font: 400 1.4rem/1.6 Poppins, system-ui, sans-serif;
   color: rgba(255, 255, 255, 0.85);
   line-height: 1.55;
-  margin: 0;
+  opacity: 0.9;
 }
 
 .accordion__thumb {
   grid-column: 2 / 3;
-  align-self: start;
+  align-self: flex-start;
+  width: 180px;
+  height: 180px;
+  border-radius: 0.4rem;
+  overflow: hidden;
+  background: #d9d9d9;
 }
 
 .accordion__thumb img {
   display: block;
   width: 180px;
-  height: 140px;
+  height: 180px;
   object-fit: cover;
   background: #d9d9d9;
   border-radius: 6px;
@@ -94,12 +115,11 @@
 
 /* Plus/Minus icon */
 .accordion__icon {
-  flex: 0 0 auto;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
+  transform: scale(2.5);
   position: relative;
+  margin-right: 2rem;
+  transition: transform 0.3s ease;
+  transform-origin: center;
 }
 
 .accordion__icon::before,
@@ -108,10 +128,11 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 12px;
-  height: 2px;
-  background: #fff;
+  width: 1.125rem;
+  height: 0.05rem;
+  background: currentColor;
   transform: translate(-50%, -50%);
+  transition: width 0.25s ease, background-color 0.25s ease;
 }
 
 .accordion__icon::after {
@@ -119,18 +140,50 @@
 }
 
 /* Open = minus (hide one bar) */
-.accordion__item.is-open .accordion__icon::before {
+.accordion__item.is-open .accordion__icon::after {
   display: none;
 }
 
+.accordion__header:hover .accordion__icon {
+  transform: scale(2.7);
+}
+
+.accordion__header:hover .accordion__icon::before,
+.accordion__header:hover .accordion__icon::after {
+  background: #CEECF2;
+  width: 1.35rem;
+}
+
 /* Responsive tweaks */
+@media (max-width: 768px) {
+  .accordion__panel-inner {
+    grid-template-columns: 1fr;                  /* responsive: stack content into single column */
+  }
+
+  .accordion__body {
+    max-inline-size: 100%;                       /* responsive: allow body to fill full width on mobile */
+  }
+
+  .accordion__thumb {
+    width: 100%;                                 /* responsive: stretch imagery to match stacked layout */
+    height: auto;
+    aspect-ratio: 4 / 3;                         /* responsive: fixed ratio prevents image distortion */
+  }
+}
+
 @media (max-width: 640px) {
   .accordion__thumb img {
-    width: 140px;
+    width: 140px;                                /* responsive: scale image down for very small devices */
     height: 110px;
   }
 }
 
 .accordion__item.is-open .accordion__header {
   color: #fff;
+  flex-shrink: 1;
+  padding-block: 2rem;  
+}
+
+.accordion__item.is-open .accordion__panel {
+  flex: 1 1 auto;
 }

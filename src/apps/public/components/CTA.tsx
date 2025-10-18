@@ -3,7 +3,7 @@ import './CTA.scss'
 
 export const CTA = () => {
   return (
-    <section className="CTA">
+    <section id="cta" className="CTA">
       <div className="CTA__inner">
         <h2 className="CTA__title">
           Ready to get coding?

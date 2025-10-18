@@ -1,20 +1,20 @@
 .repos {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap;                             /* responsive: allow header + list to break onto new lines */
   justify-content: center;
-  gap: 24px;
   align-items: flex-start; /* prevent header row from stretching to match accordion height */
-  max-width: 100dvw;
-  padding: clamp(6rem, 10svh, 12rem) clamp(2rem, 6vw, 8rem);
+  gap: clamp(3rem, 6vh, 6rem); // responsive: adjusts row/column spacing between header row and list
+  max-width: 100dvw;                           /* responsive: prevent layout from exceeding viewport width */
+  padding: clamp(6rem, 10svh, 12rem) clamp(2rem, 6vw, 8rem); /* clamp keeps section spacing fluid across devices */
   background-color: #5B2222; /*FIX ME: need help using color variables */
-  min-height: calc(100dvh - var(--header-height));
+  min-height: calc(100dvh - var(--header-height)); /* responsive: fill available viewport height */
 }
 
 .repos__inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: clamp(1.5rem, 4vw, 3rem);
+  gap: clamp(1.5rem, 4vw, 3rem);              /* clamp adjusts spacing between heading and CTA */
   margin: 0 auto;
   width: 100%;
   padding: 0 2rem;
@@ -31,15 +31,38 @@
   line-height: 1; /* keeps the flex row height locked to the heading size */
 }
 
+.repos__wrapper {
+  width: 100%;
+  min-height: calc(70dvh - var(--header-height)); /* responsive: keep accordion list tall relative to viewport */
+  display: flex;
+  align-items: stretch;
+}
+
 .repos__list {
   display: flex;
   flex-direction: column;
   gap: 2rem;
   width: 100%;
-  margin-top: clamp(2rem, 4vw, 4rem);
+  flex: 1;
+  min-height: 0;
+  //margin-top: clamp(2rem, 4vw, 4rem);
 }
 
 .repos__accordion {
   flex: 1 1 auto;
   width: 100%;
+}
+
+.repos .button-outlined.btn--repo {
+  font-size: 1.3rem;
+  line-height: 2rem;
+  font-family: Termina, system-ui, sans-serif;
+  font-weight: 700;
+  padding-block: 1rem;
+  border-width: 0.125rem; 
+
+  &:hover {
+    color: #CEECF2;
+    border-color: #CEECF2;
+}
 }
