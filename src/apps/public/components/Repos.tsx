@@ -1,11 +1,12 @@
 // Repos.tsx
 import Accordion, { type AccordionItemData } from './Accordion'
+import Button from './Button'
 import './Repos.scss'
-// (optional) local thumbs
+// replace this image with actual repo preview/thumbnail
 import RepoThumb1 from 'src/assets/svg/repo.svg'
 
 export const Repos = () => {
-  // You can hardcode, fetch, or compute this array.
+  // hardcode, fetch, or compute this array.
   // Shape matches AccordionItemData (id, title, description, thumbSrc, etc).
   const items: AccordionItemData[] = [
     {
@@ -40,16 +41,24 @@ export const Repos = () => {
     <section className="repos">
       <div className="repos__inner container">
         <h2 className="repos__title">Repositories</h2>
-
-        <div className="repos__list">
-          <Accordion
-            items={items}
-            allowMultiple={false} // set true if you want multi-open
-            defaultOpenIds={['repo-01']} // open first by default
-            className="repos__accordion"
-            itemClassName="repos__accordion-item"
-          />
-        </div>
+        <Button
+          as="a"
+          href="/dashboard"
+          appearance="outlined"
+          colorRole="secondary"
+          className={'btn--hero'}
+        >
+          Sign Up
+        </Button>
+      </div>
+      <div className="repos__list">
+        <Accordion
+          items={items}
+          allowMultiple={false} // set true if you want multi-open
+          defaultOpenIds={['repo-01']} // open first by default
+          className="repos__accordion"
+          itemClassName="repos__accordion-item"
+        />
       </div>
     </section>
   )

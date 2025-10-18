@@ -30,7 +30,7 @@
   font-weight: 800;
   font-size: clamp(3.2rem, 6vw, 6.4rem);
   line-height: 1.05;                      /* close to Figma’s look */
-  letter-spacing: -0.01em;                /* tiny optical tightening */
+  letter-spacing: -0.01em;                
   color: var(--color-on-surface);
 }
 
@@ -57,7 +57,7 @@
   margin-top: clamp(14px, 2vh, 24px);      /* space between subtitle and button */
 }
 
-/* BACKGROUND ART (keep 90% scale + anchored bottom-right) */
+/* BACKGROUND ART (90% scale images + anchored bottom-right) */
 .hero__bg {
   --bg1-w: clamp(320px, 42vw, 740px);
 

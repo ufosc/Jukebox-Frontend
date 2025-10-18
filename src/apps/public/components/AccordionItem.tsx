@@ -3,88 +3,101 @@ import './AccordionItem.scss'
 
 export type AccordionItemProps = {
   id: string
-  index?: number // for "01", "02", ...
+  index?: number
   title: string
   description?: string
   thumbSrc?: string
   thumbAlt?: string
-
-  open: boolean // controlled by parent
-  onToggle: (id: string) => void
-
   className?: string
+  open: boolean
+  onToggle: (id: string) => void
 }
 
-const AccordionItem: React.FC<AccordionItemProps> = ({
+export const AccordionItem = ({
   id,
   index,
   title,
   description,
   thumbSrc,
   thumbAlt = '',
+  className = '',
   open,
   onToggle,
-  className = '',
-}) => {
-  // We animate the panel by transitioning its max-height.
-  // This ref points to the real content so we can read scrollHeight.
+}: AccordionItemProps) => {
   const contentRef = React.useRef<HTMLDivElement>(null)
-  const [maxH, setMaxH] = React.useState(0)
-
-  // Whenever `open` (or the content) changes, update max-height.
-  React.useLayoutEffect(() => {
-    const el = contentRef.current
-    if (!el) return
-    setMaxH(open ? el.scrollHeight : 0)
-  }, [open, description, thumbSrc])
+  const [contentHeight, setContentHeight] = React.useState(0)
 
   const panelId = `acc-panel-${id}`
-  const btnId = `acc-btn-${id}`
+  const buttonId = `acc-btn-${id}`
 
   const handleToggle = React.useCallback(() => {
     onToggle(id)
   }, [id, onToggle])
 
-  const handleKeyDown = React.useCallback(
-    (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault()
-        onToggle(id)
+  const recalcHeight = React.useCallback(() => {
+    const content = contentRef.current
+    if (!content) return
+
+    setContentHeight(content.scrollHeight)
+  }, [])
+
+  React.useLayoutEffect(() => {
+    recalcHeight()
+
+    const content = contentRef.current
+    const ro: ResizeObserver | null =
+      typeof window !== 'undefined' && 'ResizeObserver' in window
+        ? new ResizeObserver(recalcHeight)
+        : null
+
+    if (ro && content) ro.observe(content)
+
+    const onResize = () => recalcHeight()
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', onResize)
+    }
+
+    return () => {
+      ro?.disconnect()
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('resize', onResize)
       }
-    },
-    [id, onToggle],
-  )
+    }
+    // Recalculate when content that can affect height changes.
+  }, [recalcHeight, title, description, thumbSrc])
+
+  React.useLayoutEffect(() => {
+    if (open) recalcHeight()
+  }, [open, recalcHeight])
+
+  const maxHeight = open ? `${contentHeight}px` : '0px'
 
   return (
     <div className={`accordion__item ${open ? 'is-open' : ''} ${className}`}>
       <div className="accordion__heading" role="heading" aria-level={3}>
-        {/* Provide button semantics on the whole header area for a wider click target */}
-        <div
-          id={btnId}
-          role="button"
-          tabIndex={0}
+        <button
+          id={buttonId}
+          type="button"
           className="accordion__header"
           aria-expanded={open}
           aria-controls={panelId}
           onClick={handleToggle}
-          onKeyDown={handleKeyDown}
         >
           <span className="accordion__index">
-            {(index ?? 0).toString().padStart(2, '0')}
+            {String(index ?? 0).padStart(2, '0')}
           </span>
           <span className="accordion__title">{title}</span>
-          {/* Plus/Minus is drawn with CSS */}
           <span className="accordion__icon" aria-hidden />
-        </div>
+        </button>
       </div>
 
-      {/* The panel's height is animated by max-height (1s) */}
       <div
         id={panelId}
-        role="region"
-        aria-labelledby={btnId}
         className="accordion__panel"
-        style={{ maxHeight: `${maxH}px` }}
+        style={{ maxHeight }}
+        role="region"
+        aria-labelledby={buttonId}
+        aria-hidden={!open}
       >
         <div ref={contentRef} className="accordion__panel-inner">
           {description && (
@@ -92,6 +105,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
               <p className="accordion__text">{description}</p>
             </div>
           )}
+
           {thumbSrc && (
             <div className="accordion__thumb">
               <img src={thumbSrc} alt={thumbAlt} />

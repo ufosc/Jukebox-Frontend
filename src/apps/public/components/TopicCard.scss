@@ -44,7 +44,7 @@
     font-size: 2.3rem;
     font-weight: 600;
     line-height: 1.2;
-    letter-spacing: 0;            /* adjust if your type scale needs it */
+    letter-spacing: 0;            
   }
 
   /* Row 2: body (expands) */
@@ -61,7 +61,7 @@
     font-size: 1.4rem;
     font-weight: 400;
     line-height: 2.1rem;
-    letter-spacing: 0.01em;       /* was `1%` (invalid) */
+    letter-spacing: 0.01em;       
     color: inherit;
   }
 
@@ -87,7 +87,7 @@
     }
   }
 
-  /* Variants (hooked to your $tonal-swatches map) */
+  /* Variants (hooked to $tonal-swatches map) */
   &--light {
     background: var(--color-surface, #fff);
     color: var(--color-on-surface-dark, #000);

@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 24px;
+  align-items: flex-start; /* prevent header row from stretching to match accordion height */
   max-width: 100dvw;
   padding: clamp(6rem, 10svh, 12rem) clamp(2rem, 6vw, 8rem);
   background-color: #5B2222; /*FIX ME: need help using color variables */
@@ -11,8 +12,9 @@
 
 .repos__inner {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: space-between;
+  gap: clamp(1.5rem, 4vw, 3rem);
   margin: 0 auto;
   width: 100%;
   padding: 0 2rem;
@@ -23,10 +25,10 @@
   font-family: Termina, system-ui, sans-serif;
   font-weight: 600;
   font-size: 3.7rem;
-  margin-bottom: 4rem;
+  margin: 0;
   letter-spacing: 1%;
-  width: 100%;
   color: var(--color-on-surface-dark, #fff);
+  line-height: 1; /* keeps the flex row height locked to the heading size */
 }
 
 .repos__list {
@@ -34,6 +36,7 @@
   flex-direction: column;
   gap: 2rem;
   width: 100%;
+  margin-top: clamp(2rem, 4vw, 4rem);
 }
 
 .repos__accordion {
