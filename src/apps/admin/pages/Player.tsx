@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useCallback, useContext, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { AudioPlayer } from 'src/components'
 import { PlayerContext } from 'src/context'
@@ -30,7 +30,7 @@ export const Player = () => {
     setIsAddingAccount(false)
   }
 
-  const ConditionalPlayerComponent = () => {
+  const ConditionalPlayerComponent = useCallback(() => {
     if (accountConnected && hasAux) {
       return <AudioPlayer />
     } else if (jukeSession && !hasAux && !jukeSessionMembership) {
@@ -69,7 +69,7 @@ export const Player = () => {
     } else {
       return <p>Not sure what's going on :(</p>
     }
-  }
+  }, [accountConnected, hasAux, jukeSession?.id, jukeSessionMembership])
 
   return (
     <div className="player-page section">

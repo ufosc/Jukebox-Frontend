@@ -85,21 +85,23 @@ export const SocketProvider = (props: { children: ReactNode }) => {
 
   const emitMessage = (ev: string, message: any) => {
     if (REACT_ENV === 'dev' || !socket.current) return
-    console.log('Emitting Message')
+    console.debug(`Emitting message for ${ev}:`, message)
     socket.current.emit(ev, message)
   }
 
   const onEvent = <T,>(ev: string, cb: (message: T) => void) => {
     if (REACT_ENV === 'dev' || !socket.current) return
 
-    console.log('Event Binded: ', ev)
-
     if (subEvents.includes(ev)) {
       socket.current.off(ev)
     } else {
       setSubEvents((prev) => [...prev, ev])
     }
-    socket.current.on(ev, cb)
+    const wrappedCb = (message: T) => {
+      console.debug(`Receiving message for ${ev}:`, message)
+      return cb(message)
+    }
+    socket.current.on(ev, wrappedCb)
   }
 
   return (

@@ -47,7 +47,7 @@ export const App = () => {
 
   // Primary function that runs when Spotify Player changes
   const handlePlayerTrackChange = useCallback(
-    (state?: IPlayerAuxClientUpdate) => {
+    (state?: IPlayerAuxUpdate) => {
       console.log('handlePlayerTrackChange')
       if (!state) {
         emitMessage('player-aux-update', {})
@@ -59,7 +59,7 @@ export const App = () => {
       // setPlayerIsPlaying(state.is_playing)
       // setPlayerProgress(state.progress)
       // Update server with new state
-      emitMessage<IPlayerAuxClientUpdate>('player-aux-update', state)
+      emitMessage<IPlayerAuxUpdate>('player-aux-update', state)
     },
     [currentJukebox],
   )

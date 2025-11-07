@@ -59,7 +59,7 @@ declare interface IJukeSessionMember extends IModelBase {
   deleted_on?: DateString
 }
 
-declare interface IJukeSessionMemberList{
+declare interface IJukeSessionMemberList {
   memberships: IJukeSessionMember[]
   count: number
 }
@@ -136,7 +136,7 @@ declare interface IPlayerAction {
   action_type: import('./jukebox-enums').ActionType
 }
 
-declare interface IPlayerAuxClientUpdate {
+declare interface IPlayerAuxUpdate {
   jukebox_id: number
   action: 'played' | 'paused' | 'changed_tracks' | 'other'
   progress?: number
@@ -145,13 +145,13 @@ declare interface IPlayerAuxClientUpdate {
   duration_ms?: number
 }
 
-declare interface IPlayerServerUpdate {
-  jukebox_id: number
-  progress?: number
-  timestamp?: DateString
-  current_track?: ITrack
-  is_playing?: boolean
-}
+// declare interface IPlayerServerUpdate {
+//   jukebox_id: number
+//   progress?: number
+//   timestamp?: DateString
+//   current_track?: ITrack
+//   is_playing?: boolean
+// }
 
 declare interface IPlayerInteractionCreate {
   interaction_type: import('./jukebox-enums').InteractionType
