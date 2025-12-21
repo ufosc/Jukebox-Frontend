@@ -3,7 +3,11 @@ import { useSelector } from 'react-redux'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import { ApiClient } from 'src/api'
 import { usePopover } from 'src/hooks'
-import { selectCurrentJukebox, selectCurrentJukeSession, selectUser } from 'src/store'
+import {
+  selectCurrentJukebox,
+  selectCurrentJukeSession,
+  selectUser,
+} from 'src/store'
 import { AdminContext } from '../layout/Dashboard'
 import './JukeSession.scss'
 
@@ -19,33 +23,31 @@ export const JukeSession = () => {
   const adminStatus = useContext(AdminContext)
 
   const [jbxName, setJbxName] = useState('')
-
   const currentUser = useSelector(selectUser)
-
   const [isCreating, setIsCreating] = useState(false)
 
   //Member stuff
   const [enterCode, setEnterCode] = useState('')
 
-  const handleEnterCode = (e:ChangeEvent<HTMLInputElement>) => {
+  const handleEnterCode = (e: ChangeEvent<HTMLInputElement>) => {
     const joinCode = e.target.value
     setEnterCode(joinCode)
   }
 
-  const submitJoinCode = async (e:any) => {
+  const submitJoinCode = async (e: any) => {
     e.preventDefault()
     console.log(enterCode)
-    if(currentJbx && jukeSession && currentUser){
-      const res = await network.joinJukeSessionWithCode(currentJbx.id, enterCode, currentUser.id)
-      console.log(res)
+    if (currentJbx && jukeSession && currentUser) {
+      const res = await network.joinJukeSessionWithCode(
+        currentJbx.id,
+        enterCode,
+        currentUser.id,
+      )
       setEnterCode('')
-    }else{
-      console.log("No jukebox active")
+    } else {
+      console.log('No jukebox active')
     }
-
-    
   }
-
 
   const {
     Popover: JukeSessionPopover,
@@ -60,8 +62,6 @@ export const JukeSession = () => {
         start_at: now.toString(),
         end_at: endTime.toString(),
       })
-
-      console.log(res)
     }
   }
 
@@ -95,10 +95,7 @@ export const JukeSession = () => {
 
       {adminStatus.role === 'member' && jukeSession ? (
         <div>
-          <input
-          value={enterCode}
-          onChange={handleEnterCode}
-          ></input>
+          <input value={enterCode} onChange={handleEnterCode}></input>
 
           <button onClick={submitJoinCode}>Join Session</button>
         </div>

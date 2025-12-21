@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { AudioPlayer } from 'src/components'
 import { PlayerContext } from 'src/context'
