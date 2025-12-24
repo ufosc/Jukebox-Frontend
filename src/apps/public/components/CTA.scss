@@ -1,0 +1,33 @@
+.cta {
+  height: 539px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+
+  &_title{
+    text-align: center;
+    font-family: Termina;
+    font-weight: 600;
+    font-size: 37px;
+    line-height: 100%;
+    letter-spacing: 1%;
+  }
+
+  &_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 178px;
+    height: 45px;
+    color: #5B2222;
+    border: 2px solid #5B2222;
+    border-radius: 50px;
+    font-family: Termina;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 100%;
+    letter-spacing: 2%;
+  }
+}
