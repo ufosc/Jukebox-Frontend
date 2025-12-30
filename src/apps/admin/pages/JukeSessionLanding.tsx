@@ -1,30 +1,13 @@
-
-
-
-
 export const JukeSessionLanding = () => {
+  const createJukeSession = () => {}
 
-
-  const createJukeSession = () =>{
-
-    
-    
-  }
-
-  return(
+  return (
     <>
-    <div className="grid">
-      <div>
-
-
-        <button onClick={createJukeSession}>
-          Start Session
-        </button>
+      <div className="grid">
+        <div>
+          <button onClick={createJukeSession}>Start Session</button>
+        </div>
       </div>
-
-
-    </div>
-    
     </>
   )
 }

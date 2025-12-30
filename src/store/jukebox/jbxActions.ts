@@ -176,8 +176,10 @@ export const joinCurrentJukeSession = async () => {
   const currentMembership = selectCurrentJukeSessionMembership(store.getState())
   if (currentMembership) return
 
-  const currentUser = selectUser(store.getState()) 
-  if(!currentUser) return
+  const currentUser = selectUser(store.getState())
+  if (!currentUser) return
 
-  await store.dispatch(thunkJoinJukeSession({ jukeboxId, jukeSessionId, userId: currentUser.id }))
+  await store.dispatch(
+    thunkJoinJukeSession({ jukeboxId, jukeSessionId, userId: currentUser.id }),
+  )
 }
