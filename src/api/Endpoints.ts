@@ -52,7 +52,7 @@ export const ApiEndpoints = Object.freeze({
     jukeSessionMembership: (jukeboxId: number, jukeSessionId: number) =>
       `${JUKEBOX_V1}/jukebox/jukeboxes/${jukeboxId}/juke-sessions/${jukeSessionId}/membership/`,
     joinJukeSession: (jukeboxId: number, jukeSessionId: number) =>
-      `${JUKEBOX_V1}/jukebox/jukeboxes/${jukeboxId}/juke-sessions/${jukeSessionId}/juke-session/membership/join/`,
+      `${JUKEBOX_V1}/jukebox/jukeboxes/${jukeboxId}/juke-sessions/${jukeSessionId}/members/join`,
     createJukeSession: (jukeboxId: number) =>
       `${JUKEBOX_V1}/jukebox/jukeboxes/${jukeboxId}/juke-sessions`,
     getJukeSessionMembers: (jukeboxId: number, jbxSessionId: number) => 
