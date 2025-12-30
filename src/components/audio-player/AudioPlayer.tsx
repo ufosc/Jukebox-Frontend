@@ -23,7 +23,7 @@ export const AudioPlayer = (props: {
   const {
     play,
     pause,
-    setProgress,
+    setProgress: setContextProgress,
     nextTrack,
     prevTrack,
     like,
@@ -34,14 +34,6 @@ export const AudioPlayer = (props: {
     currentTrack,
   } = useContext(PlayerContext)
 
-  useEffect(() => {
-    console.log('player state:', playerState)
-  }, [playerState])
-
-  useEffect(() => {
-    console.log('Current track:', currentTrack)
-  }, [currentTrack])
-
   // Refs
   const containerRef = useRef<HTMLDivElement>(null)
   const progressBarRef = useRef<HTMLInputElement>(null)
@@ -49,27 +41,39 @@ export const AudioPlayer = (props: {
 
   // State
   const [editMode, setEditMode] = useState(false)
-  const [duration, setDuration] = useState<number | null>(null)
   const [displayInfo, setDisplayInfo] = useState(true)
 
-  // Update track values
-  useEffect(() => {
-    setDuration(currentTrack?.duration_ms ?? 0)
+  const formatRangeProgress = (progressMs: number, durationMs: number) => {
+    return `${(progressMs / durationMs) * 100}%`
+  }
 
-    if (!progressBarRef.current || !playerState) return
-    progressBarRef.current.max = String(currentTrack?.duration_ms ?? 0)
-  }, [currentTrack])
+  /**
+   * Set progress in context, and manually update progress bar
+   * background color so not reliant on track progress updates when
+   * the user is scrubbing through a track
+   */
+  const setProgress = (ms: number) => {
+    if (!currentTrack) return
 
-  // Update progress
-  useEffect(() => {
-    if (!duration || !liveProgress) return
-
-    containerRef.current?.style.setProperty(
+    setContextProgress(ms)
+    document.documentElement.style.setProperty(
       '--range-progress',
-      `${(liveProgress / duration) * 100}%`,
+      formatRangeProgress(ms, currentTrack.duration_ms),
+    )
+  }
+
+  // Update progress when live progress changes
+  useEffect(() => {
+    if (!currentTrack?.duration_ms || !liveProgress) return
+
+    document.documentElement.style.setProperty(
+      '--range-progress',
+      formatRangeProgress(liveProgress, currentTrack.duration_ms),
     )
 
     if (!editMode && progressBarRef.current) {
+      // Only set progress bar if live progress changes, not if user
+      // scrubs through track using the progress input
       progressBarRef.current.value = String(liveProgress)
     }
   }, [liveProgress])
@@ -107,7 +111,7 @@ export const AudioPlayer = (props: {
 
   return (
     <>
-      {currentTrack && (
+      {currentTrack?.name && (
         <div className="audio-player" ref={containerRef}>
           <div className="audio-player__inner">
             {displayInfo && (
@@ -151,47 +155,8 @@ export const AudioPlayer = (props: {
           </div>
         </div>
       )}
-      {/* {playerState?.spotify_track && !playerState.queued_track && (
-        <div className="audio-player" ref={containerRef}>
-          <div className="audio-player__inner">
-            {displayInfo && (
-              <div className="audio-player__track">
-                <h3 className="audio-player__track__name" ref={trackNameRef}>
-                  {playerState.spotify_track.name}
-                </h3>
 
-                <div className="audio-player__track__info">
-                  <p className="audio-player__track__artists">
-                    {playerState.spotify_track.artists.join(', ') ||
-                      'Artist Unavailable'}
-                  </p>
-                  {playerState.queued_track && (
-                    <TrackInteractions track={playerState.queued_track} />
-                  )}
-                </div>
-                <p className="audio-player__track__rec">Queued by Spotify</p>
-              </div>
-            )}
-            {!disableControls && (
-              <Controls
-                playing={playerState.is_playing}
-                nextTrack={nextTrack}
-                prevTrack={prevTrack}
-                togglePlay={togglePlay}
-                like={like}
-                repeat={repeat}
-              />
-            )}
-            <ProgressBar
-              setProgress={setProgress}
-              ref={progressBarRef}
-              duration={playerState.spotify_track.duration_ms}
-              progress={liveProgress ?? undefined}
-            />
-          </div>
-        </div>
-      )} */}
-      {!playerState?.spotify_track && !playerState?.queued_track && (
+      {!currentTrack?.name && (
         <h3 className="audio-player__track__name">Nothing playing</h3>
       )}
     </>

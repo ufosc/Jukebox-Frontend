@@ -15,7 +15,7 @@ export const FlipClock = () => {
   const [minute2, setMinute2] = useState(currentMinutes[1])
 
   useEffect(() => {
-    console.log(hour1, hour2, minute1, minute2)
+    // console.log(hour1, hour2, minute1, minute2)
 
     if (currentMinutes[0] !== minute1) setMinute1(currentMinutes[0])
     if (currentMinutes[1] !== minute2) setMinute2(currentMinutes[1])
@@ -44,7 +44,7 @@ const FlipPiece = (props: { integer: number; isFirst: boolean }) => {
   const [isFlip, setIsFlip] = useState(false)
 
   useEffect(() => {
-    console.log(num)
+    // console.log(num)
     setIsFlip(true)
     setTimeout(() => {
       setNum(integer)

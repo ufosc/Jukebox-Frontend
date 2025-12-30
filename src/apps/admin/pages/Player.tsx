@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useCallback, useContext, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { AudioPlayer } from 'src/components'
 import { PlayerContext } from 'src/context'
@@ -30,43 +30,53 @@ export const Player = () => {
     setIsAddingAccount(false)
   }
 
+  const ConditionalPlayerComponent = useCallback(() => {
+    if (accountConnected && hasAux) {
+      return <AudioPlayer />
+    } else if (jukeSession && !hasAux && !jukeSessionMembership) {
+      return (
+        <div className="player-page__section">
+          <div className="font-title-md">
+            Join Juke Session to manage playback
+          </div>
+          <button
+            className="button-solid"
+            onClick={() => joinCurrentJukeSession()}
+          >
+            Join Juke Session
+          </button>
+        </div>
+      )
+    } else if (accountConnected && !hasAux) {
+      return (
+        <div className="player-page__section">
+          <div className="font-title-md">
+            Spotify connected, transfer playback to get started!
+          </div>
+          <button className="button-solid" onClick={() => connectDevice()}>
+            Transfer playback
+          </button>
+        </div>
+      )
+    } else if (!accountConnected) {
+      return (
+        <div className="player-page__section">
+          <div className="font-title-md">
+            Connect to Spotify to Get Started!
+          </div>
+        </div>
+      )
+    } else {
+      return <p>Not sure what's going on :(</p>
+    }
+  }, [accountConnected, hasAux, jukeSession?.id, jukeSessionMembership])
+
   return (
     <div className="player-page section">
       <AdminHeader title="Player" />
       <div className="row player-page__row section__main">
         <div className="player-page__col col-6">
-          {accountConnected && hasAux && <AudioPlayer />}
-          {jukeSession && !hasAux && !jukeSessionMembership && (
-            <div className="player-page__section">
-              <div className="font-title-md">
-                Join Juke Session to manage playback
-              </div>
-              <button
-                className="button-solid"
-                onClick={() => joinCurrentJukeSession()}
-              >
-                Join Juke Session
-              </button>
-            </div>
-          )}
-
-          {accountConnected && jukeSession && !hasAux && (
-            <div className="player-page__section">
-              <div className="font-title-md">
-                Spotify connected, transfer playback to get started!
-              </div>
-              <button className="button-solid" onClick={() => connectDevice()}>
-                Transfer playback
-              </button>
-            </div>
-          )}
-          {!accountConnected && (
-            <div className="player-page__section">
-              <div className="font-title-md">
-                Connect to Spotify to Get Started!
-              </div>
-            </div>
-          )}
+          <ConditionalPlayerComponent />
         </div>
         <div className="player-page__col col-6">
           <div className="player-page__col__section">

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { createContext, useContext, useEffect, useRef, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { ApiClient } from 'src/api'
 import {
@@ -12,12 +12,12 @@ import { NotImplementedError } from 'src/utils'
 import { SocketContext } from '../SocketContext'
 import { SpotifyPlayerContext } from './SpotifyPlayerContext'
 import { PlayerControls } from './types'
+import { parseTrackObj } from './utils'
 
 interface Player extends PlayerControls {
   hasAux: boolean
   accountConnected: boolean
   playerState: IPlayerState | null
-  // currentTrack?: ITrack
   liveProgress: number | null
   playerError: string | null
   currentTrack: ITrack | null
@@ -32,7 +32,6 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
   const [playerState, setPlayerState] = useState<IPlayerState | null>(null)
   const jukebox = useSelector(selectCurrentJukebox)
   const jukeSession = useSelector(selectCurrentJukeSession)
-  const progressTimerRef = useRef<number | undefined>()
 
   const [liveProgress, setLiveProgress] = useState<number | null>(null)
   const hasAux = useSelector(selectHasJukeboxAux)
@@ -52,33 +51,133 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
     deviceId,
   } = useContext(SpotifyPlayerContext)
 
-  const { onEvent, emitMessage } = useContext(SocketContext)
+  const { onEvent, emitMessage, socket } = useContext(SocketContext)
 
+  // ===============================================================
+  // Track State Sync
+  // ===============================================================
+
+  // When receive updates, set state if doesn't have aux, otherwise
+  // state will be set by aux player directly
+  const updateTrackStateFromSocket = (data: IPlayerState) => {
+    if (hasAux) return
+
+    setPlayerState(data)
+  }
+
+  // When socket sends updates, call update fn each time, it will decide
+  // whether to update or not based on current state (hasAux)
   useEffect(() => {
-    console.log('player track changed')
-    console.log(playerState)
+    onEvent<IPlayerState>('player-join-success', updateTrackStateFromSocket)
+    onEvent<IPlayerState>('player-state-update', updateTrackStateFromSocket)
+  }, [])
+
+  // When player state changes tracks, set current track so it's easier
+  // for downstream services to reference
+  useEffect(() => {
     setCurrentTrack(
       playerState?.spotify_track || playerState?.queued_track?.track || null,
     )
   }, [playerState])
 
+  // When current track in state updates, set live progress counter
   useEffect(() => {
-    if (currentTrack && playerState) {
+    if (!playerState?.progress) {
+      setLiveProgress(0)
+    } else if (playerState.is_playing) {
+      setLiveProgress(playerState.progress)
       const timer = setInterval(() => {
-        if (playerState.is_playing) {
-          // setLiveProgress((prev) => (prev ?? 0) + 1000)
-          const passedMs = playerState.last_progress_update
-            ? new Date().getTime() -
-              new Date(playerState.last_progress_update).getTime()
-            : 1000
-          setLiveProgress(playerState.progress + passedMs)
-        }
+        setLiveProgress((prev) => {
+          if (prev == null) {
+            return playerState.progress
+          } else {
+            return prev + 1000
+          }
+        })
       }, 1000)
 
       return () => clearInterval(timer)
     }
-  }, [currentTrack, playerState])
+  }, [playerState?.is_playing, playerState?.progress])
 
+  // When jukebox changes, subscribe for updates if user doesn't have aux
+  useEffect(() => {
+    if (!jukebox || !jukebox.id || hasAux) return
+
+    // Then, ask to join
+    emitMessage<{ jukebox_id: number }>('player-join', {
+      jukebox_id: jukebox.id,
+    })
+  }, [jukebox, jukebox?.id, hasAux, onEvent])
+
+  // ===============================================================
+  // Player Aux Updates
+  // ===============================================================
+
+  // When aux state updates, set player state,
+  // this will trigger a changed_tracks action since it
+  // changed from null to a value
+  useEffect(() => {
+    if (!auxPlayerState || !jukebox) return
+
+    const track = auxPlayerState.current_track
+      ? parseTrackObj(auxPlayerState.current_track)
+      : undefined
+
+    setPlayerState({
+      ...auxPlayerState,
+      jukebox_id: jukebox?.id,
+      spotify_track: track,
+      last_progress_update: new Date().toISOString(),
+    })
+  }, [
+    auxPlayerState?.current_track,
+    auxPlayerState?.is_playing,
+    auxPlayerState?.progress,
+  ])
+
+  // When is_playing changes, emit socket message
+  useEffect(() => {
+    if (!jukebox || !hasAux || !playerState) return
+
+    emitMessage<IPlayerAuxUpdate>('player-aux-update', {
+      jukebox_id: jukebox.id,
+      action: playerState.is_playing ? 'played' : 'paused',
+      spotify_track: playerState.spotify_track,
+    })
+  }, [hasAux, playerState?.is_playing])
+
+  // When aux changes tracks, emit socket message.
+  // Changes are detected if a track hits progress of 0,
+  // edge cases could include: new track starts in middle, user rewinds track to 0
+  useEffect(() => {
+    if (!jukebox || !hasAux || !playerState) return
+
+    emitMessage<IPlayerAuxUpdate>('player-aux-update', {
+      jukebox_id: jukebox.id,
+      action: 'changed_tracks',
+      spotify_track: playerState.spotify_track,
+      progress: playerState.progress,
+      timestamp: new Date(),
+      duration_ms: playerState.spotify_track?.duration_ms,
+    })
+  }, [hasAux, playerState?.progress === 0])
+
+  // When progress changes, emit socket message
+  useEffect(() => {
+    if (!jukebox || !hasAux || !playerState) return
+
+    emitMessage<IPlayerAuxUpdate>('player-aux-update', {
+      jukebox_id: jukebox.id,
+      action: 'progress',
+      progress: playerState.progress,
+    })
+  }, [hasAux, playerState?.progress])
+
+  // ===============================================================
+  // Set Controls and State
+  // ===============================================================
+  // Define default player controls, modify depending on whether user has aux or not
   let player: Player = {
     hasAux,
     playerState,
@@ -125,84 +224,6 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
     },
   }
 
-  // ===============================================================
-  // API Track State Sync
-  // ===============================================================
-  useEffect(() => {
-    console.log(
-      'jukebox and session changed, has aux: ',
-      hasAux,
-      jukebox,
-      jukeSession,
-      playerState,
-    )
-    if (!hasAux && jukebox && jukeSession && !playerState) {
-      console.log('Attemping Player Join')
-      emitMessage<{ jukebox_id: number }>('player-join', {
-        jukebox_id: jukebox.id,
-      })
-      onEvent<IPlayerState>('player-join-success', (data) => {
-        if (!playerState) {
-          setPlayerState(data)
-        }
-      })
-      onEvent<IPlayerState>('player-state-update', (data) => {
-        console.log("TESTING")
-        console.log(data)
-        setPlayerState(data)
-        console.log('aux player client updated')
-        console.log(data)
-      })
-    } else if (jukebox && jukeSession && playerState) {
-      console.log('Updating Player Aux Broadcast')
-      emitMessage('player-ping', {})
-      emitMessage<IPlayerAuxClientUpdate>('player-aux-update', {
-        jukebox_id: jukebox.id,
-        action: 'changed_tracks',
-        spotify_track: playerState.spotify_track,
-        progress: playerState.progress,
-        timestamp: new Date(),
-        duration_ms: auxPlayerState?.current_track?.duration_ms,
-      })
-      emitMessage<IPlayerAuxClientUpdate>('player-aux-update', {
-        jukebox_id: jukebox.id,
-        action: playerState.is_playing ? 'played' : 'paused',
-      })
-    }
-  }, [jukebox, jukeSession, auxPlayerState])
-
-  useEffect(() => {
-    if (auxPlayerState && jukebox) {
-      console.log('aux player state:', auxPlayerState)
-      const auxTrack = auxPlayerState.current_track
-      setPlayerState({
-        jukebox_id: jukebox.id,
-        last_progress_update: new Date().toISOString(),
-        is_playing: auxPlayerState.is_playing,
-        progress: auxPlayerState.progress,
-        spotify_track: auxTrack
-          ? {
-              name: auxTrack.name,
-              album: auxTrack.album.name,
-              release_year: 0, // TODO: Get from api
-              artists: auxTrack.artists.map((artist) => artist.name),
-              spotify_id: auxTrack.id!,
-              spotify_uri: auxTrack.uri,
-              duration_ms: auxTrack.duration_ms,
-              is_explicit: false, // TODO: Get from API
-              preview_url: null,
-              id: 0, // TODO: Get from API
-              created_at: new Date().toISOString(),
-              updated_at: new Date().toISOString(),
-            }
-          : undefined,
-      })
-    }
-  }, [hasAux, auxPlayerState])
-
-  // ===============================================================
-  // Set Controls and State
-  // ===============================================================
   // FIXME: This is reevaluated every time any state variable changes
   if (jukebox && hasAux) {
     // User is connected to Spotify's player directly

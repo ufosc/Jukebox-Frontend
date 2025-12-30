@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { NavLink, useFetcher } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { ApiClient } from 'src/api'
 import { TrackList } from 'src/components'
 import {
@@ -106,7 +106,7 @@ export const ActiveJukeSession = () => {
     }
   }, [currentJbxSession])
 
-  function formatTime(isoString: string): string {
+  const formatTime = (isoString: string): string => {
     const date = new Date(isoString)
 
     let hours = date.getHours()
@@ -122,7 +122,7 @@ export const ActiveJukeSession = () => {
   }
 
   //Redo later to get remaining time
-  function getTimeRemaining(start: string, end: string) {
+  const getTimeRemaining = (start: string, end: string) => {
     const startDate = new Date(start)
     const endDate = new Date(end)
 
@@ -155,37 +155,40 @@ export const ActiveJukeSession = () => {
       setTimeLeft(
         getTimeRemaining(currentJbxSession.start_at, currentJbxSession.end_at),
       )
-
     }
   }, [currentJbxSession])
 
-  useEffect(()=>{
+  useEffect(() => {
     const getMembers = async () => {
-      if(currentJbx && currentJbxSession){
-        const res = await network.getJbxSessionMembers(currentJbx.id, currentJbxSession.id, 0, 10)
+      if (currentJbx && currentJbxSession) {
+        const res = await network.getJbxSessionMembers(
+          currentJbx.id,
+          currentJbxSession.id,
+          0,
+          10,
+        )
 
-        if(res.success)
-        {
+        if (res.success) {
           console.log(res.data)
           const resData = res.data
           const members = resData.memberships
-          
+
           setSessionMembers(members)
-          
         }
-
       }
-
     }
 
     getMembers()
+  }, [currentJbxSession])
 
-
-  },[currentJbxSession])
-
-  const testMe = async () =>{
-    if(currentJbx && currentJbxSession){
-      const res = await network.getJbxSessionMembers(currentJbx.id, currentJbxSession.id, 0, 10)
+  const testMe = async () => {
+    if (currentJbx && currentJbxSession) {
+      const res = await network.getJbxSessionMembers(
+        currentJbx.id,
+        currentJbxSession.id,
+        0,
+        10,
+      )
       console.log(res)
     }
   }
@@ -266,7 +269,7 @@ export const ActiveJukeSession = () => {
           </ul>
 
           <div className="active-juke-session__button-container">
-            <NavLink to={"/dashboard/jam-sessions/members"}>
+            <NavLink to={'/dashboard/jam-sessions/members'}>
               <button className="button-outlined">View All</button>
             </NavLink>
           </div>
@@ -296,7 +299,7 @@ export const ActiveJukeSession = () => {
             />
           </ul>
           <div className="active-juke-session__button-container">
-            <NavLink to={"/dashboard/music/queue"}>
+            <NavLink to={'/dashboard/music/queue'}>
               <button className="button-outlined">View All</button>
             </NavLink>
           </div>

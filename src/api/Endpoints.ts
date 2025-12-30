@@ -37,8 +37,7 @@ export const ApiEndpoints = Object.freeze({
       `${JUKEBOX_V1}/jukebox/jukeboxes/${jukeboxId}/player/device`,
     playerState: (jukeboxId: number) =>
       `${JUKEBOX_V1}/jukebox/jukeboxes/${jukeboxId}/player`,
-    search: (jukeboxId: number) =>
-      `${JUKEBOX_V1}/track/tracks/`,
+    search: (jukeboxId: number) => `${JUKEBOX_V1}/track/tracks/`,
     queueTrackList: (jukeboxId: number, jukeSessionId: number) =>
       `${JUKEBOX_V1}/jukebox/jukeboxes/${jukeboxId}/juke-sessions/${jukeSessionId}/queue`,
     queueTrackDetail: (jukeboxId: number, jukeSessionId: number, id: number) =>
@@ -55,13 +54,12 @@ export const ApiEndpoints = Object.freeze({
       `${JUKEBOX_V1}/jukebox/jukeboxes/${jukeboxId}/juke-sessions/${jukeSessionId}/members/join`,
     createJukeSession: (jukeboxId: number) =>
       `${JUKEBOX_V1}/jukebox/jukeboxes/${jukeboxId}/juke-sessions`,
-    getJukeSessionMembers: (jukeboxId: number, jbxSessionId: number) => 
+    getJukeSessionMembers: (jukeboxId: number, jbxSessionId: number) =>
       `${JUKEBOX_V1}/jukebox/jukeboxes/${jukeboxId}/juke-sessions/${jbxSessionId}/members`,
     getJukeSessionQueue: (jukeboxId: number, jukeSessionId: number) =>
       `${JUKEBOX_V1}/jukebox/jukeboxes/${jukeboxId}/juke-sessions/${jukeSessionId}/queue`,
-    joinJukeSessionCode: (jukeboxId: number, joinCode: string) => 
+    joinJukeSessionCode: (jukeboxId: number, joinCode: string) =>
       `${JUKEBOX_V1}/jukebox/jukeboxes/${jukeboxId}/juke-sessions/${joinCode}/members/code`,
-    
   },
   spotify: {
     login: (redirectUri: string, jukeboxId?: number) =>
