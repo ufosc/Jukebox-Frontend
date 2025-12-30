@@ -51,11 +51,27 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
     deviceId,
   } = useContext(SpotifyPlayerContext)
 
-  const { onEvent, emitMessage } = useContext(SocketContext)
+  const { onEvent, emitMessage, socket } = useContext(SocketContext)
 
   // ===============================================================
   // Track State Sync
   // ===============================================================
+
+  // When receive updates, set state if doesn't have aux, otherwise
+  // state will be set by aux player directly
+  const updateTrackStateFromSocket = (data: IPlayerState) => {
+    if (hasAux) return
+
+    setPlayerState(data)
+  }
+
+  // When socket sends updates, call update fn each time, it will decide
+  // whether to update or not based on current state (hasAux)
+  useEffect(() => {
+    onEvent<IPlayerState>('player-join-success', updateTrackStateFromSocket)
+    onEvent<IPlayerState>('player-state-update', updateTrackStateFromSocket)
+  }, [])
+
   // When player state changes tracks, set current track so it's easier
   // for downstream services to reference
   useEffect(() => {
@@ -64,14 +80,11 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
     )
   }, [playerState])
 
-  // When current track updates, set live progress counter
+  // When current track in state updates, set live progress counter
   useEffect(() => {
     if (!playerState?.progress) {
       setLiveProgress(0)
     } else if (playerState.is_playing) {
-      // const passedMs =
-      //   new Date().getTime() -
-      //   new Date(playerState.last_progress_update).getTime()
       setLiveProgress(playerState.progress)
       const timer = setInterval(() => {
         setLiveProgress((prev) => {
@@ -87,7 +100,23 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
     }
   }, [playerState?.is_playing, playerState?.progress])
 
-  // When aux state updates, set player state
+  // When jukebox changes, subscribe for updates if user doesn't have aux
+  useEffect(() => {
+    if (!jukebox || !jukebox.id || hasAux) return
+
+    // Then, ask to join
+    emitMessage<{ jukebox_id: number }>('player-join', {
+      jukebox_id: jukebox.id,
+    })
+  }, [jukebox, jukebox?.id, hasAux, onEvent])
+
+  // ===============================================================
+  // Player Aux Updates
+  // ===============================================================
+
+  // When aux state updates, set player state,
+  // this will trigger a changed_tracks action since it
+  // changed from null to a value
   useEffect(() => {
     if (!auxPlayerState || !jukebox) return
 
@@ -106,6 +135,44 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
     auxPlayerState?.is_playing,
     auxPlayerState?.progress,
   ])
+
+  // When is_playing changes, emit socket message
+  useEffect(() => {
+    if (!jukebox || !hasAux || !playerState) return
+
+    emitMessage<IPlayerAuxUpdate>('player-aux-update', {
+      jukebox_id: jukebox.id,
+      action: playerState.is_playing ? 'played' : 'paused',
+      spotify_track: playerState.spotify_track,
+    })
+  }, [hasAux, playerState?.is_playing])
+
+  // When aux changes tracks, emit socket message.
+  // Changes are detected if a track hits progress of 0,
+  // edge cases could include: new track starts in middle, user rewinds track to 0
+  useEffect(() => {
+    if (!jukebox || !hasAux || !playerState) return
+
+    emitMessage<IPlayerAuxUpdate>('player-aux-update', {
+      jukebox_id: jukebox.id,
+      action: 'changed_tracks',
+      spotify_track: playerState.spotify_track,
+      progress: playerState.progress,
+      timestamp: new Date(),
+      duration_ms: playerState.spotify_track?.duration_ms,
+    })
+  }, [hasAux, playerState?.progress === 0])
+
+  // When progress changes, emit socket message
+  useEffect(() => {
+    if (!jukebox || !hasAux || !playerState) return
+
+    emitMessage<IPlayerAuxUpdate>('player-aux-update', {
+      jukebox_id: jukebox.id,
+      action: 'progress',
+      progress: playerState.progress,
+    })
+  }, [hasAux, playerState?.progress])
 
   // ===============================================================
   // Set Controls and State
