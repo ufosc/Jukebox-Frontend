@@ -29,6 +29,7 @@ const ProgressBarComponent = (
   }, [duration])
 
   const onProgressChange = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log('progress change...')
     if (!setProgress) return
 
     setProgress(+e.target.value)
@@ -37,7 +38,12 @@ const ProgressBarComponent = (
   return (
     <div className="audio-player__progress">
       <span className="time audio-player__progress_current">{fmtProgress}</span>
-      <input type="range" ref={ref} onChange={onProgressChange} />
+      <input
+        type="range"
+        ref={ref}
+        onChange={onProgressChange}
+        max={duration}
+      />
       <span className="time">{fmtDuration}</span>
     </div>
   )

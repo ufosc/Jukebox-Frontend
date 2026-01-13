@@ -25,9 +25,7 @@ export const JukeSession = () => {
   const adminStatus = useContext(AdminContext)
 
   const [jbxName, setJbxName] = useState('')
-
   const currentUser = useSelector(selectUser)
-
   const [isCreating, setIsCreating] = useState(false)
 
   //Member stuff
@@ -47,7 +45,6 @@ export const JukeSession = () => {
         enterCode,
         currentUser.id,
       )
-      console.log(res)
       setEnterCode('')
     } else {
       console.log('No jukebox active')
@@ -67,8 +64,6 @@ export const JukeSession = () => {
         start_at: now.toString(),
         end_at: endTime.toString(),
       })
-
-      console.log(res)
     }
   }
 

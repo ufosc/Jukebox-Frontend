@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { useSelector } from 'react-redux'
-import { TrackList } from 'src/components'
+import { AudioPlayer, TrackList } from 'src/components'
 import { PlayerContext } from 'src/context'
 
 export const TracksPanel = () => {
@@ -16,6 +16,7 @@ export const TracksPanel = () => {
         </h2>
         <div className="board__tracks__group__inner">
           {/* <TrackList tracks={(currentTrack && [currentTrack]) || []} /> */}
+          <AudioPlayer />
         </div>
       </div>
       <div className="board__queue board__tracks__group">

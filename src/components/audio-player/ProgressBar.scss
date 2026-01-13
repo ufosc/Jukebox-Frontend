@@ -5,7 +5,7 @@ $range-height: var(--range-height, 4px);
 $range-background: var(--range-background);
 $range-accent: var(--range-accent);
 
-$range-progress: var(--range-progress);
+$range-progress: var(--range-progress, 0%);
 
 input[type='range'] {
   appearance: none;

@@ -165,19 +165,25 @@ export class ApiClient extends ApiAuth {
   /**
    * Add current user to juke session.
    */
-  public async joinJukeSession(jukeboxId: number, jukeSessionId: number, userId: number) {
+  public async joinJukeSession(
+    jukeboxId: number,
+    jukeSessionId: number,
+    userId: number,
+  ) {
     const url = this.endpoints.jukebox.joinJukeSession(jukeboxId, jukeSessionId)
 
     return await this.post<IJukeSessionMembership>(url, {
-      body: {user_id: userId}
+      body: { user_id: userId },
     })
   }
 
   public async getJukeSessionMembers(jukeboxId: number, jukeSessionId: number) {
-    const url = this.endpoints.jukebox.getJukeSessionMembers(jukeboxId, jukeSessionId)
+    const url = this.endpoints.jukebox.getJukeSessionMembers(
+      jukeboxId,
+      jukeSessionId,
+    )
 
-    return await this.get(url, {
-    })
+    return await this.get(url, {})
   }
 
   /**
@@ -362,25 +368,37 @@ export class ApiClient extends ApiAuth {
     return await this.post<IPlayerState>(url, { body })
   }
 
-  public async getJbxSessionMembers(jukeboxId: number, jukeSessionId: number, pageNum: number, rowAmt: number) {
-    const params = {page: pageNum, rows: rowAmt}
+  public async getJbxSessionMembers(
+    jukeboxId: number,
+    jukeSessionId: number,
+    pageNum: number,
+    rowAmt: number,
+  ) {
+    const params = { page: pageNum, rows: rowAmt }
     const qp = new URLSearchParams()
     Object.entries(params).forEach(([k, v]) => qp.append(k, String(v)))
 
-    let url = this.endpoints.jukebox.getJukeSessionMembers(jukeboxId, jukeSessionId)
+    let url = this.endpoints.jukebox.getJukeSessionMembers(
+      jukeboxId,
+      jukeSessionId,
+    )
     url = `${url}?${qp.toString()}`
 
     console.log(url)
-    
+
     const res = await this.get<IJukeSessionMemberList>(url)
-    return res;
+    return res
   }
 
-  public async joinJukeSessionWithCode(jukeboxId: number, joinCode: string, userId: number) {
+  public async joinJukeSessionWithCode(
+    jukeboxId: number,
+    joinCode: string,
+    userId: number,
+  ) {
     const url = this.endpoints.jukebox.joinJukeSessionCode(jukeboxId, joinCode)
 
     const res = await this.post(url, {
-      body: {user_id: userId}
+      body: { user_id: userId },
     })
 
     return res

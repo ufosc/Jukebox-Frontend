@@ -18,5 +18,3 @@ export const Sidebar = (props: { className?: string }) => {
     </>
   )
 }
-
-

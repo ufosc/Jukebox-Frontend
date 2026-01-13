@@ -39,7 +39,7 @@ export const SpotifyPlayerProvider = (props: {
   children: ReactNode
   token: Nullable<string>
   jukebox: IJukebox | null
-  onPlayerStateChange: (state?: IPlayerAuxClientUpdate) => void
+  onPlayerStateChange: (state?: IPlayerAuxUpdate) => void
 }) => {
   const { children, token, jukebox, onPlayerStateChange } = props
   const playerRef = useRef<Spotify.Player | null>(null)
