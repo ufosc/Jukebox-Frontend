@@ -45,6 +45,7 @@ declare interface IJukeSessionCreate {
 declare interface IJukeSessionUpdate {
   start_at?: DateString
   end_at?: DateString
+  is_active?: boolean
 }
 
 declare interface IJukeSessionMembership {

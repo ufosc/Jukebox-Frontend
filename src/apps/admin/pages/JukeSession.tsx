@@ -3,7 +3,12 @@ import { useSelector } from 'react-redux'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import { ApiClient } from 'src/api'
 import { usePopover } from 'src/hooks'
-import { selectCurrentJukebox, selectCurrentJukeSession, selectCurrentJukeSessionMembership, selectUser } from 'src/store'
+import {
+  selectCurrentJukebox,
+  selectCurrentJukeSession,
+  selectCurrentJukeSessionMembership,
+  selectUser,
+} from 'src/store'
 import { AdminContext } from '../layout/Dashboard'
 import './JukeSession.scss'
 
@@ -28,25 +33,26 @@ export const JukeSession = () => {
   //Member stuff
   const [enterCode, setEnterCode] = useState('')
 
-  const handleEnterCode = (e:ChangeEvent<HTMLInputElement>) => {
+  const handleEnterCode = (e: ChangeEvent<HTMLInputElement>) => {
     const joinCode = e.target.value
     setEnterCode(joinCode)
   }
 
-  const submitJoinCode = async (e:any) => {
+  const submitJoinCode = async (e: any) => {
     e.preventDefault()
     console.log(enterCode)
-    if(currentJbx && jukeSession && currentUser){
-      const res = await network.joinJukeSessionWithCode(currentJbx.id, enterCode, currentUser.id)
+    if (currentJbx && jukeSession && currentUser) {
+      const res = await network.joinJukeSessionWithCode(
+        currentJbx.id,
+        enterCode,
+        currentUser.id,
+      )
       console.log(res)
       setEnterCode('')
-    }else{
-      console.log("No jukebox active")
+    } else {
+      console.log('No jukebox active')
     }
-
-    
   }
-
 
   const {
     Popover: JukeSessionPopover,
@@ -65,10 +71,10 @@ export const JukeSession = () => {
       console.log(res)
     }
   }
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     console.log(currentJukeMember)
-  },[currentJukeMember])
+  }, [currentJukeMember])
 
   return (
     <>
@@ -100,10 +106,7 @@ export const JukeSession = () => {
 
       {adminStatus.role === 'member' && jukeSession && !currentJukeMember ? (
         <div>
-          <input
-          value={enterCode}
-          onChange={handleEnterCode}
-          ></input>
+          <input value={enterCode} onChange={handleEnterCode}></input>
 
           <button onClick={submitJoinCode}>Join Session</button>
         </div>
@@ -115,9 +118,19 @@ export const JukeSession = () => {
         jukeSession ? (
           <Outlet />
         ) : (
-          <div>
-            <input placeholder="Display Name" className=""></input>
-            <button onClick={handleSubmit}>Start Session</button>
+          <div className="juke-session__schedule-session">
+            <div className="juke-session__schedule-session__title">
+              Schedule Session
+            </div>
+
+            <input
+              placeholder="Display Name"
+              className="juke-session__schedule-session__selector"
+            ></input>
+
+            <button onClick={handleSubmit} className="button-fancy">
+              Start Session
+            </button>
           </div>
         )
       ) : (
