@@ -1,0 +1,32 @@
+
+  .about {
+    background: #f9f9f9;
+    height: 327px;
+    display : flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+
+    &_title {
+      width: 306px;
+      height: 44px;
+      font-family: Termina;
+      font-weight: 600;
+      font-size: 37px;
+      line-height: 100%;
+      letter-spacing: 1%;
+      margin-bottom: 30px;
+    }
+
+    &_description {
+      width: 860px;
+      height: 153px;
+      font-family: Space Grotesk;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 160%;
+      letter-spacing: -0.6px;
+      text-align: center;
+    }
+  }
