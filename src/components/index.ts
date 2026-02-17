@@ -1,5 +1,6 @@
 export * from './audio-player'
 export * from './form'
+export * from './now-playing-bar'
 export * from './overlays'
 export * from './track-list/TrackItem'
 export * from './track-list/TrackList'
