@@ -39,9 +39,16 @@ export const AudioPlayer = (props: {
   const progressBarRef = useRef<HTMLInputElement>(null)
   const trackNameRef = useRef<HTMLHeadingElement>(null)
 
+  // Keep refs to play/pause so the progress bar listeners always call
+  // the latest version without needing to re-register on every render
+  const playRef = useRef(play)
+  const pauseRef = useRef(pause)
+  useEffect(() => { playRef.current = play }, [play])
+  useEffect(() => { pauseRef.current = pause }, [pause])
+
   // State
   const [editMode, setEditMode] = useState(false)
-  const [displayInfo, setDisplayInfo] = useState(true)
+  const [displayInfo, setDisplayInfo] = useState(showInfo !== false)
 
   const formatRangeProgress = (progressMs: number, durationMs: number) => {
     return `${(progressMs / durationMs) * 100}%`
@@ -49,8 +56,8 @@ export const AudioPlayer = (props: {
 
   /**
    * Set progress in context, and manually update progress bar
-   * background color so not reliant on track progress updates when
-   * the user is scrubbing through a track
+   * background color so it's not reliant on track progress updates
+   * while the user is scrubbing through a track
    */
   const setProgress = (ms: number) => {
     if (!currentTrack) return
@@ -62,7 +69,11 @@ export const AudioPlayer = (props: {
     )
   }
 
-  // Update progress when live progress changes
+  // Keep a ref to editMode so the progress effect always reads the latest value
+  const editModeRef = useRef(editMode)
+  useEffect(() => { editModeRef.current = editMode }, [editMode])
+
+  // Update progress bar position and CSS variable when live progress changes
   useEffect(() => {
     if (!currentTrack?.duration_ms || !liveProgress) return
 
@@ -71,47 +82,39 @@ export const AudioPlayer = (props: {
       formatRangeProgress(liveProgress, currentTrack.duration_ms),
     )
 
-    if (!editMode && progressBarRef.current) {
-      // Only set progress bar if live progress changes, not if user
-      // scrubs through track using the progress input
+    if (!editModeRef.current && progressBarRef.current) {
       progressBarRef.current.value = String(liveProgress)
     }
   }, [liveProgress])
 
-  // Pause track when setting time progress
+  // Pause on scrub start, resume on scrub end.
+  // Uses refs so we never need to re-register these listeners.
   useEffect(() => {
-    const onMouseDown = () => {
-      if (!pause) return
+    const el = progressBarRef.current
+    if (!el) return
 
-      pause()
+    const onMouseDown = () => {
+      pauseRef.current?.()
       setEditMode(true)
     }
-    const onMouseUp = () => {
-      if (!play) return
 
-      play()
+    const onMouseUp = () => {
+      playRef.current?.()
       setEditMode(false)
     }
 
-    progressBarRef.current?.addEventListener('mousedown', onMouseDown)
-    progressBarRef.current?.addEventListener('mouseup', onMouseUp)
+    el.addEventListener('mousedown', onMouseDown)
+    el.addEventListener('mouseup', onMouseUp)
 
     return () => {
-      progressBarRef.current?.removeEventListener('mousedown', onMouseDown)
-      progressBarRef.current?.removeEventListener('mouseup', onMouseUp)
-    }
-  }, [])
-
-  //Update display information
-  useEffect(() => {
-    if (showInfo === false) {
-      setDisplayInfo(false)
+      el.removeEventListener('mousedown', onMouseDown)
+      el.removeEventListener('mouseup', onMouseUp)
     }
   }, [])
 
   return (
     <>
-      {currentTrack?.name && (
+      {currentTrack?.name ? (
         <div className="audio-player" ref={containerRef}>
           <div className="audio-player__inner">
             {displayInfo && (
@@ -128,14 +131,14 @@ export const AudioPlayer = (props: {
                     <TrackInteractions track={playerState.queued_track} />
                   )}
                 </div>
+
                 <p className="audio-player__track__rec">
-                  Recommended by:
-                  {(playerState?.queued_track &&
-                    playerState.queued_track.queued_by.user_id) ||
-                    'Spotify'}
+                  Recommended by:{' '}
+                  {playerState?.queued_track?.queued_by.user_id || 'Spotify'}
                 </p>
               </div>
             )}
+
             {!disableControls && (
               <Controls
                 playing={playerState?.is_playing ?? false}
@@ -146,6 +149,7 @@ export const AudioPlayer = (props: {
                 repeat={repeat}
               />
             )}
+
             <ProgressBar
               setProgress={setProgress}
               ref={progressBarRef}
@@ -154,9 +158,7 @@ export const AudioPlayer = (props: {
             />
           </div>
         </div>
-      )}
-
-      {!currentTrack?.name && (
+      ) : (
         <h3 className="audio-player__track__name">Nothing playing</h3>
       )}
     </>

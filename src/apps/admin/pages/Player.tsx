@@ -1,4 +1,4 @@
-import { useCallback, useContext, useMemo, useState } from 'react'
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { AudioPlayer } from 'src/components'
 import { PlayerContext } from 'src/context'
@@ -30,9 +30,27 @@ export const Player = () => {
     setIsAddingAccount(false)
   }
 
+  useEffect(()=>{
+    console.log("AAAAAA")
+    console.log(userAccounts);
+    console.log(jukeboxAccounts)
+    console.log(accountConnected)
+  }, [])
+
   const ConditionalPlayerComponent = useCallback(() => {
     if (accountConnected && hasAux) {
       return <AudioPlayer />
+    } else if (accountConnected && !hasAux) {
+      return (
+        <div className="player-page__section">
+          <div className="font-title-md">
+            Spotify connected, transfer playback to get started!
+          </div>
+          <button className="button-solid" onClick={() => connectDevice()}>
+            Transfer playback
+          </button>
+        </div>
+      )
     } else if (jukeSession && !hasAux && !jukeSessionMembership) {
       return (
         <div className="player-page__section">
@@ -44,17 +62,6 @@ export const Player = () => {
             onClick={() => joinCurrentJukeSession()}
           >
             Join Juke Session
-          </button>
-        </div>
-      )
-    } else if (accountConnected && !hasAux) {
-      return (
-        <div className="player-page__section">
-          <div className="font-title-md">
-            Spotify connected, transfer playback to get started!
-          </div>
-          <button className="button-solid" onClick={() => connectDevice()}>
-            Transfer playback
           </button>
         </div>
       )

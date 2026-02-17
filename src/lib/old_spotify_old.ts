@@ -13,7 +13,6 @@ export class SpotifyPlayer {
   private resolvePlayer: (player: PlayerContext) => void
   private rejectPlayer: (e: any) => void
   private playerPromise: Promise<PlayerContext>
-  private scriptLoaded = false
 
   private constructor(token: string) {
     const { resolve, reject, promise } = Promise.withResolvers<PlayerContext>()
@@ -24,6 +23,7 @@ export class SpotifyPlayer {
 
     this.token = token
     this.connect()
+    // this.setToken(token)
   }
   public static getInstance(): SpotifyPlayer | null
   public static getInstance(token: string): SpotifyPlayer
@@ -40,7 +40,15 @@ export class SpotifyPlayer {
   private connect() {
     if (this.token === 'YOUR-LONG-TOKEN-HERE' || !this.token) return
 
-    const initializePlayer = () => {
+    if (!window.Spotify) {
+      console.log('added spotify script')
+      const scriptTag = document.createElement('script')
+      scriptTag.src = 'https://sdk.scdn.co/spotify-player.js'
+
+      document.head!.appendChild(scriptTag)
+    }
+
+    window.onSpotifyWebPlaybackSDKReady = () => {
       const player = new Spotify.Player({
         name: SPOTIFY_PLAYER_NAME,
         getOAuthToken: (cb) => {
@@ -77,19 +85,6 @@ export class SpotifyPlayer {
       })
       player.connect()
     }
-
-    // If Spotify SDK is already loaded, initialize immediately
-    if (window.Spotify) {
-      initializePlayer()
-    } else if (!this.scriptLoaded) {
-      // Only add script once
-      this.scriptLoaded = true
-      console.log('added spotify script')
-      const scriptTag = document.createElement('script')
-      scriptTag.src = 'https://sdk.scdn.co/spotify-player.js'
-      window.onSpotifyWebPlaybackSDKReady = initializePlayer
-      document.head!.appendChild(scriptTag)
-    }
   }
 
   public async getPlayer(): Promise<PlayerContext> {
@@ -98,8 +93,10 @@ export class SpotifyPlayer {
 
   private callPlayer(method: keyof Spotify.Player) {
     return () => {
-      if (this.player && typeof this.player[method] === 'function') {
-        (this.player[method] as Function)()
+      if (this.player) {
+        Object.call(this.player, method)
+      } else {
+        return
       }
     }
   }
@@ -107,20 +104,7 @@ export class SpotifyPlayer {
   public setToken(token?: string) {
     if (!token) return
 
-    if (this.token !== token) {
-      this.token = token
-      // Disconnect old player and reconnect with new token
-      if (this.player) {
-        this.player.disconnect()
-        this.player = undefined
-      }
-      // Reset promise for new connection
-      const { resolve, reject, promise } =
-        Promise.withResolvers<PlayerContext>()
-      this.resolvePlayer = resolve
-      this.rejectPlayer = reject
-      this.playerPromise = promise
-      this.connect()
-    }
+    this.token = token
+    // this.connect()
   }
 }
