@@ -49,7 +49,7 @@ export const AuthGuard = (props: { children?: ReactNode }) => {
     const initialClub = selectCurrentClub(store.getState())
 
     if (initialClub !== null && user !== null) {
-      fetchMemberships()
+      await fetchMemberships()
       await fetchJukeboxes(initialClub.id)
     }
   }
