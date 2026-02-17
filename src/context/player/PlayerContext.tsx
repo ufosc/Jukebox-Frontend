@@ -70,7 +70,7 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
     hasAuxRef.current = hasAux
   }, [hasAux])
 
-  const { onEvent, emitMessage } = useContext(SocketContext)
+  const { onEvent, emitMessage, socket } = useContext(SocketContext)
 
   // ===============================================================
   // Track State Sync
@@ -78,13 +78,25 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
 
   // Stable handler via ref — avoids re-registering listeners when hasAux changes
   const updateTrackStateFromSocket = useCallback((data: IPlayerState) => {
-    if (hasAuxRef.current) return
+    console.log('[PlayerContext] Received socket update:', {
+      hasAux: hasAuxRef.current,
+      data,
+      willUpdate: !hasAuxRef.current
+    })
+    
+    if (hasAuxRef.current) {
+      console.log('[PlayerContext] Ignoring socket update - this device has aux')
+      return
+    }
+
+    console.log('[PlayerContext] Setting player state from socket:', data)
     setPlayerState(data)
-  }, [])
+  }, [])  
 
   useEffect(() => {
     onEvent<IPlayerState>('player-join-success', updateTrackStateFromSocket)
     onEvent<IPlayerState>('player-state-update', updateTrackStateFromSocket)
+
   }, [updateTrackStateFromSocket])
 
   // When player state changes, sync current track
@@ -128,12 +140,23 @@ useEffect(() => {
 
   // When jukebox changes and user doesn't have aux, join for socket updates
   useEffect(() => {
-    if (!jukebox?.id || hasAux) return
+    console.log('[PlayerContext] Join check:', {
+      jukeboxId: jukebox?.id,
+      hasAux,
+      socketConnected: socket?.current?.connected,
+      socketId: socket?.current?.id,
+      willJoin: !!(jukebox?.id && !hasAux)
+    })
+
+    if (!jukebox?.id || hasAux || !socket?.current?.connected) {
+      console.log("Has aux")
+      return
+    }
 
     emitMessage<{ jukebox_id: number }>('player-join', {
       jukebox_id: jukebox.id,
     })
-  }, [jukebox?.id, hasAux])
+  }, [jukebox?.id, hasAux, socket, emitMessage])
 
   // ===============================================================
   // Player Aux Updates
@@ -163,6 +186,13 @@ useEffect(() => {
   // Emit played/paused when is_playing changes
   useEffect(() => {
     if (!jukebox || !hasAux || !playerState) return
+
+    console.log('[PlayerContext] Emitting played/paused:', {
+      action: playerState.is_playing ? 'played' : 'paused',
+      spotify_track: playerState.spotify_track,
+      auxPlayerState_current_track: auxPlayerState?.current_track,
+      playerState_full: playerState
+    })
 
     emitMessage<IPlayerAuxUpdate>('player-aux-update', {
       jukebox_id: jukebox.id,
@@ -195,6 +225,7 @@ useEffect(() => {
       jukebox_id: jukebox.id,
       action: 'progress',
       progress: playerState.progress,
+      spotify_track: playerState.spotify_track, //the slop maker failed me
     })
   }, [hasAux, playerState?.progress])
 

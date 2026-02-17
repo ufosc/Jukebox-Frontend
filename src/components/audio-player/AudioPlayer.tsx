@@ -75,6 +75,12 @@ export const AudioPlayer = (props: {
 
   // Update progress bar position and CSS variable when live progress changes
   useEffect(() => {
+    console.log('[AudioPlayer] Progress update check:', {
+    liveProgress,
+    currentTrack: currentTrack?.name,
+    duration: currentTrack?.duration_ms,
+    willUpdate: !!(currentTrack?.duration_ms && liveProgress)
+    })
     if (!currentTrack?.duration_ms || !liveProgress) return
 
     document.documentElement.style.setProperty(

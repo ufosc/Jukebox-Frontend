@@ -30,13 +30,6 @@ export const Player = () => {
     setIsAddingAccount(false)
   }
 
-  useEffect(()=>{
-    console.log("AAAAAA")
-    console.log(userAccounts);
-    console.log(jukeboxAccounts)
-    console.log(accountConnected)
-  }, [])
-
   const ConditionalPlayerComponent = useCallback(() => {
     if (accountConnected && hasAux) {
       return <AudioPlayer />
