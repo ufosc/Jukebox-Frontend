@@ -101,6 +101,8 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
 
   // When player state changes, sync current track
   useEffect(() => {
+    console.log("Track")
+    console.log(currentTrack)
     setCurrentTrack(
       playerState?.spotify_track || playerState?.queued_track?.track || null,
     )
@@ -123,7 +125,7 @@ useEffect(() => {
     const pollInterval = setInterval(async () => {
       const pos = await getCurrentPosition()
       if (pos !== null) setLiveProgress(pos)
-    }, 200)
+    }, 1000)
     return () => clearInterval(pollInterval)
   } else {
     // Non-aux user — use timer-based estimation from socket updates

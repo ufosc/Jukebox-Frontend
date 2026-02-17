@@ -62,7 +62,7 @@ export const SpotifyPlayer = () => {
             )}
 
             <div className="audio-container">
-              <AudioPlayer />
+              <AudioPlayer disableControls={hasAux}/>
             </div>
           </div>
 

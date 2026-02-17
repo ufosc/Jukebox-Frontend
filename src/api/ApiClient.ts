@@ -283,15 +283,17 @@ export class ApiClient extends ApiAuth {
     albumName: string,
     artistName: string,
   ) {
-    const url = this.endpoints.jukebox.search(jukeboxId)
+    const params = {jukeboxId: jukeboxId, track: trackName, album: albumName, artist:artistName }
+    const qp = new URLSearchParams()
+    Object.entries(params).forEach(([k, v]) => qp.append(k, String(v)))
+    
+    let url = this.endpoints.jukebox.search(jukeboxId)
 
-    const response = await this.post<{ tracks: ITrack[] }>(url, {
-      body: {
-        trackQuery: trackName,
-        albumQuery: albumName,
-        artistQuery: artistName,
-      },
-    })
+    url = `${url}?${qp.toString()}`
+
+    console.log(url)
+
+    const response = await this.get<{ tracks: ITrack[] }>(url)
 
     return response
   }

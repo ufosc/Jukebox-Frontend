@@ -17,7 +17,7 @@ import { AdminContext } from '../layout/Dashboard'
 
 export const Overview = () => {
   const queuedTracks = useSelector(selectNextTracks)
-  const { playerState, currentTrack } = useContext(PlayerContext)
+  const { playerState, currentTrack, hasAux } = useContext(PlayerContext)
   const currentJukebox = useSelector(selectCurrentJukebox)
   const adminStatus = useContext(AdminContext)
   const currentJbxSession = useSelector(selectCurrentJukeSession)
@@ -27,7 +27,7 @@ export const Overview = () => {
       <TrackModifyContext.Provider value={false}>
         <div className="grid overview__header">
           <div className="col-6 overview__header__audio-card">
-            <AudioPlayer />
+            <AudioPlayer disableControls={hasAux} />
           </div>
 
           <div className="col-1"></div>

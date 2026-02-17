@@ -145,9 +145,10 @@ export const AudioPlayer = (props: {
               </div>
             )}
 
-            {!disableControls && (
+            {(
               <Controls
                 playing={playerState?.is_playing ?? false}
+                hasAux={disableControls? disableControls : false}
                 nextTrack={nextTrack}
                 prevTrack={prevTrack}
                 togglePlay={togglePlay}
