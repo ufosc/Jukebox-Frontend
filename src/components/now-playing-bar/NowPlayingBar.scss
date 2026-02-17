@@ -1,0 +1,87 @@
+.now-playing-bar {
+  position: fixed;
+  bottom: 0;
+  left: var(--sidebar-width);
+  right: 0;
+  height: 4.5rem;
+  z-index: 50;
+  @include color-role('surface');
+  border-top: $border-thin;
+
+  &__progress-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background-color: var(--color-primary-contrast);
+    transition: width 1s linear;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 1.5rem;
+    gap: 1rem;
+  }
+
+  &__track {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1;
+
+    &__name {
+      @include font-label('md');
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &__artists {
+      @include font-body('sm');
+      color: var(--color-label);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    &__btn {
+      background: none;
+      border: none;
+      padding: 0.5rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 100px;
+      color: var(--color-primary-contrast);
+
+      svg {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+  }
+
+  &__time {
+    @include font-body('sm');
+    color: var(--color-label);
+    display: flex;
+    gap: 0.25rem;
+    white-space: nowrap;
+  }
+}
+
+@include breakpoint('lg') {
+  .now-playing-bar {
+    left: 0;
+  }
+}

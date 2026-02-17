@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Outlet } from 'react-router-dom'
 import { selectCurrentJukebox, selectCurrentMembership } from 'src/store'
+import { NowPlayingBar } from 'src/components'
 import { Sidebar, Topbar } from '../components'
 import './Dashboard.scss'
 
@@ -52,6 +53,7 @@ export const Dashboard = () => {
             <Outlet />
           </div>
         </div>
+        <NowPlayingBar />
       </div>
     </AdminContext.Provider>
   )
