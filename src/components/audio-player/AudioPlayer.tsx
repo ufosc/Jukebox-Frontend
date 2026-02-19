@@ -43,8 +43,12 @@ export const AudioPlayer = (props: {
   // the latest version without needing to re-register on every render
   const playRef = useRef(play)
   const pauseRef = useRef(pause)
-  useEffect(() => { playRef.current = play }, [play])
-  useEffect(() => { pauseRef.current = pause }, [pause])
+  useEffect(() => {
+    playRef.current = play
+  }, [play])
+  useEffect(() => {
+    pauseRef.current = pause
+  }, [pause])
 
   // State
   const [editMode, setEditMode] = useState(false)
@@ -71,15 +75,17 @@ export const AudioPlayer = (props: {
 
   // Keep a ref to editMode so the progress effect always reads the latest value
   const editModeRef = useRef(editMode)
-  useEffect(() => { editModeRef.current = editMode }, [editMode])
+  useEffect(() => {
+    editModeRef.current = editMode
+  }, [editMode])
 
   // Update progress bar position and CSS variable when live progress changes
   useEffect(() => {
     console.log('[AudioPlayer] Progress update check:', {
-    liveProgress,
-    currentTrack: currentTrack?.name,
-    duration: currentTrack?.duration_ms,
-    willUpdate: !!(currentTrack?.duration_ms && liveProgress)
+      liveProgress,
+      currentTrack: currentTrack?.name,
+      duration: currentTrack?.duration_ms,
+      willUpdate: !!(currentTrack?.duration_ms && liveProgress),
     })
     if (!currentTrack?.duration_ms || !liveProgress) return
 
@@ -145,17 +151,17 @@ export const AudioPlayer = (props: {
               </div>
             )}
 
-            {(
+            {
               <Controls
                 playing={playerState?.is_playing ?? false}
-                hasAux={disableControls? disableControls : false}
+                hasAux={disableControls ? disableControls : false}
                 nextTrack={nextTrack}
                 prevTrack={prevTrack}
                 togglePlay={togglePlay}
                 like={like}
                 repeat={repeat}
               />
-            )}
+            }
 
             <ProgressBar
               setProgress={setProgress}

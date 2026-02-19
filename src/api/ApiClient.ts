@@ -283,10 +283,15 @@ export class ApiClient extends ApiAuth {
     albumName: string,
     artistName: string,
   ) {
-    const params = {jukeboxId: jukeboxId, track: trackName, album: albumName, artist:artistName }
+    const params = {
+      jukeboxId: jukeboxId,
+      track: trackName,
+      album: albumName,
+      artist: artistName,
+    }
     const qp = new URLSearchParams()
     Object.entries(params).forEach(([k, v]) => qp.append(k, String(v)))
-    
+
     let url = this.endpoints.jukebox.search(jukeboxId)
 
     url = `${url}?${qp.toString()}`

@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: $gap;
-  
+
   &-stretch {
     align-items: stretch;
   }
@@ -13,7 +13,7 @@
   flex-wrap: wrap;
   align-content: flex-start;
   gap: $gap;
-  
+
   .flex-width-1 {
     width: 100%;
   }

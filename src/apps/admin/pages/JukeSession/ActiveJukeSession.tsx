@@ -148,15 +148,15 @@ export const ActiveJukeSession = () => {
     return formatted
   }
 
-
-
   const endJukeSession = async () => {
-
-    if(currentJbx && currentJbxSession) {
-      const res = await network.jukeSessions.update(currentJbx.id, currentJbxSession.id, 
+    if (currentJbx && currentJbxSession) {
+      const res = await network.jukeSessions.update(
+        currentJbx.id,
+        currentJbxSession.id,
         {
-          is_active : false,
-        })
+          is_active: false,
+        },
+      )
 
       console.log(res)
     }
@@ -225,7 +225,9 @@ export const ActiveJukeSession = () => {
         </div>
         <div className="col-5"></div>
         <div className="col-2">
-          <button className="button-fancy-rounded" onClick={endJukeSession}>End Now</button>
+          <button className="button-fancy-rounded" onClick={endJukeSession}>
+            End Now
+          </button>
         </div>
       </div>
       <div className="grid">

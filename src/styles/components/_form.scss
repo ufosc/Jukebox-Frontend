@@ -71,7 +71,7 @@
   &-label {
     @include font-label('xs');
     $label-padding: 0.5rem;
-    
+
     background-color: inherit;
     display: inline-block;
     width: auto;
@@ -82,8 +82,6 @@
     transition: inherit;
   }
   &-control {
-    
-    
     padding: 1.5rem $padding-inline;
     border: $border-size solid var(--form-border-color);
     align-self: stretch;
@@ -181,48 +179,42 @@
     }
   }
 
-  &-select-club{
+  &-select-club {
     width: 13vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     height: 100%;
 
-    select{
-      border:none;
+    select {
+      border: none;
       width: 100%;
       height: 50%;
       background-color: var(--color-surface-container);
       color: var(--color-surface-container-on);
       text-decoration: underline 3px var(--color-primary);
 
-
       font-family: Poppins;
-      @include font-label("md", 500);
-
+      @include font-label('md', 500);
     }
-
   }
 
-  &__select-jukebox{
+  &__select-jukebox {
     width: 100%;
     height: 4rem;
-    
 
-    select{
+    select {
       height: 100%;
       width: 100%;
       background-color: var(--color-surface-accent-bright);
       padding: 10px 15px;
       border-radius: 5px;
-      border:none;
+      border: none;
       color: var(--color-surface-accent-bright-on);
 
       font-family: Poppins;
-      @include font-label("md");
+      @include font-label('md');
       box-shadow: none;
-
     }
   }
-
 }

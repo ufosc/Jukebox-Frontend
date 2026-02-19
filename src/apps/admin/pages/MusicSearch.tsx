@@ -41,8 +41,10 @@ export const MusicSearch = () => {
       console.log('Jukebox is not connected')
     }
   }
-  
-  useEffect(()=>{console.log(tracks)},[tracks])
+
+  useEffect(() => {
+    console.log(tracks)
+  }, [tracks])
 
   useEffect(() => {
     if (location.state && location.state.query && location.state.needSearch) {

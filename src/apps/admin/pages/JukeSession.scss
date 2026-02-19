@@ -30,7 +30,7 @@
     }
   }
 
-  &__schedule-session{
+  &__schedule-session {
     display: inline-flex;
     height: 654px;
     padding: 36px 94px 455px 94px;
@@ -39,15 +39,14 @@
     gap: 23px;
     width: 50%;
 
-
-    &__title{
+    &__title {
       color: var(--color-primary-contrast);
       /* Headline Xs */
 
       @include font-headline('xs');
     }
 
-    &__selector{
+    &__selector {
       border-radius: 5px;
       border: 1px solid var(--color-outline);
 

@@ -1,5 +1,4 @@
 .player-page {
-  
   &__title {
     @include font-title('lg');
   }
@@ -24,14 +23,14 @@
       flex-direction: column;
       align-items: flex-start;
       gap: 1rem;
-      
+
       &__actions {
         margin-top: 2rem;
       }
     }
   }
 
-  &__account-list{
+  &__account-list {
     width: 100%;
   }
 }

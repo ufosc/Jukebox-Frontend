@@ -13,7 +13,6 @@
   min-width: $nav-width;
   position: fixed;
   height: 100vh;
-  
 
   &__inner {
     background-color: var(--color-surface-accent);
@@ -45,7 +44,7 @@
       gap: 2px; /* Adds space */
     }
     &__title {
-      color: #FFF;
+      color: #fff;
       font-family: Chango;
       font-size: 26px;
       font-style: normal;
@@ -54,7 +53,7 @@
       letter-spacing: 0.26px;
     }
     &__subtitle {
-      color: #FFF;
+      color: #fff;
 
       font-family: Poppins;
       font-size: 10px;
@@ -78,7 +77,7 @@
 
       list-style: none;
 
-      &__item{
+      &__item {
         font-family: Poppins;
         font-size: 17px;
         font-style: normal;
@@ -134,7 +133,7 @@
     position: relative;
     display: inline-block;
     align-items: flex-end;
-  
+
     &__button {
       background-color: var(--color-surface-accent);
       color: var(--color-surface-accent-on);
@@ -144,7 +143,7 @@
       cursor: pointer;
       border-radius: 5px;
     }
-      &__content {
+    &__content {
       display: none; /* Hidden by default */
       position: relative;
       background-color: var(--color-surface-accent);
@@ -153,9 +152,9 @@
       border-radius: 5px;
       top: 100%;
       left: 0%;
-      font-size:small;
+      font-size: small;
       font-family: Poppins;
-     a {
+      a {
         color: white;
         padding: 12px 16px;
         text-decoration: none;
@@ -169,14 +168,13 @@
       display: block;
     }
   }
-  &__break{
+  &__break {
     width: 252px;
     height: 1px;
     background: var(--color-label-variant);
     margin-bottom: 3rem;
   }
 }
-
 
 .switch {
   position: relative;

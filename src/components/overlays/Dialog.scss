@@ -1,9 +1,9 @@
-.overlay-dialog-backdrop{
+.overlay-dialog-backdrop {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;  
-  height: 100vh; 
+  width: 100vw;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0);
   cursor: default;
   user-select: none;
@@ -12,7 +12,7 @@
 //Generic position to modify later
 .overlay-dialog {
   padding: 2.2rem 1.5rem;
-  position: fixed; 
+  position: fixed;
   z-index: 999;
   background: var(--color-surface);
   color: var(--color-surface-container-on);
@@ -23,7 +23,7 @@
   max-height: 90vh;
   overflow: auto;
 
-  &__user{
+  &__user {
     position: fixed;
     left: 84.5vw;
     top: 7%;
@@ -31,16 +31,15 @@
     max-height: 90vh;
   }
 
-  &__club{
+  &__club {
     max-width: 90vw;
     max-height: 90vh;
     position: fixed;
     top: 7%;
     left: 80%;
-
   }
 
-  &__notifications{
+  &__notifications {
     max-width: 90vw;
     max-height: 90vh;
     position: fixed;
@@ -48,7 +47,7 @@
     left: 84%;
   }
 
-  &__search{
+  &__search {
     max-width: 90vw;
     max-height: 90vh;
     position: fixed;

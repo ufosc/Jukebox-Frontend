@@ -22,7 +22,9 @@ export const SpotifyPlayerAccount = (props: {
           </div>
         </div>
         <div className="player-account__name">
-          <div className="player-account__name__email-container">{account.spotify_email}</div>
+          <div className="player-account__name__email-container">
+            {account.spotify_email}
+          </div>
           <div className="attribute-container">
             <div className="account-type-container">Spotify Account</div>
             <div className="account-active-container">{active && 'Active'}</div>

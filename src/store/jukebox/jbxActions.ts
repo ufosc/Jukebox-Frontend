@@ -121,11 +121,11 @@ export const checkLinkAuth = async () => {
 }
 
 export const connectNewSpotifyAccount = async () => {
-  console.log("jjhkjhb")
+  console.log('jjhkjhb')
   const jukebox = selectCurrentJukebox(store.getState())
   if (!jukebox) return
 
-  console.log("asd")
+  console.log('asd')
   const res = await api.getSpotifyAuthRedirectUrl(jukebox.id)
   if (!res.success) {
     console.error(res.data.message)

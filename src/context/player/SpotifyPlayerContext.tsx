@@ -37,7 +37,7 @@ export const SpotifyPlayerContext = createContext({
   repeat: () => {},
   setProgress: (_timeMs: number) => {},
   togglePlay: () => {},
-  getCurrentPosition: async(): Promise<number | null> => null,
+  getCurrentPosition: async (): Promise<number | null> => null,
 })
 
 export const SpotifyPlayerProvider = (props: {
@@ -84,7 +84,6 @@ export const SpotifyPlayerProvider = (props: {
     SpotifyPlayer.getInstance(token)
       .getPlayer()
       .then(({ player, deviceId: resDeviceId }) => {
-
         playerRef.current = player
         setDeviceId(resDeviceId)
         setInitialized(true)
@@ -93,10 +92,10 @@ export const SpotifyPlayerProvider = (props: {
         //  networkRef.current?.connectPlayerDevice(jukebox.id, resDeviceId)
         //}
       })
-      //.catch((error) => {
-      //  console.error('[SpotifyPlayerProvider] Failed to initialize player:', error)
-      //  setConnected(false)
-      //})
+    //.catch((error) => {
+    //  console.error('[SpotifyPlayerProvider] Failed to initialize player:', error)
+    //  setConnected(false)
+    //})
   }, [token])
 
   // Sync aux state whenever active/connected/jukebox changes.
@@ -106,7 +105,6 @@ export const SpotifyPlayerProvider = (props: {
     setHasAux(connected && active)
   }, [connected, active, jukebox])
 
-  
   const handlePlayerStateChange = useCallback(
     (state?: Spotify.PlaybackState) => {
       const currentJukebox = jukeboxRef.current
@@ -142,7 +140,9 @@ export const SpotifyPlayerProvider = (props: {
         jukebox_id: currentJukebox.id,
         action: state.paused ? 'paused' : 'played',
         progress: state.position,
-        spotify_track: spotifyTrack?.id ? parseTrackObj(spotifyTrack) : undefined,
+        spotify_track: spotifyTrack?.id
+          ? parseTrackObj(spotifyTrack)
+          : undefined,
         timestamp: new Date(),
       })
     },
@@ -263,13 +263,10 @@ export const SpotifyPlayerProvider = (props: {
     })
   }, [onSpace, onArrow, getPlayerAsync])
 
-
-
   const getCurrentPosition = useCallback(async () => {
     const state = await playerRef.current?.getCurrentState()
     return state?.position ?? null
   }, [])
-
 
   return (
     <SpotifyPlayerContext.Provider

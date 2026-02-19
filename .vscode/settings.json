@@ -22,7 +22,6 @@
   "javascript.format.semicolons": "remove",
   "typescript.format.semicolons": "remove",
   "autoimport.useSemiColon": false,
-  
 
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

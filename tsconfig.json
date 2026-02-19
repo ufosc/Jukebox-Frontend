@@ -41,8 +41,9 @@
     "src",
     "./src/*",
     "docs",
-    "src/.deprecated/_oldSpotifyPlayer.tsx"
-, "src/.deprecated/old_spotify_old.ts"  ],
+    "src/_deprecated/_oldSpotifyPlayer.tsx",
+    "src/_deprecated/old_spotify_old.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }],
   "exclude": ["node_modules/", ".prettierrc.cjs"]
 }

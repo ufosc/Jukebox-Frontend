@@ -96,14 +96,6 @@ export class SpotifyPlayer {
     return this.playerPromise
   }
 
-  private callPlayer(method: keyof Spotify.Player) {
-    return () => {
-      if (this.player && typeof this.player[method] === 'function') {
-        (this.player[method] as Function)()
-      }
-    }
-  }
-
   public setToken(token?: string) {
     if (!token) return
 

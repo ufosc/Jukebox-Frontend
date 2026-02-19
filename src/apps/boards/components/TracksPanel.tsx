@@ -16,7 +16,7 @@ export const TracksPanel = () => {
         </h2>
         <div className="board__tracks__group__inner">
           {/* <TrackList tracks={(currentTrack && [currentTrack]) || []} /> */}
-          <AudioPlayer disableControls={hasAux}/>
+          <AudioPlayer disableControls={hasAux} />
         </div>
       </div>
       <div className="board__queue board__tracks__group">

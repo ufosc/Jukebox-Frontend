@@ -38,9 +38,9 @@
     color: var(--color-#{$color-role}-container-on);
     border-color: var(--color-#{$color-role}-container);
   } @else if $type == 'fancy' {
-    background-color: #9D482F;
-    color:white;
-    border-color: #9D482F;
+    background-color: #9d482f;
+    color: white;
+    border-color: #9d482f;
     border-radius: 20px;
   }
 
@@ -87,13 +87,11 @@
       @include button('tonal', $name);
     }
   }
-
-  
 }
 
-.button-fancy{
+.button-fancy {
   @include button('fancy');
-  
+
   @each $name, $props in $component-colors {
     &--#{$name} {
       @include button('fancy', $name);
@@ -101,7 +99,7 @@
   }
 }
 
-.button-solid-queue{
+.button-solid-queue {
   height: 4rem;
   width: 114px;
   justify-content: center;
@@ -116,9 +114,9 @@
   border-style: solid;
 }
 
-.button-fancy-rounded{
+.button-fancy-rounded {
   @include font-label('md');
-  
+
   border-radius: 20px;
   border-color: var(--color-primary-contrast);
   border-style: none;

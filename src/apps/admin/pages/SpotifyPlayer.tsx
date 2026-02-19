@@ -51,9 +51,7 @@ export const SpotifyPlayer = () => {
                   />
                   <SpotifyPlayerDetail
                     firstDetail="Playing"
-                    secondDetail={
-                      playerState?.is_playing ? 'Yes' : 'No'
-                    }
+                    secondDetail={playerState?.is_playing ? 'Yes' : 'No'}
                   />
                 </div>
               </>
@@ -62,7 +60,7 @@ export const SpotifyPlayer = () => {
             )}
 
             <div className="audio-container">
-              <AudioPlayer disableControls={hasAux}/>
+              <AudioPlayer disableControls={hasAux} />
             </div>
           </div>
 
@@ -119,7 +117,9 @@ export const SpotifyPlayer = () => {
 
         <div className="col-6">
           <div className="player-section">
-            <h2 className="player-section__title">Connected Spotify Accounts</h2>
+            <h2 className="player-section__title">
+              Connected Spotify Accounts
+            </h2>
             {jukeboxLinks && jukeboxLinks.length > 0 ? (
               <div className="account-list">
                 {jukeboxLinks

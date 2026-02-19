@@ -32,9 +32,8 @@
 
   $z-index: 100;
 
-  position: fixed; 
+  position: fixed;
   z-index: $z-index;
-  
 
   &-backdrop {
     background-color: rgba(0, 0, 0, 0);
@@ -48,7 +47,7 @@
     user-select: none;
   }
 
-  &__user{
+  &__user {
     position: fixed;
     left: 84.5vw;
     top: 7%;

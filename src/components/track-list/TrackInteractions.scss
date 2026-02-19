@@ -2,14 +2,13 @@
   display: flex;
   gap: 1rem;
   @include font-body('md');
-  
 
   &__item {
     display: flex;
     align-items: center;
     gap: 4px;
     font-weight: 500;
-    
+
     &--likes svg {
       color: var(--color-success);
     }
@@ -18,7 +17,7 @@
     }
   }
 
-  &__button{
+  &__button {
     border: none;
     cursor: pointer;
     background-color: transparent;

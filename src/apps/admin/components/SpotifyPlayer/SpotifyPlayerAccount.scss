@@ -36,7 +36,7 @@
   background-color: var(--color-label-variant);
   overflow: hidden;
   border: none;
-  
+
   img {
     width: 120%;
     height: 120%;
@@ -55,9 +55,7 @@
   height: 46px;
 }
 
-
-.player-account{
-
+.player-account {
   display: grid;
   grid-template-columns: 1fr 5fr 1fr;
   grid-template-rows: 1fr;
@@ -68,36 +66,32 @@
   align-items: center;
   margin-bottom: 2%;
 
-
-  &__active{
+  &__active {
     border: 2px solid lightgreen;
   }
 
-  &__remove{
+  &__remove {
     color: red;
   }
 
-  &__controls{
+  &__controls {
     display: flex;
     flex-direction: row;
 
-    &__active{
+    &__active {
       color: grey;
       cursor: default;
     }
-
   }
 
-  &__name{
+  &__name {
     display: flex;
     flex-direction: column;
-  
 
-    &__email-container{
+    &__email-container {
       min-width: 0;
       overflow-wrap: break-word;
-      word-break: break-word; 
+      word-break: break-word;
     }
   }
-
 }

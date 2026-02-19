@@ -11,10 +11,7 @@ import {
 } from 'react'
 import { useSelector } from 'react-redux'
 import { ApiClient } from 'src/api'
-import {
-  selectCurrentJukebox,
-  selectCurrentJukeSession,
-} from 'src/store'
+import { selectCurrentJukebox, selectCurrentJukeSession } from 'src/store'
 import { ActionType } from 'src/types/jukebox-enums'
 import { NotImplementedError } from 'src/utils'
 import { SocketContext } from '../SocketContext'
@@ -83,7 +80,7 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
     //  data,
     //  willUpdate: !hasAuxRef.current
     //})
-    
+
     if (hasAuxRef.current) {
       //console.log('[PlayerContext] Ignoring socket update - this device has aux')
       return
@@ -91,12 +88,11 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
 
     //console.log('[PlayerContext] Setting player state from socket:', data)
     setPlayerState(data)
-  }, [])  
+  }, [])
 
   useEffect(() => {
     onEvent<IPlayerState>('player-join-success', updateTrackStateFromSocket)
     onEvent<IPlayerState>('player-state-update', updateTrackStateFromSocket)
-
   }, [updateTrackStateFromSocket])
 
   // When player state changes, sync current track
@@ -109,36 +105,41 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
   }, [playerState])
 
   // Tick live progress forward every second while playing
-useEffect(() => {
-  if (!playerState?.progress) {
-    setLiveProgress(0)
-    return
-  }
+  useEffect(() => {
+    if (!playerState?.progress) {
+      setLiveProgress(0)
+      return
+    }
 
-  if (!playerState.is_playing) {
-    setLiveProgress(playerState.progress)
-    return
-  }
+    if (!playerState.is_playing) {
+      setLiveProgress(playerState.progress)
+      return
+    }
 
-  if (hasAux) {
-    // This device has aux — poll real Spotify position every 200ms
-    const pollInterval = setInterval(async () => {
-      const pos = await getCurrentPosition()
-      if (pos !== null) setLiveProgress(pos)
-    }, 1000)
-    return () => clearInterval(pollInterval)
-  } else {
-    // Non-aux user — use timer-based estimation from socket updates
-    setLiveProgress(playerState.progress)
-    const timer = setInterval(() => {
-      setLiveProgress((prev) => {
-        if (prev == null) return playerState.progress
-        return prev + 1000
-      })
-    }, 1000)
-    return () => clearInterval(timer)
-  }
-}, [playerState?.is_playing, playerState?.progress, hasAux, getCurrentPosition])
+    if (hasAux) {
+      // This device has aux — poll real Spotify position every 200ms
+      const pollInterval = setInterval(async () => {
+        const pos = await getCurrentPosition()
+        if (pos !== null) setLiveProgress(pos)
+      }, 1000)
+      return () => clearInterval(pollInterval)
+    } else {
+      // Non-aux user — use timer-based estimation from socket updates
+      setLiveProgress(playerState.progress)
+      const timer = setInterval(() => {
+        setLiveProgress((prev) => {
+          if (prev == null) return playerState.progress
+          return prev + 1000
+        })
+      }, 1000)
+      return () => clearInterval(timer)
+    }
+  }, [
+    playerState?.is_playing,
+    playerState?.progress,
+    hasAux,
+    getCurrentPosition,
+  ])
 
   // When jukebox changes and user doesn't have aux, join for socket updates
   useEffect(() => {
@@ -261,14 +262,30 @@ useEffect(() => {
       currentTrack,
       accountConnected: spotifyIsConnected,
       connectDevice,
-      play: () => { throw new NotImplementedError() },
-      pause: () => { throw new NotImplementedError() },
-      setProgress: (_ms: number) => { throw new NotImplementedError() },
-      nextTrack: () => { throw new NotImplementedError() },
-      prevTrack: () => { throw new NotImplementedError() },
-      like: () => { throw new NotImplementedError() },
-      repeat: () => { throw new NotImplementedError() },
-      togglePlay: () => { throw new NotImplementedError() },
+      play: () => {
+        throw new NotImplementedError()
+      },
+      pause: () => {
+        throw new NotImplementedError()
+      },
+      setProgress: (_ms: number) => {
+        throw new NotImplementedError()
+      },
+      nextTrack: () => {
+        throw new NotImplementedError()
+      },
+      prevTrack: () => {
+        throw new NotImplementedError()
+      },
+      like: () => {
+        throw new NotImplementedError()
+      },
+      repeat: () => {
+        throw new NotImplementedError()
+      },
+      togglePlay: () => {
+        throw new NotImplementedError()
+      },
     }
 
     if (!jukebox) return base

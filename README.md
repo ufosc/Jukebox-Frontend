@@ -1,4 +1,5 @@
 # OSC Jukebox React App
+
 [![Code Linting](https://github.com/ufosc/Jukebox-Frontend/actions/workflows/code-linting.yml/badge.svg)](https://github.com/ufosc/Jukebox-Frontend/actions/workflows/code-linting.yml)
 [![Unit Tests](https://github.com/ufosc/Jukebox-Frontend/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/ufosc/Jukebox-Frontend/actions/workflows/unit-tests.yml)
 
@@ -127,16 +128,19 @@ Here's how you can get involved in contributing to our project:
 Aftering forking the repo and cloning your fork to your local system,
 
 1. Create a new branch for your feature or fix
+
    ```sh
    git checkout -b feature/your-feature-name
    ```
 
 2. Make your changes and commit them with clear, concise messages
+
    ```sh
    git commit -m "Add: feature description"
    ```
 
 3. Push your branch to your fork
+
    ```sh
    git push origin feature/your-feature-name
    ```
