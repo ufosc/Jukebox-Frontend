@@ -148,6 +148,20 @@ export const ActiveJukeSession = () => {
     return formatted
   }
 
+  const endJukeSession = async () => {
+    if (currentJbx && currentJbxSession) {
+      const res = await network.jukeSessions.update(
+        currentJbx.id,
+        currentJbxSession.id,
+        {
+          is_active: false,
+        },
+      )
+
+      console.log(res)
+    }
+  }
+
   useEffect(() => {
     if (currentJbxSession) {
       setSessionStart(formatTime(currentJbxSession.start_at))
@@ -177,7 +191,6 @@ export const ActiveJukeSession = () => {
         }
       }
     }
-
     getMembers()
   }, [currentJbxSession])
 
@@ -212,7 +225,9 @@ export const ActiveJukeSession = () => {
         </div>
         <div className="col-5"></div>
         <div className="col-2">
-          <button className="button-fancy-rounded">End Now</button>
+          <button className="button-fancy-rounded" onClick={endJukeSession}>
+            End Now
+          </button>
         </div>
       </div>
       <div className="grid">

@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useState } from 'react'
+import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import { ApiClient } from 'src/api'
@@ -6,6 +6,7 @@ import { usePopover } from 'src/hooks'
 import {
   selectCurrentJukebox,
   selectCurrentJukeSession,
+  selectCurrentJukeSessionMembership,
   selectUser,
 } from 'src/store'
 import { AdminContext } from '../layout/Dashboard'
@@ -19,6 +20,7 @@ export const JukeSession = () => {
 
   const jukeSession = useSelector(selectCurrentJukeSession)
   const currentJbx = useSelector(selectCurrentJukebox)
+  const currentJukeMember = useSelector(selectCurrentJukeSessionMembership)
 
   const adminStatus = useContext(AdminContext)
 
@@ -65,6 +67,10 @@ export const JukeSession = () => {
     }
   }
 
+  useEffect(() => {
+    console.log(currentJukeMember)
+  }, [currentJukeMember])
+
   return (
     <>
       <div className="grid">
@@ -93,7 +99,7 @@ export const JukeSession = () => {
         </span>
       </div>
 
-      {adminStatus.role === 'member' && jukeSession ? (
+      {adminStatus.role === 'member' && jukeSession && !currentJukeMember ? (
         <div>
           <input value={enterCode} onChange={handleEnterCode}></input>
 
@@ -107,9 +113,19 @@ export const JukeSession = () => {
         jukeSession ? (
           <Outlet />
         ) : (
-          <div>
-            <input placeholder="Display Name" className=""></input>
-            <button onClick={handleSubmit}>Start Session</button>
+          <div className="juke-session__schedule-session">
+            <div className="juke-session__schedule-session__title">
+              Schedule Session
+            </div>
+
+            <input
+              placeholder="Display Name"
+              className="juke-session__schedule-session__selector"
+            ></input>
+
+            <button onClick={handleSubmit} className="button-fancy">
+              Start Session
+            </button>
           </div>
         )
       ) : (

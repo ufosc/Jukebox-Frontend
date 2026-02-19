@@ -8,7 +8,7 @@
     "network": "vite --mode network --no-open",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier --check --log-level warn \"src/**/*.{jsx,js,ts,tsx}\"",
     "format:fix": "prettier --write --log-level warn \"src/**/*.{jsx,js,ts,tsx}\"",

@@ -45,6 +45,7 @@ declare interface IJukeSessionCreate {
 declare interface IJukeSessionUpdate {
   start_at?: DateString
   end_at?: DateString
+  is_active?: boolean
 }
 
 declare interface IJukeSessionMembership {
@@ -118,6 +119,7 @@ declare interface ITrack extends IModelBase {
   duration_ms: number
   is_explicit: boolean
   preview_url: string | null
+  image_url?: string | null
 }
 
 declare interface ITrackCreate {

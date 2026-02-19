@@ -1,78 +1,69 @@
-.modal{
-
-  &__user{
+.modal {
+  &__user {
     display: flex;
     flex-direction: column;
     width: 13vw;
     height: 18vh;
 
-
-    &__information{
+    &__information {
       display: flex;
       flex-direction: column;
       height: 4vh;
       justify-content: space-between;
 
-      &__name{
+      &__name {
         @include font-title('sm', 600);
         font-size: 1.5rem;
       }
 
-      &__username{
+      &__username {
         @include font-label('xs', 300);
         color: var(--color-label);
         font-size: 1.3rem;
       }
-
     }
 
-    &__options{
+    &__options {
       width: 100%;
       height: 75%;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-
     }
   }
 
-  &__club{
+  &__club {
     width: 10vw;
 
-
-    &__item{
+    &__item {
       height: 4vh;
       display: flex;
       justify-content: center;
       align-items: center;
 
-
-      &__active{
+      &__active {
         border-radius: 5px;
         background: var(--color-primary-container);
       }
-
     }
   }
 
-  &__notifications{
+  &__notifications {
     width: 13.8vw;
     height: 19vh;
 
-    &__title{
+    &__title {
       @include font-title('sm', 600);
       font-size: 1.4rem;
     }
 
-
-    &__list{
+    &__list {
       width: 100%;
       height: 85%;
       display: flex;
       flex-direction: column;
 
-
-      &__item{
+      &__item {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -82,30 +73,26 @@
       }
     }
 
-
-    &__footer-enabled{
-
+    &__footer-enabled {
       display: flex;
       align-items: center;
       flex-direction: row;
       width: 30%;
       justify-content: space-between;
-      color: var(--color-secondary)
+      color: var(--color-secondary);
     }
 
-    &__footer-disabled{
-
+    &__footer-disabled {
       display: flex;
       align-items: center;
       flex-direction: row;
       width: 40%;
       justify-content: space-between;
-      color: var(--color-disabled)
+      color: var(--color-disabled);
     }
-
   }
 
-  &__divider{
+  &__divider {
     height: 1px;
     width: 100%;
     margin-top: 1rem;
@@ -113,13 +100,12 @@
     background-color: var(--color-secondary);
   }
 
-  &__nav{
-
-    &__item{
+  &__nav {
+    &__item {
       text-decoration: none;
       color: var(--color-surface-container-on);
 
-      a{
+      a {
         $transition: 0.1s ease-in-out;
         transition:
           background-color $transition,
@@ -134,20 +120,20 @@
     }
   }
 
-  &__search{
-    width:600px;
+  &__search {
+    width: 600px;
     height: 210px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
-    &__track-list{
+    &__track-list {
       display: flex;
       flex-direction: column;
       width: 600px;
       height: 70%;
 
-      &__item{
+      &__item {
         display: flex;
         flex-direction: row;
         width: 600px;
@@ -162,50 +148,49 @@
       }
     }
 
-    &__title{
+    &__title {
       @include font-title('sm');
       width: 140px;
       text-overflow: ellipsis;
-      height:1.5rem;
-      overflow:hidden;
-      white-space:nowrap;
+      height: 1.5rem;
+      overflow: hidden;
+      white-space: nowrap;
     }
 
-    &__information{
+    &__information {
       width: 400px;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      overflow:hidden;
-      white-space:nowrap;
-      
-      
-      &__item{
-        width:80px;
+      overflow: hidden;
+      white-space: nowrap;
+
+      &__item {
+        width: 80px;
         text-overflow: ellipsis;
-        height:1.5rem;
-        overflow:hidden;
-        white-space:nowrap;
+        height: 1.5rem;
+        overflow: hidden;
+        white-space: nowrap;
       }
 
-      &__album{
+      &__album {
         width: 110px;
         text-overflow: ellipsis;
-        height:1.5rem;
-        overflow:hidden;
-        white-space:nowrap;
+        height: 1.5rem;
+        overflow: hidden;
+        white-space: nowrap;
       }
 
-      &__detail{
+      &__detail {
         width: 40px;
         text-overflow: ellipsis;
-        height:1.5rem;
-        overflow:hidden;
-        white-space:nowrap;
+        height: 1.5rem;
+        overflow: hidden;
+        white-space: nowrap;
       }
     }
 
-    &__more{
+    &__more {
       @include font-body('md');
       color: var(--color-primary);
       width: 15%;

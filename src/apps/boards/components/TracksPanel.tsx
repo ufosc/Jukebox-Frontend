@@ -4,7 +4,7 @@ import { AudioPlayer, TrackList } from 'src/components'
 import { PlayerContext } from 'src/context'
 
 export const TracksPanel = () => {
-  const { currentTrack } = useContext(PlayerContext)
+  const { currentTrack, hasAux } = useContext(PlayerContext)
   // const currentTrack = useSelector(selectCurrentTrack)
   // const nextTracks = useSelector(selectNextTracks)
 
@@ -16,7 +16,7 @@ export const TracksPanel = () => {
         </h2>
         <div className="board__tracks__group__inner">
           {/* <TrackList tracks={(currentTrack && [currentTrack]) || []} /> */}
-          <AudioPlayer />
+          <AudioPlayer disableControls={hasAux} />
         </div>
       </div>
       <div className="board__queue board__tracks__group">

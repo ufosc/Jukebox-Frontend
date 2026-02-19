@@ -9,6 +9,7 @@ import './Controls.scss'
 
 export const Controls = (props: {
   playing: boolean
+  hasAux: boolean
   togglePlay?: () => void
   nextTrack?: () => void
   prevTrack?: () => void
@@ -17,7 +18,8 @@ export const Controls = (props: {
 }) => {
   // const { isPlaying, togglePlay, nextTrack, previousTrack } =
   //   useContext(SpotifyPlayerContext)
-  const { playing, togglePlay, nextTrack, prevTrack, repeat, like } = props
+  const { playing, togglePlay, nextTrack, prevTrack, repeat, like, hasAux } =
+    props
 
   // const handleLike = () => {
   //   console.log('Pressed like.')
@@ -40,14 +42,17 @@ export const Controls = (props: {
         </button>
       )}
 
-      {togglePlay && (
-        <button
-          onClick={togglePlay}
-          className={`audio-controls__icon ${playing ? 'playing' : 'paused'}`}
-        >
-          {playing ? <PauseIcon /> : <PlayIcon />}
-        </button>
-      )}
+      {togglePlay &&
+        (hasAux ? (
+          <button
+            onClick={togglePlay}
+            className={`audio-controls__icon ${playing ? 'playing' : 'paused'}`}
+          >
+            {playing ? <PauseIcon /> : <PlayIcon />}
+          </button>
+        ) : (
+          <div>{playing ? <PauseIcon /> : <PlayIcon />}</div>
+        ))}
 
       {nextTrack && (
         <button className="audio-controls__icon" onClick={nextTrack}>

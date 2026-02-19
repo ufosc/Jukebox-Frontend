@@ -18,7 +18,7 @@ input[type='range'] {
   border-radius: 2px;
   cursor: pointer;
 
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
 /* Input range - firefox */
@@ -29,7 +29,7 @@ input[type='range']::-moz-range-track {
   height: $range-height;
   border-radius: 2px;
   cursor: pointer;
-  
+
   transition: inherit;
 }
 

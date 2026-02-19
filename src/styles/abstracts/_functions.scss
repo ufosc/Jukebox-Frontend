@@ -113,7 +113,6 @@
   @return $color-name;
 }
 
-
 @function tonalColorCode($palette-name, $number: '') {
   @if $number != '' {
     @return '--' + $palettes-token + '-' + $palette-name + '-' + $number;

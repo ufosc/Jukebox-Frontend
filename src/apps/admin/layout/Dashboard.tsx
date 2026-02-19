@@ -19,26 +19,27 @@ export const Dashboard = () => {
   const currentJukebox = useSelector(selectCurrentJukebox)
   const currentMembership = useSelector(selectCurrentMembership)
 
-  const [currentContext, setCurrentContext] = useState({
-    role: 'admin',
+  const [currentContext, setCurrentContext] = useState<AdminContextType>({
+    role: currentMembership?.is_admin ? 'admin' : 'member',
     jukebox: currentJukebox,
   })
 
-  //Re-enable later
   useEffect(() => {
     console.log(currentMembership)
     if (currentMembership && currentMembership.is_admin) {
       setCurrentContext((prev) => ({
         ...prev,
         role: 'admin',
+        jukebox: currentJukebox,
       }))
     } else {
       setCurrentContext((prev) => ({
         ...prev,
         role: 'member',
+        jukebox: currentJukebox,
       }))
     }
-  }, [currentMembership])
+  }, [currentMembership, currentJukebox])
 
   return (
     <AdminContext.Provider value={currentContext}>

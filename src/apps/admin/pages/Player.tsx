@@ -1,4 +1,4 @@
-import { useCallback, useContext, useMemo, useState } from 'react'
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { AudioPlayer } from 'src/components'
 import { PlayerContext } from 'src/context'
@@ -32,7 +32,18 @@ export const Player = () => {
 
   const ConditionalPlayerComponent = useCallback(() => {
     if (accountConnected && hasAux) {
-      return <AudioPlayer />
+      return <AudioPlayer disableControls={hasAux} />
+    } else if (accountConnected && !hasAux) {
+      return (
+        <div className="player-page__section">
+          <div className="font-title-md">
+            Spotify connected, transfer playback to get started!
+          </div>
+          <button className="button-solid" onClick={() => connectDevice()}>
+            Transfer playback
+          </button>
+        </div>
+      )
     } else if (jukeSession && !hasAux && !jukeSessionMembership) {
       return (
         <div className="player-page__section">
@@ -44,17 +55,6 @@ export const Player = () => {
             onClick={() => joinCurrentJukeSession()}
           >
             Join Juke Session
-          </button>
-        </div>
-      )
-    } else if (accountConnected && !hasAux) {
-      return (
-        <div className="player-page__section">
-          <div className="font-title-md">
-            Spotify connected, transfer playback to get started!
-          </div>
-          <button className="button-solid" onClick={() => connectDevice()}>
-            Transfer playback
           </button>
         </div>
       )
@@ -82,7 +82,7 @@ export const Player = () => {
           <div className="player-page__col__section">
             <h2 className="player-page__title">Connected Accounts</h2>
             {jukeboxAccounts.length === 0 && <p>No accounts connected</p>}
-            <ul>
+            <ul className="player-page__account-list">
               {jukeboxAccounts?.map((accountLink) => (
                 <li key={accountLink.id}>
                   <SpotifyPlayerAccount

@@ -43,8 +43,11 @@ export const MusicSearch = () => {
   }
 
   useEffect(() => {
+    console.log(tracks)
+  }, [tracks])
+
+  useEffect(() => {
     if (location.state && location.state.query && location.state.needSearch) {
-      console.log('HEEEI')
       setTracks(location.state.searchedTracks.data.tracks.items)
       setInputs({
         track: location.state.query.trackName,
@@ -55,7 +58,6 @@ export const MusicSearch = () => {
     }
     //If no additional API calls are needed
     else if (location.state && location.state.query) {
-      console.log('HII')
       setTracks(location.state.searchedTracks.data.tracks.items)
       setInputs({
         track: location.state.query.trackName,
