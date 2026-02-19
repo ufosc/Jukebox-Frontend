@@ -78,7 +78,6 @@ export const SpotifyPlayerProvider = (props: {
   // Initialize the Spotify player when a token and jukebox are available
   useEffect(() => {
     if (!token) {
-      console.log("No tokene")
       return
     }
 

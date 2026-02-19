@@ -32,7 +32,7 @@ export const Player = () => {
 
   const ConditionalPlayerComponent = useCallback(() => {
     if (accountConnected && hasAux) {
-      return <AudioPlayer />
+      return <AudioPlayer disableControls={hasAux} />
     } else if (accountConnected && !hasAux) {
       return (
         <div className="player-page__section">
@@ -82,7 +82,7 @@ export const Player = () => {
           <div className="player-page__col__section">
             <h2 className="player-page__title">Connected Accounts</h2>
             {jukeboxAccounts.length === 0 && <p>No accounts connected</p>}
-            <ul>
+            <ul className="player-page__account-list">
               {jukeboxAccounts?.map((accountLink) => (
                 <li key={accountLink.id}>
                   <SpotifyPlayerAccount

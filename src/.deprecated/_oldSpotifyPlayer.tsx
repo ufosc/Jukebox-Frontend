@@ -10,9 +10,9 @@ import { selectAccountLinks, selectNextTracks } from 'src/store/jukebox'
 
 import { selectUser, selectUserAccounts } from 'src/store/user'
 import { formatDuration } from 'src/utils'
-import { SpotifyPlayerAccount } from '../components/SpotifyPlayer/SpotifyPlayerAccount'
-import { SpotifyPlayerDetail } from '../components/SpotifyPlayer/SpotifyPlayerDetail'
-import { SpotifyPlayerInfo } from '../components/SpotifyPlayer/SpotifyPlayerInfo'
+import { SpotifyPlayerAccount } from '../apps/admin/components/SpotifyPlayer/SpotifyPlayerAccount'
+import { SpotifyPlayerDetail } from '../apps/admin/components/SpotifyPlayer/SpotifyPlayerDetail'
+import { SpotifyPlayerInfo } from '../apps/admin/components/SpotifyPlayer/SpotifyPlayerInfo'
 
 import { ApiClient } from 'src/api'
 import { PlayerContext } from 'src/context'

@@ -35,9 +35,14 @@
     // "typeRoots": ["node_modules/@types", "node_modules/@testing-library"],
     "paths": {
       "src/*": ["./src/*"]
-    },
+    }
   },
-  "include": ["src", "./src/*", "docs"],
+  "include": [
+    "src",
+    "./src/*",
+    "docs",
+    "src/.deprecated/_oldSpotifyPlayer.tsx"
+, "src/.deprecated/old_spotify_old.ts"  ],
   "references": [{ "path": "./tsconfig.node.json" }],
   "exclude": ["node_modules/", ".prettierrc.cjs"]
 }

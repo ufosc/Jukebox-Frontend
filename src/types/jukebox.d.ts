@@ -119,7 +119,7 @@ declare interface ITrack extends IModelBase {
   duration_ms: number
   is_explicit: boolean
   preview_url: string | null
-  image_url: string | null
+  image_url?: string | null
 }
 
 declare interface ITrackCreate {

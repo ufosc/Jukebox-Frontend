@@ -12,9 +12,9 @@ import {
   useState,
   type ReactNode,
 } from 'react'
-import { ApiClient } from 'src/api'
-import { SpotifyPlayer } from 'src/lib'
-import { setHasAux } from 'src/store'
+import { ApiClient } from '../../src/api'
+import { SpotifyPlayer } from '../../src/lib'
+import { setHasAux } from '../../src/store'
 import { KeyboardContext } from '../KeyboardContext'
 
 export const SpotifyPlayerContext = createContext({

@@ -78,18 +78,18 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
 
   // Stable handler via ref — avoids re-registering listeners when hasAux changes
   const updateTrackStateFromSocket = useCallback((data: IPlayerState) => {
-    console.log('[PlayerContext] Received socket update:', {
-      hasAux: hasAuxRef.current,
-      data,
-      willUpdate: !hasAuxRef.current
-    })
+    //console.log('[PlayerContext] Received socket update:', {
+    //  hasAux: hasAuxRef.current,
+    //  data,
+    //  willUpdate: !hasAuxRef.current
+    //})
     
     if (hasAuxRef.current) {
-      console.log('[PlayerContext] Ignoring socket update - this device has aux')
+      //console.log('[PlayerContext] Ignoring socket update - this device has aux')
       return
     }
 
-    console.log('[PlayerContext] Setting player state from socket:', data)
+    //console.log('[PlayerContext] Setting player state from socket:', data)
     setPlayerState(data)
   }, [])  
 
@@ -101,8 +101,8 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
 
   // When player state changes, sync current track
   useEffect(() => {
-    console.log("Track")
-    console.log(currentTrack)
+    //console.log("Track")
+    //console.log(currentTrack)
     setCurrentTrack(
       playerState?.spotify_track || playerState?.queued_track?.track || null,
     )
@@ -142,16 +142,15 @@ useEffect(() => {
 
   // When jukebox changes and user doesn't have aux, join for socket updates
   useEffect(() => {
-    console.log('[PlayerContext] Join check:', {
-      jukeboxId: jukebox?.id,
-      hasAux,
-      socketConnected: socket?.current?.connected,
-      socketId: socket?.current?.id,
-      willJoin: !!(jukebox?.id && !hasAux)
-    })
+    //console.log('[PlayerContext] Join check:', {
+    //  jukeboxId: jukebox?.id,
+    //  hasAux,
+    //  socketConnected: socket?.current?.connected,
+    //  socketId: socket?.current?.id,
+    //  willJoin: !!(jukebox?.id && !hasAux)
+    //})
 
     if (!jukebox?.id || hasAux || !socket?.current?.connected) {
-      console.log("Has aux")
       return
     }
 
@@ -189,12 +188,12 @@ useEffect(() => {
   useEffect(() => {
     if (!jukebox || !hasAux || !playerState) return
 
-    console.log('[PlayerContext] Emitting played/paused:', {
-      action: playerState.is_playing ? 'played' : 'paused',
-      spotify_track: playerState.spotify_track,
-      auxPlayerState_current_track: auxPlayerState?.current_track,
-      playerState_full: playerState
-    })
+    //console.log('[PlayerContext] Emitting played/paused:', {
+    //  action: playerState.is_playing ? 'played' : 'paused',
+    //  spotify_track: playerState.spotify_track,
+    //  auxPlayerState_current_track: auxPlayerState?.current_track,
+    //  playerState_full: playerState
+    //})
 
     emitMessage<IPlayerAuxUpdate>('player-aux-update', {
       jukebox_id: jukebox.id,

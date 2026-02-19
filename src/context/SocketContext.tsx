@@ -104,13 +104,13 @@ export const SocketProvider = (props: { children: ReactNode }) => {
   )
 
   useEffect(() => {
-    console.log('current:', socket.current)
-    console.log('logged in:', socketLoggedIn)
+    //console.log('current:', socket.current)
+    //console.log('logged in:', socketLoggedIn)
     if (!socket.current || !socketLoggedIn) return
-    console.log('callbacks:', callbacks)
+    //console.log('callbacks:', callbacks)
 
     for (const [ev, cb] of Object.entries(callbacks)) {
-      console.log('registering event:', ev)
+      //console.log('registering event:', ev)
       socket.current.on(ev, cb)
     }
   }, [
