@@ -106,7 +106,7 @@ export const TrackItem = (props: {
               ) : (
                 <div className="track-list-track__preview">
                   <img
-                    src={track.track.preview_url ?? ''}
+                    src={track.track.image_url ?? ''}
                     alt={track.track.name}
                   />
                 </div>
@@ -140,7 +140,7 @@ export const TrackItem = (props: {
             <>
               <div className="track-list-track__preview">
                 <img
-                  src={track?.track.preview_url ?? ''}
+                  src={track?.track.image_url ?? ''}
                   alt={track.track.name}
                 />
               </div>

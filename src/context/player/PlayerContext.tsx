@@ -242,6 +242,7 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
         console.error(res.data)
         setPlayerError(res.data.message)
       } else {
+        console.log("Spootf")
         setPlayerState(res.data)
       }
     } else {

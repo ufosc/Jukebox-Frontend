@@ -39,7 +39,7 @@ export const SearchTrackItem = (props: { track: ITrack }) => {
       {track && (
         <>
           <div className="track-list-track__preview">
-            <img src={track?.preview_url ?? ''} alt={track.name} />
+            <img src={track?.image_url ?? ''} alt={track.name} />
           </div>
           <div className="track-list-track__name-group">
             <h3 className="track-list-track__name">{track.name}</h3>

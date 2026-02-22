@@ -3,7 +3,7 @@ import './Overview.scss'
 import FallbackImg from 'src/assets/img/jukeboxImage.png'
 import Disk from 'src/assets/svg/Disk.svg?react'
 
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { AudioPlayer, TrackList } from 'src/components'
 import { PlayerContext } from 'src/context'
@@ -22,6 +22,16 @@ export const Overview = () => {
   const adminStatus = useContext(AdminContext)
   const currentJbxSession = useSelector(selectCurrentJukeSession)
 
+  const [trackImg, setTrackImg] = useState(FallbackImg);
+
+  useEffect(()=>{
+    if(currentTrack?.image_url){
+      setTrackImg(currentTrack?.image_url)
+    }else{
+      setTrackImg(FallbackImg)
+    }
+  },[currentTrack?.image_url])
+
   return (
     <>
       <TrackModifyContext.Provider value={false}>
@@ -37,7 +47,7 @@ export const Overview = () => {
               <div className="disk-container">
                 <img
                   className="disk__curr-song diskSpin"
-                  src={currentTrack?.preview_url ?? FallbackImg}
+                  src={trackImg}
                   alt={currentTrack?.name}
                 />
                 <Disk />
@@ -46,7 +56,7 @@ export const Overview = () => {
               <div className="disk-container">
                 <img
                   className="disk__curr-song"
-                  src={currentTrack?.preview_url ?? FallbackImg}
+                  src={trackImg}
                   alt={currentTrack?.name}
                 />
                 <Disk />

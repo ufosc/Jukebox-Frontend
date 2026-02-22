@@ -131,6 +131,20 @@ declare interface ITrackCreate {
   spotify_uri?: string
 }
 
+interface ITrackSearchResponse {
+  tracks: IPaginatedSearch<Spotify.Track>
+}
+
+declare interface IPaginatedSearch<T> {
+  href: string
+  limit: number
+  next: string | null
+  offset: number
+  previous: string | null
+  total: number
+  items: T[]
+}
+
 declare interface ITrackUpdate extends Partial<ITrackCreate> {}
 
 /* == Player Service == */

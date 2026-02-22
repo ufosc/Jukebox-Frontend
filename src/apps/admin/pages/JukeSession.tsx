@@ -1,6 +1,6 @@
 import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link, Outlet, useLocation } from 'react-router-dom'
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { ApiClient } from 'src/api'
 import { usePopover } from 'src/hooks'
 import {
@@ -31,6 +31,8 @@ export const JukeSession = () => {
   //Member stuff
   const [enterCode, setEnterCode] = useState('')
 
+  const navigate = useNavigate();
+
   const handleEnterCode = (e: ChangeEvent<HTMLInputElement>) => {
     const joinCode = e.target.value
     setEnterCode(joinCode)
@@ -50,6 +52,20 @@ export const JukeSession = () => {
       console.log('No jukebox active')
     }
   }
+
+  useEffect(()=>{
+    if(jukeSession){
+      console.log("active session")
+      navigate("/dashboard/jam-sessions/active")
+    }
+  },[jukeSession])
+
+  useEffect(()=>{
+    if(jukeSession){
+      console.log("active session")
+      navigate("/dashboard/jam-sessions/active")
+    }
+  },[])
 
   const {
     Popover: JukeSessionPopover,
