@@ -22,15 +22,15 @@ export const Overview = () => {
   const adminStatus = useContext(AdminContext)
   const currentJbxSession = useSelector(selectCurrentJukeSession)
 
-  const [trackImg, setTrackImg] = useState(FallbackImg);
+  const [trackImg, setTrackImg] = useState(FallbackImg)
 
-  useEffect(()=>{
-    if(currentTrack?.image_url){
+  useEffect(() => {
+    if (currentTrack?.image_url) {
       setTrackImg(currentTrack?.image_url)
-    }else{
+    } else {
       setTrackImg(FallbackImg)
     }
-  },[currentTrack?.image_url])
+  }, [currentTrack?.image_url])
 
   return (
     <>

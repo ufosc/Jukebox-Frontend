@@ -10,7 +10,8 @@ export const TrackSearchList = (props: { tracks: ITrack[] }) => {
       {tracks &&
         tracks.length > 0 &&
         tracks.map(
-          (track) => track && <SearchTrackItem track={track} key={track.spotify_id} />,
+          (track) =>
+            track && <SearchTrackItem track={track} key={track.spotify_id} />,
         )}
       {tracks.length < 1 && <p>No tracks available.</p>}
     </ol>

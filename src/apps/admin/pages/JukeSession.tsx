@@ -31,7 +31,7 @@ export const JukeSession = () => {
   //Member stuff
   const [enterCode, setEnterCode] = useState('')
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleEnterCode = (e: ChangeEvent<HTMLInputElement>) => {
     const joinCode = e.target.value
@@ -53,19 +53,19 @@ export const JukeSession = () => {
     }
   }
 
-  useEffect(()=>{
-    if(jukeSession){
-      console.log("active session")
-      navigate("/dashboard/jam-sessions/active")
+  useEffect(() => {
+    if (jukeSession) {
+      console.log('active session')
+      navigate('/dashboard/jam-sessions/active')
     }
-  },[jukeSession])
+  }, [jukeSession])
 
-  useEffect(()=>{
-    if(jukeSession){
-      console.log("active session")
-      navigate("/dashboard/jam-sessions/active")
+  useEffect(() => {
+    if (jukeSession) {
+      console.log('active session')
+      navigate('/dashboard/jam-sessions/active')
     }
-  },[])
+  }, [])
 
   const {
     Popover: JukeSessionPopover,

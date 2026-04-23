@@ -62,7 +62,7 @@ export const Topbar = () => {
             '',
             '',
             0,
-            5
+            5,
           )
           console.log(tracksResult)
           if (tracksResult.success) {
@@ -101,7 +101,7 @@ export const Topbar = () => {
         '',
         '',
         0,
-        5
+        5,
       )
 
       const query = {

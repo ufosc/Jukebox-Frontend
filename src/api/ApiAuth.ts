@@ -131,7 +131,7 @@ export class ApiAuth extends ApiBase {
 
     // function getCsrfTokenFromCookie(): string | null {
     //   const cookie = document.cookie
-    //     .split('; ') 
+    //     .split('; ')
     //     .find((row) => row.startsWith('csrftoken='))
 
     //   return cookie ? decodeURIComponent(cookie.split('=')[1]) : null
