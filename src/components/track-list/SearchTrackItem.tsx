@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { ApiClient } from 'src/api'
 import {
   selectCurrentJukebox,
   selectCurrentJukeSession,
-  selectUser,
+  selectCurrentJukeSessionMembership,
 } from 'src/store'
+import { thunkFetchQueue } from 'src/store/jukebox/jbxThunks'
 import { formatDuration } from 'src/utils'
 
 import './SearchTrackItem.scss'
@@ -14,22 +15,46 @@ export const SearchTrackItem = (props: { track: ITrack }) => {
   const { track } = props
 
   const network = ApiClient.getInstance()
+  const dispatch = useDispatch()
   const jukebox = useSelector(selectCurrentJukebox)
   const jukeSession = useSelector(selectCurrentJukeSession)
-  const user = useSelector(selectUser)
+  const jukeSessionMembership = useSelector(selectCurrentJukeSessionMembership)
 
   const [addedToQueue, setAddedToQueue] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const addSongToQueue = async () => {
-    setAddedToQueue(true)
-    if (track && jukebox && jukeSession) {
+    if (
+      !track ||
+      !jukebox ||
+      !jukeSession ||
+      !jukeSessionMembership ||
+      isSubmitting
+    ) {
+      return
+    }
+
+    setIsSubmitting(true)
+
+    try {
       const res = await network.queueTrack(jukebox.id, jukeSession.id, {
         spotify_track_id: track.spotify_id,
-        queued_by: { id: user!.id },
+        queued_by: { id: jukeSessionMembership.id },
       })
-      console.log(res)
-    } else {
-      console.log('Not Possible')
+
+      if (!res.success) {
+        return
+      }
+
+      setAddedToQueue(true)
+      await dispatch(
+        thunkFetchQueue({
+          jukeboxId: jukebox.id,
+          jukeSessionId: jukeSession.id,
+        }) as any,
+      )
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -54,7 +79,12 @@ export const SearchTrackItem = (props: { track: ITrack }) => {
             <div className="added-to-queue">Added</div>
           ) : (
             <div>
-              <button className="button-solid-queue" onClick={addSongToQueue}>
+              <button
+                className="button-solid-queue"
+                disabled={isSubmitting}
+                onClick={addSongToQueue}
+                type="button"
+              >
                 + Queue
               </button>
             </div>

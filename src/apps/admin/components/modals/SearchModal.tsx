@@ -47,12 +47,17 @@ export const SearchModal = ({
     changeState(false)
   }
 
+  const previewTracks = tracks.slice(0, 4)
+
   return (
     <>
       <div className="modal modal__search">
         <div className="modal__search__track-list">
-          {tracks.splice(0, 4).map((track, key) => (
-            <div className="modal__search__track-list__item">
+          {previewTracks.map((track) => (
+            <div
+              className="modal__search__track-list__item"
+              key={track.spotify_id}
+            >
               <div className="modal__search__title">{track.name}</div>
 
               <div className="modal__search__information">

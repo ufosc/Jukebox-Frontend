@@ -37,13 +37,7 @@
       "src/*": ["./src/*"]
     }
   },
-  "include": [
-    "src",
-    "./src/*",
-    "docs",
-    "src/_deprecated/_oldSpotifyPlayer.tsx",
-    "src/_deprecated/old_spotify_old.ts"
-  ],
+  "include": ["src", "./src/*", "docs"],
   "references": [{ "path": "./tsconfig.node.json" }],
-  "exclude": ["node_modules/", ".prettierrc.cjs"]
+  "exclude": ["node_modules/", ".prettierrc.cjs", "src/_deprecated"]
 }

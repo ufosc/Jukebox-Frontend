@@ -67,7 +67,7 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
     hasAuxRef.current = hasAux
   }, [hasAux])
 
-  const { onEvent, emitMessage, socket } = useContext(SocketContext)
+  const { onEvent, emitMessage, isConnected } = useContext(SocketContext)
 
   // ===============================================================
   // Track State Sync
@@ -91,9 +91,24 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
   }, [])
 
   useEffect(() => {
-    onEvent<IPlayerState>('player-join-success', updateTrackStateFromSocket)
-    onEvent<IPlayerState>('player-state-update', updateTrackStateFromSocket)
-  }, [updateTrackStateFromSocket])
+    if (!isConnected) {
+      return
+    }
+
+    const offJoinSuccess = onEvent<IPlayerState>(
+      'player-join-success',
+      updateTrackStateFromSocket,
+    )
+    const offPlayerState = onEvent<IPlayerState>(
+      'player-state-update',
+      updateTrackStateFromSocket,
+    )
+
+    return () => {
+      offJoinSuccess()
+      offPlayerState()
+    }
+  }, [isConnected, onEvent, updateTrackStateFromSocket])
 
   // When player state changes, sync current track
   useEffect(() => {
@@ -106,7 +121,7 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
 
   // Tick live progress forward every second while playing
   useEffect(() => {
-    if (!playerState?.progress) {
+    if (!playerState || playerState.progress == null) {
       setLiveProgress(0)
       return
     }
@@ -143,22 +158,14 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
 
   // When jukebox changes and user doesn't have aux, join for socket updates
   useEffect(() => {
-    //console.log('[PlayerContext] Join check:', {
-    //  jukeboxId: jukebox?.id,
-    //  hasAux,
-    //  socketConnected: socket?.current?.connected,
-    //  socketId: socket?.current?.id,
-    //  willJoin: !!(jukebox?.id && !hasAux)
-    //})
-
-    if (!jukebox?.id || hasAux || !socket?.current?.connected) {
+    if (!jukebox?.id || hasAux || !isConnected) {
       return
     }
 
     emitMessage<{ jukebox_id: number }>('player-join', {
       jukebox_id: jukebox.id,
     })
-  }, [jukebox?.id, hasAux, socket, emitMessage])
+  }, [jukebox?.id, hasAux, isConnected, emitMessage])
 
   // ===============================================================
   // Player Aux Updates
@@ -201,7 +208,7 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
       action: playerState.is_playing ? 'played' : 'paused',
       spotify_track: playerState.spotify_track,
     })
-  }, [hasAux, playerState?.is_playing])
+  }, [hasAux, jukebox?.id, playerState?.is_playing, playerState?.spotify_track])
 
   // Emit changed_tracks only when progress actually hits 0 (track flip)
   const progressIsZero = playerState?.progress === 0
@@ -216,12 +223,19 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
       timestamp: new Date(),
       duration_ms: playerState.spotify_track?.duration_ms,
     })
-  }, [hasAux, progressIsZero])
+  }, [
+    hasAux,
+    jukebox?.id,
+    progressIsZero,
+    playerState,
+    playerState?.spotify_track,
+  ])
 
   // Emit progress — but only on actual Spotify state updates, not the local
   // timer ticks. We use playerState.progress (set from auxPlayerState) not liveProgress.
   useEffect(() => {
-    if (!jukebox || !hasAux || !playerState?.progress) return
+    if (!jukebox || !hasAux || !playerState || playerState.progress == null)
+      return
 
     emitMessage<IPlayerAuxUpdate>('player-aux-update', {
       jukebox_id: jukebox.id,
@@ -229,7 +243,7 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
       progress: playerState.progress,
       spotify_track: playerState.spotify_track, //the slop maker failed me
     })
-  }, [hasAux, playerState?.progress])
+  }, [hasAux, jukebox?.id, playerState?.progress, playerState?.spotify_track])
 
   // ===============================================================
   // Connect Device
@@ -242,7 +256,6 @@ export const PlayerProvider = (props: { children: ReactNode }) => {
         console.error(res.data)
         setPlayerError(res.data.message)
       } else {
-        console.log("Spootf")
         setPlayerState(res.data)
       }
     } else {

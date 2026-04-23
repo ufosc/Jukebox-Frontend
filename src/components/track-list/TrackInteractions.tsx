@@ -1,14 +1,15 @@
 import { ThumbDownAltOutlined, ThumbUpAltOutlined } from '@mui/icons-material'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import './TrackInteractions.scss'
 
 import { useDrag } from 'react-dnd'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { ApiClient } from 'src/api'
 import { AdminContext } from 'src/apps/admin'
 import { TrackModifyContext } from 'src/apps/admin/pages/trackContext'
 import { MoveIcon, RemoveIcon } from 'src/assets/Icons'
-import { selectCurrentJukeSession, selectCurrentMembership } from 'src/store'
+import { selectCurrentJukeSession } from 'src/store'
+import { thunkFetchQueue } from 'src/store/jukebox/jbxThunks'
 
 export const TrackInteractions = (props: {
   track: IQueuedTrack
@@ -19,17 +20,26 @@ export const TrackInteractions = (props: {
   const adminStatus = useContext(AdminContext)
   const trackStatus = useContext(TrackModifyContext)
   const network = ApiClient.getInstance()
+  const dispatch = useDispatch()
 
   const jukeSession = useSelector(selectCurrentJukeSession)
-  const currentMembership = useSelector(selectCurrentMembership)
 
-  const removeTrack = () => {
+  const removeTrack = async () => {
     if (track.id != null && adminStatus.jukebox !== null && jukeSession) {
-      network.removeQueuedTrack(
+      const res = await network.removeQueuedTrack(
         adminStatus.jukebox.id,
         jukeSession.id,
         track.id,
       )
+
+      if (res.success) {
+        await dispatch(
+          thunkFetchQueue({
+            jukeboxId: adminStatus.jukebox.id,
+            jukeSessionId: jukeSession.id,
+          }) as any,
+        )
+      }
     }
   }
 
@@ -40,10 +50,6 @@ export const TrackInteractions = (props: {
       isDragging: monitor.isDragging(),
     }),
   })
-
-  useEffect(() => {
-    console.log(adminStatus.role)
-  }, [currentMembership])
 
   return (
     <>
