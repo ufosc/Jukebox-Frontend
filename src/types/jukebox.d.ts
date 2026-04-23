@@ -48,7 +48,7 @@ declare interface IJukeSessionUpdate {
   is_active?: boolean
 }
 
-declare interface IJukeSessionMembership {
+declare interface IJukeSessionMembership extends IModelBase {
   juke_session: number
   user_id: number
   queued_tracks: number[]
@@ -129,6 +129,20 @@ declare interface ITrackCreate {
   artists: string[]
   spotify_id: string
   spotify_uri?: string
+}
+
+interface ITrackSearchResponse {
+  tracks: IPaginatedSearch<Spotify.Track>
+}
+
+declare interface IPaginatedSearch<T> {
+  href: string
+  limit: number
+  next: string | null
+  offset: number
+  previous: string | null
+  total: number
+  items: T[]
 }
 
 declare interface ITrackUpdate extends Partial<ITrackCreate> {}

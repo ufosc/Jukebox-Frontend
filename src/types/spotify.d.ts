@@ -43,3 +43,17 @@ declare interface ISpotifyPlayerTrack {
   is_playable: boolean
   metadata?: any
 }
+
+/**
+ *  Extending base Spotify class because
+ *  it excludes needed fields
+ */
+declare namespace Spotify {
+  interface Track {
+    explicit: boolean
+  }
+
+  interface Album {
+    release_date: string
+  }
+}

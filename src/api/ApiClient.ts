@@ -19,6 +19,8 @@ import { mockMemberships } from 'src/utils/mock/mock-memberships'
 import { MockPlayerState } from '../utils/mock/mock-spotify'
 import { ApiAuth } from './ApiAuth'
 
+import { parseTrackObj } from 'src/context/player/utils'
+
 /**
  * Handle API requests to connected servers.
  */
@@ -276,21 +278,36 @@ export class ApiClient extends ApiAuth {
     return await this.get(url, { schema: SpotifyAuthRedirectUrlSchema })
   }
 
-  // TODO: Fix this on backend
+  /**
+   * Get trcaks by filters
+   * @param jukeboxId
+   * @param trackName
+   * @param albumName
+   * @param artistName
+   * @param pageNum
+   * @param limit
+   * @returns
+   */
   public async searchTracks(
     jukeboxId: number,
     trackName: string,
     albumName: string,
     artistName: string,
+    pageNum: number = 0,
+    limit: number = 20,
   ) {
     const params = {
       jukeboxId: jukeboxId,
-      track: trackName,
-      album: albumName,
-      artist: artistName,
+      trackQuery: trackName,
+      albumQuery: albumName,
+      artistQuery: artistName,
+      page: pageNum,
+      rows: limit,
     }
     const qp = new URLSearchParams()
-    Object.entries(params).forEach(([k, v]) => qp.append(k, String(v)))
+    Object.entries(params)
+      .filter(([_, v]) => v !== '' && v != null)
+      .forEach(([k, v]) => qp.append(k, String(v)))
 
     let url = this.endpoints.jukebox.search(jukeboxId)
 
@@ -298,9 +315,24 @@ export class ApiClient extends ApiAuth {
 
     console.log(url)
 
-    const response = await this.get<{ tracks: ITrack[] }>(url)
+    const response = await this.get<ITrackSearchResponse>(url)
 
-    return response
+    if (!response.success) {
+      return response
+    }
+
+    // Convert the items to ITrack for images.
+    return {
+      ...response,
+      data: {
+        tracks: {
+          ...response.data.tracks,
+          items:
+            response.data.tracks?.items.map((track) => parseTrackObj(track)) ??
+            [],
+        },
+      },
+    }
   }
 
   /**
@@ -344,7 +376,7 @@ export class ApiClient extends ApiAuth {
     body: ISetQueueOrder,
   ) {
     const url = this.endpoints.jukebox.queueTrackList(jukeboxId, jukeSessionId)
-    return await this.post<IQueue>(url, {
+    return await this.put<IQueue>(url, {
       body,
     })
   }

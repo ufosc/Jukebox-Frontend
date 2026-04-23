@@ -9,6 +9,10 @@ import './MusicSearch.scss'
 export const MusicSearch = () => {
   const [inputs, setInputs] = useState({ track: '', album: '', artist: '' })
   const [tracks, setTracks] = useState<ITrack[]>([])
+  const [pagination, setPagination] = useState<{
+    page: number
+    limit: number
+  }>({ page: 0, limit: 20 })
   const jukebox = useSelector(selectCurrentJukebox)
   const network = ApiClient.getInstance()
 
@@ -31,11 +35,14 @@ export const MusicSearch = () => {
         inputs.track,
         inputs.album,
         inputs.artist,
+        pagination.page,
+        pagination.limit,
       )
       console.log(tracksResult)
       if (tracksResult.success) {
-        console.log(tracksResult.data.tracks)
-        setTracks(tracksResult.data.tracks)
+        console.log(tracksResult.data.tracks.items)
+        setTracks(tracksResult.data.tracks.items)
+        //setPagination({page: tracks})
       }
     } else {
       console.log('Jukebox is not connected')

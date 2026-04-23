@@ -9,6 +9,7 @@
   padding-bottom: 1.5rem;
 
   $flex-g-s: 0 1;
+  $flex-g-a: 1 1;
 
   &::before {
     content: counter(index, decimal-leading-zero);
@@ -24,7 +25,7 @@
   }
 
   &__preview {
-    $size: 5rem;
+    $size: 6rem;
     display: inline-block;
 
     img {
@@ -34,7 +35,7 @@
     }
   }
   &__name-group {
-    flex: $flex-g-s 45%;
+    flex: $flex-g-a 45%;
   }
   &__name {
     @include font-title('md');

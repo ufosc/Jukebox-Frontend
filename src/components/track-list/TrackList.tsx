@@ -1,4 +1,8 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { ApiClient } from 'src/api'
+import { selectCurrentJukebox, selectCurrentJukeSession } from 'src/store'
+import { thunkFetchQueue } from 'src/store/jukebox/jbxThunks'
 import { mergeClassNames } from 'src/utils'
 import { TrackItem } from './TrackItem'
 import './TrackList.scss'
@@ -11,25 +15,48 @@ export const TrackList = (props: {
   showLength?: boolean
 }) => {
   const { tracks, offsetCount, maxCount, showIcon, showLength } = props
+  const api = ApiClient.getInstance()
+  const dispatch = useDispatch()
+  const jukebox = useSelector(selectCurrentJukebox)
+  const jukeSession = useSelector(selectCurrentJukeSession)
 
   const initialCopy = useMemo(() => structuredClone(tracks), [tracks])
 
   const [queuedTracks, swapTracks] = useState<IQueuedTrack[]>(initialCopy)
+  const queuedTracksRef = useRef<IQueuedTrack[]>(initialCopy)
 
-  const moveListItem = useCallback(
-    (dragIndex: number, hoverIndex: number) => {
-      const dragItem = queuedTracks[dragIndex]
-      const hoverItem = queuedTracks[hoverIndex]
-      //Swap places of Items
-      swapTracks((queuedTracks: any) => {
-        const updatedTracks = [...queuedTracks]
-        updatedTracks[dragIndex] = hoverItem
-        updatedTracks[hoverIndex] = dragItem
-        return updatedTracks
-      })
-    },
-    [queuedTracks],
-  )
+  useEffect(() => {
+    queuedTracksRef.current = queuedTracks
+  }, [queuedTracks])
+
+  const moveListItem = useCallback((dragIndex: number, hoverIndex: number) => {
+    swapTracks((currentTracks) => {
+      const updatedTracks = [...currentTracks]
+      const [dragItem] = updatedTracks.splice(dragIndex, 1)
+      updatedTracks.splice(hoverIndex, 0, dragItem)
+      return updatedTracks
+    })
+  }, [])
+
+  const persistQueueOrder = useCallback(async () => {
+    if (!jukebox || !jukeSession) {
+      return
+    }
+
+    const ordering = queuedTracksRef.current.map((track) => track.id)
+    const res = await api.setQueueOrder(jukebox.id, jukeSession.id, {
+      ordering,
+    })
+
+    if (res.success) {
+      await dispatch(
+        thunkFetchQueue({
+          jukeboxId: jukebox.id,
+          jukeSessionId: jukeSession.id,
+        }) as any,
+      )
+    }
+  }, [api, dispatch, jukebox, jukeSession])
 
   useEffect(() => {
     swapTracks(structuredClone(tracks))
@@ -52,13 +79,14 @@ export const TrackList = (props: {
                   track={track}
                   key={track.id}
                   moveListItem={moveListItem}
+                  persistQueueOrder={persistQueueOrder}
                   index={index}
-                  showIcon={showIcon !== undefined ? false : true}
-                  showLength={showLength !== undefined ? false : true}
+                  showIcon={showIcon ?? true}
+                  showLength={showLength ?? true}
                 />
               ),
           )
-          .splice(0, maxCount ?? tracks.length)}
+          .slice(0, maxCount ?? tracks.length)}
       {tracks.length < 1 && <p>No tracks available.</p>}
     </ol>
   )

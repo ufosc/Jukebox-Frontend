@@ -61,12 +61,14 @@ export const Topbar = () => {
             searchInput,
             '',
             '',
+            0,
+            5,
           )
           console.log(tracksResult)
           if (tracksResult.success) {
             console.log(tracksResult.data.tracks)
             //Modify logic for Modal
-            setSearchList(tracksResult.data.tracks)
+            setSearchList(tracksResult.data.tracks.items)
           }
         } else {
           console.log('Jukebox is not connected')
@@ -98,6 +100,8 @@ export const Topbar = () => {
         searchInput,
         '',
         '',
+        0,
+        5,
       )
 
       const query = {
