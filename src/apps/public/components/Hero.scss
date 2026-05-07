@@ -1,0 +1,85 @@
+
+  .hero {
+    height: calc(100vh - 100px);
+    overflow: hidden;
+    
+    &_container {
+      display: flex;
+      height: 100%;
+      width: 100%;
+      position: relative;
+    }
+
+    &_left {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      margin-left: 107px;
+      margin-top: 229px;
+      z-index: 5;
+      gap: 10px
+    }
+
+    &_title {
+      font-family: Termina;
+      font-weight: 800;
+      font-size: 64px;
+      line-height: 67px;
+      letter-spacing: 3%;
+    }
+
+    &_highlight {
+      color: #C86649;
+    }
+
+    &_subtitle {
+      font-family: Poppins;
+      font-weight: 300;
+      font-size: 20px;
+      line-height: 140%;
+      letter-spacing: -0.6px;
+      color: #17233E;
+      width: 611px;
+      opacity: 0.7;
+    }
+
+    &_button {
+      display: flex;
+      align-self: flex-start;
+      align-items: center;
+      margin-top: 72px;
+      height: 45px;
+      position: relative;
+      border: 4px solid #5B2222;
+      border-radius: 50px;
+      padding: 21px 43px;
+      color: #5B2222;
+      font-family: Termina;
+      font-weight: 700;
+      font-size: 13px;
+      line-height: 100%;
+      letter-spacing: 2%;
+      }
+
+    &_arrow {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      transform: translate(50%, 50%);
+    }
+    
+    &_right {
+      flex: 1 1 0%;
+      height: 100%;
+    }
+
+    &_image {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      height: 100%;
+      transform: translate(0%, 11%);
+    }
+  
+
+  }

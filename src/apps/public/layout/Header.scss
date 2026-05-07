@@ -1,0 +1,83 @@
+.public-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+
+  &_nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 27px;
+    padding-top: 28px;
+    padding-left: 106px;
+    padding-right: 107px;
+    background: linear-gradient(to right, #2F1515 0%, #181212 100%);
+    height: 100px;
+  }
+
+  &_logo {
+    display: flex;
+    background: #F9F9F9;
+    width: 200px;
+    height: 45px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &_logo-text {
+    font-family: Poppins;
+    color: #000000;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    letter-spacing: 1%;
+    width: 39px;
+    height: 26px;
+  }
+
+  &_spacer {
+    display: flex;
+  }
+
+  &_links {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    align-items: center;
+    gap: 56px;
+
+    li a {
+      color: #fff;
+      font-family: Poppins;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 26px;
+      letter-spacing: 1%;
+    }
+
+    }
+    &_signup-button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid #CEECF2;
+      width: 178px;
+      height: 45px;
+      border-radius: 50px;
+      margin-left: 44px;
+      color: #CEECF2;
+  }
+  &_signup-button-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-family: Termina;
+    font-size: 13px;
+    letter-spacing: 2%;
+    line-height: 100%;
+    width: 109px;
+    height: 18px;
+  }
+}

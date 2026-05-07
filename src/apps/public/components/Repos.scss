@@ -1,0 +1,106 @@
+.repos {
+  background-color: #5B2222;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 120px;
+  padding-bottom: 163px;
+
+  &_top {
+    display: flex ;
+    justify-content: space-between;
+  }
+
+  &_title {
+    align-self: start;
+    font-family: Termina;
+    font-weight: 600;
+    font-size: 37px;
+    line-height: 100%;
+    letter-spacing: 1%;
+    margin-bottom: 83px;
+    color: #FFFFFF;
+  }
+
+  &_button {
+    width: 178px;
+    height: 45px;
+    border: 2px solid #CEECF2;
+    align-items: center;
+    border-radius: 50px;
+    font-family: Termina;
+    font-weight: 700;
+    font-size:13px;
+    line-height: 100%;
+    letter-spacing: 2%;
+    color: #CEECF2;
+    display: flex;
+    justify-content: center;
+  }
+
+  &_accordion {
+    width: 1300px;
+    min-height: 121px;
+    border-top: 1px solid #FFFFFF;
+    border-bottom: 1px solid #FFFFFF;
+    background-color: #FFFFFF0D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0px 20px;
+  }
+
+  &_accordion-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  &_accordion-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 54px;
+  }
+
+  &_accordion-index {
+    font-family: Termina;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #FFFFFFBF;
+  }
+
+  &_accordion-title {
+    font-family: Termina;
+    font-weight: 600;
+    font-size: 23px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #FFFFFF;
+  }
+
+  &_accordion-content {
+    display: flex;
+    gap: 353px;
+    margin-bottom: 52px;
+  }
+
+  &_accordion-text {
+    width: 526px;
+    font-family: Poppins;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    letter-spacing: 1%;
+    color: #FFFFFF
+  }
+
+  &_accordion-icon {
+    width: 200px;
+    height: 200px;
+    background-color: #D9D9D9;
+  }
+}
